@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Calculator</title>
+    <link rel="stylesheet" type="text/css" href="/CSS/style.css">
+    
+</head>
+<body>
+    <h1>Calculator</h1>
+    <form action="/Calcule" method="post">
+        <input type="number" name="num1" placeholder="Enter number 1">
+        <input type="number" name="num2" placeholder="Enter number 2">
+        <button type="submit">Calculate</button>
+    </form>
+    <label>Result: <span th:text="${result}"></span></label>
+</body>
+</html>
