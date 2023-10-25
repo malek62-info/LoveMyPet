@@ -74,6 +74,36 @@
                 </execution>
             </executions>
         </plugin>
+
+
+			<!-- Documentation plugin-->
+			<plugin>
+				<groupId>org.asciidoctor</groupId>
+				<artifactId>asciidoctor-maven-plugin</artifactId>
+				<version>2.2.4</version>
+				<executions>
+					<execution>
+						<id>convert-to-html</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>process-asciidoc</goal>
+						</goals>
+						<configuration>
+							<sourceDirectory>${project.basedir}/docs</sourceDirectory>
+							<sourceDocumentName>documentation.adoc</sourceDocumentName>
+							<outputDirectory>${project.basedir}/output/html</outputDirectory>
+							<attributes>
+								<icons>font</icons>
+								<!-- personnalisé ceci si besoins ! -->
+								<plantUmlDir>C:\ProgramData\chocolatey\lib\plantuml\tools\plantuml.jar</plantUmlDir>
+							</attributes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
+
 		</plugins>
 	</build>
 
