@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Adoption</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<section class="searchAnimals">
+    <div class="menu">
+        <form id="search-form" class="recherche">
+            <input type="text" id="keyword" placeholder="Rechercher">
+            <button type="submit">Rechercher</button>
+        </form>
+        <form id="filter-form" class="filtre">
+            <div>
+                <input type="number" id="age" placeholder="Âge minimum">
+            </div>
+            <div>
+                <input type="number" id="weight" placeholder="Poids minimum">
+            </div>
+            <div>
+                <input type="text" id="race" placeholder="Race">
+            </div>
+            <div>
+                <select id="category">
+                    <option value="">Sélectionnez une catégorie</option>
+                    <option value="Dog">Chien</option>
+                    <option value="Cat">Chat</option>
+                </select>
+            </div>
+            <button type="submit">Filtrer</button>
+        </form>
+    </div>
+
+    <section class="animal-list">
+        <table class="animal-box">
+            <thead>
+            <tr>
+                <th>Image</th>
+                <th>Catégorie</th>
+                <th>Race</th>
+                <th>Poids</th>
+                <th>Âge</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="animal-table-body">
+            <!-- Les données seront affichées ici -->
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Affiche un message si aucun résultat trouvé -->
+    <div id="no-results" class="alert alert-info" style="display: none;">
+        <p>Aucun résultat trouvé.</p>
+    </div>
+</section>
+
+<script>
+    document.getElementById("search-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        fetchData();
+    });
+
+    document.getElementById("filter-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        fetchData();
+    });
+
+    function fetchData() {
+        const keyword = document.getElementById("keyword").value;
+        const age = document.getElementById("age").value;
+        const weight = document.getElementById("weight").value;
+        const race = document.getElementById("race").value;
+        const category = document.getElementById("category").value;
+
+        const url = `/api/adoption?keyword=${keyword}&age=${age}&weight=${weight}&race=${race}&category=${category}`;
+
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                displayAnimals(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+            });
+    }
+
+    function displayAnimals(animals) {
+        const animalTableBody = document.getElementById("animal-table-body");
+        animalTableBody.innerHTML = "";
+
+        if (animals.length > 0) {
+            animals.forEach((animal) => {
+                const row = document.createElement("tr");
+
+                const animalImageCell = document.createElement("td");
+                const animalImage = document.createElement("img");
+                animalImage.src = `/images/animals/${animal.imageUrl}`;
+                animalImage.alt = "Animal Image";
+                animalImageCell.appendChild(animalImage);
+
+                const categoryCell = document.createElement("td");
+                categoryCell.textContent = animal.category;
+
+                const raceCell = document.createElement("td");
+                raceCell.textContent = animal.race;
+
+                const weightCell = document.createElement("td");
+                weightCell.textContent = animal.weight + ' kg';
+
+                const ageCell = document.createElement("td");
+                ageCell.textContent = animal.age + ' an(s)';
+
+                const actionsCell = document.createElement("td");
+                const adoptLink = document.createElement('a');
+                adoptLink.href = `lien_vers_page_d\'adoption/${animal.id}`;
+                adoptLink.textContent = 'Adopter';
+                actionsCell.appendChild(adoptLink);
+
+                row.appendChild(animalImageCell);
+                row.appendChild(categoryCell);
+                row.appendChild(raceCell);
+                row.appendChild(weightCell);
+                row.appendChild(ageCell);
+                row.appendChild(actionsCell);
+
+                animalTableBody.appendChild(row);
+            });
+        } else {
+            const noResults = document.getElementById("no-results");
+            noResults.style.display = "block";
+        }
+    }
+
+    // Cette fonction sera appelée lorsque la page se chargera
+    window.onload = function () {
+        fetchData();
+    };
+</script>
+</body>
+</html>
