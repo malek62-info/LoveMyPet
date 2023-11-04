@@ -1,10 +1,18 @@
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, inicial-scale=1.0">
-
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>LoveMyPet</title>
         <link rel="stylesheet" href="/CSS/style.css">
+        <link rel="stylesheet" href="/CSS/lightbox.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+        
+
+        <script src="/script/scroll.js"></script>
+        <script src="/script/gallery.js"></script>
     </head>
     <body>
         <!--menu du haut et logo et description du site-->
@@ -25,47 +33,322 @@
                     des propriétaires, favorisant des vies animales épanouies.<br>
                     Rejoignez-nous dans cette aventure où chaque clic rapproche un animal d'un foyer aimant.
                 </p>
-            <div>
-                <button type ="button"><span></span>ADOPTER</button>
-                <button type ="button"><span></span>PRENDRE SOIN</button>
+                <div>
+                    <button type ="button"><span></span>ADOPTER</button>
+                    <button type ="button"><span></span>PRENDRE SOIN</button>
+                </div>
             </div>
-            
+
+            <!-- Bouton de scroll down -->
+            <div class="scroll-down-btn">
+                <a href="#services">
+                    <i class="fas fa-chevron-down"></i>
+                </a>
             </div>
         </div>
 
         <!--services proposées-->
 
-        <section class="services">
+        <section id ="services" class="services">
             <h1>Explorez les Services LoveMyPet</h1>
             <p>Découvrez une gamme de services dédiés à simplifier l'adoption d'animaux. LoveMyPet offre une expérience centrée sur le bien-être, l'éducation, et la connexion entre adoptants et compagnons fidèles.</p>
             <div class="row">
                 <div class="service-col">
+                    <i><img src="/images/adopter.png" alt="#" style="width: 110px; height: auto;"/></i>
                     <h3>Adopter</h3>
                     <p>
-                        Explorez l'adoption avec LoveMyPet, où chaque histoire d'amour commence. Notre plateforme propose des filtres personnalisés, vous permettant de trouver le compagnon idéal selon vos critères. Faites de chaque adoption une expérience unique et sur mesure.
+                        LoveMyPet offre une expérience d'adoption unique, où chaque histoire d'amour commence. Grâce à nos filtres personnalisés, trouvez le compagnon idéal qui correspond à vos critères, rendant chaque adoption sur mesure et inoubliable.
                     </p>
                 </div>
                 <div class="service-col">
+                    <i><img src="/images/soin.png" alt="#" style="width: 110px; height: auto;"/></i>
                     <h3>Prendre soin</h3>
                     <p>
-                        Avec LoveMyPet, prenez soin de votre compagnon comme jamais auparavant. Recevez des notifications personnalisées qui vous rappellent de nourrir, laver, vacciner, et chérir votre animal de compagnie. Simplifiez la vie quotidienne de votre fidèle ami avec notre service de soins attentionnés.
+                        Avec LoveMyPet, prenez soin de votre compagnon comme jamais. Recevez des notifications personnalisées pour vous rappeler de prendre soin de votre animal. Simplifiez votre vie quotidienne et chérissez votre ami fidèle avec notre service de soins attentionnés.
                     </p>
                 </div>
                 <div class="service-col">
+                    <i><img src="/images/suivi.png" alt="#" style="width: 110px; height: auto;"/></i>
                     <h3>Suivi Complet de l'Animal</h3>
                     <p>
-                        LoveMyPet va au-delà de l'adoption. Suivez de près la santé de votre compagnon avec notre service complet qui enregistre son poids, ses vaccinations, et bien plus encore. Offrez à votre animal une vie saine et épanouissante grâce à notre suivi personnalisé.
-                    </p>
+                        LoveMyPet va au-delà de l'adoption. Suivez attentivement la santé de votre compagnon avec notre service complet, enregistrant son poids, ses vaccinations, et bien plus encore. Offrez à votre animal une vie saine et épanouissante grâce à notre suivi personnalisé.
                 </div>
                 <div class="service-col">
+                    <i><img src="/images/explorer.png" alt="#" style="width: 110px; height: auto;"/></i>
                     <h3>Exploration Facile</h3>
                     <p>
-                        Explorez votre quartier avec facilité grâce à LoveMyPet. Notre carte interactive affiche les vétérinaires et les parcs à proximité, vous permettant de trouver rapidement les meilleurs soins et les endroits parfaits pour promener votre compagnon. Simplifiez la vie avec LoveMyPet, où chaque coin de rue est une nouvelle aventure pour vous et votre animal.
+                        Explorez votre quartier avec facilité grâce à LoveMyPet. Notre carte interactive affiche les vétérinaires et les parcs à proximité, simplifiant la recherche des meilleurs soins et endroits pour promener votre compagnon. Avec LoveMyPet, chaque coin de rue devient une nouvelle aventure pour vous et votre animal.
                     </p>
                 </div>
                 
             </div>
         </section>
+
+        <!--Ce qui nous distingue-->
+
+        <section class="content-and-gallery">
+            <div class="content-gallery">
+                <h1><i><img src="/images/love.png" alt="#" style="width: 90px; height: 45px;"/></i>  Ce qui nous distingue! </h1>
+                <p>Chez LoveMyPet, nous nous démarquons par notre dévouement à créer des connexions authentiques entre les êtres humains et les animaux de compagnie. Notre approche va au-delà de l'adoption; nous façonnons une expérience où chaque moment compte. Notre communauté est tissée par des histoires uniques, des amitiés fidèles, et un engagement sincère envers le bien-être animal.<br>Ce qui nous rend différents, c'est notre conviction que chaque animal mérite un foyer chaleureux et aimant. Nous croyons en la construction de relations durables, où chaque propriétaire devient un gardien dévoué. Rejoignez LoveMyPet et découvrez une aventure où chaque clic crée une histoire, et chaque adoption fait briller une vie nouvelle.</p>
+            </div>
+        
+            <section class="gallery">
+                <div class="gallery-content" id="galleryContent">
+                    <!-- Le contenu de la galerie sera généré ici par JavaScript -->
+                </div>
+            </section>
+        </section>
+
+        <!--Animaux deja adopte sur LoveMypet-->
+        <div class="adopted">
+            <h1><i><img src="/images/owner.png" alt="#" style="width: 70px; height: 55px;"/></i>  Rencontrez nos adorables compagnons adoptés avec LoveMyPet!</h1>
+            <p>Découvrez nos amis à poils dont l'adoption a été un succès grâce à LoveMyPet!</br>Chaque photo témoigne d'une histoire d'adoption réussie et d'une nouvelle vie épanouissante pour nos compagnons. </br> Ces visages heureux et familiers illustrent la diversité des âges et des genres de nos amis animaux.</br>Certains sont jeunes, débordants d'énergie, tandis que d'autres apportent une sagesse tranquille acquise au fil des années. </br>Explorez notre galerie pour célébrer ces belles histoires d'amour et de loyauté, résultat de rencontres fructueuses entre nos adorables compagnons et leurs nouvelles familles.</p>
+            <div class="container-photos">
+                <div class="photos">
+                    <a href="/images/animal1.jpg" data-lightbox="animals" data-title="caption1">
+                        <img src="/images/animal1.jpg" alt="Leo">
+                        <div class="caption">
+                            <img src="/images/dog.png" alt="Dog Icon" style="width: 40px; height: 40px;">
+                            <p>Leo</p>
+                            <div class="info-animal">
+                                <p><i class="fa-solid fa-cake-candles"></i> 1 an</p>
+                                <p><i class="fa-solid fa-mars"></i> male</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/images/animal2.jpg" data-lightbox="animals" data-title="caption2">
+                        <img src="/images/animal2.jpg" alt="Eva">
+                        <div class="caption">
+                            <img src="/images/cat.png" alt="Cat Icon" style="width: 40px; height: 40px;">
+                            <p>Eva</p>
+                            <div class="info-animal">
+                                <p><i class="fa-solid fa-cake-candles"></i> 1 an et 5 mois</p>
+                                <p><i class="fa-solid fa-venus"></i> femelle</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/images/animal3.jpg" data-lightbox="animals" data-title="caption3">
+                        <img src="/images/animal3.jpg" alt="Chubby">
+                        <div class="caption">
+                            <img src="/images/dog.png" alt="Dog Icon" style="width: 40px; height: 40px;">
+                            <p>Chubby</p>
+                            <div class="info-animal">
+                                <p><i class="fa-solid fa-cake-candles"></i> 7 mois</p>
+                                <p><i class="fa-solid fa-mars"></i> male</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/images/animal4.jpg" data-lightbox="animals" data-title="caption4">
+                        <img src="/images/animal4.jpg" alt="Choupette">
+                        <div class="caption">
+                            <img src="/images/cat.png" alt="Cat Icon" style="width: 40px; height: 40px;">
+                            <p>Choupette</p>
+                            <div class="info-animal">
+                                <p><i class="fa-solid fa-cake-candles"></i> 4 ans et 7 mois</p>
+                                <p><i class="fa-solid fa-venus"></i> femelle</p>
+                            </div>
+                        </div>
+                    </a>                
+                    <a href="/images/animal5.jpg" data-lightbox="animals" data-title="caption5">
+                        <img src="/images/animal5.jpg" alt="Spike">
+                        <div class="caption">
+                            <img src="/images/dog.png" alt="Dog Icon" style="width: 40px; height: 40px;">
+                            <p>Spike</p>
+                            <div class="info-animal">
+                                <p><i class="fa-solid fa-cake-candles"></i> 6 ans</p>
+                                <p><i class="fa-solid fa-mars"></i> male</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/images/animal6.jpg" data-lightbox="animals" data-title="caption6">
+                        <img src="/images/animal6.jpg" alt="Minou">
+                        <div class="caption">
+                            <img src="/images/cat.png" alt="Cat Icon" style="width: 40px; height: 40px;">
+                            <p>Minou</p>
+                            <div class="info-animal">
+                                <p><i class="fa-solid fa-cake-candles"></i> 3 ans et 8 mois</p>
+                                <p><i class="fa-solid fa-venus"></i> femelle</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/images/animal7.jpg" data-lightbox="animals" data-title="caption7">
+                        <img src="/images/animal7.jpg" alt="LaLa">
+                        <div class="caption">
+                            <img src="/images/dog.png" alt="Dog Icon" style="width: 40px; height: 40px;">
+                            <p>LaLa</p>
+                            <div class="info-animal">
+                                <p><i class="fa-solid fa-cake-candles"></i>  8 mois</p>
+                                <p><i class="fa-solid fa-venus"></i> femelle</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/images/animal8.jpg" data-lightbox="animals" data-title="caption8">
+                        <img src="/images/animal8.jpg" alt="Simba">
+                        <div class="caption">
+                            <img src="/images/cat.png" alt="Cat Icon" style="width: 40px; height: 40px;">
+                            <p>Simba</p>
+                            <div class="info-animal">
+                                <p><i class="fa-solid fa-cake-candles"></i> 2 ans et 1 mois</p>
+                                <p><i class="fa-solid fa-mars"></i> male</p>
+                            </div>
+                        </div>
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="banner-ad-container">
+
+            <div class="banner-ad">
+                <div class="shoe">
+                    <img src="/images/cats-and-dogs.png" alt="">
+                </div>
+                <div class="content-ad">
+                    <h3>Trouvez votre Compagnon Idéal avec LoveMyPet!</h3>
+                    <p>Adoptez l'amour de votre vie aujourd'hui</p>
+                    <a href="#" class="btn">Adoptez Maintenant!</a>
+                </div>
+                <div class="women">
+                    <img src="/images/women.png" alt="">
+                </div>
+            </div>  
+        </div>
+
+
+        <!--temoignages-->
+        <section class="testimonials">
+            <div class="container-testimonials">
+                <div class="section-header">
+                    <h1><i><img src="/images/reviews.png" alt="#" style="width: 70px; height: 55px;"/></i>  Voix d'Amour : Les Témoignages de notre Communauté</h1>
+                </div>
+                <div class="testimonials-content">
+                    <div class="swiper testimonials-slider js-testimonials-slider" id="mySwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide testimonials-item">
+                                <div class="info">
+                                    <img src="/images/temoin1.jpg" alt="#">
+                                    <div class="text-box">
+                                        <h3 class="name">Marie</h3>
+                                        <div class="job">Chercheuse</div>
+                                    </div>
+                                </div>
+                                <p>Adopter mon compagnon à quatre pattes via LoveMyPet a été une expérience extraordinaire! C'est bien plus qu'une simple plateforme d'adoption; c'est une communauté dédiée à l'amour des animaux. Merci LoveMyPet!</p>
+                                <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+        
+                            <div class="swiper-slide testimonials-item">
+                                <div class="info">
+                                    <img src="/images/temoin2.jpg" alt="#">
+                                    <div class="text-box">
+                                        <h3 class="name">Sophie</h3>
+                                        <div class="job">Étudiante en Art</div>
+                                    </div>
+                                </div>
+                                <p>LoveMyPet m'a aidée à trouver mon chaton parfait, Picasso. Chaque jour est une nouvelle aventure, et je suis reconnaissante d'avoir une plateforme aussi géniale pour connecter les amoureux des animaux.</p>
+                                <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa-regular fa-star"></i>
+                                </div>
+                            </div>
+        
+
+                            <div class="swiper-slide testimonials-item">
+                                <div class="info">
+                                    <img src="/images/temoin3.jpg" alt="#">
+                                    <div class="text-box">
+                                        <h3 class="name">Alexandre</h3>
+                                        <div class="job">Vétérinaire</div>
+                                    </div>
+                                </div>
+                                <p>GEn tant que vétérinaire, je soutiens pleinement LoveMyPet. Leur engagement envers la santé et le bien-être des animaux est exceptionnel. C'est bien plus qu'un site d'adoption; c'est une ressource complète pour les amoureux des animaux.</p>
+                                <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+
+
+                            <div class="swiper-slide testimonials-item">
+                                <div class="info">
+                                    <img src="/images/temoin4.jpg" alt="#">
+                                    <div class="text-box">
+                                        <h3 class="name">Caroline</h3>
+                                        <div class="job"> Infirmière Pédiatrique</div>
+                                    </div>
+                                </div>
+                                <p>En tant qu'infirmière occupée, les rappels de LoveMyPet sont devenus essentiels pour prendre soin de mon adorable chiot, Oliver. Les notifications pour le nourrissage, le bain et les soins médicaux m'ont vraiment simplifié la vie. LoveMyPet va au-delà de l'adoption; c'est une aide précieuse pour tous les aspects de la vie avec mon animal de compagnie!</p>
+                                <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa-regular fa-star"></i>
+                                </div>
+                            </div>
+
+                            <div class="swiper-slide testimonials-item">
+                                <div class="info">
+                                    <img src="/images/temoin5.jpg" alt="#">
+                                    <div class="text-box">
+                                        <h3 class="name">David</h3>
+                                        <div class="job">Artiste Numérique</div>
+                                    </div>
+                                </div>
+                                <p>Trouver un compagnon pour nos aventures en plein air était un jeu d'enfant avec LoveMyPet. Grâce à leur carte interactive, nous avons découvert les meilleurs endroits pour explorer avec notre chien. Une expérience formidable!</p>
+                                <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                            </div>
+
+                          
+                        </div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+        <script>
+           document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.js-testimonials-slider', {
+        grabCursor: true,
+        spaceBetween: 30,
+        breakpoints: {
+            767: {
+                slidesPerView: 2,
+            },
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+});
+
+        </script>
+            
+            
+
+
 
         <!--bas du site, contactez-nous -->
        <section class="footer">
@@ -80,6 +363,7 @@
             LoveMyPet  @ DevOps
         </p>
        </section>
+       <script src="/script/lightbox-plus-jquery.js"></script>
 
     </body>
 </html>    
