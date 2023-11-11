@@ -47,4 +47,6 @@ public interface AnimalRepository extends CrudRepository<Animal, Integer> {
                                    @Param("race") String race, @Param("category") String category,
                                    @Param("gender") Integer gender);
 
+    Iterable<Animal> findAllByIdPersonAndAdopted(Integer idPerson, Boolean adopted);
+
 }

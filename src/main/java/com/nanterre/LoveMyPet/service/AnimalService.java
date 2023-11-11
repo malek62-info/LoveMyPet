@@ -23,5 +23,13 @@ public class AnimalService {
     public Iterable<Animal> filterAnimals(Date dateOfBirth, Double weight, String race, String category, Integer gender) {
         return animalRepository.filterAnimals(dateOfBirth, weight, race, category, gender);
     }
+
+    public Iterable<Animal> getUserAnimals(Integer userId) {
+        System.out.println("Fetching animals for user with ID: " + userId);
+        Iterable<Animal> animals = animalRepository.findAllByIdPersonAndAdopted(userId, true);
+        System.out.println("Fetched animals: " + animals);
+        return animals;
+    }
+
 }
 

@@ -41,4 +41,11 @@ public class AnimalController {
     private boolean atLeastOneFilterPresent(Date dateOfBirth, Double weight, String race, String category, Integer gender) {
         return dateOfBirth != null || weight != null || race != null || category != null || gender != null;
     }
+
+    @GetMapping("/useranimals")
+    public Iterable<Animal> showUserAnimals(
+            @RequestParam(name = "userId") Integer userId) {
+        return animalService.getUserAnimals(userId);
+    }
+
 }
