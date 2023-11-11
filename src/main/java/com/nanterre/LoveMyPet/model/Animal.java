@@ -1,6 +1,8 @@
 package com.nanterre.LoveMyPet.model;
 
 import jakarta.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 @Table(name = "animal")
@@ -10,8 +12,8 @@ public class Animal {
     @Column(name = "idanimal")
     private Integer id;
 
-    @Column(name = "idperson") // Utilisation du nom de colonne "idperson" au lieu de "adopted_by"
-    private Integer idPerson; // Clé étrangère faisant référence à l'ID de la personne qui a adopté l'animal
+    @Column(name = "idperson")
+    private Integer idPerson;
 
     @Column(name = "name")
     private String name;
@@ -25,8 +27,14 @@ public class Animal {
     @Column(name = "weight")
     private Double weight;
 
-    @Column(name = "age")
-    private Integer age;
+
+    @Column(name = "gender") /*1 M , et 2 F*/
+    private Integer gender;
+
+    @Column(name = "date_of_birth")
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
+
 
     @Column(name = "imageurl")
     private String imageUrl;
@@ -35,8 +43,8 @@ public class Animal {
     private Boolean adopted;
 
     @ManyToOne
-    @JoinColumn(name = "idperson", referencedColumnName = "idperson", insertable = false, updatable = false) // Utilisation de "idperson"
-    private Person adoptedByPerson; // Référence à la personne qui a adopté l'animal
+    @JoinColumn(name = "idperson", referencedColumnName = "idperson", insertable = false, updatable = false)
+    private Person adoptedByPerson;
 
     // Getters and setters
 
@@ -88,13 +96,15 @@ public class Animal {
         this.weight = weight;
     }
 
-    public Integer getAge() {
-        return age;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
+
+
 
     public String getImageUrl() {
         return imageUrl;
@@ -108,6 +118,15 @@ public class Animal {
         return adopted;
     }
 
+    // Ajoutez le getter et le setter pour le genre
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
     public void setAdopted(Boolean adopted) {
         this.adopted = adopted;
     }
@@ -119,4 +138,10 @@ public class Animal {
     public void setAdoptedByPerson(Person adoptedByPerson) {
         this.adoptedByPerson = adoptedByPerson;
     }
+
+    // Méthode pour formater la date au format "20/01/2023"
+   /* public String getFormattedDateOfBirth() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        return dateOfBirth != null ? sdf.format(dateOfBirth) : "";
+    }*/
 }

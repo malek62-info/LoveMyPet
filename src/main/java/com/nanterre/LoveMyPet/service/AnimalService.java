@@ -5,6 +5,8 @@ import com.nanterre.LoveMyPet.repository.AnimalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class AnimalService {
     @Autowired
@@ -18,8 +20,8 @@ public class AnimalService {
         return animalRepository.searchByKeyword(keyword);
     }
 
-    public Iterable<Animal> filterAnimals(Integer age, Double weight, String race, String category) {
-        return animalRepository.filterAnimals(age, weight, race, category);
+    public Iterable<Animal> filterAnimals(Date dateOfBirth, Double weight, String race, String category, Integer gender) {
+        return animalRepository.filterAnimals(dateOfBirth, weight, race, category, gender);
     }
 }
 

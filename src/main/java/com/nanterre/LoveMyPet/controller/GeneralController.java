@@ -9,9 +9,12 @@ public class GeneralController {
 
     @GetMapping("/adoption")
     public String showAdoptionPage(Model model) {
-        // Ajoutez ici la logique pour récupérer les données à afficher dans la page HTML "adoption.html".
-        // model.addAttribute("animals", animalService.getAvailableAnimals());
-        return "adoption"; // Assurez-vous d'avoir un fichier HTML nommé "adoption.html" dans le dossier src/main/resources/templates.
+        return "adoption";
+    }
+
+    @GetMapping("/mesanimaux")
+    public String showAnimals(Model model) {
+        return "mesanimaux";
     }
 
 }
