@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Adoption</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/adoption_afficher_animal.css">
 </head>
 <body>
 <div class = "wrapper">
@@ -79,7 +79,7 @@
         const race = document.getElementById("race").value;
         const category = document.getElementById("category").value;
 
-        let url = `/api/adoption?`;
+        let url = `/animal/adoption?`;
         let parameters = [];
 
         if (keyword) {

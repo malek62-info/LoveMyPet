@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Adoption</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/adoption_afficher_animal.css">
 </head>
 <body>
 <div class="wrapper">
@@ -23,7 +23,7 @@
 
 <script>
     function fetchData(userId) {
-        let url = `api/useranimals?userId=${userId}`;
+        let url = `animal/useranimals?userId=${userId}`;
 
         fetch(url)
             .then((response) => response.json())
@@ -73,7 +73,34 @@
     window.onload = function () {
         // Vous pouvez ajuster l'ID de l'utilisateur ici (par exemple, 1)
 
-        fetchData(2);
+
+        // Exemple de code JavaScript avec une variable userId pour récupérer le profil utilisateur
+        const userProfileUrl = "/profile"; // Remplacez cela par l'URL appropriée
+        let userId; // Déclaration de la variable userId
+
+        fetch(userProfileUrl)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(userData => {
+            // Assigner la valeur de userData.id à userId
+            userId = userData.id;
+
+            // Traitez les données utilisateur ici
+            console.log("ID:", userId);
+            console.log("Nom:", userData.name);
+          })
+          .catch(error => {
+            console.error("Erreur de récupération du profil utilisateur:", error.message);
+          });
+
+
+        fetchData(userId);
+
+        //fetchData(1);
     };
 </script>
 </body>

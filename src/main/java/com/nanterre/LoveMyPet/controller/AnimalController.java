@@ -2,6 +2,7 @@ package com.nanterre.LoveMyPet.controller;
 
 import com.nanterre.LoveMyPet.model.Animal;
 import com.nanterre.LoveMyPet.service.AnimalService;
+import com.nanterre.LoveMyPet.service.AnimalServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,10 +13,10 @@ import java.util.Date;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/animal")
 public class AnimalController {
     @Autowired
-    private AnimalService animalService;
+    private AnimalServiceImpl animalService;
 
     @GetMapping("/adoption")
     public Iterable<Animal> showAvailableAnimals(
