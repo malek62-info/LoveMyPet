@@ -15,6 +15,16 @@ public class Controller {
     public String showAnimals(Model model) {
         return "mesanimaux";
     }
+    
+    @GetMapping("/HomePage")
+    public String homePage() {
+        return "home";
+    }
+  	  
+    @GetMapping("/profile")
+    public String profile() {
+        return "profile";
+    }
 
     @GetMapping("/animal")
     public String showAnimal(Model model) {
