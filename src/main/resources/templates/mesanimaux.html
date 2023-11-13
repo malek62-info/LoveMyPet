@@ -44,25 +44,26 @@
         if (animals.length > 0) {
             let animalList = ``;
 
-            animals.forEach((animal) => {
-                animalList += `
-                    <div class="animal-item">
-                        <div class="animal-img">
-                            <img src="/images/animals/${animal.imageUrl}" alt="animal image">
-                            <div>
-                                <button type="button" class="add-btn">Suivi de ${animal.name}</button>
-                            </div>
-                        </div>
-                        <div class="animal-content">
-                            <a href="#" class="animal-title">${animal.name} </a>
-                            <p class="race"><span>${animal.race}</span></p>
-                            <div>
-                                <span class="gender">${animal.gender === 1 ? 'Masculin' : 'Féminin'}</span>
-                            </div>
+         animals.forEach((animal) => {
+            animalList += `
+                <div class="animal-item">
+                    <div class="animal-img">
+                        <img src="/images/animals/${animal.imageUrl}" alt="animal image">
+                        <div>
+                            <button type="button" onclick="window.location.href = '/animal/id=${animal.id}'" class="add-btn">Suivi de ${animal.name}</button>
                         </div>
                     </div>
-                `;
-            });
+                    <div class="animal-content">
+                        <a href="/animal/id=${animal.id}" class="animal-title">${animal.name}</a>
+                        <p class="race"><span>${animal.race}</span></p>
+                        <div>
+                            <span class="gender">${animal.gender === 1 ? 'Masculin' : 'Féminin'}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
 
             const animalListDiv = document.querySelector(".animal-container");
             animalListDiv.innerHTML = animalList;
@@ -78,30 +79,35 @@
         const userProfileUrl = "/profile"; // Remplacez cela par l'URL appropriée
         let userId; // Déclaration de la variable userId
 
+
+      /*
+         Code pour afficher Id
+
         fetch(userProfileUrl)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then(userData => {
-            // Assigner la valeur de userData.id à userId
-            userId = userData.id;
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(userData => {
+          // Assigner la valeur de userData.id à userId
+          userId = userData.id;
 
-            // Traitez les données utilisateur ici
-            console.log("ID:", userId);
-            console.log("Nom:", userData.name);
-          })
-          .catch(error => {
-            console.error("Erreur de récupération du profil utilisateur:", error.message);
-          });
+          // Traitez les données utilisateur ici
+          console.log("ID:", userId);
+          console.log("Nom:", userData.name);
+        })
+        .catch(error => {
+          console.error("Erreur de récupération du profil utilisateur:", error.message);
+        });
+        */
 
+       // fetchData(userId);
 
-        fetchData(userId);
-
-        //fetchData(1);
+        fetchData(1);
     };
 </script>
 </body>
 </html>
+

@@ -16,4 +16,9 @@ public class Controller {
         return "mesanimaux";
     }
 
+    @GetMapping("/animal")
+    public String showAnimal(Model model) {
+        return "animal";
+    }
+
 }
