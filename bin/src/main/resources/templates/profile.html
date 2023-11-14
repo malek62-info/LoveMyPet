@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profil</title>
+</head>
+<body>
+    <h2>Profil de l'utilisateur connecté</h2>
+    <div id="profileInfo"></div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "/person/profile",
+                type: "GET",
+                success: function (data) {
+                    var profileInfo = "ID : " + data.id + "<br>Nom : " + data.name;
+                    $("#profileInfo").html(profileInfo);
+                },
+                error: function (xhr, status, error) {
+                    // Gérer les erreurs
+                }
+            });
+        });
+    </script>
+</body>
+</html>

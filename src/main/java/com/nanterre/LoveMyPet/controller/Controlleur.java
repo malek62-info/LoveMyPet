@@ -8,20 +8,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Controlleur {
 	
 	
-	// pour afficher la page qui permet de faire la calcule
-	    @GetMapping("/std") // cette page on a choisier d'ajouer le /Calculer pour la 
+	    @GetMapping("/AddPerson")
 	    public String showpage() {
 	        return "AddPersonne";
 	    }
 	    
-	 // pour afficher la page qui permet de faire la calcule
-	    @GetMapping("/AddAnimal") // cette page on a choisier d'ajouer le /Calculer pour la 
+	    @GetMapping("/AddAnimal")
 	    public String showpageaddAnimal() {
 	        return "AddAnimal";
 	    }
 	    
-	 // pour afficher la page qui permet de faire la calcule
-	    @GetMapping("/login") // cette page on a choisier d'ajouer le /Calculer pour la 
+	    @GetMapping("/login")
 	    public String showpagelogin() {
 	        return "login";
 	    }

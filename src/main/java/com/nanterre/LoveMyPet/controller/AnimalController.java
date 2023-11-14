@@ -25,9 +25,9 @@ public class AnimalController {
     @PostMapping("/add")
     public ResponseEntity<String> addAnimal(@RequestPart("imageFile") MultipartFile imageFile, Animal animal) {
         if (imageFile != null && !imageFile.isEmpty()) {
-            try {
+            try { animal.setAdopted(true);
                 // Spécifiez le chemin de votre dossier d'images dans les ressources
-                String dossierImages = "C:\\Users\\malek\\Desktop\\LoveMyPet  Malek\\src\\main\\resources\\AnimalImages";
+                String dossierImages = "C:\\Users\\malek\\Desktop\\LoveMyPetV2\\LoveMyPet\\src\\main\\resources\\AnimalImages";
                 String nomDuFichier = imageFile.getOriginalFilename();
                 Path cheminFichier = Paths.get(dossierImages, nomDuFichier);
 

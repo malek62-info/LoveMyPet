@@ -37,7 +37,7 @@ public class PersonController {
         if (imageFile != null && !imageFile.isEmpty()) {
             try {
                 // Spécifiez le chemin de votre dossier d'images dans les ressources
-                String dossierImages = "C:\\Users\\malek\\Desktop\\LoveMyPet\\src\\main\\resources\\PersonneImages";
+                String dossierImages = "C:\\Users\\malek\\Desktop\\LoveMyPetV2\\LoveMyPet\\src\\main\\resources\\PeronImages";
                 String nomDuFichier = imageFile.getOriginalFilename();
                 Path cheminFichier = Paths.get(dossierImages, nomDuFichier);
 

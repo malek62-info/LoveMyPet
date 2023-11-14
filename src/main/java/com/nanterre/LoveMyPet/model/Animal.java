@@ -1,6 +1,8 @@
 package com.nanterre.LoveMyPet.model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 @Entity
@@ -32,11 +34,13 @@ public class Animal {
     @Column(name = "adopted", columnDefinition = "tinyint(1) default 1")
     private Boolean adopted;
 
-    @Column(name = "sex")
-    private Integer sex; // Ajout du champ "sex" comme un entier (1 pour mâle, 2 pour femelle, par exemple)
+    @Column(name = "gender")
+    private Integer gender; // Ajout du champ "gender" comme un entier (1 pour mâle, 2 pour femelle, par exemple)
 
     @Column(name = "date_of_birth")
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
     private Date dateOfBirth; // Ajout de la date de naissance
 
     @ManyToOne
@@ -109,12 +113,12 @@ public class Animal {
         this.adopted = adopted;
     }
 
-    public Integer getSex() {
-        return sex;
+    public Integer getGender() {
+        return gender;
     }
 
-    public void setSex(Integer sex) {
-        this.sex = sex;
+    public void setGender(Integer gender) {
+        this.gender = gender;
     }
 
     public Date getDateOfBirth() {
