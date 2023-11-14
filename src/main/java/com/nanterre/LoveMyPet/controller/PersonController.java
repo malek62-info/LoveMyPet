@@ -37,7 +37,7 @@ public class PersonController {
         if (imageFile != null && !imageFile.isEmpty()) {
             try {
                 // Spécifiez le chemin de votre dossier d'images dans les ressources
-                String dossierImages = "C:\\Users\\malek\\Desktop\\LoveMyPetV2\\LoveMyPet\\src\\main\\resources\\PeronImages";
+                String dossierImages = "C:\\Users\\malek\\Desktop\\LoveMyPetV2\\LoveMyPet\\src\\main\\static\\resources\\PeronImages";
                 String nomDuFichier = imageFile.getOriginalFilename();
                 Path cheminFichier = Paths.get(dossierImages, nomDuFichier);
 
@@ -54,13 +54,14 @@ public class PersonController {
             }
         }
 
-        // Enregistrez la personne avec le nom du fichier de l'image (si applicable)
         personService.savePerson(person);
         return "Nouvelle personne ajoutée";
     }
 
     
     
+// cette méthode a  pour objectif de géré les tentatif de connexion
+// sont but est de verifier si le mail et le mot de passe enté par l'utilisateur existe bien dans la bese de donner
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestParam("email") String email, @RequestParam("password") String password, HttpSession session) {
@@ -77,6 +78,9 @@ public class PersonController {
         }
     }
 
+    // cette méthode a pour objectif de recupéré le id de la personne connecter
+    // qui vas nous servira par la suit a afficher le nom de la personne dans la page des servises
+    // et ussi nos permit a la personne d'enregestrer ses animaux avec son id automatiquelent
     @GetMapping("/profile")
     public ResponseEntity<?> userProfile(HttpSession session) {
         Integer userId = (Integer) session.getAttribute("userId");
