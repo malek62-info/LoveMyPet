@@ -27,17 +27,19 @@ public class PersonController {
     private PersonService personService;
 
     @PostMapping("/add")
-    public String add(@RequestPart("imageFile") MultipartFile imageFile, Person person) {
+    public ResponseEntity<String> add(@RequestPart("imageFile") MultipartFile imageFile, Person person) {
         // Vérifiez si l'e-mail existe déjà dans la base de données
         Person existingPerson = personService.findPersonByEmail(person.getEmail());
         if (existingPerson != null) {
-            return "L'e-mail existe déjà";
+           // return ResponseEntity.badRequest().body("L'e-mail existe déjà");
+            return new ResponseEntity<>("Le Mail existe déja", HttpStatus.INTERNAL_SERVER_ERROR);
+
         }
 
         if (imageFile != null && !imageFile.isEmpty()) {
             try {
                 // Spécifiez le chemin de votre dossier d'images dans les ressources
-                String dossierImages = "C:\\Users\\malek\\Desktop\\LoveMyPetV2\\LoveMyPet\\src\\main\\static\\resources\\PeronImages";
+                String dossierImages = "C:\\Users\\malek\\Desktop\\LoveMyPetV2\\LoveMyPet\\src\\main\\resources\\static\\images\\persons";
                 String nomDuFichier = imageFile.getOriginalFilename();
                 Path cheminFichier = Paths.get(dossierImages, nomDuFichier);
 
@@ -50,12 +52,13 @@ public class PersonController {
                 // Votre code de gestion du fichier image ici
             } catch (IOException e) {
                 e.printStackTrace();
-                return "Erreur lors de la gestion de l'image";
+                return new ResponseEntity<>("Erreur lors de la gestion de l'image", HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
 
         personService.savePerson(person);
-        return "Nouvelle personne ajoutée";
+        return new ResponseEntity<>("Nouvelle personne ajoutée", HttpStatus.OK);
+
     }
 
     
