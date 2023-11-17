@@ -5,27 +5,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Date;
+import java.util.List;
 
 public interface AnimalRepository extends JpaRepository<Animal, Integer> {
-    Iterable<Animal> findByAdoptedFalse();
 
-    @Query("SELECT a FROM Animal a WHERE a.adopted = false " +
-            "AND (lower(a.name) LIKE lower(concat('%', :keyword, '%')) " +
-            "OR lower(a.category) LIKE lower(concat('%', :keyword, '%')) " +
-            "OR lower(a.race) LIKE lower(concat('%', :keyword, '%')))")
-    Iterable<Animal> searchByKeyword(@Param("keyword") String keyword);
+    List<Animal> findByIdPerson(Integer idPerson);
 
-    // Nouvelles méthodes pour les critères de filtrage
-    @Query("SELECT a FROM Animal a WHERE a.adopted = false " +
-            "AND (:dateOfBirth IS NULL OR a.dateOfBirth <= :dateOfBirth) " +
-            "AND (:weight IS NULL OR a.weight >= :weight) " +
-            "AND (:race IS NULL OR lower(a.race) LIKE lower(concat('%', :race, '%')))" +
-            "AND (:category IS NULL OR lower(a.category) LIKE lower(concat('%', :category, '%')))" +
-            "AND (:gender IS NULL OR a.gender = :gender)")
-    Iterable<Animal> filterAnimals(@Param("dateOfBirth") Date dateOfBirth, @Param("weight") Double weight,
-                                   @Param("race") String race, @Param("category") String category,
-                                   @Param("gender") Integer gender);
 
-    Iterable<Animal> findAllByIdPersonAndAdopted(Integer idPerson, Boolean adopted);
 
 }

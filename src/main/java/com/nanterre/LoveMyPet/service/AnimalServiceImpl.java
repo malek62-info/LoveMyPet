@@ -6,15 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 
 public class AnimalServiceImpl implements AnimalService {
 
-    @Autowired
+   @Autowired
     private AnimalRepository animalRepository;
-
+ /*
     @Override
     public Iterable<Animal> getAvailableAnimals() {
         return animalRepository.findByAdoptedFalse();
@@ -29,12 +32,23 @@ public class AnimalServiceImpl implements AnimalService {
     public Iterable<Animal> filterAnimals(Date dateOfBirth, Double weight, String race, String category, Integer gender) {
         return animalRepository.filterAnimals(dateOfBirth, weight, race, category, gender);
     }
+  */
 
-    @Override
-    public Iterable<Animal> getUserAnimals(Integer userId) {
-        System.out.println("Fetching animals for user with ID: " + userId);
-        Iterable<Animal> animals = animalRepository.findAllByIdPersonAndAdopted(userId, true);
-        System.out.println("Fetched animals: " + animals);
-        return animals;
+   /*public List<Animal> getAnimalsByPersonId(Integer idPerson) {
+       return animalRepository.findByIdPerson(idPerson);
+   }*/
+
+    //récupération des références des animaux de Id Person
+   @Override
+   public List<String> getAnimalLinksByPersonId(Integer idPerson) {
+       List<Animal> animals = animalRepository.findByIdPerson(idPerson);
+       return animals.stream()
+               .map(animal -> "/animal/" + animal.getId())
+               .collect(Collectors.toList());
+   }
+
+   //récupération des détail de l'animal
+    public Animal getAnimalDetailsById(Integer id) {
+        return animalRepository.findById(id).orElse(null);
     }
 }

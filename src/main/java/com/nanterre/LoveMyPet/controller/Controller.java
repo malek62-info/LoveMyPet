@@ -16,4 +16,9 @@ public class Controller {
         return "mesanimaux";
     }
 
+    @GetMapping("/candidature")
+    public String showCandidatureByAnimalId ( Model model) {
+        return "candidatureadoption";
+    }
+
 }

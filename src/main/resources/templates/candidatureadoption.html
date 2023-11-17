@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details de la Personne</title>
+</head>
+
+<body>
+
+<!-- Div pour afficher les détails de la personne -->
+<a href="/mesanimaux">Mes Animaux</a>
+<div id="personDetails"></div>
+
+<script>
+    // Fonction pour récupérer les détails de la personne à partir de l'URI de la candidature
+    async function getPersonDetails ( candidatureUri )
+    {
+        try {
+            const response = await fetch( candidatureUri );
+            const data = await response.json();
+
+            // Créer une chaîne HTML avec les informations de la personne
+            const personDetailsHtml = `
+             <p><strong>Nom de la personne:</strong> <em>${ data.person.firstName } ${ data.person.lastName }</em></p>
+            <p><strong>Numéro de téléphone:</strong> <em>${ data.person.phoneNumber }</em></p>
+            <p><strong>Email de la personne:</strong> <em>${ data.person.email }</em></p>
+            <p><strong>Adresse de la personne:</strong> <em>${ data.person.address }</em></p>
+            <p><strong>Date de candidature :</strong> <em>${ data.dateCandidature }</em></p>
+            <hr>
+        `;
+
+            // Ajouter les détails de la personne à la div
+            document.getElementById( 'personDetails' ).innerHTML += personDetailsHtml;
+        } catch ( error ) {
+            console.error( 'Erreur lors de la récupération des détails de la personne:', error );
+        }
+    }
+
+    // Fonction pour récupérer les candidatures de l'animal
+
+    function getAnimalIdFromUrl ()
+    {
+        const urlParams = new URLSearchParams( window.location.search );
+        const animalId = urlParams.get( 'id' );
+        return animalId;
+    }
+
+    async function getCandidatures ()
+    {
+
+        const animalId = getAnimalIdFromUrl();
+
+        // Afficher l'ID de l'animal
+        console.log( 'ID de l\'animal:', animalId );
+
+        try {
+            const response = await fetch( `http://localhost:8086/animal/${ animalId }/candidatures` );
+            const candidatureUris = await response.json();
+            if ( candidatureUris.length > 0 ) {
+                // Appeler la fonction pour chaque URI de candidature
+                candidatureUris.forEach( candidatureUri =>
+                {
+                    getPersonDetails( candidatureUri );
+                } );
+            } else {
+                document.getElementById( 'personDetails' ).innerHTML = "Pas de candidature";
+            }
+
+
+        } catch ( error ) {
+            console.error( 'Erreur lors de la récupération des candidatures:', error );
+        }
+    }
+
+    // Appeler la fonction pour récupérer les candidatures de l'animal
+    getCandidatures();
+</script>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        flex-direction: column;
+    }
+
+    a {
+        text-decoration: none;
+        color: #3498db;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: #207cca;
+    }
+
+    button {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    /* Ajoutez des styles supplémentaires en fonction de vos besoins */
+</style>
+
+</body>
+
+</html>

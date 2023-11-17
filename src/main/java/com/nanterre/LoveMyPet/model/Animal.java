@@ -39,9 +39,6 @@ public class Animal {
     @Column(name = "imageurl")
     private String imageUrl;
 
-    @Column(name = "adopted", columnDefinition = "tinyint(1) default 1")
-    private Boolean adopted;
-
     @ManyToOne
     @JoinColumn(name = "idperson", referencedColumnName = "idperson", insertable = false, updatable = false)
     private Person adoptedByPerson;
@@ -114,9 +111,7 @@ public class Animal {
         this.imageUrl = imageUrl;
     }
 
-    public Boolean getAdopted() {
-        return adopted;
-    }
+
 
     // Ajoutez le getter et le setter pour le genre
     public Integer getGender() {
@@ -127,9 +122,7 @@ public class Animal {
         this.gender = gender;
     }
 
-    public void setAdopted(Boolean adopted) {
-        this.adopted = adopted;
-    }
+
 
     public Person getAdoptedByPerson() {
         return adoptedByPerson;

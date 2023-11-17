@@ -123,6 +123,7 @@ color: red;
     padding: 0.4rem;
     cursor: pointer;
     text-transform: uppercase;
+    margin-bottom : 5px ;
 }
 .animal-img:hover div{
     -webkit-transform: translateY(0);
