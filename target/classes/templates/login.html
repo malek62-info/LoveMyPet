@@ -91,6 +91,99 @@
             text-decoration: none;
         }
 
+        ca dans css .navbar{
+    background: black;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+}
+
+.navbar .logo a{
+    display: block;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 25px;
+    text-transform: uppercase;
+}
+
+.navbar .nav_right > ul{
+    display: flex;
+    align-items: center;
+}
+.nav_right p {
+    color: #fff;
+    font-weight: 600;
+}
+.navbar .nav_right ul li.nr_li{
+    margin-left: 25px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 20px;
+    position: relative;
+}
+
+.navbar .nav_right ul li.nr_li:hover {
+    color: #cefffc;
+}
+
+.navbar .nav_right ul li img{
+    width: 60px;
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
+.navbar .dd_menu {
+    position: absolute;
+    right: -25px;
+    top: 47px;
+    display: flex;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.25);
+    display: none;
+    width: 280px;
+}
+
+.navbar .dd_menu .dd_left{
+    background: #b4b4b2;
+    padding: 15px 20px;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.navbar .dd_menu .dd_left li{
+    color: #fff;
+}
+
+.navbar .dd_menu .dd_right{
+    padding: 15px 20px;
+}
+
+.navbar .dd_menu li{
+    margin-bottom: 10px;
+    color: #868686;
+}
+
+.navbar .dd_menu:before{
+    content: "";
+    position: absolute;
+    top: -20px;
+    right: 30px;
+    border: 10px solid;
+    border-color: transparent transparent #fff transparent;
+}
+
+.navbar .dd_main.active .dd_menu{
+    display: flex;
+}
+
+Dispose d’un menu contextuel
+
 
     </style>
 </head>
@@ -119,30 +212,55 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+    var dd_main = document.querySelector(".dd_main");
+
+            dd_main.addEventListener("click", function(){
+                this.classList.toggle("active");
+            })
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
     $(document).ready(function () {
-        $("#loginForm").submit(function (event) {
-            event.preventDefault();
+        $.ajax({
+            url: "/personne/profile",
+            type: "GET",
+            success: function (data) {
+                var profileInfo = "ID : " + data.id + "<br>Nom : " + data.name;
+                $("#profileInfo").html(profileInfo);
 
-            var email = $("#email").val();
-            var password = $("#password").val();
-
-            $.ajax({
-                url: "/person/login",
-                type: "POST",
-                data: {
-                    email: email,
-                    password: password
-                },
-                success: function (data) {
-                    $("#loginMessage").text("Authentification réussie");
-                    window.location.href = "/AddAnimal";
-                },
-                error: function (xhr, status, error) {
-                    $("#loginMessage").text("Authentification échouée : " + error);
-                }
-            });
+                $("#userName").text(data.name);
+            },
+            error: function (xhr, status, error) {
+            }
         });
     });
+
+
+$(document).ready(function () {
+$("#loginForm").submit(function (event) {
+    event.preventDefault();
+
+    var email = $("#email").val();
+    var password = $("#password").val();
+
+    $.ajax({
+        url: "/person/login",
+        type: "POST",
+        data: {
+            email: email,
+            password: password
+        },
+        success: function (data) {
+            $("#loginMessage").text("Authentification réussie");
+            window.location.href = "/AddAnimal";
+        },
+        error: function (xhr, status, error) {
+            $("#loginMessage").text("Authentification échouée : " + error);
+        }
+    });
+});
+});
 </script>
 </body>
 </html>
