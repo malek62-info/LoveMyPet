@@ -3,6 +3,8 @@ package com.nanterre.LoveMyPet.model;
 import jakarta.persistence.*;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Vaccination {
     @Id
@@ -20,6 +22,7 @@ public class Vaccination {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     // Getters and setters
