@@ -5,6 +5,8 @@ Projet Devops
 [![Java CI with Maven](https://github.com/malek62-info/LoveMyPet/actions/workflows/maven.yml/badge.svg)](https://github.com/malek62-info/LoveMyPet/actions/workflows/maven.yml)
 [![codecov](https://codecov.io/gh/malek62-info/LoveMyPet/graph/badge.svg?token=ZBR07LXSRZ)](https://codecov.io/gh/malek62-info/LoveMyPet)
 [![Dernière Release](https://img.shields.io/github/v/release/malek62-info/LoveMyPet?style=flat-square)](https://github.com/malek62-info/LoveMyPet/releases/latest)
+[![License](https://img.shields.io/github/license/malek62-info/LoveMyPet)](https://github.com/malek62-info/LoveMyPet/blob/main/LICENSE)
+
 
 
 ## Introduction
