@@ -1,6 +1,8 @@
 package com.nanterre.LoveMyPet.service;
 
+import com.nanterre.LoveMyPet.model.Adoption;
 import com.nanterre.LoveMyPet.model.Animal;
+import com.nanterre.LoveMyPet.repository.AdoptionRepository;
 import com.nanterre.LoveMyPet.repository.AnimalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,28 +20,12 @@ public class AnimalServiceImpl implements AnimalService {
 
    @Autowired
     private AnimalRepository animalRepository;
- /*
-    @Override
-    public Iterable<Animal> getAvailableAnimals() {
-        return animalRepository.findByAdoptedFalse();
+    private AdoptionRepository adoptionRepository;
+
+    @Autowired
+    public AnimalServiceImpl(AdoptionRepository adoptionRepository) {
+        this.adoptionRepository = adoptionRepository;
     }
-
-    @Override
-    public Iterable<Animal> searchAnimalsByKeyword(String keyword) {
-        return animalRepository.searchByKeyword(keyword);
-    }
-
-    @Override
-    public Iterable<Animal> filterAnimals(Date dateOfBirth, Double weight, String race, String category, Integer gender) {
-        return animalRepository.filterAnimals(dateOfBirth, weight, race, category, gender);
-    }
-  */
-
-   /*public List<Animal> getAnimalsByPersonId(Integer idPerson) {
-       return animalRepository.findByIdPerson(idPerson);
-   }*/
-
-    //récupération des références des animaux de Id Person
    @Override
    public List<String> getAnimalLinksByPersonId(Integer idPerson) {
        List<Animal> animals = animalRepository.findByIdPerson(idPerson);
@@ -51,4 +38,30 @@ public class AnimalServiceImpl implements AnimalService {
     public Animal getAnimalDetailsById(Integer id) {
         return animalRepository.findById(id).orElse(null);
     }
+
+
+    //références des animaux a adopté
+
+    @Override
+    public List<String> getAdoptionUrlsForAnimals() {
+        List<Adoption> adoptions = adoptionRepository.findAll();
+
+        // Utilisez la fonction stream et map pour générer les URLs d'adoption pour chaque animal
+        List<String> adoptionUrlsForAnimals = adoptions.stream()
+                .map(adoption -> {
+                    Animal adoptedAnimal = adoption.getAdoptedAnimal();
+                    if (adoptedAnimal != null) {
+                        // Générez l'URL d'adoption pour cet animal
+                        return "/adoption/animal/" + adoptedAnimal.getId();
+                    } else {
+                        // Gérez le cas où l'animal n'est pas défini (peut-être à des fins de validation)
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull) // Filtrer les éventuelles valeurs nulles
+                .collect(Collectors.toList());
+
+        return adoptionUrlsForAnimals;
+    }
+
 }

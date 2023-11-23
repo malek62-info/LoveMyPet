@@ -70,16 +70,16 @@
                     <div class="animal-img">
                         <img src="/images/animals/${animalDetails.imageUrl}" alt="animal image">
                         <div>
-                            <button type="button" class="add-btn" onclick="window.location.href = 'candidature?id=${animalDetails.id}'">Candidatures Adoption</button>
-                            <button type="button" class="add-btn" onclick="window.location.href = 'animal/?id=${animalDetails.id}'">Suivre ${animalDetails.name}</button>
-                            <button type="button" class="add-btn" onclick="window.location.href = 'animal/?id=${animalDetails.id}'">Donner ${animalDetails.name}</button>
+                            <button type="button" class="add-btn" onclick="window.location.href = 'candidature?id=${animalDetails.id}'">Candidatures &#x1F600;</button>
+                            <button type="button" class="add-btn" onclick="window.location.href = 'animal/?id=${animalDetails.id}'">Vaccinations 💉</button>
+                            <button type="button" class="add-btn" onclick="window.location.href = 'animal/?id=${animalDetails.id}'">Donner 🙏</button>
                         </div>
                     </div>
                     <div class="animal-content">
-                        <a href="#" class="animal-title">${animalDetails.name} </a>
-                        <p class="race"><span>${animalDetails.race}</span></p>
+                        <a href="#" class="animal-title">🔥 ${animalDetails.name} </a>
+                        <p class="race"><span>ℹ️ ${animalDetails.race}</span></p>
                         <div>
-                            <span class="gender">${animalDetails.gender === 1 ? 'Masculin' : 'Féminin'}</span>
+                            <span class="gender">${animalDetails.gender === 1 ? '♂ Mâle' : '♀ Femelle'}</span>
                         </div>
                     </div>
                 </div>
