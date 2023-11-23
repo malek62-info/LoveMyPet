@@ -27,6 +27,10 @@ public class Controlleur {
 		@GetMapping("/suivi")
     	public String showVaccinations(Model model) {
         return "suivi";
+		}
+        @GetMapping("/mesCandidatures")
+    	public String showCandidatures(Model model) {
+        return "mescandidatures";
     }
 
 

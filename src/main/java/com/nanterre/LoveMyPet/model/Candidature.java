@@ -13,19 +13,19 @@ public class Candidature {
     @Column(name = "idcandidature")
     private Integer idCandidature;
 
+    @ManyToOne
+    @JoinColumn(name = "idperson", referencedColumnName = "idPerson")
+    private Person person;
+    
     @Column(name = "date_candidature", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateCandidature = new Date();
-
-    @ManyToOne
-    @JoinColumn(name = "idperson", referencedColumnName = "idperson")
-    private Person person;
-
+    
     @ManyToOne
     @JoinColumn(name = "idadoption", referencedColumnName = "idadoption")
     private Adoption adoption;
-
+    
     // Getters and setters
 
     public Integer getIdCandidature() {

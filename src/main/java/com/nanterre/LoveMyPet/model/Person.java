@@ -9,7 +9,7 @@ import jakarta.persistence.Id;
 public class Person {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  public Integer IdPerson;
+  public Integer idPerson;
 
   private String LastName;
   private String FirstName;
@@ -20,11 +20,11 @@ public class Person {
   private String ImageUrl;
 
   public Integer getIdPerson() {
-    return IdPerson;
+    return idPerson;
   }
 
   public void setIdPerson(Integer IdPerson) {
-    this.IdPerson = IdPerson;
+    this.idPerson = IdPerson;
   }
 
   public String getLastName() {
