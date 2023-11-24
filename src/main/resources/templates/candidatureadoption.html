@@ -10,7 +10,7 @@
 <body>
 
 <!-- Div pour afficher les détails de la personne -->
-<a href="/mesanimaux">Mes Animaux</a>
+<a href="/mesanimaux"> ⬅️ Mes Animaux</a>
 <div id="personDetails"></div>
 
 <script>
@@ -56,7 +56,7 @@
         console.log( 'ID de l\'animal:', animalId );
 
         try {
-            const response = await fetch( `http://localhost:8086/animal/${ animalId }/candidatures` );
+            const response = await fetch( `/animal/${ animalId }/candidatures` );
             const candidatureUris = await response.json();
             if ( candidatureUris.length > 0 ) {
                 // Appeler la fonction pour chaque URI de candidature
@@ -65,7 +65,7 @@
                     getPersonDetails( candidatureUri );
                 } );
             } else {
-                document.getElementById( 'personDetails' ).innerHTML = "Pas de candidature";
+                document.getElementById( 'personDetails' ).innerHTML = " 😥 Pas de candidature";
             }
 
 
