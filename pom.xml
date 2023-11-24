@@ -97,6 +97,9 @@
 				<configuration>
 					<excludes>
 						<exclude>org/springframework/boot/**</exclude>
+							<exclude>**/*Config.class</exclude>
+							<exclude>**/*Entity.class</exclude>
+
 					</excludes>
 				</configuration>
 			</plugin>
