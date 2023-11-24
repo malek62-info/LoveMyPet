@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adoption</title>
     <link rel="stylesheet" href="css/adoption_afficher_animal.css">
 </head>
+
 <body>
 <div class="wrapper">
     <div class="container">
@@ -23,7 +26,7 @@
 
 <script>
     async function fetchData() {
-        let url = `adoption/animaux`;
+        const url = 'http://localhost:8086/adoption/adoptions';
 
         try {
             const response = await fetch(url);
@@ -32,18 +35,17 @@
             if (data.length > 0) {
                 console.log(data);
                 displayAnimals(data);
-                document.getElementById("error-message").textContent = "";
+                document.getElementById('error-message').textContent = '';
             } else {
-                document.getElementById("error-message").innerHTML = "<p class='message-error'>Aucun résultat. Pas d'animal à adopté !</p>";
+                document.getElementById('error-message').innerHTML =
+                    "<p class='message-error'>Aucun résultat. Pas d'animal à adopter !</p>";
             }
         } catch (error) {
-            console.error("Error fetching data:", error);
+            console.error('Error fetching data:', error);
         }
     }
 
     async function fetchAnimalDetails(animalURI) {
-        console.log(animalURI);
-
         try {
             const response = await fetch(animalURI);
             return await response.json();
@@ -53,30 +55,42 @@
         }
     }
 
+    function getGenderText(gender) {
+        return gender === 1 ? '♂ Mâle' : '♀ Femelle';
+    }
+
+    function adoptAnimal(animalId, adoptionId) {
+        alert(`Vous avez adopté l'animal avec ID ${animalId} et ID d'adoption ${adoptionId}`);
+        // Ajoutez ici la logique pour traiter l'adoption
+    }
+
     async function displayAnimals(animals) {
-        const animalListDiv = document.getElementById("animalContainer");
-        let animalList = ``;
+        const animalListDiv = document.getElementById('animalContainer');
+        let animalList = '';
 
         for (const animalRef of animals) {
             console.log(animalRef);
 
             // Fetch details for each animal
-            const animalDetails = await fetchAnimalDetails(animalRef);
+            const animalDetails = await fetchAnimalDetails(`http://localhost:8086${animalRef}`);
 
             if (animalDetails) {
                 animalList += `
                     <div class="animal-item">
                         <div class="animal-img">
-                            <img src="/images/animals/${animalDetails.imageUrl}" alt="animal image">
+                            <img src="/images/animals/${animalDetails.animal.imageUrl}" alt="animal image">
                             <div>
-                                <button type="button" class="add-btn" onclick="alert('id=${animalDetails.id}')">Adopter 🧡 </button>
+                                <button type="button" class="add-btn"
+                                    onclick="adoptAnimal(${animalDetails.animal.id}, ${animalDetails.adoptionId})">
+                                    Adopter 🧡
+                                </button>
                             </div>
                         </div>
                         <div class="animal-content">
-                            <a href="#" class="animal-title">🔥 ${animalDetails.name} </a>
-                            <p class="race"><span>ℹ️ ${animalDetails.race}</span></p>
+                            <a href="#" class="animal-title">🔥 ${animalDetails.animal.name} </a>
+                            <p class="race"><span>ℹ️ ${animalDetails.animal.race}</span></p>
                             <div>
-                               <span class="gender">${animalDetails.gender === 1 ? '♂ Mâle' : '♀ Femelle'}</span>
+                                <span class="gender">${getGenderText(animalDetails.animal.gender)}</span>
                             </div>
                         </div>
                     </div>
@@ -93,4 +107,5 @@
     };
 </script>
 </body>
+
 </html>

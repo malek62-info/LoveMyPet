@@ -14,11 +14,6 @@ public class CandidatureController {
     @Autowired
     private CandidatureServiceImpl candidatureService;
 
-    /*@GetMapping("/")
-    public List<Candidature> getCandidaturesByAnimalId(@PathVariable Integer animalId) {
-        return candidatureService.getCandidaturesByAnimalId(animalId);
-    }*/
-
     @GetMapping("/{candidatureId}")
     public Candidature getCandidatureDetailsByAnimalIdAndCandidatureId(
             @PathVariable Integer animalId,

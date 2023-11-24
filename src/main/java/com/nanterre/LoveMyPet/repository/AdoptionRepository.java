@@ -2,9 +2,20 @@ package com.nanterre.LoveMyPet.repository;
 
 import com.nanterre.LoveMyPet.model.Adoption;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-@Repository
+import java.util.List;
+
+
 public interface AdoptionRepository extends JpaRepository<Adoption, Integer> {
-    // Vos méthodes de repository, si nécessaire
+
+
 }
+
+
+/*
+public interface AdoptionRepository extends JpaRepository<Adoption, Integer> {
+    @Query("SELECT a, ad.idAdoption FROM Adoption ad JOIN Animal a ON ad.idAnimal = a.id")
+    List<Object[]> findAnimalsForAdoption();
+}*/

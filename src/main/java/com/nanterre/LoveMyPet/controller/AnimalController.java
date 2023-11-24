@@ -24,6 +24,7 @@ public class AnimalController {
     @Autowired
     private CandidatureServiceImpl candidatureService;
 
+    //récuperre la liste des références d'animaux d'une person ( Idperson)
     @GetMapping("/person/{idPerson}")
     public List<String> getAnimalsReferenceByPersonId(@PathVariable Integer idPerson) {
         return animalService.getAnimalLinksByPersonId(idPerson);

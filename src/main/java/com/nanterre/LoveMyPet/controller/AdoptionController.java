@@ -1,34 +1,46 @@
 package com.nanterre.LoveMyPet.controller;
 
+import com.nanterre.LoveMyPet.model.Adoption;
 import com.nanterre.LoveMyPet.model.Animal;
 import com.nanterre.LoveMyPet.service.AnimalService;
+import com.nanterre.LoveMyPet.service.AnimalServiceImpl;
+import com.nanterre.LoveMyPet.service.AdoptionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/adoption")
 public class AdoptionController {
 
-    private final AnimalService animalService;
+    private final AdoptionServiceImpl adoptionService;
+    private final AnimalServiceImpl animalService;
 
     @Autowired
-    public AdoptionController(AnimalService animalService) {
+    public AdoptionController(AnimalServiceImpl animalService , AdoptionServiceImpl adoptionService) {
         this.animalService = animalService;
+        this.adoptionService = adoptionService;
     }
 
-    @GetMapping("/animaux")
-    public List<String> getAdoptionUrlsForAnimals() {
-        return animalService.getAdoptionUrlsForAnimals();
+
+    @GetMapping("adoptions")
+    public List<String> getAllAdoptionUrls() {
+        return adoptionService.getAllAdoptionUrls();
     }
 
-    //récupération des détails d'un animal adopté
-    @GetMapping("/animal/{id}")
-    public Animal getAnimalDetailsById(@PathVariable Integer id) {
-        return animalService.getAnimalDetailsById(id);
+
+    @GetMapping("/{idAdoption}")
+    public Map<String, Object> getAdoptionDetails(@PathVariable Integer idAdoption) {
+        return adoptionService.getAdoptionDetails(idAdoption);
     }
+
+
+
+
+
+
+
 }
