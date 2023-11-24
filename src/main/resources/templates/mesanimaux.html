@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>Adoption</title>
     <link rel="stylesheet" href="css/adoption_afficher_animal.css">
 </head>
+
 <body>
 <div class="wrapper">
     <div class="container">
@@ -22,85 +24,93 @@
 </div>
 
 <script>
-    function fetchData(userId) {
-     let url = `animal/person/1`;
+    function fetchData ( userId )
+    {
+        let url = `animal/person/1`;
 
-     fetch(url)
-         .then((response) => response.json())
-         .then((data) => {
-             if (data.length > 0) {
-             console.log(data)
-                 displayAnimals(data);
-                 document.getElementById("error-message").textContent = "";
-             } else {
-                 document.getElementById("error-message").innerHTML = "<p class='message-error'>Aucun résultat Vous n'avez aucun animal</p>";
-             }
-         })
-         .catch((error) => {
-             console.error("Error fetching data:", error);
-         });
- }
-
- function fetchAnimalDetails(animalURI) {
-
-
-     console.log(animalURI)
-
-     return fetch(animalURI)
-         .then((response) => response.json())
-         .catch((error) => {
-             console.error(`Error fetching animal details for this URI ${animalURI}:`, error);
-         });
- }
-
- async function displayAnimals(animals) {
-     if (animals.length > 0) {
-         let animalList = ``;
-
-        for (let i = 0; i < animals.length - 1; i++) {
-        const animalRef = animals[i];
-        console.log(animalRef);
-
-        // Fetch details for each animal
-        const animalDetails = await fetchAnimalDetails(animalRef);
-
-        if (animalDetails) {
-            animalList += `
-                <div class="animal-item">
-                    <div class="animal-img">
-                        <img src="/images/animals/${animalDetails.imageUrl}" alt="animal image">
-                        <div>
-                            <button type="button" class="add-btn" onclick="window.location.href = 'candidature?id=${animalDetails.id}'">Candidatures &#x1F600;</button>
-                            <button type="button" class="add-btn" onclick="window.location.href = 'animal/?id=${animalDetails.id}'">Vaccinations 💉</button>
-                            <button type="button" class="add-btn" onclick="window.location.href = 'animal/?id=${animalDetails.id}'">Donner 🙏</button>
-                        </div>
-                    </div>
-                    <div class="animal-content">
-                        <a href="#" class="animal-title">🔥 ${animalDetails.name} </a>
-                        <p class="race"><span>ℹ️ ${animalDetails.race}</span></p>
-                        <div>
-                            <span class="gender">${animalDetails.gender === 1 ? '♂ Mâle' : '♀ Femelle'}</span>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
+        fetch( url )
+            .then( ( response ) => response.json() )
+            .then( ( data ) =>
+            {
+                if ( data.length > 0 ) {
+                    console.log( data )
+                    displayAnimals( data );
+                    document.getElementById( "error-message" ).textContent = "";
+                } else {
+                    document.getElementById( "error-message" ).innerHTML = "<p class='message-error'>Aucun résultat Vous n'avez aucun animal</p>";
+                }
+            } )
+            .catch( ( error ) =>
+            {
+                console.error( "Error fetching data:", error );
+            } );
     }
 
+    function fetchAnimalDetails ( animalURI )
+    {
 
-         const animalListDiv = document.querySelector(".animal-container");
-         animalListDiv.innerHTML = animalList;
-     }
- }
- //envoyé l'i a la page donné et a la page
 
- // Cette fonction sera appelée lorsque la page se chargera
- window.onload = function () {
-     // Vous pouvez ajuster l'ID de l'utilisateur ici (par exemple, 1)
-     fetchData(1);
- };
+        console.log( animalURI )
+
+        return fetch( animalURI )
+            .then( ( response ) => response.json() )
+            .catch( ( error ) =>
+            {
+                console.error( `Error fetching animal details for this URI ${ animalURI }:`, error );
+            } );
+    }
+
+    async function displayAnimals ( animals )
+    {
+        if ( animals.length > 0 ) {
+            let animalList = ``;
+
+            for ( let i = 0; i < animals.length - 1; i++ ) {
+                const animalRef = animals[ i ];
+                console.log( animalRef );
+
+                // Fetch details for each animal
+                const animalDetails = await fetchAnimalDetails( animalRef );
+
+                if ( animalDetails ) {
+                    animalList += `
+            <div class="animal-item">
+                <div class="animal-img">
+                    <img src="/images/animals/${ animalDetails.imageUrl }" alt="animal image">
+                    <div>
+                        <button type="button" class="add-btn" onclick="window.location.href = 'candidature?id=${ animalDetails.id }'">Candidatures &#x1F600;</button>
+                        <button type="button" class="add-btn" onclick="window.location.href = 'animal/?id=${ animalDetails.id }'">Vaccinations 💉</button>
+                        <button type="button" class="add-btn" onclick="alert(${ animalDetails.id })">Donner 🙏</button>
+                    </div>
+                </div>
+                <div class="animal-content">
+                    <a href="#" class="animal-title">🔥 ${ animalDetails.name } </a>
+                    <p class="race"><span>ℹ️ ${ animalDetails.race }</span></p>
+                    <div>
+                        <span class="gender">${ animalDetails.gender === 1 ? '♂ Mâle' : '♀ Femelle' }</span>
+                    </div>
+                </div>
+            </div>
+        `;
+                }
+            }
+
+
+            const animalListDiv = document.querySelector( ".animal-container" );
+            animalListDiv.innerHTML = animalList;
+        }
+    }
+    //envoyé l'i a la page donné et a la page
+
+    // Cette fonction sera appelée lorsque la page se chargera
+    window.onload = function ()
+    {
+        // Vous pouvez ajuster l'ID de l'utilisateur ici (par exemple, 1)
+        fetchData( 1 );
+    };
 
 </script>
-</script>
+
 </body>
+
 </html>

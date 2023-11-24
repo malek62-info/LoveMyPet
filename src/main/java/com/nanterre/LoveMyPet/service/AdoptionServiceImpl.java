@@ -34,6 +34,7 @@ public class AdoptionServiceImpl implements AdoptionService {
                 .collect(Collectors.toList());
     }
 
+
     @Override
     public Map<String, Object> getAdoptionDetails(Integer idAdoption) {
         Adoption adoption = adoptionRepository.findById(idAdoption).orElse(null);
@@ -41,7 +42,13 @@ public class AdoptionServiceImpl implements AdoptionService {
         if (adoption != null) {
             adoptionDetails.put("adoptionId", adoption.getIdAdoption());
             adoptionDetails.put("animal", adoption.getAdoptedAnimal());
+            adoptionDetails.put("startDate", adoption.getStartDate());
+            adoptionDetails.put("endDate", adoption.getEndDate());
         }
         return adoptionDetails;
     }
+
+    //malek :
+
+
 }

@@ -75,6 +75,12 @@
             const animalDetails = await fetchAnimalDetails(`http://localhost:8086${animalRef}`);
 
             if (animalDetails) {
+                 if (animalDetails.endDate === null || animalDetails.endDate === "null") {
+                    endDateText = '<p class="race">Adoption définitive</p>';
+                } else {
+                    endDateText = `<p class="race"><span>Fin : ${animalDetails.endDate}</span></p>`;
+                }
+
                 animalList += `
                     <div class="animal-item">
                         <div class="animal-img">
@@ -92,6 +98,8 @@
                             <div>
                                 <span class="gender">${getGenderText(animalDetails.animal.gender)}</span>
                             </div>
+                            <p class="race">Début : <span>${animalDetails.startDate} </span></p>
+                            <p class="race">${endDateText}</p>
                         </div>
                     </div>
                 `;
@@ -106,6 +114,22 @@
         fetchData();
     };
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 
 </html>
