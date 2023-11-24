@@ -1,5 +1,8 @@
 package com.nanterre.LoveMyPet.controller;
 
+import com.nanterre.LoveMyPet.model.Adoption;
+import com.nanterre.LoveMyPet.model.Candidature;
+import com.nanterre.LoveMyPet.service.CandidatureService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +29,8 @@ import java.util.Map;
 public class PersonController {
     @Autowired
     private PersonService personService;
+    @Autowired
+    private CandidatureService candidatureService;
 
     @PostMapping("/add")
     public ResponseEntity<String> add(@RequestPart("imageFile") MultipartFile imageFile, Person person) {
@@ -39,7 +45,7 @@ public class PersonController {
         if (imageFile != null && !imageFile.isEmpty()) {
             try {
                 // Spécifiez le chemin de votre dossier d'images dans les ressources
-                String dossierImages = "C:\\Users\\malek\\Desktop\\LoveMyPetV2\\LoveMyPet\\src\\main\\resources\\static\\images\\persons";
+                String dossierImages = "C:\\Users\\malek\\Desktop\\LoveMyPetV2\\LoveMyPet\\src\\main\\resources\\static\\images\\personimages";
                 String nomDuFichier = imageFile.getOriginalFilename();
                 Path cheminFichier = Paths.get(dossierImages, nomDuFichier);
 
@@ -112,5 +118,39 @@ public class PersonController {
     }
 
 
+    @PostMapping("/addcandidature")
+    public ResponseEntity<String> addCandidature(
+            @RequestParam("idPerson") Integer idPerson,
+            @RequestParam("idAdoption") Integer idAdoption,
+            @RequestParam("dateCandidature") String dateCandidature) {
+        try {
+            // Création d'une candidature avec les données reçues
+            Candidature candidature = new Candidature();
+            candidature.setDateCandidature(new Date());
+
+            // Utilisation des ID reçus
+            Person person = new Person();
+            person.setIdPerson(idPerson);
+            candidature.setPerson(person);
+
+            Adoption adoption = new Adoption();
+            adoption.setIdAdoption(idAdoption);
+            candidature.setAdoption(adoption);
+
+            // Enregistrement de la candidature
+            candidatureService.saveCandidature(candidature);
+
+            return new ResponseEntity<>("Candidature ajoutée avec succès", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Erreur lors de l'ajout de la candidature", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
 }
+
+
+
+

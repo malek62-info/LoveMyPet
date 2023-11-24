@@ -32,7 +32,6 @@ public class AnimalControllerTest {
     public void testAddAnimal() {
         // Créez un animal de test avec les données nécessaires
         Animal animal = new Animal();
-        animal.setAdopted(true);
 
         // Créez un fichier image de test
         MockMultipartFile imageFile = new MockMultipartFile("imageFile", "test-image.jpg", "image/jpeg", "test image content".getBytes());

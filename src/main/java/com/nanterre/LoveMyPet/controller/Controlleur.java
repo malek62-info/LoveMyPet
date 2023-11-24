@@ -22,11 +22,24 @@ public class Controlleur {
 	    public String showpagelogin() {
 	        return "login";
 	    }
-	    
 
-
-	   
-	    
+	@GetMapping("/Adoption")
+	public String showpageAdoption() {
+		return "AddAdoption";
 	}
+
+
+	@GetMapping("/Candidature")
+	public String showpageCandidature() {
+		return "AddCandidature";
+	}
+
+
+
+
+
+
+
+}
 
 

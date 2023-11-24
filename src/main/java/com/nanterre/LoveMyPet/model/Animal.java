@@ -31,8 +31,8 @@ public class Animal {
     @Column(name = "imageurl")
     private String imageUrl;
 
-    @Column(name = "adopted", columnDefinition = "tinyint(1) default 1")
-    private Boolean adopted;
+
+
 
     @Column(name = "gender")
     private Integer gender; // Ajout du champ "gender" comme un entier (1 pour mâle, 2 pour femelle, par exemple)
@@ -43,9 +43,7 @@ public class Animal {
 
     private Date dateOfBirth; // Ajout de la date de naissance
 
-    @ManyToOne
-    @JoinColumn(name = "idperson", referencedColumnName = "idperson", insertable = false, updatable = false)
-    private Person adoptedByPerson;
+
 
     // Getters and setters
 
@@ -105,13 +103,9 @@ public class Animal {
         this.imageUrl = imageUrl;
     }
 
-    public Boolean getAdopted() {
-        return adopted;
-    }
 
-    public void setAdopted(Boolean adopted) {
-        this.adopted = adopted;
-    }
+
+
 
     public Integer getGender() {
         return gender;
@@ -129,11 +123,5 @@ public class Animal {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Person getAdoptedByPerson() {
-        return adoptedByPerson;
-    }
 
-    public void setAdoptedByPerson(Person adoptedByPerson) {
-        this.adoptedByPerson = adoptedByPerson;
-    }
 }
