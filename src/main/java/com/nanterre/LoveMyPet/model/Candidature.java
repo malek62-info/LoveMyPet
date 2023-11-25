@@ -19,7 +19,7 @@ public class Candidature {
     private Date dateCandidature = new Date();
 
     @ManyToOne
-    @JoinColumn(name = "idperson", referencedColumnName = "idperson")
+    @JoinColumn(name = "IdPerson", referencedColumnName = "IdPerson")
     private Person person;
 
     @ManyToOne

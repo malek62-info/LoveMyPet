@@ -40,23 +40,23 @@ public class AnimalControllerIntegrationTest {
     public void testGetAnimalsReferenceByPersonId() throws Exception {
         // Créez un objet Person avec un ID spécifique pour le test
         Person person = new Person();
-        person.setId(1);
+        person.setIdPerson(1);
 
         // Créez des objets Animal associés à la personne
         Animal animal1 = new Animal();
         animal1.setId(1);
-        animal1.setIdPerson(person.getId());
+        animal1.setIdPerson(person.getIdPerson());
 
         Animal animal2 = new Animal();
         animal2.setId(2);
-        animal2.setIdPerson(person.getId());
+        animal2.setIdPerson(person.getIdPerson());
 
         // Définissez le comportement du mock pour renvoyer des références d'animaux spécifiques pour un ID de personne donné
-        Mockito.when(animalServiceMock.getAnimalLinksByPersonId(person.getId()))
+        Mockito.when(animalServiceMock.getAnimalLinksByPersonId(person.getIdPerson()))
                 .thenReturn(Arrays.asList("animal/" + animal1.getId(), "animal/" + animal2.getId()));
 
         // Effectuez la requête HTTP et vérifiez la réponse
-        mockMvc.perform(get("/animal/person/1", person.getId()))
+        mockMvc.perform(get("/animal/person/1", person.getIdPerson()))
                 .andExpect(content().json("[\"animal/1\", \"animal/2\"]"));
     }
 

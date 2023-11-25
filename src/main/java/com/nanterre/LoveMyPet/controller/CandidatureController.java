@@ -21,3 +21,7 @@ public class CandidatureController {
         return candidatureService.getCandidatureDetailsByAnimalIdAndCandidatureId(animalId, candidatureId);
     }
 }
+
+
+
+
