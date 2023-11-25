@@ -37,7 +37,7 @@ public class PersonControllerIntegrationTest {
     public void testGetPersonDetailsById() throws Exception {
         // Créez un objet Person avec des attributs spécifiques pour le test
         Person person = new Person();
-        person.setId(1);
+        person.setIdPerson(1);
         person.setFirstName("John");
         person.setLastName("Doe");
         // Initialisez d'autres propriétés selon votre modèle Person

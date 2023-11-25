@@ -20,5 +20,30 @@ public class Controller {
     public String showCandidatureByAnimalId ( Model model) {
         return "candidatureadoption";
     }
+    
+	@GetMapping("/suivi")
+    public String showVaccinations(Model model) {
+		return "suivi";
+	}
+    @GetMapping("/mesCandidatures")
+    public String showCandidatures(Model model) {
+        return "mescandidatures";
+    }
+
+    @GetMapping("/AddPerson")
+    public String showpage() {
+        return "AddPersonne";
+    }
+    
+    @GetMapping("/AddAnimal")
+    public String showpageaddAnimal() {
+        return "AddAnimal";
+    }
+    
+    @GetMapping("/login")
+    public String showpagelogin() {
+        return "login";
+    }
+
 
 }

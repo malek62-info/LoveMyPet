@@ -1,0 +1,624 @@
+/* Réinitialisation des marges et des rembourrages pour tout le document */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+/* background image style */
+.banner {
+    width : 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.75)),url(/images/background.jpg); 
+    background-size: cover;
+    background-position: center ;
+}
+
+/* Styles pour le bouton de scroll down */
+.scroll-down-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+    animation: bounce 2s infinite; /* Ajoutez une animation de rebondissement */
+}
+
+.scroll-down-btn a {
+    color: #fff;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+/* Animation de rebondissement */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
+}
+
+
+.navbar {
+    width : 85%;
+    margin: auto;
+    padding: 35px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    width: 120px;
+    cursor: pointer;
+}
+
+.navbar ul li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 20px;
+    position: relative;
+}
+
+.navbar ul li a {
+    text-decoration: none;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.navbar ul li::after {
+    content: '';
+    height: 3px;
+    width: 0;
+    background: #6b6408ce;
+    position: absolute;
+    left: 0;
+    bottom: -10px ;
+    transition: 0.5s;
+}
+
+.navbar ul li:hover::after  {
+    width: 100%;
+}
+
+.content {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    color: #fff;
+}
+
+.content  h1 {
+    font-size: 70px;
+    margin-top: 80px;
+}
+.adopted {
+    font-size: 70px;
+    margin-top: 80px;
+    text-align: center;
+    
+}
+.adopted h1 {
+    margin-bottom: 3%;
+   }    
+.content p{
+    color: #fff;
+    margin: 20px auto;
+    font-weight: 100;
+    line-height: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Ajuste l'alignement vertical au début */
+    width: 45%;
+}
+
+button {
+    width: 200px;
+    padding: 15px 0;
+    text-align: center;
+    margin: 20px 10px;
+    border-radius: 25px;
+    font-weight: bold;
+    border: 2px solid #6b6408ce;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+span{
+    background: #6b6408ce;
+    height: 100%;
+    width: 0;
+    border-radius: 25px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: -1;  
+    transition: 0.5s; 
+}
+ 
+button:hover span {
+    width: 100%;
+}
+button:hover {
+    border: none;
+}
+
+.footer{
+    padding: 40px 0;
+    background-color: #7c7c7c;
+
+}
+
+.footer .social {
+    text-align: center;
+    padding-bottom: 25px;
+    color: #fff;
+}
+
+.footer .social a {
+    font-size: 24px;
+    color: #fff;
+    margin: 0 8px;
+    opacity: 0.75;
+    
+
+}
+
+.footer .social a:hover {
+    opacity: 1;
+}
+
+.footer h3 {
+    text-align: center;
+    padding-bottom: 23px;
+    color: #fff;
+    opacity: 0.75;
+}
+
+.footer .copyright {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 13;
+    color: #aaa;
+}
+
+/*les services*/
+
+.services {
+    width: 90%;
+    margin:auto;
+    text-align: center;
+    padding-top: 10px;
+
+}
+.services  p {
+    padding-top: 50px;
+}
+h1 {
+    margin-top: 5%;
+    font-size: 36px;
+    font-weight: 600;
+}
+
+p{
+    margin: 0px;
+    margin-top: 5px;
+    padding: 0;
+    color: #232222;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 28px;
+}
+
+.row {
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;   
+}
+
+.service-col {
+flex-basis: 23%;
+background: #f3f3f3;
+border-radius: 10px;
+margin-bottom: 5%;
+padding: 20px 12px;
+box-sizing: border-box;
+transition: 0.5s;
+}
+
+h3 {
+    text-align: center;
+    font-weight: 600;
+    margin: 10px;
+}
+
+.service-col:hover {
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+/* Ajoute tes styles CSS personnalisés ici */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+/* Styles personnalisés pour la galerie */
+/* Styles personnalisés pour la galerie */
+/* Ajoute ces styles pour placer le contenu à gauche et la galerie à droite */
+/* Ajoute ces styles pour placer le contenu à gauche et la galerie à droite */
+.content-and-gallery {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Ajuste l'alignement vertical au début */
+    width: 90%;
+    margin: auto;
+}
+
+.content-gallery {
+    width: 57%; /* Ajuste la largeur du contenu à gauche selon tes besoins */
+}
+.content-gallery p {        
+    margin-top: 5%;
+}
+
+.gallery {
+    width: 50%;
+    max-width: 500px;
+    overflow: hidden;
+    margin-top: 20px; /* Ajoute une marge supérieure pour ajuster l'espace */
+}
+
+.gallery-content {
+    display: flex;
+    transition: transform 2s ease-in-out;
+}
+
+.animal {
+    flex: 0 0 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.animal img {
+    width: 100%;
+    height: auto;
+    max-width: 700px;
+    max-height: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8); /* Ajoute une ombre de 10 pixels en noir transparent */
+    margin-top: 20px;
+}
+
+/* Style pour la section des photos */
+.container-photos {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 8%;
+}
+
+.photos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 40px;
+}
+
+.photos a {
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+
+.photos img {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease-in-out;
+}
+
+
+.caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    color: #fff;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.photos a:hover img {
+    transform: scale(1.1);
+}
+
+.photos a:hover .caption {
+    opacity: 1;
+}
+.container-photos p {
+    color: #fff;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+
+.info-animal p {
+    font-size: 15px;
+    color: #8a8a8a;
+}
+
+.container-testimonials {
+    max-width: 1000px;
+    margin: auto;
+    padding: 0 15px;
+    
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 50px;  
+}
+
+.testimonials {
+    margin-bottom: 300px;
+    height: 45%;
+}
+
+.testimonials-item {
+    background-color: #f3f3f3;
+    padding: 30px;
+    border-radius: 30px;
+}
+
+.testimonials-item img {
+    max-width: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+    vertical-align: middle;
+}
+
+.testimonials-item .info {
+    display: flex;
+    align-items: center;
+
+}
+
+.testimonials-item .name {
+    font-size: 24px;
+    text-transform: capitalize;
+    font-weight: 600;
+    color: black;
+    line-height: 1.2;
+    margin-left: 10px;
+    display: flex;
+}
+
+.testimonials-item .job {
+    text-transform: capitalize;
+    color: hsl(0,0%,40%);
+    margin-left: 10px;
+}
+
+.testimonials-item p {
+    margin-top: 20px;
+    color:  black;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.testimonials-item .rating {
+    margin-top: 15px;
+    font-size: 14px;
+    color: hsl(36,88%,66%);
+    margin-left: 25px;
+    margin-right: 25px;
+    
+}
+
+#mySwiper .swiper-button-prev, #mySwiper .swiper-button-next {
+    color: black !important; /* Utilisation de !important pour forcer la priorité */
+}
+
+
+
+.banner-ad-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;    
+}
+
+.banner-ad-container .banner-ad{
+    background:linear-gradient(-55deg, #dfd6d6 29%, #b6b2b2 29.1%, #aca3a3 68%, rgb(194, 190, 190) 68.1%);
+    border-radius: 5px;
+    margin:10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    box-shadow: 0 5px 10px #0005;
+    overflow: hidden;
+}
+
+.banner-ad-container .banner-ad .shoe{
+    flex:1 1 250px;
+    padding:15px;
+    text-align: center;
+    
+}
+
+.banner-ad-container .banner-ad .shoe img{
+    width:80%;
+}
+
+.banner-ad-container .banner-ad .content-ad{
+    flex:1 1 250px;
+    text-align: center;
+    padding:10px;
+    text-transform: uppercase;
+}
+
+.banner-ad-container .banner-ad .content-ad span{
+    color:#eee;
+    font-size: 25px;
+}
+
+.banner-ad-container .banner-ad .content-ad h3{
+    color:#fff;
+    font-size: 40px;
+}
+
+.banner-ad-container .banner-ad .content-ad p{
+    color:#eee;
+    font-size: 20px;
+    padding:10px 0;
+}
+
+.banner-ad-container .banner-ad .content-ad .btn{
+    display: block;
+    height:40px;
+    width:250px;
+    line-height: 40px;
+    background: #fff;
+    color:black;
+    margin:5px auto;
+    text-decoration: none;
+}
+
+.banner-ad-container .banner-ad .women{
+    position: relative;
+    bottom: -33px;
+    padding:10px;
+    flex:1 1 250px;
+}
+
+.banner-ad-container .banner-ad .women img{
+    width:100%;
+}
+
+@media (max-width:768px){
+    .banner-ad-container .banner-ad .women{
+        display: none;
+    }
+}
+
+
+
+/* ... (Le reste de tes styles) ... */
+
+
+/* ... (Le reste de tes styles) ... */
+
+  /* Ajoute d'autres styles personnalisés selon tes préférences */
+  @media (max-width: 1500px) {
+    .content-and-gallery {
+        flex-direction: column; /* Change la direction de la flexbox pour les petits écrans */
+        align-items: center; /* Centre les éléments verticalement */
+    }
+
+    .content-gallery {
+        width: 100%; /* Occupe la largeur complète sur les petits écrans */
+        max-width: 900px; /* Annule la largeur maximale pour les petits écrans */
+    }
+
+    .gallery {
+        width: 100%; /* Occupe la largeur complète sur les petits écrans */
+        max-width: none; /* Annule la largeur maximale pour les petits écrans */
+    }
+    .adopted {
+        width: 100%;
+        max-width: 900px;
+    }
+
+}
+  @media (max-width: 760px) {
+    .animal img {
+      width: 100%; /* Pour s'assurer que l'image occupe 100% de la largeur sur les petits écrans */
+      max-width: none; /* Annule la largeur maximale pour les petits écrans */
+    }
+    
+  }
+  
+
+@media (max-width:700px) {
+    .row{
+        flex-direction: column;
+    }
+    .footer {
+        margin-top: 200px; /* Ajuste la marge supérieure pour les petits écrans */
+    }
+}
+
+@media (max-width: 1500px) {
+    .footer {
+        margin-top: 500px /* Ajuster la valeur pour les écrans plus petits */
+    }
+}
+
+@media (max-width: 1024px) {
+    .navbar {
+        width: 90%; /* Ajuste la largeur de la barre de navigation pour les écrans moyens */
+    }
+    .footer {
+        margin-top: 500px; /* Ajuste la marge supérieure pour les petits écrans */
+    }
+}
+
+@media (max-width: 900px) {
+    .content-and-gallery {
+        width: 95%; /* Ajuste la largeur de la section de contenu et de galerie pour les écrans moyens */
+    }
+    .content-gallery {
+        width: 100%; /* Occupe la largeur complète sur les écrans moyens */
+        max-width: none; /* Annule la largeur maximale pour les écrans moyens */
+    }
+    .gallery {
+        width: 100%; /* Occupe la largeur complète sur les écrans moyens */
+        max-width: none; /* Annule la largeur maximale pour les écrans moyens */
+        margin-top: 10px; /* Ajuste la marge supérieure pour les écrans moyens */
+    }
+    .footer {
+        margin-top: 200px; /* Ajuste la marge supérieure pour les petits écrans */
+    }
+    
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        padding: 15px 0; /* Ajuste le rembourrage de la barre de navigation pour les petits écrans */
+    }
+    .content-and-gallery {
+        width: 100%; /* Occupe la largeur complète sur les petits écrans */
+    }
+    .content-gallery {
+        max-width: none; /* Annule la largeur maximale pour les petits écrans */
+    }
+    .gallery {
+        max-width: none; /* Annule la largeur maximale pour les petits écrans */
+        margin-top: 10px; /* Ajuste la marge supérieure pour les petits écrans */
+    }
+    .photos {
+        grid-gap: 20px; /* Ajuste l'espacement des images pour les petits écrans */
+    }
+    .services {
+        width: 100%; /* Occupe la largeur complète sur les petits écrans */
+    }
+    .row {
+        flex-direction: column; /* Change la direction de la rangée pour les petits écrans */
+    }
+    .footer {
+        margin-top: 200px; /* Ajuste la marge supérieure pour les petits écrans */
+    }
+}
