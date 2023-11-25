@@ -28,9 +28,9 @@ public class MesCandidatureController {
 	@Autowired
     private MesCandidatureServiceImpl candidatureService;
     
-    @GetMapping("person/{idPerson}")
-    public List<String> getCandidatureReferenceByPersonId(@PathVariable Integer IdPerson) {
-    	return candidatureService.getCandidatureLinksByPersonId(IdPerson);
+    @GetMapping("/person/{idPerson}")
+    public List<String> getCandidatureReferenceByPersonId(@PathVariable Integer idPerson) {
+    	return candidatureService.getCandidatureLinksByPersonId(idPerson);
     }
     @GetMapping("/{idCandidature}")
     public Candidature getCandidatureDetailsById(@PathVariable Integer idCandidature) {

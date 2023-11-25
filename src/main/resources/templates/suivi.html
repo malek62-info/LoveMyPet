@@ -53,8 +53,11 @@
         
 
         <script>
-            function fetchData(animalId) {
-                let url  = `vaccination/animal/1`;
+            function fetchData() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const animalId = urlParams.get('id');
+
+                let url  = `vaccination/animal/`+ animalId;
 
                 fetch(url)
                     .then((response) => response.json())
@@ -121,7 +124,7 @@
             }
 
             window.onload = function () {
-                fetchData(1);
+                fetchData();
             };
         </script>
 
@@ -171,8 +174,10 @@
                     var formData = new FormData(this);
 
                     var urlParams = new URLSearchParams(window.location.search);
-                    var id = 2;
+                
+                    var id = urlParams.get('id');
                     formData.append('animal', id);
+                    console.log(id);
                     $.ajax({
                         url: "/vaccination/add",
                         type: "POST",
@@ -182,6 +187,7 @@
                         success: function (data) {
                             alert(data);
                             $("#vaccinForm")[0].reset();
+                            window.location.href = `/suivi?id=` + id;
                         },
                         error: function (xhr, status, error) {
                             alert("Erreur : ici  " + error);
@@ -203,7 +209,7 @@
         <script>
             $(document).ready(function () {
                 $.ajax({
-                    url: "/personne/profile",
+                    url: "/person/profile",
                     type: "GET",
                     success: function (data) {
                         var profileInfo = "ID : " + data.id + "<br>Nom : " + data.name;

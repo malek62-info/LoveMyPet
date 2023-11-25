@@ -45,5 +45,16 @@ public class Controller {
         return "login";
     }
 
+    @GetMapping("/HomePage")
+    public String homePage() {
+        return "home";
+    }
+	  
+    @GetMapping("/profile")
+    public String profile() {
+        return "profile";
+    }
+
+
 
 }
