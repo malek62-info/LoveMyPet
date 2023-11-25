@@ -7,7 +7,7 @@
 
 == Introduction
 
-Ce document décrit les fonctionnalités de l'application LoveMyPet.
+Ce document décrit Le projet LoveMyPet, ses motivations, ses concurrents et ses fonctionnalités.
 
 == Diagramme de classe
 
@@ -26,30 +26,50 @@ class Controleur {
 @enduml
 ----
 
-== Calcul
+== Motivations
 
-=== Page de calcul
+Les animaux de compagnie apportent la joie et le soutien émotionnel, cepandant, leur adoption peut être un processus très complexe et parfois décourageant, tant pour les futurs adoptants que pour les animaux en attente de foyer.
 
-La page de calcul est accessible à l'URL `/Calcule`. Cette page permet de faire des calculs.
+Faciliter l’adoption d’animaux de compagnie n’est pas seulement une question de confort, c’est une opportunité pour sauver des vies et créer des connexions durables entre les animaux et leurs propriétaires.
 
-=== Opération de calcul
+La motivation principale de notre projet est la volonté de simplifier le processus de l’adoption des animaux de compagnie et d'améliorer leur bien-être.
+On vise à créer une plateforme dont l’objectif est de connecter les adoptants potentiels avec les gens qui souhaitent donner leur animal de compagnie soit pour une durée définie (vacances) ou pour toujours.
 
-Pour effectuer un calcul, utilisez la méthode `calculate` du contrôleur. Cette méthode prend deux nombres, les additionne et affiche le résultat.
+Notre projet vise aussi à éduquer les futurs propriétaires sur les meilleures pratiques de soins afin de créer une communauté engagée et responsable pour contribuer à une adoption plus répandue et à des vies animales plus épanouies. 
 
-[source,java]
-----
-@Controller
-public class Controleur {
 
-  // ...
+== Concurrence
 
-  @PostMapping("/Calcule")
-  public String calculate(int num1, int num2, Model model) {
-    int result = num1 + num2;
-    model.addAttribute("result", num1 + " + " + num2 + " = " + result);
-    return "Calculer";
-  }
-}
-----
+Afin de faire une étude de la concurrence, on s’est posé les questions suivantes : 
 
-Vous devez spécifier le format de sortie du diagramme UML comme "svg" dans le nom du fichier `[plantuml, diagramme-de-classe.svg]`, puis inclure le code PlantUML entre les balises `@startuml` et `@enduml`. Une fois que vous avez fait ces modifications, générez à nouveau la documentation en utilisant le plugin Asciidoctor Maven, et le diagramme UML devrait être correctement rendu au format SVG dans votre documentation HTML.
+Qui sont nos concurrents ?
+Où sont-ils ?
+Que proposent-ils ?
+Quelles sont leurs forces et leurs faiblesses ?
+
+Après une recherche sur internet, on a vu qu' en France, il existe beaucoup de sites web permettant l’adoption des animaux que ce soit des sites des fondations (Fondation 30 Millions d’amis, Fondation Brigitte Bardot…)  ou des plateformes d’adoption comme Seconde Chance, La-Spa.fr, PAAW…
+
+On a constaté que sur ces sites web, le service proposé est de mettre en contact un futur adoptant avec une association de la protection des animaux ou avec un refuge, cela est totalement différent du service proposé par notre projet qui est de mettre en contact deux personnes, une qui souhaite donner son animal de compagnie soit de façon définitive ou pour une durée précise (vacance) et l’autre qui représente un futur propriétaire de cet animal.
+
+En revanche ce service peut être existant dans des sites comme LeBonCoin, sauf que dans ce cas, ce site n’est pas dédié seulement aux animaux et leur adoption ce qui n’est pas pratique pour les utilisateurs souhaitant profiter d’un processus d’adoption simple et efficace. 
+
+Ce qui diffère notre projet des concurrents cités, c’est le fait que c’est un site qui permet un suivi du bien être des animaux, cela inclut :
+Trouver un propriétaire pour l’animal,
+Assurer que le propriétaire prend soin de l’animal en lui envoyant des rappels pour nourrir l’animal, le laver, le vacciner…
+
+Donc au final, notre projet est une combinaison de fonctionnalités permettant une meilleure expérience utilisateur.
+
+== Fonctionnalités
+
+=== Fonctionnalité de Suivi des Vaccins - Carnet de Vaccination en Ligne
+
+La fonctionnalité de suivi des vaccins sur notre plateforme offre aux utilisateurs une gestion centralisée et accessible des vaccinations de leurs animaux de compagnie. Conçue comme un carnet de vaccination en ligne, cette fonctionnalité permet aux propriétaires d'animaux de suivre et de mettre à jour facilement les informations relatives aux vaccins administrés à leurs compagnons.
+
+Principales Caractéristiques :
+
+**Accès Simple :** Les utilisateurs peuvent accéder à la fonction de suivi des vaccins depuis la section "Mes Animaux" de leur compte utilisateur. Chaque animal répertorié dispose d'une fonction dédiée pour un accès rapide.
+
+**Vue d'Ensemble des Vaccinations :** L'interface offre une vue d'ensemble détaillée des vaccinations précédemment administrées à un animal particulier. Chaque entrée inclut le nom du vaccin ainsi que la date correspondante.
+
+**Ajout de Vaccinations :** Les propriétaires ont la possibilité d'ajouter de nouvelles vaccinations à tout moment. En fournissant les détails pertinents, tels que le nom du vaccin et la date d'administration, les utilisateurs peuvent maintenir un historique complet et à jour.
+
