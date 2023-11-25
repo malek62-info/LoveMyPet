@@ -44,4 +44,10 @@ public class AdoptionServiceImpl implements AdoptionService {
         }
         return adoptionDetails;
     }
+//Malek
+    @Override
+    public void saveAdoption(Adoption adoption) {
+        adoptionRepository.save(adoption);
+    }
+
 }

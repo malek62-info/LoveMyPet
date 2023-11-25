@@ -38,4 +38,9 @@ public class CandidatureServiceImpl implements CandidatureService {
         }
         return null;
     }
+
+    @Override
+    public void saveCandidature(Candidature candidature) {
+        candidatureRepository.save(candidature);
+    }
 }
