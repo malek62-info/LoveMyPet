@@ -67,9 +67,9 @@ La fonctionnalité de suivi des vaccins sur notre plateforme offre aux utilisate
 
 Principales Caractéristiques :
 
-**Accès** Simple : Les utilisateurs peuvent accéder à la fonction de suivi des vaccins depuis la section "Mes Animaux" de leur compte utilisateur. Chaque animal répertorié dispose d'une fonction dédiée pour un accès rapide.
+**Accès Simple :** Les utilisateurs peuvent accéder à la fonction de suivi des vaccins depuis la section "Mes Animaux" de leur compte utilisateur. Chaque animal répertorié dispose d'une fonction dédiée pour un accès rapide.
 
-Vue d'Ensemble des Vaccinations : L'interface offre une vue d'ensemble détaillée des vaccinations précédemment administrées à un animal particulier. Chaque entrée inclut le nom du vaccin ainsi que la date correspondante.
+**Vue d'Ensemble des Vaccinations :** L'interface offre une vue d'ensemble détaillée des vaccinations précédemment administrées à un animal particulier. Chaque entrée inclut le nom du vaccin ainsi que la date correspondante.
 
-Ajout de Vaccinations : Les propriétaires ont la possibilité d'ajouter de nouvelles vaccinations à tout moment. En fournissant les détails pertinents, tels que le nom du vaccin et la date d'administration, les utilisateurs peuvent maintenir un historique complet et à jour.
+**Ajout de Vaccinations :** Les propriétaires ont la possibilité d'ajouter de nouvelles vaccinations à tout moment. En fournissant les détails pertinents, tels que le nom du vaccin et la date d'administration, les utilisateurs peuvent maintenir un historique complet et à jour.
 
