@@ -26,107 +26,123 @@
 
 <script>
     async function fetchData() {
-      const url = '/adoption/adoptions';
+        const url = '/adoption/adoptions';
 
-      try {
-          const response = await fetch(url);
-          const data = await response.json();
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
 
-          if (data.length > 0) {
-              console.log(data);
-              displayAnimals(data);
-              document.getElementById('error-message').textContent = '';
-          } else {
-              document.getElementById('error-message').innerHTML =
-                  "<p class='message-error'>Aucun résultat. Pas d'animal à adopter !</p>";
-          }
-      } catch (error) {
-          console.error('Error fetching data:', error);
-      }
-  }
+            if (data.length > 0) {
+                console.log(data);
+                displayAnimals(data);
+                document.getElementById('error-message').textContent = '';
+            } else {
+                document.getElementById('error-message').innerHTML =
+                    "<p class='message-error'>Aucun résultat. Pas d'animal à adopter !</p>";
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
 
-  async function fetchAnimalDetails(animalURI) {
-      try {
-          const response = await fetch(animalURI);
-          return await response.json();
-      } catch (error) {
-          console.error(`Error fetching animal details for this URI ${animalURI}:`, error);
-          return null;
-      }
-  }
+    async function fetchAnimalDetails(animalURI) {
+        try {
+            const response = await fetch(animalURI);
+            return await response.json();
+        } catch (error) {
+            console.error(`Error fetching animal details for this URI ${animalURI}:`, error);
+            return null;
+        }
+    }
 
-  function getGenderText(gender) {
-      return gender === 1 ? '♂ Mâle' : '♀ Femelle';
-  }
+    function getGenderText(gender) {
+        return gender === 1 ? '♂ Mâle' : '♀ Femelle';
+    }
 
-  function addCandidature(adoptionId) {
-      var personId = 1; // Remplacez par l'ID réel de la personne
-      var currentDate = new Date().toISOString();
+    function addCandidature(adoptionId) {
+        var personId = 1; // Remplacez par l'ID réel de la personne
+        var currentDate = new Date().toISOString();
 
-      var formData = new FormData();
-      formData.append('idPerson', personId);
-      formData.append('idAdoption', adoptionId);
-      formData.append('dateCandidature', currentDate);
+        var formData = new FormData();
+        formData.append('idPerson', personId);
+        formData.append('idAdoption', adoptionId);
+        formData.append('dateCandidature', currentDate);
 
-      fetch("/person/addcandidature", {
-          method: "POST",
-          body: formData
-      })
-      .then(response => response.text())
-      .then(data => {
-          alert("Enregistrement réussi : " + data);
-      })
-      .catch(error => {
-          alert("Erreur lors de l'enregistrement : " + error);
-      });
-  }
-function adoptAnimal(animalId, adoptionId) {
-    addCandidature(adoptionId); // Appel de la fonction addCandidature avec l'ID d'adoption
-    // Ajoutez ici la logique pour traiter l'adoption
-}
+        fetch("/person/addcandidature", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                alert("Enregistrement réussi : " + data);
+            })
+            .catch(error => {
+                alert("Erreur lors de l'enregistrement : " + error);
+            });
+    }
+    function adoptAnimal(animalId, adoptionId) {
+        addCandidature(adoptionId); // Appel de la fonction addCandidature avec l'ID d'adoption
+        // Ajoutez ici la logique pour traiter l'adoption
+    }
 
-  async function displayAnimals(animals) {
-      const animalListDiv = document.getElementById('animalContainer');
-      let animalList = '';
+    async function displayAnimals(animals) {
+        const animalListDiv = document.getElementById('animalContainer');
+        let animalList = '';
 
-      for (const animalRef of animals) {
-          console.log(animalRef);
+        for (const animalRef of animals) {
+            console.log(animalRef);
 
-          // Fetch details for each animal
-          const animalDetails = await fetchAnimalDetails(`${animalRef}`);
+            // Fetch details for each animal
+            const animalDetails = await fetchAnimalDetails(`${animalRef}`);
 
-          if (animalDetails) {
-              animalList += `
-                  <div class="animal-item">
-                      <div class="animal-img">
-                          <img src="/images/animals/${animalDetails.animal.imageUrl}" alt="animal image">
-                          <div>
-                              <button type="button" class="add-btn"
-                                  onclick="adoptAnimal(${animalDetails.animal.id}, ${animalDetails.adoptionId})">
-                                  Adopter 🧡
-                              </button>
-                          </div>
-                      </div>
-                      <div class="animal-content">
-                          <a href="#" class="animal-title">🔥 ${animalDetails.animal.name} </a>
-                          <p class="race"><span>ℹ️ ${animalDetails.animal.race}</span></p>
-                          <div>
-                              <span class="gender">${getGenderText(animalDetails.animal.gender)}</span>
-                          </div>
+            if (animalDetails) {
+                animalList += `
+              <div class="animal-item">
+                  <div class="animal-img">
+                      <img src="/images/animals/${animalDetails.animal.imageUrl}" alt="animal image">
+                      <div>
+                          <button type="button" class="add-btn"
+                              onclick="adoptAnimal(${animalDetails.animal.id}, ${animalDetails.adoptionId})">
+                              Adopter 🧡
+                          </button>
                       </div>
                   </div>
-              `;
-          }
-      }
+                  <div class="animal-content">
+                      <a href="#" class="animal-title">🔥 ${animalDetails.animal.name} </a>
+                      <p class="race"><span>ℹ️ ${animalDetails.animal.race}</span></p>
+                      <div>
+                          <span class="gender">${getGenderText(animalDetails.animal.gender)}</span>
+                      </div>
+                  </div>
+              </div>
+          `;
+            }
+        }
 
-      animalListDiv.innerHTML = animalList;
-  }
+        animalListDiv.innerHTML = animalList;
+    }
 
-  // Cette fonction sera appelée lorsque la page se chargera
-  window.onload = function () {
-      fetchData();
-  };
+    // Cette fonction sera appelée lorsque la page se chargera
+    window.onload = function () {
+        fetchData();
+    };
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 
 </html>

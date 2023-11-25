@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Adoption</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/adoption_afficher_animal.css">
     <style>
         /* Styles personnalisés pour la modal */
@@ -22,7 +23,6 @@
         }
 
         /* Ajoutez d'autres styles personnalisés au besoin */
-
     </style>
 </head>
 
@@ -35,7 +35,8 @@
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">Formulaire d'adoption</h4><br>
-                <button type="button" class="close" data-dismiss="modal" onclick="closeAdoptionPopup">&times;</button>
+                <button type="button" class="close" data-dismiss="modal"
+                        onclick="closeAdoptionPopup">&times;</button>
             </div>
 
             <!-- Modal Body -->
@@ -52,7 +53,8 @@
                     </div>
 
                     <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="finalAdoption" onchange="toggleEndDate()">
+                        <input type="checkbox" class="form-check-input" id="finalAdoption"
+                               onchange="toggleEndDate()">
                         <label class="form-check-label" for="finalAdoption">Adoption temporaire</label>
                     </div>
 
@@ -66,8 +68,10 @@
 
             <!-- Modal Footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeAdoptionPopup">Fermer</button>
-                <button type="button" class="btn btn-primary" onclick="submitForm()">Enregistrer</button>            </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        onclick="closeAdoptionPopup">Fermer</button>
+                <button type="button" class="btn btn-primary" onclick="submitForm()">Enregistrer</button>
+            </div>
 
         </div>
     </div>
@@ -89,13 +93,20 @@
 </div>
 
 <!-- Inclusion de jQuery -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+        crossorigin="anonymous"></script>
 
 <!-- Inclusion de Bootstrap JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 
 <script>
+
     function submitForm() {
         var startDate = document.getElementById("startDate").value;
         var isFinalAdoption = document.getElementById("finalAdoption").checked;
@@ -143,90 +154,95 @@
 </script>
 
 <script>
-    function fetchData ( userId )
-    {
+
+
+
+
+    function fetchData(userId) {
         let url = `animal/person/1`;
 
-        fetch( url )
-            .then( ( response ) => response.json() )
-            .then( ( data ) =>
-            {
-                if ( data.length > 0 ) {
-                    console.log( data )
-                    displayAnimals( data );
-                    document.getElementById( "error-message" ).textContent = "";
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.length > 0) {
+                    console.log(data)
+                    displayAnimals(data);
+                    document.getElementById("error-message").textContent = "";
                 } else {
-                    document.getElementById( "error-message" ).innerHTML = "<p class='message-error'>Aucun résultat Vous n'avez aucun animal</p>";
+                    document.getElementById("error-message").innerHTML = "<p class='message-error'>Aucun résultat Vous n'avez aucun animal</p>";
                 }
-            } )
-            .catch( ( error ) =>
-            {
-                console.error( "Error fetching data:", error );
-            } );
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+            });
     }
 
-    function fetchAnimalDetails ( animalURI )
-    {
 
 
-        console.log( animalURI )
+    function fetchAnimalDetails(animalURI) {
 
-        return fetch( animalURI )
-            .then( ( response ) => response.json()
- )
-            .catch( ( error ) =>
-            {
-                console.error( `Error fetching animal details for this URI ${animalURI}:`, error );
-            } );
+
+        console.log(animalURI)
+
+        return fetch(animalURI)
+            .then((response) => response.json())
+            .catch((error) => {
+                console.error(`Error fetching animal details for this URI ${animalURI}:`, error);
+
+            });
     }
 
-    async function displayAnimals ( animals )
-    {
-        if ( animals.length > 0 ) {
+    async function displayAnimals(animals) {
+        if (animals.length > 0) {
             let animalList = ``;
 
-            for ( let i = 0; i < animals.length ; i++ ) {
-                const animalRef = animals[ i ];
-                console.log( animalRef );
+
+
+            for (let i = 0; i < animals.length; i++) {
+
+                const animalRef = animals[i];
+                console.log(animalRef);
 
                 // Fetch details for each animal
-                const animalDetails = await fetchAnimalDetails( animalRef );
+                const animalDetails = await fetchAnimalDetails(animalRef);
 
-                if ( animalDetails ) {
+                if (animalDetails) {
                     animalList += `
-            <div class="animal-item">
-                <div class="animal-img">
-                    <img src="/images/animals/${ animalDetails.imageUrl }" alt="animal image">
-                    <div>
-                        <button type="button" class="add-btn" onclick="window.location.href = 'candidature?id=${ animalDetails.id }'">Candidatures &#x1F600;</button>
-                        <button type="button" class="add-btn" onclick="window.location.href = 'animal/?id=${ animalDetails.id }'">Vaccinations 💉</button>
-                        <button type="button" class="add-btn" data-toggle="modal" data-target="#adoptionModal"  onclick="alert(${ animalDetails.id })">Donner 🙏</button>
-                    </div>
-                </div>
-                <div class="animal-content">
-                    <a href="#" class="animal-title">🔥 ${ animalDetails.name } </a>
-                    <p class="race"><span>ℹ️ ${ animalDetails.race }</span></p>
-                    <div>
-                        <span class="gender">${ animalDetails.gender === 1 ? '♂ Mâle' : '♀ Femelle' }</span>
-                    </div>
+        <div class="animal-item">
+            <div class="animal-img">
+                <img src="/images/animals/${animalDetails.imageUrl}" alt="animal image">
+                <div>
+                    <button type="button" class="add-btn" onclick="window.location.href = 'candidature?id=${animalDetails.id}'">Candidatures &#x1F600;</button>
+                    <button type="button" class="add-btn" onclick="window.location.href = 'animal/?id=${animalDetails.id}'">Vaccinations 💉</button>
+
+                    <button type="button" class="add-btn" data-toggle="modal" data-target="#adoptionModal"  onclick="alert(${animalDetails.id})">Donner 🙏</button>
+
                 </div>
             </div>
-        `;
+            <div class="animal-content">
+                <a href="#" class="animal-title">🔥 ${animalDetails.name} </a>
+                <p class="race"><span>ℹ️ ${animalDetails.race}</span></p>
+                <div>
+                    <span class="gender">${animalDetails.gender === 1 ? '♂ Mâle' : '♀ Femelle'}</span>
+                </div>
+            </div>
+        </div>
+    `;
                 }
             }
 
 
-            const animalListDiv = document.querySelector( ".animal-container" );
+            const animalListDiv = document.querySelector(".animal-container");
             animalListDiv.innerHTML = animalList;
         }
     }
+
     //envoyé l'i a la page donné et a la page
 
     // Cette fonction sera appelée lorsque la page se chargera
-    window.onload = function ()
-    {
+    window.onload = function () {
         // Vous pouvez ajuster l'ID de l'utilisateur ici (par exemple, 1)
-        fetchData( 1 );
+        fetchData(1);
     };
 
 </script>

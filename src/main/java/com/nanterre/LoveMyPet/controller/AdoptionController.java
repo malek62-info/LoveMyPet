@@ -6,6 +6,8 @@ import com.nanterre.LoveMyPet.service.AnimalService;
 import com.nanterre.LoveMyPet.service.AnimalServiceImpl;
 import com.nanterre.LoveMyPet.service.AdoptionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -32,10 +34,15 @@ public class AdoptionController {
     }
 
 
-    @GetMapping("/{idAdoption}")
+   @GetMapping("/{idAdoption}")
     public Map<String, Object> getAdoptionDetails(@PathVariable Integer idAdoption) {
         return adoptionService.getAdoptionDetails(idAdoption);
     }
+
+
+
+
+
 
 
 
