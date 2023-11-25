@@ -38,7 +38,7 @@ On vise à créer une plateforme dont l’objectif est de connecter les adoptant
 Notre projet vise aussi à éduquer les futurs propriétaires sur les meilleures pratiques de soins afin de créer une communauté engagée et responsable pour contribuer à une adoption plus répandue et à des vies animales plus épanouies. 
 
 
-== Opération de calcul
+== Concurrence
 
 Afin de faire une étude de la concurrence, on s’est posé les questions suivantes : 
 
