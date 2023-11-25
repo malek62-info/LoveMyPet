@@ -39,13 +39,7 @@ public class VaccinationController {
     public Vaccination getVaccinationDetailsById(@PathVariable Integer idVaccination) {
         return vaccinationService.getVaccinationDetailsById(idVaccination);
     }
-    /* 
-    @GetMapping("animal/{idAnimal}/getsuivi")
-    public String getVaccinations(@PathVariable Integer idAnimal, Model model) {
-    	List<String> linksToVaccinations = vaccinationService.getVaccinationLinksByAnimalId(idAnimal);
-    	model.addAttribute("vaccinations", linksToVaccinations);
-    	return "suivi";
-    }*/
+    
     @PostMapping("/add")
     public String add( Vaccination vaccination,
     		@RequestParam(name = "animal") Integer animalId) {
