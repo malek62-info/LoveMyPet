@@ -10,7 +10,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/animal/{animalId}/candidature")
 public class CandidatureController {
-
     @Autowired
     private CandidatureServiceImpl candidatureService;
 
