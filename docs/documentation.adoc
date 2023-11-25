@@ -72,6 +72,4 @@ Principales Caractéristiques :
     Vue d'Ensemble des Vaccinations : L'interface offre une vue d'ensemble détaillée des vaccinations précédemment administrées à un animal particulier. Chaque entrée inclut le nom du vaccin ainsi que la date correspondante.
 
     Ajout de Vaccinations : Les propriétaires ont la possibilité d'ajouter de nouvelles vaccinations à tout moment. En fournissant les détails pertinents, tels que le nom du vaccin et la date d'administration, les utilisateurs peuvent maintenir un historique complet et à jour.
-----
 
-Vous devez spécifier le format de sortie du diagramme UML comme "svg" dans le nom du fichier `[plantuml, diagramme-de-classe.svg]`, puis inclure le code PlantUML entre les balises `@startuml` et `@enduml`. Une fois que vous avez fait ces modifications, générez à nouveau la documentation en utilisant le plugin Asciidoctor Maven, et le diagramme UML devrait être correctement rendu au format SVG dans votre documentation HTML.
