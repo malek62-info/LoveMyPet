@@ -221,21 +221,6 @@ Dispose d’un menu contextuel
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $.ajax({
-            url: "/personne/profile",
-            type: "GET",
-            success: function (data) {
-                var profileInfo = "ID : " + data.id + "<br>Nom : " + data.name;
-                $("#profileInfo").html(profileInfo);
-
-                $("#userName").text(data.name);
-            },
-            error: function (xhr, status, error) {
-            }
-        });
-    });
-
 
 $(document).ready(function () {
 $("#loginForm").submit(function (event) {

@@ -1,30 +1,39 @@
 package com.nanterre.LoveMyPet.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.nanterre.LoveMyPet.model.Candidature;
+import com.nanterre.LoveMyPet.model.Person;
+import com.nanterre.LoveMyPet.repository.PersonRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
-import com.nanterre.LoveMyPet.model.Person;
-import com.nanterre.LoveMyPet.repository.PersonRepository;
 
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonServiceImpl implements PersonService {
 
     @PersistenceContext
     private EntityManager entityManager;
+
     @Autowired
     private PersonRepository personRepository;
 
+    @Override
+    public Person getPersonDetailsById(Integer id) {
+        Optional<Person> optionalPerson = personRepository.findById(id);
+        return optionalPerson.orElse(null);
+    }
+
+
+    
     @Override
     public Person savePerson(Person person) {
         return personRepository.save(person);
     }
 
-  
     
     @Override
     public Person findPersonByEmail(String email) {
@@ -39,6 +48,7 @@ public class PersonServiceImpl implements PersonService {
             return resultList.get(0);
         }
     }
+    
 
-	
+
 }

@@ -3,6 +3,7 @@ package com.nanterre.LoveMyPet.model;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -28,20 +29,19 @@ public class Animal {
     @Column(name = "weight")
     private Double weight;
 
-    @Column(name = "imageurl")
-    private String imageUrl;
 
-    @Column(name = "adopted", columnDefinition = "tinyint(1) default 1")
-    private Boolean adopted;
-
-    @Column(name = "gender")
-    private Integer gender; // Ajout du champ "gender" comme un entier (1 pour mâle, 2 pour femelle, par exemple)
+    @Column(name = "gender") /*1 M , et 2 F*/
+    private Integer gender;
 
     @Column(name = "date_of_birth")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateOfBirth;
 
-    private Date dateOfBirth; // Ajout de la date de naissance
+
+
+    @Column(name = "imageurl")
+    private String imageUrl;
 
     @ManyToOne
     @JoinColumn(name = "idperson", referencedColumnName = "idperson", insertable = false, updatable = false)
@@ -97,30 +97,6 @@ public class Animal {
         this.weight = weight;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Boolean getAdopted() {
-        return adopted;
-    }
-
-    public void setAdopted(Boolean adopted) {
-        this.adopted = adopted;
-    }
-
-    public Integer getGender() {
-        return gender;
-    }
-
-    public void setGender(Integer gender) {
-        this.gender = gender;
-    }
-
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -129,6 +105,29 @@ public class Animal {
         this.dateOfBirth = dateOfBirth;
     }
 
+
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+
+
+    // Ajoutez le getter et le setter pour le genre
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+
+
     public Person getAdoptedByPerson() {
         return adoptedByPerson;
     }
@@ -136,4 +135,5 @@ public class Animal {
     public void setAdoptedByPerson(Person adoptedByPerson) {
         this.adoptedByPerson = adoptedByPerson;
     }
+
 }

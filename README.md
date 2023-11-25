@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # LoveMyPet
 Projet Devops
 
@@ -61,3 +62,16 @@ After successfully installing LoveMyPet, launch the application:
 
 2. **In your browser, go to:**
    - Open your browser and visit [http://localhost:8081/Calcule](http://localhost:8081/Calcule) to display our homepage.
+=======
+# LoveMyPet
+Projet Devops
+
+[![Code Quality](https://img.shields.io/badge/Code%20Quality-A-brightgreen)](https://app.codacy.com/gh/malek62-info/LoveMyPet/dashboard)
+[![Java CI with Maven](https://github.com/malek62-info/LoveMyPet/actions/workflows/maven.yml/badge.svg)](https://github.com/malek62-info/LoveMyPet/actions/workflows/maven.yml)
+[![codecov](https://codecov.io/gh/malek62-info/LoveMyPet/graph/badge.svg?token=ZBR07LXSRZ)](https://codecov.io/gh/malek62-info/LoveMyPet)
+[![Dernière Release](https://img.shields.io/github/v/release/malek62-info/LoveMyPet?style=flat-square)](https://github.com/malek62-info/LoveMyPet/releases/latest)
+[![Release](https://img.shields.io/github/v/release/malek62-info/LoveMyPet?label=Release&style=flat-square)](https://github.com/malek62-info/LoveMyPet/releases/tag/V.0.0)
+
+
+
+>>>>>>> SearchAnimals

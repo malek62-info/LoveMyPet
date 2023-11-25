@@ -1,11 +1,8 @@
 package com.nanterre.LoveMyPet.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.nanterre.LoveMyPet.model.Person;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public interface PersonRepository extends JpaRepository<Person,Integer> {
-	
+public interface PersonRepository extends JpaRepository<Person, Integer> {
+    // Ajoutez ici des méthodes personnalisées si nécessaire
 }
