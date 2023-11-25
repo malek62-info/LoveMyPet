@@ -84,6 +84,8 @@
             </div>
 
             <div class="animal">
+                <!-- Ajouter un champ caché pour l'ID de la personne -->
+
                 <div class="animal-container">
                     <!-- Liste des animaux ici -->
                 </div>
@@ -107,8 +109,18 @@
 
     <script>
 
+        function handleDonationClick ( animalId )
+        {
+            // Définir l'ID de l'animal dans le champ d'input caché
+            document.getElementById( 'animalId' ).value = animalId;
+        }
+
+
+
+
         function submitForm ()
         {
+            var animalId = document.getElementById( 'animalId' ).value;
             var startDate = document.getElementById( "startDate" ).value;
             var isFinalAdoption = document.getElementById( "finalAdoption" ).checked;
             var endDate = isFinalAdoption ? document.getElementById( "endDate" ).value : "0000-01-01";
@@ -118,15 +130,11 @@
                 return;
             }
 
-            // Ajoutez l'ID de l'animal ici
-            var animalId = 2; // Remplacez par l'ID réel de l'animal
-
-
             var adoptionData = {
                 startDate: startDate,
                 endDate: endDate,
                 isFinalAdoption: isFinalAdoption,
-                idAnimal: animalId  // Ajoutez l'ID de l'animal ici
+                idAnimal: animalId
             };
 
             $.ajax( {
@@ -149,6 +157,7 @@
             } );
         }
 
+
         function toggleEndDate ()
         {
             var endDateInput = document.getElementById( "endDate" );
@@ -158,6 +167,17 @@
         }
     </script>
 
+
+
+
+
+
+
+
+
+
+
+
     <script>
 
 
@@ -165,26 +185,46 @@
 
         function fetchData ( userId )
         {
-            let url = `animal/person/1`;
+            var personId; // Déclarer la variable à l'extérieur de la fonction AJAX
 
-            fetch( url )
-                .then( ( response ) => response.json() )
-                .then( ( data ) =>
+            $.ajax( {
+                url: "/person/profile",
+                type: "GET",
+                success: function ( data )
                 {
-                    if ( data.length > 0 ) {
-                        console.log( data )
-                        displayAnimals( data );
-                        document.getElementById( "error-message" ).textContent = "";
-                    } else {
-                        document.getElementById( "error-message" ).innerHTML = "<p class='message-error'>Aucun résultat Vous n'avez aucun animal</p>";
-                    }
-                } )
-                .catch( ( error ) =>
+                    // Mettre à jour la valeur de l'ID dans le champ caché
+                    $( "#idPerson" ).val( data.id );
+
+                    // Affecter la valeur à la variable personId
+                    personId = data.id;
+                    console.log( personId );
+
+                    // Maintenant, vous pouvez utiliser personId pour construire l'URL
+                    let url = "/animal/person/" + personId;
+
+                    fetch( url )
+                        .then( ( response ) => response.json() )
+                        .then( ( data ) =>
+                        {
+                            if ( data.length > 0 ) {
+                                console.log( data );
+                                displayAnimals( data );
+                                document.getElementById( "error-message" ).textContent = "";
+                            } else {
+                                document.getElementById( "error-message" ).innerHTML = "<p class='message-error'>Aucun résultat. Vous n'avez aucun animal</p>";
+                            }
+                        } )
+                        .catch( ( error ) =>
+                        {
+                            console.error( "Error fetching data:", error );
+                        } );
+                },
+                error: function ( xhr, status, error )
                 {
-                    console.error( "Error fetching data:", error );
-                } );
+                    // Gérer les erreurs
+                }
+            } );
         }
-
 
 
         function fetchAnimalDetails ( animalURI )
@@ -225,8 +265,10 @@
                             <div>
                                 <button type="button" class="add-btn" onclick="window.location.href = 'candidature?id=${ animalDetails.id }'">Candidatures &#x1F600;</button>
                                 <button type="button" class="add-btn" onclick="window.location.href = 'animal/?id=${ animalDetails.id }'">Vaccinations 💉</button>
+                                 
+                                <button type="button" class="add-btn" data-toggle="modal" data-target="#adoptionModal" onclick="handleDonationClick(${ animalDetails.id })">Donner 🙏</button>
 
-                                <button type="button" class="add-btn" data-toggle="modal" data-target="#adoptionModal"  onclick="${ animalDetails.id }">Donner 🙏</button>
+
 
                             </div>
                         </div>
@@ -254,7 +296,7 @@
         window.onload = function ()
         {
             // Vous pouvez ajuster l'ID de l'utilisateur ici (par exemple, 1)
-            fetchData( 1 );
+            fetchData();
         };
 
     </script>

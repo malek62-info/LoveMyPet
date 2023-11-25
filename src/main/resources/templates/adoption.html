@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adoption</title>
     <link rel="stylesheet" href="css/adoption_afficher_animal.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 </head>
 
 <body>
@@ -64,30 +66,51 @@
 
         function addCandidature ( adoptionId )
         {
-            var personId = 1; // Remplacez par l'ID réel de la personne
-            var currentDate = new Date().toISOString();
-
-            var formData = new FormData();
-            formData.append( 'idPerson', personId );
-            formData.append( 'idAdoption', adoptionId );
-            formData.append( 'dateCandidature', currentDate );
-
-            fetch( "/person/addcandidature", {
-                method: "POST",
-                body: formData
-            } )
-                .then( response => response.text() )
-                .then( data =>
+            // Récupérer l'ID de la personne connectée via la méthode /profile
+            $.ajax( {
+                url: "/person/profile",
+                type: "GET",
+                success: function ( data )
                 {
-                    alert( "Enregistrement réussi : " + data );
-                } )
-                .catch( error =>
+                    // Mettre à jour la valeur de l'ID dans la variable personId
+                    var personId = data.id;
+                     console.log(personId)
+                    // Utiliser personId dans la suite de votre code
+                    var currentDate = new Date().toISOString();
+
+                    var formData = new FormData();
+                    formData.append( 'idPerson', personId );
+                    formData.append( 'idAdoption', adoptionId );
+                    formData.append( 'dateCandidature', currentDate );
+
+                    fetch( "/person/addcandidature", {
+                        method: "POST",
+                        body: formData
+                    } )
+                        .then( response => response.text() )
+                        .then( data =>
+                        {
+                            alert( "Enregistrement réussi : " + data );
+                        } )
+                        .catch( error =>
+                        {
+                            alert( "Erreur lors de l'enregistrement : " + error );
+                        } );
+                },
+                error: function ( xhr, status, error )
                 {
-                    alert( "Erreur lors de l'enregistrement : " + error );
-                } );
+                    // Gérer les erreurs lors de la récupération du profil
+                    console.error( "Erreur lors de la récupération du profil : " + error );
+                }
+            } );
         }
+
+
         function adoptAnimal ( animalId, adoptionId )
-        {
+        { 
+
+            console.log(animalId )
+            console.log(adoptionId)
             addCandidature( adoptionId ); // Appel de la fonction addCandidature avec l'ID d'adoption
             // Ajoutez ici la logique pour traiter l'adoption
         }
