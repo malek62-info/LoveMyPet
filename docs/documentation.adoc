@@ -7,7 +7,7 @@
 
 == Introduction
 
-Ce document décrit les fonctionnalités de l'application LoveMyPet.
+Ce document décrit Le projet LoveMyPet, ses motivations, ses concurrents et ses fonctionnalités.
 
 == Diagramme de classe
 
@@ -26,7 +26,7 @@ class Controleur {
 @enduml
 ----
 
-== Calcul
+== Motivations
 
 === Page de calcul
 
