@@ -38,24 +38,28 @@ On vise à créer une plateforme dont l’objectif est de connecter les adoptant
 Notre projet vise aussi à éduquer les futurs propriétaires sur les meilleures pratiques de soins afin de créer une communauté engagée et responsable pour contribuer à une adoption plus répandue et à des vies animales plus épanouies. 
 
 
-=== Opération de calcul
+== Opération de calcul
 
-Pour effectuer un calcul, utilisez la méthode `calculate` du contrôleur. Cette méthode prend deux nombres, les additionne et affiche le résultat.
+Afin de faire une étude de la concurrence, on s’est posé les questions suivantes : 
 
-[source,java]
-----
-@Controller
-public class Controleur {
+Qui sont nos concurrents ?
+Où sont-ils ?
+Que proposent-ils ?
+Quelles sont leurs forces et leurs faiblesses ?
 
-  // ...
+Après une recherche sur internet, on a vu qu' en France, il existe beaucoup de sites web permettant l’adoption des animaux que ce soit des sites des fondations (Fondation 30 Millions d’amis, Fondation Brigitte Bardot…)  ou des plateformes d’adoption comme Seconde Chance, La-Spa.fr, PAAW…
 
-  @PostMapping("/Calcule")
-  public String calculate(int num1, int num2, Model model) {
-    int result = num1 + num2;
-    model.addAttribute("result", num1 + " + " + num2 + " = " + result);
-    return "Calculer";
-  }
-}
+On a constaté que sur ces sites web, le service proposé est de mettre en contact un futur adoptant avec une association de la protection des animaux ou avec un refuge, cela est totalement différent du service proposé par notre projet qui est de mettre en contact deux personnes, une qui souhaite donner son animal de compagnie soit de façon définitive ou pour une durée précise (vacance) et l’autre qui représente un futur propriétaire de cet animal.
+
+En revanche ce service peut être existant dans des sites comme LeBonCoin, sauf que dans ce cas, ce site n’est pas dédié seulement aux animaux et leur adoption ce qui n’est pas pratique pour les utilisateurs souhaitant profiter d’un processus d’adoption simple et efficace. 
+
+Ce qui diffère notre projet des concurrents cités, c’est le fait que c’est un site qui permet un suivi du bien être des animaux, cela inclut :
+Trouver un propriétaire pour l’animal,
+Assurer que le propriétaire prend soin de l’animal en lui envoyant des rappels pour nourrir l’animal, le laver, le vacciner…
+
+Donc au final, notre projet est une combinaison de fonctionnalités permettant une meilleure expérience utilisateur.
+
+
 ----
 
 Vous devez spécifier le format de sortie du diagramme UML comme "svg" dans le nom du fichier `[plantuml, diagramme-de-classe.svg]`, puis inclure le code PlantUML entre les balises `@startuml` et `@enduml`. Une fois que vous avez fait ces modifications, générez à nouveau la documentation en utilisant le plugin Asciidoctor Maven, et le diagramme UML devrait être correctement rendu au format SVG dans votre documentation HTML.
