@@ -73,3 +73,7 @@ Principales Caractéristiques :
 
 **Ajout de Vaccinations :** Les propriétaires ont la possibilité d'ajouter de nouvelles vaccinations à tout moment. En fournissant les détails pertinents, tels que le nom du vaccin et la date d'administration, les utilisateurs peuvent maintenir un historique complet et à jour.
 
+== Base de données
+
+Le diagramme entité-relation ci-dessous offre une représentation visuelle des relations essentielles. En mettant en lumière les liens entre les différentes entités.
+
