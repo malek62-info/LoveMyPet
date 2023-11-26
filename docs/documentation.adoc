@@ -5,32 +5,63 @@
 :toc: left
 :toc-title: Table des matières
 
-== Introduction
-
-Ce document décrit Le projet LoveMyPet, ses motivations, ses concurrents et ses fonctionnalités.
-
-== Diagramme de classe
-
-[plantuml, diagramme-de-classe.svg]
-----
-@startuml
-class Controleur {
-  +showpage()
-  +calculate(int num1, int num2, Model model)
-}
 
 
+== Partie 1 : Synthèse 
+
+=== titre du projet 
+
+Le titre qu'on a choisi pour notre projet est **LoveMyPet**.
+
+=== Abréviation 
+
+L'abréviation  qu'on a choisi pour notre projet est **LMP**.
+
+=== Logo 
+Pour le logo du projet, on a crée le logo suivant :
+
+image::logo.png[logo de lovemypet]
+
+==== Membres de l'équipe
+
+Le projet LoveMyPet a été réalisé par les membres suivants : 
+
+    Imane Errahmani
+    
+    Adenle Sadikou
+
+    Malek Messaoudi
 
 
+=== Présentation
 
-@enduml
-----
+==== Contexte 
 
-== Motivations
+Les animaux de compagnie apportent la joie et le soutien émotionnel, cependant, leur adoption peut être un processus très complexe et parfois décourageant, tant pour les futurs adoptants que pour les animaux en attente de foyer. Faciliter l’adoption d’animaux de compagnie n’est pas seulement une question de confort, c’est une opportunité pour sauver des vies et créer des connexions durables entre les animaux et leurs propriétaires.
 
-Les animaux de compagnie apportent la joie et le soutien émotionnel, cepandant, leur adoption peut être un processus très complexe et parfois décourageant, tant pour les futurs adoptants que pour les animaux en attente de foyer.
+==== Problématique 
 
-Faciliter l’adoption d’animaux de compagnie n’est pas seulement une question de confort, c’est une opportunité pour sauver des vies et créer des connexions durables entre les animaux et leurs propriétaires.
+Le processus d'adoption des animaux de compagnie présente actuellement des défis significatifs tant pour les donneurs que pour les adoptants. Les principales problématiques identifiées sont les suivantes :
+
+**Complexité du Processus**: Les plateformes existantes se concentrent principalement sur la mise en relation avec des refuges ou des associations, rendant le processus d'adoption complexe et bureaucratique.
+
+**Suivi du Bien-Être des Animaux**: Après l'adoption, il existe un manque de mécanismes efficaces pour assurer le suivi du bien-être des animaux, ce qui peut entraîner une négligence involontaire.
+
+**Manque de Flexibilité**: Les plateformes actuelles ne permettent pas aux donneurs de spécifier la durée de disponibilité de l'animal, limitant ainsi les options d'adoption temporaire.
+
+
+==== Gain attendu 
+
+En abordant ces problématiques, notre projet, LoveMyPet, vise à apporter les améliorations suivantes :
+
+**Simplification du Processus d'Adoption**: Offrir une plateforme conviviale où les donneurs peuvent directement mettre en contact des personnes désireuses d'adopter, simplifiant ainsi le processus.
+
+**Suivi Continu du Bien-Être**: Introduire un système de suivi du bien-être des animaux, incluant des rappels pour les vaccinations et d'autres aspects cruciaux, pour garantir une vie épanouissante après l'adoption.
+
+**Flexibilité dans l'Adoption**: Permettre aux donneurs de spécifier la durée de disponibilité de l'animal, offrant ainsi des options d'adoption temporaire et permanente, selon les préférences des utilisateurs.
+
+
+==== Motivation de l'équipe par rapport au sujet
 
 La motivation principale de notre projet est la volonté de simplifier le processus de l’adoption des animaux de compagnie et d'améliorer leur bien-être.
 On vise à créer une plateforme dont l’objectif est de connecter les adoptants potentiels avec les gens qui souhaitent donner leur animal de compagnie soit pour une durée définie (vacances) ou pour toujours.
@@ -38,7 +69,7 @@ On vise à créer une plateforme dont l’objectif est de connecter les adoptant
 Notre projet vise aussi à éduquer les futurs propriétaires sur les meilleures pratiques de soins afin de créer une communauté engagée et responsable pour contribuer à une adoption plus répandue et à des vies animales plus épanouies. 
 
 
-== Concurrence
+==== Concurrence
 
 Afin de faire une étude de la concurrence, on s’est posé les questions suivantes : 
 
@@ -59,17 +90,559 @@ Assurer que le propriétaire prend soin de l’animal en lui envoyant des rappel
 
 Donc au final, notre projet est une combinaison de fonctionnalités permettant une meilleure expérience utilisateur.
 
-== Fonctionnalités
+==== Personas 
 
-=== Fonctionnalité de Suivi des Vaccins - Carnet de Vaccination en Ligne
+**Donneur d'Animal - Sophie**:
+
+image::sophie.jpg[persona 1]
+
+
+    Contexte: Sophie, 35 ans, a un chien nommé Max qu'elle aime profondément. Cependant, en raison de changements de vie, elle doit trouver un nouveau foyer pour Max.
+    Fonctionnalités Clés:
+        Enregistrement facile des informations de Max sur la plateforme.
+        Possibilité de donner Max pour une durée à spécifier (temporaire ou permanente).
+
+**Futur Adoptant - Antoine**:
+
+image::antoine.jpg[persona 2]
+
+    Contexte: Antoine, 28 ans, cherche un compagnon animal. Il aimerait adopter un chien pour lui tenir compagnie.
+    Fonctionnalités Clés:
+        Recherche simplifiée d'animaux disponibles à l'adoption.
+        Faire une candidature  pour exprimer son intérêt à adopter.
+        Accès à des informations complètes sur les vaccinations et le suivi du bien-être de l'animal.
+
+
+==== Prévisions Marketing
+
+**Réseaux Sociaux**:
+
+Stratégie: Campagnes engageantes sur des plateformes populaires telles que Facebook, Instagram et Twitter.
+Contenu: Témoignages d'adoptions réussies, conseils de soins, et mises en avant des fonctionnalités uniques de LoveMyPet.
+Impact Attendu: Augmentation de la notoriété de la plateforme, engagement de la communauté, partages sociaux.
+
+**Site Web**:
+
+Stratégie: Développement d'un site web attrayant et convivial.
+Contenu: Histoires inspirantes, guides de soins, témoignages d'utilisateurs, et accès facile aux fonctionnalités de la plateforme.
+Impact Attendu: Plateforme centrale pour les informations sur LoveMyPet, conversion des visiteurs en utilisateurs actifs.
+
+
+**Campagnes d'Influenceurs**:
+
+Stratégie: Partenariat avec des influenceurs dans le domaine des animaux et de l'adoption responsable.
+Contenu: Contenu authentique mettant en avant l'utilité de LoveMyPet.
+Impact Attendu: Atteinte d'un public plus large, renforcement de la confiance grâce à des recommandations d'influenceurs.
+
+
+== Partie 2 : Aspects techniques
+
+=== type d'application
+
+LoveMyPet est une application **web**
+
+=== Schéma architectural de l'application
+
+Voici notre schéma architectural 
+
+[plantuml]
+----
+@startuml
+
+!define RECTANGLE class
+!define INTERFACE interface
+!define END end
+
+RECTANGLE Frontend {
+  PageAccueil
+  PagesProfil
+  PagesAdoption
+  PopUpsInteractifs
+  PagesSuiviDeVaccination
+  ...
+}
+
+RECTANGLE Backend {
+  API_REST
+  GestionUtilisateurs
+  LogiqueAdoption
+  SuiviVaccination
+}
+
+RECTANGLE BaseDeDonnees {
+  TablesPerson
+  TablesAnimal
+  TablesAdoption
+  TablesVaccination
+  TablesVaccin
+}
+
+Backend -- BaseDeDonnees : communique
+Frontend -- Backend : communique
+
+@enduml
+----
+
+et voici toutes les API utilisées dans notre projet : 
+
+
+===== AdoptionController
+
+Point de départ de l'API : `/adoption`
+
+* `GET /adoptions` : Obtenir la liste de toutes les URL d'adoption.
+* `GET /{idAdoption}` : Obtenir les détails d'une adoption spécifique par ID.
+
+===== AnimalController
+
+Point de départ de l'API : `/animal`
+
+* `POST /add` : Ajouter un nouvel animal avec un fichier image.
+* `GET /person/{idPerson}` : Obtenir la liste des références d'animaux par ID de personne.
+* `GET /{id}` : Obtenir les détails d'un animal spécifique par ID.
+* `GET /{animalId}/candidatures` : Obtenir la liste des candidatures pour un animal spécifique.
+* `POST /addadoption` : Ajouter une nouvelle adoption.
+
+===== CandidatureController
+
+Point de départ de l'API : `/animal/{animalId}/candidature`
+
+* `GET /{candidatureId}` : Obtenir les détails d'une candidature spécifique pour un animal.
+
+===== MesCandidatureController
+
+Point de départ de l'API : `/mescandidature`
+
+* `GET /person/{idPerson}` : Obtenir la liste des références de candidatures par ID de personne.
+* `GET /{idCandidature}` : Obtenir les détails d'une candidature spécifique par ID.
+
+===== PersonController
+
+Point de départ de l'API : `/person`
+
+* `GET /{id}` : Obtenir les détails d'une personne spécifique par ID.
+* `POST /add` : Ajouter une nouvelle personne avec un fichier image.
+* `POST /login` : Authentifier une personne à l'aide de l'e-mail et du mot de passe.
+* `GET /profile` : Obtenir les informations du profil utilisateur.
+* `POST /addcandidature` : Ajouter une nouvelle candidature.
+
+===== VaccinationController
+
+Point de départ de l'API : `/vaccination`
+
+* `GET /animal/{idAnimal}` : Obtenir les références de vaccination par ID d'animal.
+* `GET /{idVaccination}` : Obtenir les détails d'une vaccination spécifique par ID.
+* `POST /add` : Ajouter une nouvelle vaccination.
+
+===== VaccinController
+
+Point de départ de l'API : `/vaccin`
+
+* `GET /all` : Obtenir toutes les vaccinations.
+
+==== plateforme technologique
+
+**Langages utilisés**
+
+**Backend (Java)**: Utilisation de Java pour la logique métier, la gestion de la base de données, et la création de l'API REST.
+
+**Frontend (JavaScript, HTML, JSON)**: Utilisation de JavaScript pour la logique côté client, HTML pour la structure des pages, et JSON pour le format des données échangées.
+
+**API REST**
+
+Utilisation d'une architecture RESTful pour la communication entre le frontend et le backend.
+
+**Frameworks de Test**
+
+**Jacoco**: Utilisation de Jacoco pour la mesure de la couverture de code, permettant d'évaluer l'étendue des tests effectués sur le code source Java.
+
+**Gestion de Versions**
+
+**Git**: Utilisation du système de gestion de versions Git pour le suivi des modifications, la collaboration entre les membres de l'équipe, et la gestion des branches de développement.
+
+**Build**
+
+**Maven**: Utilisation de Maven pour la gestion des dépendances, la compilation du code source, et la création d'artefacts binaires.
+
+**Intégration Continue (CI)**
+
+**GitAction**: Mise en place d'un système d'intégration continue pour automatiser les tests, la compilation, et la vérification de la qualité du code à chaque modification dans le référentiel Git.
+
+
+== Partie 1 : Modélisation 
+
+=== Feature de l'adoption des animaux
+
+Une fois que vous avez ajouté vos compagnons,(étape 1) à la section **"Mes Animaux"** ("étape 2"), vous remarquerez que chaque animal dispose d'une option unique : le bouton **"Donner"**(étape 3). En cliquant sur ce bouton, un pop-up s'affiche, offrant une expérience interactive et conviviale pour faciliter le processus d'adoption.
+
+**étape 1**
+
+image::enregistrement.png[etape 1]
+
+**étape 2**
+
+image::donner.png[etape 2]
+
+**étape 3**
+
+image::popup.png[etape 3]
+
+
+
+Dans ce pop-up, la date de début est une information obligatoire, permettant aux utilisateurs de spécifier quand leur animal sera disponible pour adoption. Cependant, la date de fin reste facultative, laissant aux donateurs la liberté de décider s'ils souhaitent offrir leur animal de manière permanente ou temporaire.
+
+L'ajout de cette fonctionnalité temporelle est particulièrement pratique pour ceux qui envisagent de confier leur animal pendant une période spécifique, comme les vacances. En spécifiant la date de retour prévue, les utilisateurs peuvent indiquer clairement la durée pendant laquelle leur animal est disponible pour l'adoption.
+
+Une fois cette étape terminée, l'information concernant l'animal disponible est publiée dans **la section dédiée à l'adoption**. Les utilisateurs parcourant cette section trouveront une liste d'animaux prêts à être adoptés, chacun accompagné d'un bouton **"Candidater"** (étape 4). Cette approche permet à toute personne intéressée par un animal spécifique de manifester rapidement son intérêt en un simple clic.
+
+**étape 4**
+
+image::adoption.png[etape 4]
+
+Cette approche flexible a pour objectif de simplifier le processus d'adoption, offrant aux propriétaires la liberté de choisir la durée de la nouvelle maison pour leur animal. En créant une plateforme conviviale, nous aspirons à faciliter la connexion entre ceux qui cherchent un compagnon et ceux qui sont prêts à partager l'amour de leurs animaux.
+
+
+
+=== Feature de Suivi des Vaccins - Carnet de Vaccination en Ligne
 
 La fonctionnalité de suivi des vaccins sur notre plateforme offre aux utilisateurs une gestion centralisée et accessible des vaccinations de leurs animaux de compagnie. Conçue comme un carnet de vaccination en ligne, cette fonctionnalité permet aux propriétaires d'animaux de suivre et de mettre à jour facilement les informations relatives aux vaccins administrés à leurs compagnons.
 
 Principales Caractéristiques :
 
-**Accès Simple :** Les utilisateurs peuvent accéder à la fonction de suivi des vaccins depuis la section "Mes Animaux" de leur compte utilisateur. Chaque animal répertorié dispose d'une fonction dédiée pour un accès rapide.
+**Accès Simple :** Les utilisateurs peuvent accéder à la fonction de **suivi** (étape 1) des vaccins depuis la section **"Mes Animaux"** (étape 2) de leur compte utilisateur. Chaque animal répertorié dispose d'une fonction dédiée pour un accès rapide.
 
 **Vue d'Ensemble des Vaccinations :** L'interface offre une vue d'ensemble détaillée des vaccinations précédemment administrées à un animal particulier. Chaque entrée inclut le nom du vaccin ainsi que la date correspondante.
 
 **Ajout de Vaccinations :** Les propriétaires ont la possibilité d'ajouter de nouvelles vaccinations à tout moment. En fournissant les détails pertinents, tels que le nom du vaccin et la date d'administration, les utilisateurs peuvent maintenir un historique complet et à jour.
+
+
+== Base de données
+
+Le diagramme entité-relation ci-dessous offre une représentation visuelle des relations essentielles. En mettant en lumière les liens entre les différentes entités.
+
+
+== Partie 3 : Modélisation 
+
+=== Diagramme de classe 
+
+==== Feature 1 :
+
+[plantuml]
+----
+@startuml
+
+package com.nanterre.LoveMyPet.controller {
+  class AdoptionController {
+    + getAllAdoptionUrls(): List<String>
+    + getAdoptionDetails(idAdoption: Integer): Map<String, Object>
+    + addAdoption(adoption: Adoption): ResponseEntity<Map<String, String>>
+  }
+  class AnimalController {
+    + addAnimal(imageFile: MultipartFile, animal: Animal): ResponseEntity<String>
+    + getAnimalsReferenceByPersonId(idPerson: Integer): List<String>
+    + getAnimalDetailsById(id: Integer): Animal
+    + getCandidaturesByAnimalId(animalId: Integer): List<String>
+    + addAdoption(adoption: Adoption): ResponseEntity<Map<String, String>>
+  }
+  class CandidatureController {
+    + getCandidatureDetailsByAnimalIdAndCandidatureId(animalId: Integer, candidatureId: Integer): Candidature
+  }
+  class Controller {
+    + showAdoptionPage(model: Model): String
+    + showAnimals(model: Model): String
+    + showCandidatureByAnimalId(model: Model): String
+    + showVaccinations(model: Model): String
+    + showCandidatures(model: Model): String
+    + showpage(): String
+    + showpageaddAnimal(): String
+    + showpagelogin(): String
+    + homePage(): String
+    + profile(): String
+  }
+  class MesCandidatureController {
+    + getCandidatureReferenceByPersonId(idPerson: Integer): List<String>
+    + getCandidatureDetailsById(idCandidature: Integer): Candidature
+  }
+  class PersonController {
+    + getPersonDetailsById(id: Integer): Person
+    + add(imageFile: MultipartFile, person: Person): ResponseEntity<String>
+    + login(email: String, password: String, session: HttpSession): ResponseEntity<?>
+    + userProfile(session: HttpSession): ResponseEntity<?>
+    + addCandidature(idPerson: Integer, idAdoption: Integer, dateCandidature: String): ResponseEntity<String>
+  }
+}
+
+package com.nanterre.LoveMyPet.service {
+  interface AdoptionService {
+    + getAllAdoptionUrls(): List<String>
+    + getAdoptionDetails(idAdoption: Integer): Map<String, Object>
+    + saveAdoption(adoption: Adoption)
+  }
+  interface AnimalService {
+    + getAnimalLinksByPersonId(idPerson: Integer): List<String>
+    + getAnimalDetailsById(id: Integer): Animal
+    + getAdoptionUrlsForAnimals(): List<String>
+    + saveAnimal(animal: Animal): Animal
+    + findAnimalById(id: Integer): Animal
+  }
+  interface CandidatureService {
+    + getCandidatureLinksByAnimalId(animalId: Integer): List<String>
+    + getCandidatureDetailsByAnimalIdAndCandidatureId(animalId: Integer, candidatureId: Integer): Candidature
+    + saveCandidature(candidature: Candidature)
+  }
+  interface MesCandidatureService {
+    + getCandidatureLinksByPersonId(idPerson: Integer): List<String>
+    + getCandidatureDetailsById(idCandidature: Integer): Candidature
+  }
+  interface PersonService {
+    + getPersonDetailsById(id: Integer): Person
+    + savePerson(person: Person): Person
+    + findPersonByEmail(email: String): Person
+  }
+}
+
+package com.nanterre.LoveMyPet.repository {
+  interface AdoptionRepository {
+    + findAll(): List<Adoption>
+    + findById(id: Integer): Optional<Adoption>
+    + save(adoption: Adoption): Adoption
+  }
+  interface AnimalRepository {
+    + findByIdPerson(idPerson: Integer): List<Animal>
+    + findById(id: Integer): Optional<Animal>
+    + save(animal: Animal): Animal
+  }
+  interface CandidatureRepository {
+    + getCandidaturesByAnimalId(animalId: Integer): List<Candidature>
+    + findById(id: Integer): Optional<Candidature>
+    + save(candidature: Candidature): Candidature
+  }
+  interface MesCandidatureRepository {
+    + findByPersonIdPerson(idPerson: Integer): List<Candidature>
+    + findById(id: Integer): Optional<Candidature>
+    + save(candidature: Candidature): Candidature
+  }
+  interface PersonRepository {
+    + findById(id: Integer): Optional<Person>
+    + save(person: Person): Person
+    + findPersonByEmail(email: String): Person
+  }
+}
+
+Controller --|> AdoptionController
+Controller --|> AnimalController
+Controller --|> CandidatureController
+Controller --|> MesCandidatureController
+Controller --|> PersonController
+
+AdoptionController --|> AdoptionService
+AdoptionController --|> AnimalService
+
+AnimalController --|> AnimalService
+AnimalController --|> AdoptionService
+AnimalController --|> CandidatureService
+
+CandidatureController --|> CandidatureService
+
+MesCandidatureController --|> MesCandidatureService
+
+PersonController --|> PersonService
+PersonController --|> CandidatureService
+
+AdoptionService --|> AdoptionRepository
+AnimalService --|> AnimalRepository
+CandidatureService --|> CandidatureRepository
+MesCandidatureService --|> MesCandidatureRepository
+PersonService --|> PersonRepository
+
+
+
+@enduml
+----
+
+==== Feature 2 :
+
+[plantuml]
+----
+@startuml
+
+package com.nanterre.LoveMyPet.controller {
+  class AnimalController {
+    + addAnimal(imageFile: MultipartFile, animal: Animal): ResponseEntity<String>
+    + getAnimalsReferenceByPersonId(idPerson: Integer): List<String>
+    + getAnimalDetailsById(id: Integer): Animal
+    + getCandidaturesByAnimalId(animalId: Integer): List<String>
+    + addAdoption(adoption: Adoption): ResponseEntity<Map<String, String>>
+  }
+  class Controller {
+    + showAdoptionPage(model: Model): String
+    + showAnimals(model: Model): String
+    + showCandidatureByAnimalId(model: Model): String
+    + showVaccinations(model: Model): String
+    + showCandidatures(model: Model): String
+    + showpage(): String
+    + showpageaddAnimal(): String
+    + showpagelogin(): String
+    + homePage(): String
+    + profile(): String
+  }
+  class PersonController {
+    + getPersonDetailsById(id: Integer): Person
+    + add(imageFile: MultipartFile, person: Person): ResponseEntity<String>
+    + login(email: String, password: String, session: HttpSession): ResponseEntity<?>
+    + userProfile(session: HttpSession): ResponseEntity<?>
+    + addCandidature(idPerson: Integer, idAdoption: Integer, dateCandidature: String): ResponseEntity<String>
+  }
+  class VaccinationController {
+    + getVaccinationReferenceByAnimalId(idAnimal: Integer): List<String>
+    + getVaccinationDetailsById(idVaccination: Integer): Vaccination
+    + add(vaccination: Vaccination, animalId: Integer): String
+  }
+
+  class VaccinController {
+    - vaccinService: VaccinService
+    + VaccinController(vaccinService: VaccinService)
+    + getAllVaccins(): Iterable<Vaccin>
+  }
+}
+
+package com.nanterre.LoveMyPet.service {
+  interface AnimalService {
+    + getAnimalLinksByPersonId(idPerson: Integer): List<String>
+    + getAnimalDetailsById(id: Integer): Animal
+    + getAdoptionUrlsForAnimals(): List<String>
+    + saveAnimal(animal: Animal): Animal
+    + findAnimalById(id: Integer): Animal
+  }
+  interface PersonService {
+    + getPersonDetailsById(id: Integer): Person
+    + savePerson(person: Person): Person
+    + findPersonByEmail(email: String): Person
+  }
+  interface VaccinationService {
+    + saveVaccination(vaccination: Vaccination): Vaccination
+    + getVaccinationLinksByAnimalId(idAnimal: Integer): List<String>
+    + getVaccinationDetailsById(idVaccination: Integer): Vaccination
+  }
+  
+  interface VaccinService {
+  + getAllVaccins(): Iterable<Vaccin>
+  + getVaccinById(id: Integer): Vaccin
+  }
+
+}
+
+package com.nanterre.LoveMyPet.repository {
+  interface AnimalRepository {
+    + findByIdPerson(idPerson: Integer): List<Animal>
+    + findById(id: Integer): Optional<Animal>
+    + save(animal: Animal): Animal
+  }
+  interface PersonRepository {
+    + findById(id: Integer): Optional<Person>
+    + save(person: Person): Person
+    + findPersonByEmail(email: String): Person
+  }
+  interface VaccinRepository {
+    + findAll(): Iterable<Vaccin>
+    + findById(id: Integer): Optional<Vaccin>
+    + save(vaccin: Vaccin): Vaccin
+    + deleteById(id: Integer): void
+  }
+  interface VaccinationRepository {
+    + findAll(): List<Vaccination>
+    + findById(id: Integer): Optional<Vaccination>
+    + save(vaccination: Vaccination): Vaccination
+    + deleteById(id: Integer): void
+    + findByAnimalId(animalId: Integer): List<Vaccination>
+  }
+}
+
+Controller --|> VaccinationController
+Controller --|> AnimalController
+Controller --|> VaccinController
+Controller --|> PersonController
+
+VaccinationController --|> VaccinationService
+AnimalController --|> AnimalService
+VaccinController --|> VaccinService
+PersonController --|> PersonService
+
+AnimalService --|> AnimalRepository
+VaccinationService --|> VaccinationRepository
+VaccinService --|> VaccinRepository
+PersonService --|> PersonRepository
+
+@enduml
+----
+
+
+== Modèle LoveMyPet
+
+[plantuml]
+----
+@startuml
+
+package "com.nanterre.LoveMyPet.model" {
+  class Person {
+    +idPerson: Integer
+    LastName: String
+    FirstName: String
+    Email: String
+    PhoneNumber: String
+    Address: String
+    Password: String
+    ImageUrl: String
+  }
+
+  class Animal {
+    +id: Integer
+    +idPerson: Integer
+    name: String
+    category: String
+    race: String
+    weight: Double
+    gender: Integer
+    dateOfBirth: Date
+    imageUrl: String
+  }
+
+  class Adoption {
+    +idAdoption: Integer
+    startDate: Date
+    endDate: Date
+    +idAnimal: Integer
+  }
+
+  class Candidature {
+    +idCandidature: Integer
+    dateCandidature: Date
+    +person: Person
+    +adoption: Adoption
+  }
+
+  class Vaccin {
+    +idVaccin: Integer
+    vaccinName: String
+  }
+
+  class Vaccination {
+    +idVaccination: Integer
+    +vaccin: Vaccin
+    +animal: Animal
+    date: Date
+  }
+}
+
+Person   --  Animal : "1,1" Adopte "0,N"
+Person -- Candidature : "0,N" Candidate à "1,1"
+Animal -- Adoption : "1,1" Est concerné par "1,1"
+Candidature -- Adoption : "1,1" Correspond à "0,N"
+Vaccin -- Vaccination : "0,N" Est utilisé dans "1,N"
+Vaccination -- Animal : "1,1" prend "1,N"
+
+@enduml
+----
+
+
 
