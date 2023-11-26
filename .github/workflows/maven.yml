@@ -21,6 +21,12 @@ jobs:
       with:
         java-version: 17
         distribution: 'temurin'
+
+    - name: Install AsciiDoctor and AsciiDoctor PDF
+      run: |
+        gem install asciidoctor
+        gem install asciidoctor-pdf
+      shell: bash
  
     - name: Build with Maven
       run: mvn -B package --file pom.xml
