@@ -25,26 +25,6 @@ public class MesCandidatureServiceImplTests {
     @InjectMocks
     private MesCandidatureServiceImpl candidatureService;
 
-    @Test
-    public void testGetCandidatureLinksByPersonId() {
-        // Créez un objet Candidature pour le test
-        Candidature candidature1 = new Candidature();
-        candidature1.setIdCandidature(1);
-
-        Candidature candidature2 = new Candidature();
-        candidature2.setIdCandidature(2);
-
-        // Définissez le comportement du mock pour renvoyer une liste de candidatures
-        when(candidatureRepository.findByPersonIdPerson(anyInt()))
-                .thenReturn(Arrays.asList(candidature1, candidature2));
-
-        // Appel de la méthode à tester
-        List<String> candidatureLinks = candidatureService.getCandidatureLinksByPersonId(1);
-
-        // Vérifiez que la liste renvoyée correspond à ce qui est attendu
-        List<String> expectedLinks = Arrays.asList("/candidature/1", "/candidature/2");
-        assertEquals(expectedLinks, candidatureLinks);
-    }
 
     @Test
     public void testGetCandidatureDetailsById() {

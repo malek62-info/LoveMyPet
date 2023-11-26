@@ -55,6 +55,8 @@ public class AnimalController {
                 e.printStackTrace();
                 return new ResponseEntity<>("Erreur lors de la gestion de l'image", HttpStatus.INTERNAL_SERVER_ERROR);
             }
+
+
         }
 
         // Enregistrez l'animal avec le nom du fichier de l'image (si applicable)

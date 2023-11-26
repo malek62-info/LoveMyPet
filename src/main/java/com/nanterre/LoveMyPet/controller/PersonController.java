@@ -49,7 +49,7 @@ public class PersonController {
         if (imageFile != null && !imageFile.isEmpty()) {
             try {
                 // Spécifiez le chemin de votre dossier d'images dans les ressources
-                String dossierImages = "C:\\Users\\malek\\Desktop\\LoveMyPetV2\\LoveMyPet\\src\\main\\resources\\static\\images\\personimages";
+                String dossierImages = "src/main/resources/static/images/persons";
                 String nomDuFichier = imageFile.getOriginalFilename();
                 Path cheminFichier = Paths.get(dossierImages, nomDuFichier);
 
@@ -91,6 +91,8 @@ public class PersonController {
         }
     }
 
+
+
     // cette méthode a pour objectif de recupéré le id de la personne connecter
     // qui vas nous servira par la suit a afficher le nom de la personne dans la page des servises
     // et ussi nos permit a la personne d'enregestrer ses animaux avec son id automatiquelent
@@ -124,6 +126,10 @@ public class PersonController {
 
 
 
+
+
+
+
     @PostMapping("/addcandidature")
     public ResponseEntity<String> addCandidature(
             @RequestParam("idPerson") Integer idPerson,
@@ -152,6 +158,9 @@ public class PersonController {
             return new ResponseEntity<>("Erreur lors de l'ajout de la candidature", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
+
 
 
 
