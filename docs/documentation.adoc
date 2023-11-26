@@ -5,26 +5,6 @@
 :toc: left
 :toc-title: Table des matières
 
-== Introduction
-
-Ce document décrit Le projet LoveMyPet, ses motivations, ses concurrents et ses fonctionnalités.
-
-== Diagramme de classe
-
-[plantuml, diagramme-de-classe.svg]
-----
-@startuml
-class Controleur {
-  +showpage()
-  +calculate(int num1, int num2, Model model)
-}
-
-
-
-
-
-@enduml
-----
 
 == Motivations
 
