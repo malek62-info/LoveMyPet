@@ -33,16 +33,14 @@ jobs:
       with:
         name: my-artifact  # Choose a name for your artifact
         path: |
-              target/       # Path to the directory containing JAR or WAR files
-              docs/         # Assuming docs directory contains your AsciiDoc files
+          target/       # Path to the directory containing JAR or WAR files
+          docs/         # Assuming docs directory contains your AsciiDoc files
 
     - name: Display Artifact URL
       run: |
         ARTIFACT_URL="${{ github.server_url }}/${{ github.repository }}/raw/${{ github.ref }}/my-artifact/"
         echo "Latest Artifact URL: $ARTIFACT_URL"
-        echo "##[set-output name=artifact_url;]$ARTIFACT_URL"
-      env:
-        ARTIFACT_URL: ${{ github.server_url }}/${{ github.repository }}/raw/${{ github.ref }}/my-artifact/
+        echo "ARTIFACT_URL=$ARTIFACT_URL" >> $GITHUB_ENV
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
