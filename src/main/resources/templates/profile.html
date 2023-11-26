@@ -1,4 +1,4 @@
-</html>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,9 +35,9 @@
                             </div>
                             <div class="dd_right">
                                 <ul>
-                                    <li>Mon compte</li>
-                                    <li>Mes animaux</li>
-                                    <li>Se Déconnecter</li>
+                                    <li><a href="/profile">Mon compte</a></li>
+                                    <li ><a href="/mesanimaux" >Mes animaux</a></li>
+                                    <li><a href="#">Se Déconnecter</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -57,20 +57,20 @@
                     <img src="/images/service1.png" alt="#" style="width: 70px; height: 70px;">
                     <h2>ADOPTER</h2>
                   <p>Offrez à un compagnon à quatre pattes une nouvelle maison pleine d'amour et d'aventures en adoptant l'un de nos adorables amis poilus avec LoveMyPet.</p>
-                  <a href="#" class="btn">Adopter maintenant</a>
+                  <a href="/adoption" class="btn">Adopter maintenant</a>
                 </div>
                 <div class="card">
                     <img src="/images/service2.png" alt="#" style="width: 70px; height: 70px;">
-                    <h2>PRENDRE SOIN</h2>
-                   <p>Restez connecté à chaque étape de la vie de votre compagnon avec nos notifications dédiées.soyez toujours au courant de ses besoins essentiels.</p>
-                   <a href="#" class="btn">Prendre soin</a>
+                    <h2>Inscrire mon animal</h2>
+                   <p>Inscrivea votre Animal et restez connecté à chaque étape de la vie de votre compagnon avec nos notifications dédiées.soyez toujours au courant de ses besoins essentiels.</p>
+                   <a href="/AddAnimal" class="btn">scrire mon animal</a>
                 </div>
                 <div class="card">
                     <img src="/images/service3.png" alt="#" style="width: 70px; height: 70px;">
 
                     <h2>SUIVI COMPLET DE L'ANIMAL</h2>
                     <p>Assurez un suivi complet de la santé de votre compagnon, de son poids à ses vaccinations, pour une vie épanouissante.</p>
-                    <a href="#" class="btn">Suivi complet</a>
+                    <a href="/mesanimaux" class="btn">Suivi complet</a>
                 </div>
                 <div class="card">
                     <img src="/images/service4.png" alt="#" style="width: 70px; height: 70px;">
@@ -92,7 +92,7 @@
     <script>
         $(document).ready(function () {
             $.ajax({
-                url: "/personne/profile",
+                url: "/person/profile",
                 type: "GET",
                 success: function (data) {
                     var profileInfo = "ID : " + data.id + "<br>Nom : " + data.name;

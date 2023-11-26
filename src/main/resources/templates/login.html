@@ -238,7 +238,7 @@ $("#loginForm").submit(function (event) {
         },
         success: function (data) {
             $("#loginMessage").text("Authentification réussie");
-            window.location.href = "/AddAnimal";
+            window.location.href = "/profile";
         },
         error: function (xhr, status, error) {
             $("#loginMessage").text("Authentification échouée : " + error);

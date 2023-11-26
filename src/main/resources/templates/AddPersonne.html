@@ -229,14 +229,14 @@
             var formData = new FormData(this);
 
             $.ajax({
-                url: "/personne/add",
+                url: "/person/add",
                 type: "POST",
                 data: formData,
                 processData: false,
                 contentType: false,
                 success: function (data) {
-                                   alert(data);
-
+                                   alert("bien jouer");
+                      window.location.href = "/login";
                         $("#personneForm")[0].reset();
 
                 },
@@ -245,8 +245,7 @@
                 }
             });
 
-            // Empêcher le formulaire d'être soumis normalement
-            return false;
+
         });
     });
 </script>

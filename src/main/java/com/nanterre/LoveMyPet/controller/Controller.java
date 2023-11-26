@@ -45,7 +45,7 @@ public class Controller {
         return "login";
     }
 
-    @GetMapping("/HomePage")
+    @GetMapping("/")
     public String homePage() {
         return "home";
     }
