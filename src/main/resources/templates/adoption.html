@@ -156,6 +156,8 @@
                                 <li><a href="/profile">Mon compte</a></li>
                                 <li ><a href="/mesanimaux" >Mes animaux</a></li>
                                 <li><a href="#">Se Déconnecter</a></li>
+                                <li><a href="/mescandidatures">Mes candidatures</a></li>
+
                             </ul>
                         </div>
                     </div>
@@ -286,7 +288,7 @@
 
                 if ( animalDetails ) {
 
-                    if (animalDetails.endDate === null || animalDetails.endDate === "null") {
+                    if (animalDetails.endDate === "0001-01-01" || animalDetails.endDate === "null") {
                     endDateText = '<p class="race">Adoption définitive</p>';
                     } else {
                         endDateText = `<p class="race"><span>Fin : ${animalDetails.endDate}</span></p>`;
