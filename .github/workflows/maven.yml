@@ -1,5 +1,3 @@
-name: Java CI with Maven
-
 on:
   push:
     branches:
@@ -25,19 +23,32 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
+    - name: Generate Documentation
+      run: asciidoctor docs/documentation.adoc -o docs/documentation.pdf
+
     - name: Publish JAR or WAR as an Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: my-artifact  # Choisissez un nom pour votre artefact
-        path: target/       # Chemin vers le répertoire contenant les fichiers JAR ou WAR
+        name: my-artifact
+        path: target/
 
-    - name: Display Artifact URL
+    - name: Upload Documentation PDF as an Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: documentation
+        path: docs/documentation.pdf
+
+    - name: Display Artifact URLs
       run: |
         ARTIFACT_URL="${{ github.server_url }}/${{ github.repository }}/raw/${{ github.ref }}/my-artifact/"
+        DOC_URL="${{ github.server_url }}/${{ github.repository }}/raw/${{ github.ref }}/documentation/documentation.pdf"
         echo "Latest Artifact URL: $ARTIFACT_URL"
+        echo "Documentation PDF URL: $DOC_URL"
         echo "##[set-output name=artifact_url;]$ARTIFACT_URL"
+        echo "##[set-output name=doc_url;]$DOC_URL"
       env:
         ARTIFACT_URL: ${{ github.server_url }}/${{ github.repository }}/raw/${{ github.ref }}/my-artifact/
+        DOC_URL: ${{ github.server_url }}/${{ github.repository }}/raw/${{ github.ref }}/documentation/documentation.pdf
 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
