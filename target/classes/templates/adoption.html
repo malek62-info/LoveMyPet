@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adoption</title>
+    <link rel="stylesheet" href="css/adoption_afficher_animal.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/adoption_afficher_animal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+
+    <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap');
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	list-style: none;
+	font-family: 'Jost', sans-serif;
+}
+
+
+.navbar{
+	background: black;
+	width: 100%;
+	height: 60px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 50px;
+}
+
+.navbar .logo a{
+	display: block;
+	text-decoration: none;
+	color: #fff;
+	font-weight: 700;
+	letter-spacing: 2px;
+	font-size: 25px;
+	text-transform: uppercase;
+}
+
+.navbar .nav_right > ul{
+	display: flex;
+	align-items: center;
+}
+.nav_right p {
+    color: #fff;
+    font-weight: 600;
+}
+.navbar .nav_right ul li.nr_li{
+	margin-left: 25px;
+	cursor: pointer;
+	color: #fff;
+	font-size: 20px;
+	position: relative;
+}
+
+.navbar .nav_right ul li.nr_li:hover {
+    color: #cefffc;
+}
+
+.navbar .nav_right ul li img{
+	width: 60px;
+	vertical-align: middle;
+    border-radius: 50%;
+}
+
+.navbar .dd_menu {
+    position: absolute;
+    right: -25px;
+    top: 47px;
+    display: flex;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.25);
+    display: none;
+    width: 280px;
+}
+
+.navbar .dd_menu .dd_left{
+	background: #b4b4b2;
+	padding: 15px 20px;
+	border-top-left-radius: 15px;
+	border-bottom-left-radius: 15px;
+}
+
+.navbar .dd_menu .dd_left li{
+	color: #fff;
+}
+
+.navbar .dd_menu .dd_right{
+	padding: 15px 20px;
+}
+
+.navbar .dd_menu li{
+	margin-bottom: 10px;
+	color: #868686;
+}
+
+.navbar .dd_menu:before{
+	content: "";
+	position: absolute;
+	top: -20px;
+	right: 30px;
+	border: 10px solid;
+	border-color: transparent transparent #fff transparent;
+}
+
+.navbar .dd_main.active .dd_menu{
+	display: flex;
+}
+
+
+
+
+        /* Ajoutez d'autres styles personnalisés au besoin */
+    </style>
+
+
+
+
+</head>
+
+<body>
+<div class="navbar-wrapper">
+    <div class="navbar">
+        <div class="logo">
+            <img src="images/logo.png" style="width: 150px; height: 65px;">
+
+        </div>
+        <div class="nav_right">
+            <ul><p>Bonjour <span id="userName"></span> !</p>
+                <li class="nr_li dd_main">
+                    <img src="/images/person1.jpg" alt="profile_img">
+                    <div class="dd_menu">
+                        <div class="dd_left">
+                            <ul>
+                                <li><i class="fa-solid fa-user"></i></li>
+                                <li><i class="fa-solid fa-paw"></i></li>
+                                <li><i class="fas fa-sign-out-alt"></i></li>
+                            </ul>
+                        </div>
+                        <div class="dd_right">
+                            <ul>
+                                <li><a href="/profile">Mon compte</a></li>
+                                <li ><a href="/mesanimaux" >Mes animaux</a></li>
+                                <li><a href="#">Se Déconnecter</a></li>
+                                <li><a href="/mescandidatures">Mes candidatures</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+
+    <div class="wrapper">
+        <div class="container">
+            <div class="title">
+                <h1>Adoptez Un Animal</h1>
+            </div>
+
+            <div class="animal">
+                <div class="animal-container" id="animalContainer">
+                    <!-- Liste des animaux ici -->
+                </div>
+                <div id="error-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchData ()
+        {
+            const url = '/adoption/adoptions';
+
+            try {
+                const response = await fetch( url );
+                const data = await response.json();
+
+                if ( data.length > 0 ) {
+                    console.log( data );
+                    displayAnimals( data );
+                    document.getElementById( 'error-message' ).textContent = '';
+                } else {
+                    document.getElementById( 'error-message' ).innerHTML =
+                        "<p class='message-error'>Aucun résultat. Pas d'animal à adopter !</p>";
+                }
+            } catch ( error ) {
+                console.error( 'Error fetching data:', error );
+            }
+        }
+
+        async function fetchAnimalDetails ( animalURI )
+        {
+            try {
+                const response = await fetch( animalURI );
+                return await response.json();
+            } catch ( error ) {
+                console.error( `Error fetching animal details for this URI ${ animalURI }:`, error );
+                return null;
+            }
+        }
+
+        function getGenderText ( gender )
+        {
+            return gender === 1 ? '♂ Mâle' : '♀ Femelle';
+        }
+
+        function addCandidature ( adoptionId )
+        {
+            // Récupérer l'ID de la personne connectée via la méthode /profile
+            $.ajax( {
+                url: "/person/profile",
+                type: "GET",
+                success: function ( data )
+                {
+                    // Mettre à jour la valeur de l'ID dans la variable personId
+                    var personId = data.id;
+                     console.log(personId)
+                    // Utiliser personId dans la suite de votre code
+                    var currentDate = new Date().toISOString();
+
+                    var formData = new FormData();
+                    formData.append( 'idPerson', personId );
+                    formData.append( 'idAdoption', adoptionId );
+                    formData.append( 'dateCandidature', currentDate );
+
+                    fetch( "/person/addcandidature", {
+                        method: "POST",
+                        body: formData
+                    } )
+                        .then( response => response.text() )
+                        .then( data =>
+                        {
+                            alert( "Enregistrement réussi : " + data );
+                        } )
+                        .catch( error =>
+                        {
+                            alert( "Erreur lors de l'enregistrement : " + error );
+                        } );
+                },
+                error: function ( xhr, status, error )
+                {
+                    // Gérer les erreurs lors de la récupération du profil
+                    console.error( "Erreur lors de la récupération du profil : " + error );
+                }
+            } );
+        }
+
+
+        function adoptAnimal ( animalId, adoptionId )
+        { 
+
+            console.log(animalId )
+            console.log(adoptionId)
+            addCandidature( adoptionId ); // Appel de la fonction addCandidature avec l'ID d'adoption
+            // Ajoutez ici la logique pour traiter l'adoption
+        }
+
+        async function displayAnimals ( animals )
+        {
+            const animalListDiv = document.getElementById( 'animalContainer' );
+            let animalList = '';
+
+            for ( const animalRef of animals ) {
+                console.log( animalRef );
+
+                // Fetch details for each animal
+                const animalDetails = await fetchAnimalDetails( `${ animalRef }` );
+
+                if ( animalDetails ) {
+
+                    if (animalDetails.endDate === "0001-01-01" || animalDetails.endDate === "null") {
+                    endDateText = '<p class="race">Adoption définitive</p>';
+                    } else {
+                        endDateText = `<p class="race"><span>Fin : ${animalDetails.endDate}</span></p>`;
+                    }
+
+                    animalList += `
+              <div class="animal-item">
+                  <div class="animal-img">
+                      <img src="/images/animals/${ animalDetails.animal.imageUrl }" alt="animal image">
+                      <div>
+                          <button type="button" class="add-btn"
+                              onclick="adoptAnimal(${ animalDetails.animal.id }, ${ animalDetails.adoptionId })">
+                              Adopter 🧡
+                          </button>
+                      </div>
+                  </div>
+                  <div class="animal-content">
+                      <a href="#" class="animal-title">🔥 ${ animalDetails.animal.name } </a>
+                      <p class="race"><span>ℹ️ ${ animalDetails.animal.race }</span></p>
+                      <div>
+                          <span class="gender">${ getGenderText( animalDetails.animal.gender ) }</span>
+                      </div>
+                      <p class="race">Début : <span>${animalDetails.startDate} </span></p>
+                      <p class="race">${endDateText}</p>
+                  </div>
+              </div>
+          `;
+                }
+            }
+
+            animalListDiv.innerHTML = animalList;
+        }
+
+        // Cette fonction sera appelée lorsque la page se chargera
+        window.onload = function ()
+        {
+            fetchData();
+        };
+
+           var dd_main = document.querySelector(".dd_main");
+
+	dd_main.addEventListener("click", function(){
+		this.classList.toggle("active");
+	})
+
+    </script>
+
+</body>
+
+</html>

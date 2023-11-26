@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>Responsive Registration Form | CodingLab</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+  background-image: url('https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg');
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .container .title {
+            font-size: 25px;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .container .title::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: 30px;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+
+        .content form .user-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 20px 0 12px 0;
+        }
+
+        form .user-details .input-box {
+            margin-bottom: 15px;
+            width: calc(100% / 2 - 20px);
+        }
+
+        form .input-box span.details {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .user-details .input-box input {
+            height: 45px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .user-details .input-box input:focus,
+        .user-details .input-box input:valid {
+            border-color: #9b59b6;
+        }
+
+        form .category select,
+        form .input-box select {
+            height: 45px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .button {
+            height: 45px;
+            margin: 35px 0;
+        }
+
+        .button input {
+            height: 100%;
+            width: 100%;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+
+        .button input:hover {
+            background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+        }
+
+        @media(max-width: 584px) {
+            .container {
+                max-width: 100%;
+            }
+
+            form .user-details .input-box {
+                margin-bottom: 15px;
+                width: 100%;
+            }
+
+            form .category {
+                width: 100%;
+            }
+
+            .content form .user-details {
+                max-height: 300px;
+                overflow-y: scroll;
+            }
+
+            .user-details::-webkit-scrollbar {
+                width: 5px;
+            }
+        }
+
+        @media(max-width: 459px) {
+            .container .content .category {
+                flex-direction: column;
+            }
+        }
+
+          .user-details .input-box input[type="file"] {
+            display: none;
+        }
+
+        .custom-file-upload {
+            background-color: #9b59b6; /* Couleur de fond du bouton */
+            color: #fff; /* Couleur du texte du bouton */
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 5px; /* Espacement par rapport aux autres champs */
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="title">Animal Registration</div>
+    <div class="content">
+        <form id="animalForm" action="/animal/add" method="POST" enctype="multipart/form-data">
+            <div class="user-details">
+                <!-- Ajouter un champ caché pour l'ID de la personne -->
+                <input type="hidden" id="idPerson" name="idPerson">
+
+                <div class="input-box">
+                    <span class="details">Name</span>
+                    <input type="text" name="name" placeholder="Enter animal name" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Category</span>
+                    <select required id="category" name="category" >
+                        <option value="" disabled selected>Select category</option>
+                        <option  name="category" value="cat">Cat</option>
+                        <option  name="category"  value="dog">Dog</option>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <span class="details">Race</span>
+                    <input type="text" name="race" placeholder="Enter animal race" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Weight</span>
+                    <input type="number" name="weight" placeholder="Enter animal weight" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Image Upload</span>
+                    <label for="image-upload" class="custom-file-upload">
+                        Choose File
+                    </label>
+                    <input type="file" id="image-upload" name="imageFile" style="display:none;" />
+                </div>
+                <div class="input-box">
+                    <span class="details">Gender</span>
+                    <select name="gender" required>
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <span class="details">Date of Birth</span>
+                    <input type="date" name="dateOfBirth" required>
+                </div>
+            </div>
+            <div class="button">
+                <input type="submit" value="Register">
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Inclure jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Votre script jQuery ici -->
+<script>
+    $(document).ready(function () {
+     // Récupérer l'ID de la personne connectée via la méthode /profile
+     $.ajax({
+         url: "/person/profile",
+         type: "GET",
+         success: function (data) {
+             // Mettre à jour la valeur de l'ID dans le champ caché
+             $("#idPerson").val(data.id);
+         },
+         error: function (xhr, status, error) {
+             // Gérer les erreurs
+         }
+     });
+
+     $("#animalForm").submit(function (event) {
+         event.preventDefault();
+
+         var formData = new FormData(this);
+
+         // Convertir la date au format ISO (AAAA-MM-JJ) avant de l'envoyer
+         formData.set("dateOfBirth", new Date(formData.get("dateOfBirth")).toISOString());
+
+         $.ajax({
+             url: "/animal/add",
+             type: "POST",
+             data: formData,
+             processData: false,
+             contentType: false,
+             success: function (data) {
+                 alert(data);
+                 // Réinitialisez le formulaire si nécessaire
+                 $("#animalForm")[0].reset();
+             },
+             error: function (xhr, status, error) {
+                 alert("Erreur : " + error);
+             }
+         });
+     });
+ });
+
+</script>
+</body>
+</html>

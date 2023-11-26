@@ -1,0 +1,55 @@
+= Documentation de l'application LoveMyPet
+:doctype: book
+:icons: font
+:source-highlighter: coderay
+:toc: left
+:toc-title: Table des matières
+
+== Introduction
+
+Ce document décrit les fonctionnalités de l'application LoveMyPet.
+
+== Diagramme de classe
+
+[plantuml, diagramme-de-classe.svg]
+----
+@startuml
+class Controleur {
+  +showpage()
+  +calculate(int num1, int num2, Model model)
+}
+
+
+
+
+
+@enduml
+----
+
+== Calcul
+
+=== Page de calcul
+
+La page de calcul est accessible à l'URL `/Calcule`. Cette page permet de faire des calculs.
+
+=== Opération de calcul
+
+Pour effectuer un calcul, utilisez la méthode `calculate` du contrôleur. Cette méthode prend deux nombres, les additionne et affiche le résultat.
+
+[source,java]
+----
+@Controller
+public class Controleur {
+
+  // ...
+
+  @PostMapping("/Calcule")
+  public String calculate(int num1, int num2, Model model) {
+    int result = num1 + num2;
+    model.addAttribute("result", num1 + " + " + num2 + " = " + result);
+    return "Calculer";
+  }
+}
+----
+
+Vous devez spécifier le format de sortie du diagramme UML comme "svg" dans le nom du fichier `[plantuml, diagramme-de-classe.svg]`, puis inclure le code PlantUML entre les balises `@startuml` et `@enduml`. Une fois que vous avez fait ces modifications, générez à nouveau la documentation en utilisant le plugin Asciidoctor Maven, et le diagramme UML devrait être correctement rendu au format SVG dans votre documentation HTML.
