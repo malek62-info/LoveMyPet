@@ -36,9 +36,6 @@ public class PersonController {
 
 
 
-
-
-    
     @PostMapping("/add")
     public ResponseEntity<String> add(@RequestPart("imageFile") MultipartFile imageFile, Person person) {
         // Vérifiez si l'e-mail existe déjà dans la base de données
@@ -74,8 +71,8 @@ public class PersonController {
 
     }
 
-    
-    
+
+
 // cette méthode a  pour objectif de géré les tentatif de connexion
 // sont but est de verifier si le mail et le mot de passe enté par l'utilisateur existe bien dans la bese de donner
 
@@ -113,7 +110,7 @@ public class PersonController {
         if (user != null) {
             Integer id = user.getIdPerson();
             String name = user.getFirstName() + " " + user.getLastName();
-            
+
             Map<String, Object> userData = new HashMap<>();
             userData.put("id", id);
             userData.put("name", name);

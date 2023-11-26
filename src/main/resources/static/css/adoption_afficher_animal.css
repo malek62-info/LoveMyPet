@@ -145,6 +145,7 @@ form button,
     cursor: pointer;
     text-transform: uppercase;
     margin-bottom: 5px;
+    outline:none;
 }
 
 .animal-img:hover div {

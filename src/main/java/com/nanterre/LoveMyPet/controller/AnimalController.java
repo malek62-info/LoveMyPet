@@ -40,7 +40,7 @@ public class AnimalController {
         if (imageFile != null && !imageFile.isEmpty()) {
             try {
                 // Spécifiez le chemin de votre dossier d'images dans les ressources
-                String dossierImages = "C:\\Users\\malek\\Desktop\\LoveMyPetV2\\LoveMyPet\\src\\main\\resources\\static\\images\\animals";
+                String dossierImages = "src/main/resources/static/images/animals";
                 String nomDuFichier = imageFile.getOriginalFilename();
                 Path cheminFichier = Paths.get(dossierImages, nomDuFichier);
 
