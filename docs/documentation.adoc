@@ -80,6 +80,11 @@ Après avoir enregistré votre animal sur notre site, vous avez la possibilité 
 
 Le diagramme entité-relation ci-dessous offre une représentation visuelle des relations essentielles. En mettant en lumière les liens entre les différentes entités.
 
+
+  == Modèle LoveMyPet
+
+[plantuml]
+----
 @startuml
 
 package "com.nanterre.LoveMyPet.model" {
@@ -141,4 +146,7 @@ Vaccin -- Vaccination : "0,N" Est utilisé dans "1,N"
 Vaccination -- Animal : "1,1" prend "1,N"
 
 @enduml
+----
+
+
 
