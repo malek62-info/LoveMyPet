@@ -73,7 +73,72 @@ Principales Caractéristiques :
 
 **Ajout de Vaccinations :** Les propriétaires ont la possibilité d'ajouter de nouvelles vaccinations à tout moment. En fournissant les détails pertinents, tels que le nom du vaccin et la date d'administration, les utilisateurs peuvent maintenir un historique complet et à jour.
 
+=== Fonctionnalité de l'adoption des animaux
+
+Après avoir enregistré votre animal sur notre site, vous avez la possibilité de le donner de manière permanente en omettant la spécification d'une date de fin dans la pop-up associée. En revanche, si vous prévoyez une période temporaire, telle que des vacances, la pop-up vous permettra de renseigner la date de retour prévue. Une fois l'enregistrement terminé, votre offre d'adoption apparaîtra sur la page dédiée à l'adoption. Les utilisateurs intéressés auront la possibilité de manifester leur intérêt en cliquant sur le bouton "Candidater". Cette approche flexible vise à simplifier le processus d'adoption, offrant aux propriétaires la liberté de choisir la durée de la nouvelle maison pour leur animal tout en créant une plateforme conviviale pour ceux en quête d'un nouveau compagnon.
 == Base de données
 
 Le diagramme entité-relation ci-dessous offre une représentation visuelle des relations essentielles. En mettant en lumière les liens entre les différentes entités.
+
+@startuml
+
+package "com.nanterre.LoveMyPet.model" {
+  class Person {
+    +idPerson: Integer
+    LastName: String
+    FirstName: String
+    Email: String
+    PhoneNumber: String
+    Address: String
+    Password: String
+    ImageUrl: String
+  }
+
+  class Animal {
+    +id: Integer
+    +idPerson: Integer
+    name: String
+    category: String
+    race: String
+    weight: Double
+    gender: Integer
+    dateOfBirth: Date
+    imageUrl: String
+  }
+
+  class Adoption {
+    +idAdoption: Integer
+    startDate: Date
+    endDate: Date
+    +idAnimal: Integer
+  }
+
+  class Candidature {
+    +idCandidature: Integer
+    dateCandidature: Date
+    +person: Person
+    +adoption: Adoption
+  }
+
+  class Vaccin {
+    +idVaccin: Integer
+    vaccinName: String
+  }
+
+  class Vaccination {
+    +idVaccination: Integer
+    +vaccin: Vaccin
+    +animal: Animal
+    date: Date
+  }
+}
+
+Person   --  Animal : "1,1" Adopte "0,N"
+Person -- Candidature : "0,N" Candidate à "1,1"
+Animal -- Adoption : "1,1" Est concerné par "1,1"
+Candidature -- Adoption : "1,1" Correspond à "0,N"
+Vaccin -- Vaccination : "0,N" Est utilisé dans "1,N"
+Vaccination -- Animal : "1,1" prend "1,N"
+
+@enduml
 
