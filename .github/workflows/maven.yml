@@ -31,13 +31,18 @@ jobs:
       run: |
         gem install --user-install asciidoctor
         gem install --user-install asciidoctor-pdf
+        echo "AsciiDoctor PDF binary path: $(gem which asciidoctor-pdf)"
+      shell: bash
+
+    - name: List gem installation directory
+      run: ls $HOME/.gem/ruby/3.0.0/bin
       shell: bash
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
     - name: Generate AsciiDoc PDF Documentation
-      run: $HOME/.gem/ruby/3.0.0/bin/asciidoctor-pdf docs/documentation.adoc -o docs/documentation.pdf
+      run: asciidoctor-pdf docs/documentation.adoc -o docs/documentation.pdf
       working-directory: ${{ github.workspace }}
       continue-on-error: true
 
