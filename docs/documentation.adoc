@@ -76,6 +76,7 @@ Principales Caractéristiques :
 === Fonctionnalité de l'adoption des animaux
 
 Après avoir enregistré votre animal sur notre site, vous avez la possibilité de le donner de manière permanente en omettant la spécification d'une date de fin dans la pop-up associée. En revanche, si vous prévoyez une période temporaire, telle que des vacances, la pop-up vous permettra de renseigner la date de retour prévue. Une fois l'enregistrement terminé, votre offre d'adoption apparaîtra sur la page dédiée à l'adoption. Les utilisateurs intéressés auront la possibilité de manifester leur intérêt en cliquant sur le bouton "Candidater". Cette approche flexible vise à simplifier le processus d'adoption, offrant aux propriétaires la liberté de choisir la durée de la nouvelle maison pour leur animal tout en créant une plateforme conviviale pour ceux en quête d'un nouveau compagnon.
+
 == Base de données
 
 Le diagramme entité-relation ci-dessous offre une représentation visuelle des relations essentielles. En mettant en lumière les liens entre les différentes entités.
