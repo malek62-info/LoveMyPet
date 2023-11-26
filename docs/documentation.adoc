@@ -75,7 +75,15 @@ Principales Caractéristiques :
 
 === Fonctionnalité de l'adoption des animaux
 
-Après avoir enregistré votre animal sur notre site, vous avez la possibilité de le donner de manière permanente en omettant la spécification d'une date de fin dans la pop-up associée. En revanche, si vous prévoyez une période temporaire, telle que des vacances, la pop-up vous permettra de renseigner la date de retour prévue. Une fois l'enregistrement terminé, votre offre d'adoption apparaîtra sur la page dédiée à l'adoption. Les utilisateurs intéressés auront la possibilité de manifester leur intérêt en cliquant sur le bouton "Candidater". Cette approche flexible vise à simplifier le processus d'adoption, offrant aux propriétaires la liberté de choisir la durée de la nouvelle maison pour leur animal tout en créant une plateforme conviviale pour ceux en quête d'un nouveau compagnon.
+Une fois que vous avez ajouté vos compagnons à la section "Mes Animaux", vous remarquerez que chaque animal dispose d'une option unique : le bouton "Donner". En cliquant sur ce bouton, un pop-up s'affiche, offrant une expérience interactive et conviviale pour faciliter le processus d'adoption.
+
+Dans ce pop-up, la date de début est une information obligatoire, permettant aux utilisateurs de spécifier quand leur animal sera disponible pour adoption. Cependant, la date de fin reste facultative, laissant aux donateurs la liberté de décider s'ils souhaitent offrir leur animal de manière permanente ou temporaire.
+
+L'ajout de cette fonctionnalité temporelle est particulièrement pratique pour ceux qui envisagent de confier leur animal pendant une période spécifique, comme les vacances. En spécifiant la date de retour prévue, les utilisateurs peuvent indiquer clairement la durée pendant laquelle leur animal est disponible pour l'adoption.
+
+Une fois cette étape terminée, l'information concernant l'animal disponible est publiée dans la section dédiée à l'adoption. Les utilisateurs parcourant cette section trouveront une liste d'animaux prêts à être adoptés, chacun accompagné d'un bouton "Candidater". Cette approche permet à toute personne intéressée par un animal spécifique de manifester rapidement son intérêt en un simple clic.
+
+Cette approche flexible a pour objectif de simplifier le processus d'adoption, offrant aux propriétaires la liberté de choisir la durée de la nouvelle maison pour leur animal. En créant une plateforme conviviale, nous aspirons à faciliter la connexion entre ceux qui cherchent un compagnon et ceux qui sont prêts à partager l'amour de leurs animaux.
 
 == Base de données
 
