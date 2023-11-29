@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choix d'heures pour l'animal</title>
+    <style>
+        #submitButton {
+            display: none; /* Cacher le bouton initialement */
+        }
+    </style>
+</head>
+<body>
+
+<h1>Choix d'heures pour l'animal</h1>
+
+<form id="hoursForm">
+    <!-- Ajout d'un champ hidden pour l'animalId statique -->
+    <input type="hidden" id="animalId" name="animalId" value="2">
+
+    <label for="numberOfHours">Nombre d'heures :</label>
+    <input type="number" id="numberOfHours" name="numberOfHours" min="1" max="24" required>
+    
+    <button type="button" onclick="createHourFields()">Générer les champs</button>
+
+    <div id="hourFieldsContainer"></div>
+
+    <!-- Utilisez type="submit" pour le bouton Soumettre -->
+    <button type="submit" id="submitButton">Soumettre</button>
+</form>
+
+<script>
+    document.getElementById("hoursForm").addEventListener("submit", function (event) {
+        // Empêcher le formulaire de se soumettre automatiquement
+        event.preventDefault();
+        submitForm();
+    });
+
+    function createHourFields() {
+        // Récupérer la valeur du champ d'entrée
+        var numberOfHours = parseInt(document.getElementById("numberOfHours").value);
+
+        // Vider le conteneur des champs d'heures précédents
+        document.getElementById("hourFieldsContainer").innerHTML = "";
+
+        // Créer et ajouter les champs d'heures en fonction de numberOfHours
+        for (var i = 1; i <= numberOfHours; i++) {
+            // Utiliser des variables pour stocker le code HTML des balises label et input
+            var labelHTML = `<label for="hour${i}">Heure numéro ${i}</label><br>`;
+            var inputFieldHTML = `<input type="time" id="hour${i}" name="hour${i}" required><br>`;
+
+            // Ajouter le code HTML au conteneur
+            document.getElementById("hourFieldsContainer").innerHTML += labelHTML + inputFieldHTML;
+        }
+
+        // Rendre le bouton "Soumettre" visible après la génération des champs
+        document.getElementById("submitButton").style.display = "block";
+    }
+    function submitForm() {
+    var numberOfHours = parseInt(document.getElementById("numberOfHours").value);
+    var feedingTimes = [];
+
+    for (var i = 1; i <= numberOfHours; i++) {
+        var hourValue = document.getElementById("hour" + i).value;
+        feedingTimes.push({ feedingTime: hourValue });
+    }
+
+    var formData = {
+        animal: { id: 2 },
+        feedingFrequency: numberOfHours,
+        feedingTimes: feedingTimes
+    };
+
+    fetch('/api/feeding-schedules', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (response.ok) {
+           alert("Données enregistrées avec succès !");
+        } else {
+            console.error('Erreur lors de la requête:', response.status, response.statusText);
+            alert("Une erreur s'est produite lors de l'enregistrement des données.");
+        }
+    })
+    .catch(error => {
+        console.error('Erreur lors de l\'envoi des données:', error);
+        alert("Une erreur s'est produite lors de l'enregistrement des données.");
+    });
+}
+
+</script>
+
+</body>
+</html>

@@ -55,6 +55,14 @@ public class Controller {
         return "profile";
     }
 
+    /* Feeding */
+
+    	  
+    @GetMapping("/choicetime")
+    public String TimeChoiceAnimal(){
+        return "TimeChoiceAnimal.html";
+    }
+
 
 
 }
