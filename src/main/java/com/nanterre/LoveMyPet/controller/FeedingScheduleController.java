@@ -29,9 +29,7 @@ public class FeedingScheduleController {
     }
 
     // récupérer la liste des utilisateurs avec un repas planifié à l'heure actuelle
-
-    // Exécute la méthode toutes les 1 seconde
-    @Scheduled(fixedRate = 1000)
+    @RequestMapping("emails-with-current-time")
     @ResponseBody
     public String displayUsersWithCurrentFeedingTime() {
         try {
