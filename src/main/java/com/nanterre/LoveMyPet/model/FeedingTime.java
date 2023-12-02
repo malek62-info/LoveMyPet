@@ -19,9 +19,10 @@ public class FeedingTime {
     @JoinColumn(name = "feeding_schedule_id", nullable = false)
     private FeedingSchedule feedingSchedule;
 
-    @Column(name = "feeding_time")
-    @JsonFormat(pattern = "HH:mm")  // Formatage de l'heure
+    @Column(name = "feeding_time", columnDefinition = "TIME(0)") // Spécifie la longueur à 0 pour exclure les secondes
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime feedingTime;
+
 
     // Constructeur avec une chaîne
     public FeedingTime(String feedingTime) {

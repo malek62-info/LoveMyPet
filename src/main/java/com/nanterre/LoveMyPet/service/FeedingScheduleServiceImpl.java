@@ -3,10 +3,13 @@ package com.nanterre.LoveMyPet.service;
 import com.nanterre.LoveMyPet.model.Animal;
 import com.nanterre.LoveMyPet.model.FeedingSchedule;
 import com.nanterre.LoveMyPet.model.FeedingTime;
+import com.nanterre.LoveMyPet.model.Person;
 import com.nanterre.LoveMyPet.repository.AnimalRepository;
 import com.nanterre.LoveMyPet.repository.FeedingScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class FeedingScheduleServiceImpl implements FeedingScheduleService {
@@ -37,5 +40,9 @@ public class FeedingScheduleServiceImpl implements FeedingScheduleService {
         return feedingScheduleRepository.save(feedingSchedule);
     }
 
-    // Autres méthodes du service si nécessaire
+    // La liste de spersonne qui ont un animal qui a un feedingtimme == maintenant
+
+    public List<String> getUsersWithCurrentFeedingTime() {
+        return feedingScheduleRepository.findEmailsForCurrentFeedingTime();
+    }
 }

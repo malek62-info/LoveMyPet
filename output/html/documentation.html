@@ -443,13 +443,34 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table des matières</div>
 <ul class="sectlevel1">
-<li><a href="#_introduction">Introduction</a></li>
-<li><a href="#_diagramme_de_classe">Diagramme de classe</a></li>
-<li><a href="#_motivations">Motivations</a></li>
-<li><a href="#_concurrence">Concurrence</a></li>
-<li><a href="#_fonctionnalités">Fonctionnalités</a>
+<li><a href="#_partie_1_synthèse">Partie 1 : Synthèse</a>
 <ul class="sectlevel2">
-<li><a href="#_fonctionnalité_de_suivi_des_vaccins_carnet_de_vaccination_en_ligne">Fonctionnalité de Suivi des Vaccins - Carnet de Vaccination en Ligne</a></li>
+<li><a href="#_titre_du_projet">titre du projet</a></li>
+<li><a href="#_abréviation">Abréviation</a></li>
+<li><a href="#_logo">Logo</a></li>
+<li><a href="#_présentation">Présentation</a></li>
+</ul>
+</li>
+<li><a href="#_partie_2_aspects_techniques">Partie 2 : Aspects techniques</a>
+<ul class="sectlevel2">
+<li><a href="#_type_dapplication">type d&#8217;application</a></li>
+<li><a href="#_schéma_architectural_de_lapplication">Schéma architectural de l&#8217;application</a></li>
+</ul>
+</li>
+<li><a href="#_partie_1_modélisation">Partie 1 : Modélisation</a>
+<ul class="sectlevel2">
+<li><a href="#_feature_de_ladoption_des_animaux">Feature de l&#8217;adoption des animaux</a></li>
+<li><a href="#_feature_de_suivi_des_vaccins_carnet_de_vaccination_en_ligne">Feature de Suivi des Vaccins - Carnet de Vaccination en Ligne</a></li>
+</ul>
+</li>
+<li><a href="#_partie_3_modélisation">Partie 3 : Modélisation</a>
+<ul class="sectlevel2">
+<li><a href="#_diagramme_de_classe">Diagramme de classe</a></li>
+</ul>
+</li>
+<li><a href="#_base_de_données">Base de données</a>
+<ul class="sectlevel2">
+<li><a href="#_modèle_lovemypet">Modèle LoveMyPet</a></li>
 </ul>
 </li>
 </ul>
@@ -457,42 +478,92 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_introduction">Introduction</h2>
+<h2 id="_partie_1_synthèse">Partie 1 : Synthèse</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_titre_du_projet">titre du projet</h3>
 <div class="paragraph">
-<p>Ce document décrit Le projet LoveMyPet, ses motivations, ses concurrents et ses fonctionnalités.</p>
+<p>Le titre qu&#8217;on a choisi pour notre projet est <strong>LoveMyPet</strong>.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_abréviation">Abréviation</h3>
+<div class="paragraph">
+<p>L&#8217;abréviation  qu&#8217;on a choisi pour notre projet est <strong>LMP</strong>.</p>
 </div>
-<div class="sect1">
-<h2 id="_diagramme_de_classe">Diagramme de classe</h2>
-<div class="sectionbody">
-<div class="listingblock">
+</div>
+<div class="sect2">
+<h3 id="_logo">Logo</h3>
+<div class="paragraph">
+<p>Pour le logo du projet, on a crée le logo suivant :</p>
+</div>
+<div class="imageblock">
 <div class="content">
-<pre>@startuml
-class Controleur {
-  +showpage()
-  +calculate(int num1, int num2, Model model)
-}
-
-
-
-
-
-@enduml</pre>
+<img src="logo.png" alt="logo de lovemypet">
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_motivations">Motivations</h2>
-<div class="sectionbody">
+<div class="sect3">
+<h4 id="_membres_de_léquipe">Membres de l&#8217;équipe</h4>
 <div class="paragraph">
-<p>Les animaux de compagnie apportent la joie et le soutien émotionnel, cepandant, leur adoption peut être un processus très complexe et parfois décourageant, tant pour les futurs adoptants que pour les animaux en attente de foyer.</p>
+<p>Le projet LoveMyPet a été réalisé par les membres suivants :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Imane Errahmani</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Adenle Sadikou</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Malek Messaoudi</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_présentation">Présentation</h3>
+<div class="sect3">
+<h4 id="_contexte">Contexte</h4>
+<div class="paragraph">
+<p>Les animaux de compagnie apportent la joie et le soutien émotionnel, cependant, leur adoption peut être un processus très complexe et parfois décourageant, tant pour les futurs adoptants que pour les animaux en attente de foyer. Faciliter l’adoption d’animaux de compagnie n’est pas seulement une question de confort, c’est une opportunité pour sauver des vies et créer des connexions durables entre les animaux et leurs propriétaires.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_problématique">Problématique</h4>
+<div class="paragraph">
+<p>Le processus d&#8217;adoption des animaux de compagnie présente actuellement des défis significatifs tant pour les donneurs que pour les adoptants. Les principales problématiques identifiées sont les suivantes :</p>
 </div>
 <div class="paragraph">
-<p>Faciliter l’adoption d’animaux de compagnie n’est pas seulement une question de confort, c’est une opportunité pour sauver des vies et créer des connexions durables entre les animaux et leurs propriétaires.</p>
+<p><strong>Complexité du Processus</strong>: Les plateformes existantes se concentrent principalement sur la mise en relation avec des refuges ou des associations, rendant le processus d&#8217;adoption complexe et bureaucratique.</p>
 </div>
+<div class="paragraph">
+<p><strong>Suivi du Bien-Être des Animaux</strong>: Après l&#8217;adoption, il existe un manque de mécanismes efficaces pour assurer le suivi du bien-être des animaux, ce qui peut entraîner une négligence involontaire.</p>
+</div>
+<div class="paragraph">
+<p><strong>Manque de Flexibilité</strong>: Les plateformes actuelles ne permettent pas aux donneurs de spécifier la durée de disponibilité de l&#8217;animal, limitant ainsi les options d&#8217;adoption temporaire.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_gain_attendu">Gain attendu</h4>
+<div class="paragraph">
+<p>En abordant ces problématiques, notre projet, LoveMyPet, vise à apporter les améliorations suivantes :</p>
+</div>
+<div class="paragraph">
+<p><strong>Simplification du Processus d&#8217;Adoption</strong>: Offrir une plateforme conviviale où les donneurs peuvent directement mettre en contact des personnes désireuses d&#8217;adopter, simplifiant ainsi le processus.</p>
+</div>
+<div class="paragraph">
+<p><strong>Suivi Continu du Bien-Être</strong>: Introduire un système de suivi du bien-être des animaux, incluant des rappels pour les vaccinations et d&#8217;autres aspects cruciaux, pour garantir une vie épanouissante après l&#8217;adoption.</p>
+</div>
+<div class="paragraph">
+<p><strong>Flexibilité dans l&#8217;Adoption</strong>: Permettre aux donneurs de spécifier la durée de disponibilité de l&#8217;animal, offrant ainsi des options d&#8217;adoption temporaire et permanente, selon les préférences des utilisateurs.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_motivation_de_léquipe_par_rapport_au_sujet">Motivation de l&#8217;équipe par rapport au sujet</h4>
 <div class="paragraph">
 <p>La motivation principale de notre projet est la volonté de simplifier le processus de l’adoption des animaux de compagnie et d&#8217;améliorer leur bien-être.
 On vise à créer une plateforme dont l’objectif est de connecter les adoptants potentiels avec les gens qui souhaitent donner leur animal de compagnie soit pour une durée définie (vacances) ou pour toujours.</p>
@@ -501,10 +572,8 @@ On vise à créer une plateforme dont l’objectif est de connecter les adoptant
 <p>Notre projet vise aussi à éduquer les futurs propriétaires sur les meilleures pratiques de soins afin de créer une communauté engagée et responsable pour contribuer à une adoption plus répandue et à des vies animales plus épanouies.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_concurrence">Concurrence</h2>
-<div class="sectionbody">
+<div class="sect3">
+<h4 id="_concurrence">Concurrence</h4>
 <div class="paragraph">
 <p>Afin de faire une étude de la concurrence, on s’est posé les questions suivantes :</p>
 </div>
@@ -532,12 +601,354 @@ Assurer que le propriétaire prend soin de l’animal en lui envoyant des rappel
 <p>Donc au final, notre projet est une combinaison de fonctionnalités permettant une meilleure expérience utilisateur.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_personas">Personas</h4>
+<div class="paragraph">
+<p><strong>Donneur d&#8217;Animal - Sophie</strong>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="sophie.jpg" alt="persona 1">
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Contexte: Sophie, 35 ans, a un chien nommé Max qu'elle aime profondément. Cependant, en raison de changements de vie, elle doit trouver un nouveau foyer pour Max.
+Fonctionnalités Clés:
+    Enregistrement facile des informations de Max sur la plateforme.
+    Possibilité de donner Max pour une durée à spécifier (temporaire ou permanente).</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Futur Adoptant - Antoine</strong>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="antoine.jpg" alt="persona 2">
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Contexte: Antoine, 28 ans, cherche un compagnon animal. Il aimerait adopter un chien pour lui tenir compagnie.
+Fonctionnalités Clés:
+    Recherche simplifiée d'animaux disponibles à l'adoption.
+    Faire une candidature  pour exprimer son intérêt à adopter.
+    Accès à des informations complètes sur les vaccinations et le suivi du bien-être de l'animal.</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_prévisions_marketing">Prévisions Marketing</h4>
+<div class="paragraph">
+<p><strong>Réseaux Sociaux</strong>:</p>
+</div>
+<div class="paragraph">
+<p>Stratégie: Campagnes engageantes sur des plateformes populaires telles que Facebook, Instagram et Twitter.
+Contenu: Témoignages d&#8217;adoptions réussies, conseils de soins, et mises en avant des fonctionnalités uniques de LoveMyPet.
+Impact Attendu: Augmentation de la notoriété de la plateforme, engagement de la communauté, partages sociaux.</p>
+</div>
+<div class="paragraph">
+<p><strong>Site Web</strong>:</p>
+</div>
+<div class="paragraph">
+<p>Stratégie: Développement d&#8217;un site web attrayant et convivial.
+Contenu: Histoires inspirantes, guides de soins, témoignages d&#8217;utilisateurs, et accès facile aux fonctionnalités de la plateforme.
+Impact Attendu: Plateforme centrale pour les informations sur LoveMyPet, conversion des visiteurs en utilisateurs actifs.</p>
+</div>
+<div class="paragraph">
+<p><strong>Campagnes d&#8217;Influenceurs</strong>:</p>
+</div>
+<div class="paragraph">
+<p>Stratégie: Partenariat avec des influenceurs dans le domaine des animaux et de l&#8217;adoption responsable.
+Contenu: Contenu authentique mettant en avant l&#8217;utilité de LoveMyPet.
+Impact Attendu: Atteinte d&#8217;un public plus large, renforcement de la confiance grâce à des recommandations d&#8217;influenceurs.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="sect1">
-<h2 id="_fonctionnalités">Fonctionnalités</h2>
+<h2 id="_partie_2_aspects_techniques">Partie 2 : Aspects techniques</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_fonctionnalité_de_suivi_des_vaccins_carnet_de_vaccination_en_ligne">Fonctionnalité de Suivi des Vaccins - Carnet de Vaccination en Ligne</h3>
+<h3 id="_type_dapplication">type d&#8217;application</h3>
+<div class="paragraph">
+<p>LoveMyPet est une application <strong>web</strong></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_schéma_architectural_de_lapplication">Schéma architectural de l&#8217;application</h3>
+<div class="paragraph">
+<p>Voici notre schéma architectural</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>@startuml
+
+!define RECTANGLE class
+!define INTERFACE interface
+!define END end
+
+RECTANGLE Frontend {
+  PageAccueil
+  PagesProfil
+  PagesAdoption
+  PopUpsInteractifs
+  PagesSuiviDeVaccination
+  ...
+}
+
+RECTANGLE Backend {
+  API_REST
+  GestionUtilisateurs
+  LogiqueAdoption
+  SuiviVaccination
+}
+
+RECTANGLE BaseDeDonnees {
+  TablesPerson
+  TablesAnimal
+  TablesAdoption
+  TablesVaccination
+  TablesVaccin
+}
+
+Backend -- BaseDeDonnees : communique
+Frontend -- Backend : communique
+
+@enduml</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>et voici toutes les API utilisées dans notre projet :</p>
+</div>
+<div class="sect4">
+<h5 id="_adoptioncontroller">AdoptionController</h5>
+<div class="paragraph">
+<p>Point de départ de l&#8217;API : <code>/adoption</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GET /adoptions</code> : Obtenir la liste de toutes les URL d&#8217;adoption.</p>
+</li>
+<li>
+<p><code>GET /{idAdoption}</code> : Obtenir les détails d&#8217;une adoption spécifique par ID.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_animalcontroller">AnimalController</h5>
+<div class="paragraph">
+<p>Point de départ de l&#8217;API : <code>/animal</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>POST /add</code> : Ajouter un nouvel animal avec un fichier image.</p>
+</li>
+<li>
+<p><code>GET /person/{idPerson}</code> : Obtenir la liste des références d&#8217;animaux par ID de personne.</p>
+</li>
+<li>
+<p><code>GET /{id}</code> : Obtenir les détails d&#8217;un animal spécifique par ID.</p>
+</li>
+<li>
+<p><code>GET /{animalId}/candidatures</code> : Obtenir la liste des candidatures pour un animal spécifique.</p>
+</li>
+<li>
+<p><code>POST /addadoption</code> : Ajouter une nouvelle adoption.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_candidaturecontroller">CandidatureController</h5>
+<div class="paragraph">
+<p>Point de départ de l&#8217;API : <code>/animal/{animalId}/candidature</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GET /{candidatureId}</code> : Obtenir les détails d&#8217;une candidature spécifique pour un animal.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_mescandidaturecontroller">MesCandidatureController</h5>
+<div class="paragraph">
+<p>Point de départ de l&#8217;API : <code>/mescandidature</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GET /person/{idPerson}</code> : Obtenir la liste des références de candidatures par ID de personne.</p>
+</li>
+<li>
+<p><code>GET /{idCandidature}</code> : Obtenir les détails d&#8217;une candidature spécifique par ID.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_personcontroller">PersonController</h5>
+<div class="paragraph">
+<p>Point de départ de l&#8217;API : <code>/person</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GET /{id}</code> : Obtenir les détails d&#8217;une personne spécifique par ID.</p>
+</li>
+<li>
+<p><code>POST /add</code> : Ajouter une nouvelle personne avec un fichier image.</p>
+</li>
+<li>
+<p><code>POST /login</code> : Authentifier une personne à l&#8217;aide de l&#8217;e-mail et du mot de passe.</p>
+</li>
+<li>
+<p><code>GET /profile</code> : Obtenir les informations du profil utilisateur.</p>
+</li>
+<li>
+<p><code>POST /addcandidature</code> : Ajouter une nouvelle candidature.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_vaccinationcontroller">VaccinationController</h5>
+<div class="paragraph">
+<p>Point de départ de l&#8217;API : <code>/vaccination</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GET /animal/{idAnimal}</code> : Obtenir les références de vaccination par ID d&#8217;animal.</p>
+</li>
+<li>
+<p><code>GET /{idVaccination}</code> : Obtenir les détails d&#8217;une vaccination spécifique par ID.</p>
+</li>
+<li>
+<p><code>POST /add</code> : Ajouter une nouvelle vaccination.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_vaccincontroller">VaccinController</h5>
+<div class="paragraph">
+<p>Point de départ de l&#8217;API : <code>/vaccin</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GET /all</code> : Obtenir toutes les vaccinations.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_plateforme_technologique">plateforme technologique</h4>
+<div class="paragraph">
+<p><strong>Langages utilisés</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Backend (Java)</strong>: Utilisation de Java pour la logique métier, la gestion de la base de données, et la création de l&#8217;API REST.</p>
+</div>
+<div class="paragraph">
+<p><strong>Frontend (JavaScript, HTML, JSON)</strong>: Utilisation de JavaScript pour la logique côté client, HTML pour la structure des pages, et JSON pour le format des données échangées.</p>
+</div>
+<div class="paragraph">
+<p><strong>API REST</strong></p>
+</div>
+<div class="paragraph">
+<p>Utilisation d&#8217;une architecture RESTful pour la communication entre le frontend et le backend.</p>
+</div>
+<div class="paragraph">
+<p><strong>Frameworks de Test</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Jacoco</strong>: Utilisation de Jacoco pour la mesure de la couverture de code, permettant d&#8217;évaluer l&#8217;étendue des tests effectués sur le code source Java.</p>
+</div>
+<div class="paragraph">
+<p><strong>Gestion de Versions</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Git</strong>: Utilisation du système de gestion de versions Git pour le suivi des modifications, la collaboration entre les membres de l&#8217;équipe, et la gestion des branches de développement.</p>
+</div>
+<div class="paragraph">
+<p><strong>Build</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Maven</strong>: Utilisation de Maven pour la gestion des dépendances, la compilation du code source, et la création d&#8217;artefacts binaires.</p>
+</div>
+<div class="paragraph">
+<p><strong>Intégration Continue (CI)</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>GitAction</strong>: Mise en place d&#8217;un système d&#8217;intégration continue pour automatiser les tests, la compilation, et la vérification de la qualité du code à chaque modification dans le référentiel Git.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_partie_1_modélisation">Partie 1 : Modélisation</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_feature_de_ladoption_des_animaux">Feature de l&#8217;adoption des animaux</h3>
+<div class="paragraph">
+<p>Une fois que vous avez ajouté vos compagnons,(étape 1) à la section <strong>"Mes Animaux"</strong> ("étape 2"), vous remarquerez que chaque animal dispose d&#8217;une option unique : le bouton <strong>"Donner"</strong>(étape 3). En cliquant sur ce bouton, un pop-up s&#8217;affiche, offrant une expérience interactive et conviviale pour faciliter le processus d&#8217;adoption.</p>
+</div>
+<div class="paragraph">
+<p><strong>étape 1</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="enregistrement.png" alt="etape 1">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>étape 2</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="donner.png" alt="etape 2">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>étape 3</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="popup.png" alt="etape 3">
+</div>
+</div>
+<div class="paragraph">
+<p>Dans ce pop-up, la date de début est une information obligatoire, permettant aux utilisateurs de spécifier quand leur animal sera disponible pour adoption. Cependant, la date de fin reste facultative, laissant aux donateurs la liberté de décider s&#8217;ils souhaitent offrir leur animal de manière permanente ou temporaire.</p>
+</div>
+<div class="paragraph">
+<p>L&#8217;ajout de cette fonctionnalité temporelle est particulièrement pratique pour ceux qui envisagent de confier leur animal pendant une période spécifique, comme les vacances. En spécifiant la date de retour prévue, les utilisateurs peuvent indiquer clairement la durée pendant laquelle leur animal est disponible pour l&#8217;adoption.</p>
+</div>
+<div class="paragraph">
+<p>Une fois cette étape terminée, l&#8217;information concernant l&#8217;animal disponible est publiée dans <strong>la section dédiée à l&#8217;adoption</strong>. Les utilisateurs parcourant cette section trouveront une liste d&#8217;animaux prêts à être adoptés, chacun accompagné d&#8217;un bouton <strong>"Candidater"</strong> (étape 4). Cette approche permet à toute personne intéressée par un animal spécifique de manifester rapidement son intérêt en un simple clic.</p>
+</div>
+<div class="paragraph">
+<p><strong>étape 4</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="adoption.png" alt="etape 4">
+</div>
+</div>
+<div class="paragraph">
+<p>Cette approche flexible a pour objectif de simplifier le processus d&#8217;adoption, offrant aux propriétaires la liberté de choisir la durée de la nouvelle maison pour leur animal. En créant une plateforme conviviale, nous aspirons à faciliter la connexion entre ceux qui cherchent un compagnon et ceux qui sont prêts à partager l&#8217;amour de leurs animaux.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_feature_de_suivi_des_vaccins_carnet_de_vaccination_en_ligne">Feature de Suivi des Vaccins - Carnet de Vaccination en Ligne</h3>
 <div class="paragraph">
 <p>La fonctionnalité de suivi des vaccins sur notre plateforme offre aux utilisateurs une gestion centralisée et accessible des vaccinations de leurs animaux de compagnie. Conçue comme un carnet de vaccination en ligne, cette fonctionnalité permet aux propriétaires d&#8217;animaux de suivre et de mettre à jour facilement les informations relatives aux vaccins administrés à leurs compagnons.</p>
 </div>
@@ -545,7 +956,7 @@ Assurer que le propriétaire prend soin de l’animal en lui envoyant des rappel
 <p>Principales Caractéristiques :</p>
 </div>
 <div class="paragraph">
-<p><strong>Accès Simple :</strong> Les utilisateurs peuvent accéder à la fonction de suivi des vaccins depuis la section "Mes Animaux" de leur compte utilisateur. Chaque animal répertorié dispose d&#8217;une fonction dédiée pour un accès rapide.</p>
+<p><strong>Accès Simple :</strong> Les utilisateurs peuvent accéder à la fonction de <strong>suivi</strong> (étape 1) des vaccins depuis la section <strong>"Mes Animaux"</strong> (étape 2) de leur compte utilisateur. Chaque animal répertorié dispose d&#8217;une fonction dédiée pour un accès rapide.</p>
 </div>
 <div class="paragraph">
 <p><strong>Vue d&#8217;Ensemble des Vaccinations :</strong> L&#8217;interface offre une vue d&#8217;ensemble détaillée des vaccinations précédemment administrées à un animal particulier. Chaque entrée inclut le nom du vaccin ainsi que la date correspondante.</p>
@@ -556,10 +967,347 @@ Assurer que le propriétaire prend soin de l’animal en lui envoyant des rappel
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_partie_3_modélisation">Partie 3 : Modélisation</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_diagramme_de_classe">Diagramme de classe</h3>
+<div class="sect3">
+<h4 id="_feature_1">Feature 1 :</h4>
+<div class="listingblock">
+<div class="content">
+<pre>@startuml
+
+package com.nanterre.LoveMyPet.controller {
+  class AdoptionController {
+    + getAllAdoptionUrls(): List&lt;String&gt;
+    + getAdoptionDetails(idAdoption: Integer): Map&lt;String, Object&gt;
+    + addAdoption(adoption: Adoption): ResponseEntity&lt;Map&lt;String, String&gt;&gt;
+  }
+  class AnimalController {
+    + addAnimal(imageFile: MultipartFile, animal: Animal): ResponseEntity&lt;String&gt;
+    + getAnimalsReferenceByPersonId(idPerson: Integer): List&lt;String&gt;
+    + getAnimalDetailsById(id: Integer): Animal
+    + getCandidaturesByAnimalId(animalId: Integer): List&lt;String&gt;
+    + addAdoption(adoption: Adoption): ResponseEntity&lt;Map&lt;String, String&gt;&gt;
+  }
+  class CandidatureController {
+    + getCandidatureDetailsByAnimalIdAndCandidatureId(animalId: Integer, candidatureId: Integer): Candidature
+  }
+  class Controller {
+    + showAdoptionPage(model: Model): String
+    + showAnimals(model: Model): String
+    + showCandidatureByAnimalId(model: Model): String
+    + showVaccinations(model: Model): String
+    + showCandidatures(model: Model): String
+    + showpage(): String
+    + showpageaddAnimal(): String
+    + showpagelogin(): String
+    + homePage(): String
+    + profile(): String
+  }
+  class MesCandidatureController {
+    + getCandidatureReferenceByPersonId(idPerson: Integer): List&lt;String&gt;
+    + getCandidatureDetailsById(idCandidature: Integer): Candidature
+  }
+  class PersonController {
+    + getPersonDetailsById(id: Integer): Person
+    + add(imageFile: MultipartFile, person: Person): ResponseEntity&lt;String&gt;
+    + login(email: String, password: String, session: HttpSession): ResponseEntity&lt;?&gt;
+    + userProfile(session: HttpSession): ResponseEntity&lt;?&gt;
+    + addCandidature(idPerson: Integer, idAdoption: Integer, dateCandidature: String): ResponseEntity&lt;String&gt;
+  }
+}
+
+package com.nanterre.LoveMyPet.service {
+  interface AdoptionService {
+    + getAllAdoptionUrls(): List&lt;String&gt;
+    + getAdoptionDetails(idAdoption: Integer): Map&lt;String, Object&gt;
+    + saveAdoption(adoption: Adoption)
+  }
+  interface AnimalService {
+    + getAnimalLinksByPersonId(idPerson: Integer): List&lt;String&gt;
+    + getAnimalDetailsById(id: Integer): Animal
+    + getAdoptionUrlsForAnimals(): List&lt;String&gt;
+    + saveAnimal(animal: Animal): Animal
+    + findAnimalById(id: Integer): Animal
+  }
+  interface CandidatureService {
+    + getCandidatureLinksByAnimalId(animalId: Integer): List&lt;String&gt;
+    + getCandidatureDetailsByAnimalIdAndCandidatureId(animalId: Integer, candidatureId: Integer): Candidature
+    + saveCandidature(candidature: Candidature)
+  }
+  interface MesCandidatureService {
+    + getCandidatureLinksByPersonId(idPerson: Integer): List&lt;String&gt;
+    + getCandidatureDetailsById(idCandidature: Integer): Candidature
+  }
+  interface PersonService {
+    + getPersonDetailsById(id: Integer): Person
+    + savePerson(person: Person): Person
+    + findPersonByEmail(email: String): Person
+  }
+}
+
+package com.nanterre.LoveMyPet.repository {
+  interface AdoptionRepository {
+    + findAll(): List&lt;Adoption&gt;
+    + findById(id: Integer): Optional&lt;Adoption&gt;
+    + save(adoption: Adoption): Adoption
+  }
+  interface AnimalRepository {
+    + findByIdPerson(idPerson: Integer): List&lt;Animal&gt;
+    + findById(id: Integer): Optional&lt;Animal&gt;
+    + save(animal: Animal): Animal
+  }
+  interface CandidatureRepository {
+    + getCandidaturesByAnimalId(animalId: Integer): List&lt;Candidature&gt;
+    + findById(id: Integer): Optional&lt;Candidature&gt;
+    + save(candidature: Candidature): Candidature
+  }
+  interface MesCandidatureRepository {
+    + findByPersonIdPerson(idPerson: Integer): List&lt;Candidature&gt;
+    + findById(id: Integer): Optional&lt;Candidature&gt;
+    + save(candidature: Candidature): Candidature
+  }
+  interface PersonRepository {
+    + findById(id: Integer): Optional&lt;Person&gt;
+    + save(person: Person): Person
+    + findPersonByEmail(email: String): Person
+  }
+}
+
+Controller --|&gt; AdoptionController
+Controller --|&gt; AnimalController
+Controller --|&gt; CandidatureController
+Controller --|&gt; MesCandidatureController
+Controller --|&gt; PersonController
+
+AdoptionController --|&gt; AdoptionService
+AdoptionController --|&gt; AnimalService
+
+AnimalController --|&gt; AnimalService
+AnimalController --|&gt; AdoptionService
+AnimalController --|&gt; CandidatureService
+
+CandidatureController --|&gt; CandidatureService
+
+MesCandidatureController --|&gt; MesCandidatureService
+
+PersonController --|&gt; PersonService
+PersonController --|&gt; CandidatureService
+
+AdoptionService --|&gt; AdoptionRepository
+AnimalService --|&gt; AnimalRepository
+CandidatureService --|&gt; CandidatureRepository
+MesCandidatureService --|&gt; MesCandidatureRepository
+PersonService --|&gt; PersonRepository
+
+
+
+@enduml</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_feature_2">Feature 2 :</h4>
+<div class="listingblock">
+<div class="content">
+<pre>@startuml
+
+package com.nanterre.LoveMyPet.controller {
+  class AnimalController {
+    + addAnimal(imageFile: MultipartFile, animal: Animal): ResponseEntity&lt;String&gt;
+    + getAnimalsReferenceByPersonId(idPerson: Integer): List&lt;String&gt;
+    + getAnimalDetailsById(id: Integer): Animal
+    + getCandidaturesByAnimalId(animalId: Integer): List&lt;String&gt;
+    + addAdoption(adoption: Adoption): ResponseEntity&lt;Map&lt;String, String&gt;&gt;
+  }
+  class Controller {
+    + showAdoptionPage(model: Model): String
+    + showAnimals(model: Model): String
+    + showCandidatureByAnimalId(model: Model): String
+    + showVaccinations(model: Model): String
+    + showCandidatures(model: Model): String
+    + showpage(): String
+    + showpageaddAnimal(): String
+    + showpagelogin(): String
+    + homePage(): String
+    + profile(): String
+  }
+  class PersonController {
+    + getPersonDetailsById(id: Integer): Person
+    + add(imageFile: MultipartFile, person: Person): ResponseEntity&lt;String&gt;
+    + login(email: String, password: String, session: HttpSession): ResponseEntity&lt;?&gt;
+    + userProfile(session: HttpSession): ResponseEntity&lt;?&gt;
+    + addCandidature(idPerson: Integer, idAdoption: Integer, dateCandidature: String): ResponseEntity&lt;String&gt;
+  }
+  class VaccinationController {
+    + getVaccinationReferenceByAnimalId(idAnimal: Integer): List&lt;String&gt;
+    + getVaccinationDetailsById(idVaccination: Integer): Vaccination
+    + add(vaccination: Vaccination, animalId: Integer): String
+  }
+
+  class VaccinController {
+    - vaccinService: VaccinService
+    + VaccinController(vaccinService: VaccinService)
+    + getAllVaccins(): Iterable&lt;Vaccin&gt;
+  }
+}
+
+package com.nanterre.LoveMyPet.service {
+  interface AnimalService {
+    + getAnimalLinksByPersonId(idPerson: Integer): List&lt;String&gt;
+    + getAnimalDetailsById(id: Integer): Animal
+    + getAdoptionUrlsForAnimals(): List&lt;String&gt;
+    + saveAnimal(animal: Animal): Animal
+    + findAnimalById(id: Integer): Animal
+  }
+  interface PersonService {
+    + getPersonDetailsById(id: Integer): Person
+    + savePerson(person: Person): Person
+    + findPersonByEmail(email: String): Person
+  }
+  interface VaccinationService {
+    + saveVaccination(vaccination: Vaccination): Vaccination
+    + getVaccinationLinksByAnimalId(idAnimal: Integer): List&lt;String&gt;
+    + getVaccinationDetailsById(idVaccination: Integer): Vaccination
+  }
+
+  interface VaccinService {
+  + getAllVaccins(): Iterable&lt;Vaccin&gt;
+  + getVaccinById(id: Integer): Vaccin
+  }
+
+}
+
+package com.nanterre.LoveMyPet.repository {
+  interface AnimalRepository {
+    + findByIdPerson(idPerson: Integer): List&lt;Animal&gt;
+    + findById(id: Integer): Optional&lt;Animal&gt;
+    + save(animal: Animal): Animal
+  }
+  interface PersonRepository {
+    + findById(id: Integer): Optional&lt;Person&gt;
+    + save(person: Person): Person
+    + findPersonByEmail(email: String): Person
+  }
+  interface VaccinRepository {
+    + findAll(): Iterable&lt;Vaccin&gt;
+    + findById(id: Integer): Optional&lt;Vaccin&gt;
+    + save(vaccin: Vaccin): Vaccin
+    + deleteById(id: Integer): void
+  }
+  interface VaccinationRepository {
+    + findAll(): List&lt;Vaccination&gt;
+    + findById(id: Integer): Optional&lt;Vaccination&gt;
+    + save(vaccination: Vaccination): Vaccination
+    + deleteById(id: Integer): void
+    + findByAnimalId(animalId: Integer): List&lt;Vaccination&gt;
+  }
+}
+
+Controller --|&gt; VaccinationController
+Controller --|&gt; AnimalController
+Controller --|&gt; VaccinController
+Controller --|&gt; PersonController
+
+VaccinationController --|&gt; VaccinationService
+AnimalController --|&gt; AnimalService
+VaccinController --|&gt; VaccinService
+PersonController --|&gt; PersonService
+
+AnimalService --|&gt; AnimalRepository
+VaccinationService --|&gt; VaccinationRepository
+VaccinService --|&gt; VaccinRepository
+PersonService --|&gt; PersonRepository
+
+@enduml</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_base_de_données">Base de données</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Le diagramme entité-relation ci-dessous offre une représentation visuelle des relations essentielles. En mettant en lumière les liens entre les différentes entités.</p>
+</div>
+<div class="sect2">
+<h3 id="_modèle_lovemypet">Modèle LoveMyPet</h3>
+<div class="listingblock">
+<div class="content">
+<pre>@startuml
+
+package "com.nanterre.LoveMyPet.model" {
+  class Person {
+    +idPerson: Integer
+    LastName: String
+    FirstName: String
+    Email: String
+    PhoneNumber: String
+    Address: String
+    Password: String
+    ImageUrl: String
+  }
+
+  class Animal {
+    +id: Integer
+    +idPerson: Integer
+    name: String
+    category: String
+    race: String
+    weight: Double
+    gender: Integer
+    dateOfBirth: Date
+    imageUrl: String
+  }
+
+  class Adoption {
+    +idAdoption: Integer
+    startDate: Date
+    endDate: Date
+    +idAnimal: Integer
+  }
+
+  class Candidature {
+    +idCandidature: Integer
+    dateCandidature: Date
+    +person: Person
+    +adoption: Adoption
+  }
+
+  class Vaccin {
+    +idVaccin: Integer
+    vaccinName: String
+  }
+
+  class Vaccination {
+    +idVaccination: Integer
+    +vaccin: Vaccin
+    +animal: Animal
+    date: Date
+  }
+}
+
+Person   --  Animal : "1,1" Adopte "0,N"
+Person -- Candidature : "0,N" Candidate à "1,1"
+Animal -- Adoption : "1,1" Est concerné par "1,1"
+Candidature -- Adoption : "1,1" Correspond à "0,N"
+Vaccin -- Vaccination : "0,N" Est utilisé dans "1,N"
+Vaccination -- Animal : "1,1" prend "1,N"
+
+@enduml</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-11-26 11:21:30 +0100
+Last updated 2023-12-02 14:02:39 +0100
 </div>
 </div>
 </body>
