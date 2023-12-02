@@ -63,6 +63,13 @@ public class Controller {
         return "TimeChoiceAnimal.html";
     }
 
+    @GetMapping("/alertes")
+    public String alertes(){
+        return "alertes";
+    }
+
+
+
 
 
 }

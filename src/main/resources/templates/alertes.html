@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <script>
+
+        function verification(animalId)
+        {
+            url = "animal/" + animalId;
+            fetch( url )
+                .then( ( response ) => response.json() )
+                .then( ( data ) =>
+                {
+                    if (data.scheduled){
+                        // c'est bon l'animal a des planifications de repas
+                        // récupérations de ces planifications
+                    } else {
+                        //si non 
+                        window.location.href = "/choicetime?id=" + animalId;
+                    }
+                } )
+                .catch( ( error ) =>
+                {
+                    console.error( "Error fetching data:", error );
+                } );
+        }
+
+
+
+        window.onload = function ()
+        {
+            const urlParams = new URLSearchParams( window.location.search );
+            const animalId = urlParams.get( 'id' );
+            console.log( "Id de l'animal", animalId );
+            verification(animalId);
+            //vérifier si les repas de l'animal ont été planifié
+        }
+    </script>
+</body>
+
+</html>

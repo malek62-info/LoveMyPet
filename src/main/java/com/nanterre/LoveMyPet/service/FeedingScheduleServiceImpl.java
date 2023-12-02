@@ -8,6 +8,7 @@ import com.nanterre.LoveMyPet.repository.AnimalRepository;
 import com.nanterre.LoveMyPet.repository.FeedingScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class FeedingScheduleServiceImpl implements FeedingScheduleService {
     private AnimalRepository animalRepository;
 
     @Override
+    @Transactional
     public FeedingSchedule createFeedingSchedule(FeedingSchedule feedingSchedule) {
         // Vous pouvez ajouter une logique de validation ou de traitement ici
 
@@ -32,8 +34,7 @@ public class FeedingScheduleServiceImpl implements FeedingScheduleService {
            // Mettez à jour le champ isScheduled à true dans l'entité Animal associée
         Animal animal = feedingSchedule.getAnimal();
         if (animal != null) {
-            animal.setScheduled(true);
-            animalRepository.save(animal);
+            animalRepository.updateIsScheduled(animal.getId(), true);
         }
 
         // Enregistrez le feedingSchedule avec ses feedingTimes
