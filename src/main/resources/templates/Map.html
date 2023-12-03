@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinary Map</title>
+
+    <!-- Inclure les bibliothèques Leaflet et Bootstrap -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZwT" crossorigin="anonymous">
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!-- Barre de navigation Bootstrap -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Veterinary Map</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Accueil <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Div pour afficher la carte -->
+<div class="container mt-4">
+    <div id="map" style="height: 500px;"></div>
+</div>
+
+<!-- Script JavaScript pour charger les données depuis le contrôleur -->
+<script>
+    // Fonction pour charger les données depuis l'API Overpass
+    function loadMapData(latitude, longitude) {
+        // Construction de l'URL pour la requête Overpass API
+        var overpassApiUrl = "/api/veterinaries?latitude=" + latitude + "&longitude=" + longitude;
+
+        fetch(overpassApiUrl)
+            .then(response => response.json())
+            .then(data => {
+                // Appeler la fonction pour afficher les marqueurs sur la carte
+                displayMarkers(data);
+            })
+            .catch(error => {
+                console.error(error);
+                alert('Erreur lors de la récupération des données depuis l\'API Overpass.');
+            });
+    }
+
+    // Fonction pour afficher les marqueurs sur la carte
+    function displayMarkers(veterinaries) {
+        var map = L.map('map').setView([veterinaries[0].lat, veterinaries[0].lon], 13); // Utilisez la première position comme point central initial
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        veterinaries.forEach(vet => {
+            var marker = L.marker([vet.lat, vet.lon]).addTo(map);
+            marker.bindPopup('<b>' + vet.name + '</b><br>Coordonnées : ' + vet.lat + ', ' + vet.lon);
+        });
+    }
+
+    // Fonction pour obtenir la position géographique de l'utilisateur
+    function getUserLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                // Appeler la fonction pour charger les données depuis l'API Overpass avec les coordonnées de l'utilisateur
+                loadMapData(latitude, longitude);
+            }, error => {
+                console.error(error);
+                alert('Impossible d\'obtenir la position actuelle de l\'utilisateur.');
+            });
+        } else {
+            alert('La géolocalisation n\'est pas prise en charge par votre navigateur.');
+        }
+    }
+
+    // Appeler la fonction pour obtenir la position de l'utilisateur et charger les données
+    getUserLocation();
+</script>
+</body>
+</html>

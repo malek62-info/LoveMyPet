@@ -56,5 +56,11 @@ public class Controller {
     }
 
 
+    @GetMapping("/Map")
+    public String map() {
+        return "Map";
+    }
+
+
 
 }
