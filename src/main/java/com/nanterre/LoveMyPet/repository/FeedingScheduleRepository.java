@@ -7,6 +7,7 @@ import com.nanterre.LoveMyPet.model.FeedingSchedule;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FeedingScheduleRepository extends JpaRepository<FeedingSchedule, Long> {
 
@@ -18,6 +19,10 @@ public interface FeedingScheduleRepository extends JpaRepository<FeedingSchedule
             "WHERE HOUR(CURRENT_TIME()) = HOUR(ft.feeding_time) " +
             "AND MINUTE(CURRENT_TIME()) = MINUTE(ft.feeding_time)", nativeQuery = true)
     List<String> findEmailsForCurrentFeedingTime();
+
+
+    // Define a method to find feeding schedule by animal id
+    Optional<FeedingSchedule> findByAnimalId(Long animalId);
 
 
 

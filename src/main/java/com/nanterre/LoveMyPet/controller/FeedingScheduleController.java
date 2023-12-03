@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.nanterre.LoveMyPet.model.FeedingSchedule;
 import com.nanterre.LoveMyPet.service.FeedingScheduleServiceImpl;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -48,6 +49,13 @@ public class FeedingScheduleController {
             e.printStackTrace();
             return "Erreur lors de la récupération des utilisateurs avec un repas planifié à l'heure actuelle.";
         }
+    }
+
+    // récupérartion de la liste des alertes de chaque animal
+    @GetMapping("/animal/{animalId}")
+    public ResponseEntity<List<LocalTime>> getFeedingTimesForAnimal(@PathVariable Long animalId) {
+        List<LocalTime> feedingTimes = feedingScheduleService.getFeedingTimesForAnimal(animalId);
+        return ResponseEntity.ok(feedingTimes);
     }
 
 

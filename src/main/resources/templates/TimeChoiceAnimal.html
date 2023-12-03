@@ -6,30 +6,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Choix d'heures pour l'animal</title>
     <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        h1  {
+            margin-bottom: 20px;
+        }
         #submitButton {
             display: none;
             /* Cacher le bouton initialement */
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+            background-color: #FEF4F4;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        #hoursForm {
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+            border-radius: 6px;
+            width: 350px;
+            padding: 30px;
+        }
+
+        #hoursForm input {
+            margin-bottom: 10px;
+            padding: 10PX;
+            outline: none;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .add-btn {
+            width: 100%;
+            background-color: transparent;
+            border: 2px solid #f2a80b;
+            color: #f2a80b;
+            font-family: inherit;
+            font-size: 0.9rem;
+            padding: 0.4rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            outline: none;
+        }
+
+        #hourFieldsContainer {
+            width: 100%;
+            height: fit-content;
+            display: flex;
+            flex-direction: column; 
+            padding: 0;
+            margin: 0;
+        }
+        label {
+            margin-bottom: 5px;
+        }
+
+        input[name="time"] {
+            width: 100%;
         }
     </style>
 </head>
 
 <body>
 
-    <h1>Choix d'heures pour l'animal</h1>
+    <h1> Planification Repas</h1>
 
     <form id="hoursForm">
         <!-- Ajout d'un champ hidden pour l'animalId statique -->
         <input type="hidden" id="animalId" name="animalId" value="2">
 
-        <label for="numberOfHours">Nombre d'heures :</label>
-        <input type="number" id="numberOfHours" name="numberOfHours" min="1" max="24" required>
+        <input placeholder="Nombre de fois" type="number" id="numberOfHours" name="numberOfHours" min="1" max="24" required>
 
-        <button type="button" onclick="createHourFields()">Générer les champs</button>
+        <button type="button" onclick="createHourFields()" class="add-btn">Choisir les heures</button>
 
         <div id="hourFieldsContainer"></div>
 
         <!-- Utilisez type="submit" pour le bouton Soumettre -->
-        <button type="submit" id="submitButton">Soumettre</button>
+        <button type="submit" id="submitButton" class="add-btn">planifier</button>
+        <button type="button" class="add-btn" onclick="window.location.href='/mesanimaux'">quitter</button>
     </form>
 
     <script>
@@ -51,11 +116,15 @@
             // Créer et ajouter les champs d'heures en fonction de numberOfHours
             for ( var i = 1; i <= numberOfHours; i++ ) {
                 // Utiliser des variables pour stocker le code HTML des balises label et input
-                var labelHTML = `<label for="hour${ i }">Heure numéro ${ i }</label><br>`;
-                var inputFieldHTML = `<input type="time" id="hour${ i }" name="hour${ i }" required><br>`;
+    
+                var inputFieldHTML = `
+    <label for="hour${i}">Heure numéro ${i}</label>
+    <input type="time" id="hour${i}" name="hour${i}" required>
+    <br>
+`;
 
                 // Ajouter le code HTML au conteneur
-                document.getElementById( "hourFieldsContainer" ).innerHTML += labelHTML + inputFieldHTML;
+                document.getElementById( "hourFieldsContainer" ).innerHTML += inputFieldHTML;
             }
 
             // Rendre le bouton "Soumettre" visible après la génération des champs
