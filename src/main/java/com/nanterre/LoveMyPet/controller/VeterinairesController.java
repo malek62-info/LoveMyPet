@@ -3,22 +3,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.List;
+
 
 @RestController
-@RequestMapping("/api/veterinaries")
-public class VeterinaryController {
+@RequestMapping("/api/veterinaires")
+public class VeterinairesController {
 
     @GetMapping
-    public List<Veterinary> getVeterinaries(@RequestParam double latitude, @RequestParam double longitude) {
-        // Simulation de données de vétérinaires
-        return Arrays.asList(
-                new Veterinary(latitude + 0.01, longitude + 0.01, "Vétérinaire 1"),
-                new Veterinary(latitude - 0.01, longitude - 0.01, "Vétérinaire 2")
-        );
+    public String getVeterinaires(@RequestParam double latitude, @RequestParam double longitude) {
+        // Construisez l'URL de l'API Overpass en utilisant les paramètres latitude et longitude
+        String overpassApiUrl = "https://overpass-api.de/api/interpreter?data=[out:json];(node[\"amenity\"=\"veterinary\"](around:3000," + latitude + "," + longitude + "););out;";
+
+        // Utilisez RestTemplate pour faire la requête vers l'API Overpass
+        RestTemplate restTemplate = new RestTemplate();
+        String result = restTemplate.getForObject(overpassApiUrl, String.class);
+
+        return result;
     }
+
 
     private static class Veterinary {
         double lat;

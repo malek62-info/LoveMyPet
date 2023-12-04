@@ -56,11 +56,19 @@ public class Controller {
     }
 
 
-    @GetMapping("/Map")
+    @GetMapping("/Veterinaires")
     public String map() {
-        return "Map";
+        return "Veterinaires";
     }
 
+    @GetMapping("/parc")
+    public String parc() {
+        return "parc";
+    }
 
+    @GetMapping("/Map")
+    public String donate() {
+        return "Map";
+    }
 
 }

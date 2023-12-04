@@ -1,94 +1,105 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veterinary Map</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Services</title>
+  <link rel="stylesheet" href="/css/style_service.css" class="css">
+  <!-- FONT AWESOME LINK USING BOXICON -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFk1S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+  <script src="navbar.js"></script>
+  <style>
+    /* Ajoutez ces styles à votre fichier CSS existant */
 
-    <!-- Inclure les bibliothèques Leaflet et Bootstrap -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZwT" crossorigin="anonymous">
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+        background-image: url('1.jpg'); /* Remplacez 'url_de_votre_image.jpg' par le chemin de votre image */
+        background-size: cover;
+        background-position: center;
+    }
 
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    .btn {
+        display: inline-block;
+        padding: 180px 100px; /* Ajustez la taille du bouton selon vos besoins */
+        font-size: 30px;
+        font-weight: 1000;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 10px;
+        transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: #fff;
+        color: black;
+
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        margin: 10px;
+    }
+
+    .btn:hover {
+        background-color: transparent;
+        color: #4CAF50;
+        transform: translateY(-5px);
+    }
+
+    .btn img {
+        width: 100%; /* Ajustez la largeur selon vos besoins */
+        height: 100%; /* Ajustez la hauteur selon vos besoins */
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0.6;
+        transition: opacity 0.3s ease;
+    }
+
+    .btn:hover img {
+        opacity: 1;
+    }
+
+    .card {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 20px;
+        max-width: 300px;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+  </style>
 </head>
 <body>
 
-<!-- Barre de navigation Bootstrap -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Veterinary Map</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Accueil <span class="sr-only">(current)</span></a>
-            </li>
-        </ul>
-    </div>
-</nav>
 
-<!-- Div pour afficher la carte -->
-<div class="container mt-4">
-    <div id="map" style="height: 500px;"></div>
+<div class="container mt-5 text-center">
+  <h1>Recherche de services</h1>
+
+  <!-- Bouton pour trouver les vétérinaires -->
+  <a href="#" class="btn btn-primary btn-lg mt-4">
+    <img src="2.jpg" alt="Trouver un vétérinaire" class="img-fluid">
+    Trouver un vétérinaire
+  </a>
+
+  <!-- Bouton pour trouver les jardins -->
+  <a href="#" class="btn btn-success btn-lg mt-4">
+    <img src="3.jpg" alt="Trouver un jardin" class="img-fluid">
+    Trouver un jardin
+  </a>
 </div>
 
-<!-- Script JavaScript pour charger les données depuis le contrôleur -->
-<script>
-    // Fonction pour charger les données depuis l'API Overpass
-    function loadMapData(latitude, longitude) {
-        // Construction de l'URL pour la requête Overpass API
-        var overpassApiUrl = "/api/veterinaries?latitude=" + latitude + "&longitude=" + longitude;
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-        fetch(overpassApiUrl)
-            .then(response => response.json())
-            .then(data => {
-                // Appeler la fonction pour afficher les marqueurs sur la carte
-                displayMarkers(data);
-            })
-            .catch(error => {
-                console.error(error);
-                alert('Erreur lors de la récupération des données depuis l\'API Overpass.');
-            });
-    }
-
-    // Fonction pour afficher les marqueurs sur la carte
-    function displayMarkers(veterinaries) {
-        var map = L.map('map').setView([veterinaries[0].lat, veterinaries[0].lon], 13); // Utilisez la première position comme point central initial
-
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
-
-        veterinaries.forEach(vet => {
-            var marker = L.marker([vet.lat, vet.lon]).addTo(map);
-            marker.bindPopup('<b>' + vet.name + '</b><br>Coordonnées : ' + vet.lat + ', ' + vet.lon);
-        });
-    }
-
-    // Fonction pour obtenir la position géographique de l'utilisateur
-    function getUserLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position => {
-                const latitude = position.coords.latitude;
-                const longitude = position.coords.longitude;
-
-                // Appeler la fonction pour charger les données depuis l'API Overpass avec les coordonnées de l'utilisateur
-                loadMapData(latitude, longitude);
-            }, error => {
-                console.error(error);
-                alert('Impossible d\'obtenir la position actuelle de l\'utilisateur.');
-            });
-        } else {
-            alert('La géolocalisation n\'est pas prise en charge par votre navigateur.');
-        }
-    }
-
-    // Appeler la fonction pour obtenir la position de l'utilisateur et charger les données
-    getUserLocation();
-</script>
 </body>
 </html>
