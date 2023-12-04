@@ -59,7 +59,7 @@ public class FeedingSchedule {
 
     // Equals and HashCode
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -73,7 +73,7 @@ public class FeedingSchedule {
     @Override
     public int hashCode() {
         return Objects.hash(id, animal, feedingFrequency, feedingTimes);
-    }
+    }*/
 
     // Additional methods or annotations as needed
 }

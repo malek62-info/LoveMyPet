@@ -34,6 +34,9 @@ public class FeedingTime {
         // Constructeur sans arguments pour la désérialisation JSON
     }
 
+    public FeedingTime(LocalTime of) {
+    }
+
     // Getters and Setters
 
     public Long getId() {
@@ -62,7 +65,7 @@ public class FeedingTime {
 
     // Equals and HashCode
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -76,6 +79,8 @@ public class FeedingTime {
     public int hashCode() {
         return Objects.hash(id, feedingSchedule, feedingTime);
     }
+    */
+
 
     // Additional methods or annotations as needed
 }

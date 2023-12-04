@@ -57,6 +57,4 @@ public class FeedingScheduleController {
         List<LocalTime> feedingTimes = feedingScheduleService.getFeedingTimesForAnimal(animalId);
         return ResponseEntity.ok(feedingTimes);
     }
-
-
 }
