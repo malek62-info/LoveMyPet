@@ -824,7 +824,7 @@ image::./images_planification_food/img3.png[Capture d'écran du formulaire de **
 
 Une fois que l'utilisateur a saisi le **nombre de repas**, le formulaire s'ajuste dynamiquement pour afficher autant de champs que nécessaire pour entrer les **heures prévues des repas**. Chaque champ représente une **heure de repas**.
 
-image::./images_planification_food/img3.png[Capture d'écran des champs d'**heures de repas**]
+image::./images_planification_food/img2.png[Capture d'écran des champs d'**heures de repas**]
 
 Après avoir rempli le formulaire, l'utilisateur est redirigé vers la page "Mes **Alertes**" pour voir les **alertes** correspondant aux **heures de repas planifiées**.
 
