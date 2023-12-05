@@ -110,5 +110,16 @@ public class AnimalController {
             return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PutMapping("/{idAnimal}/updatePerson")
+    public ResponseEntity<String> updateAnimalPerson(@PathVariable Integer idAnimal, @RequestBody Map<String, Integer> requestBody) {
+        Integer newPersonId = requestBody.get("newPersonId");
+
+        if (newPersonId != null) {
+            animalService.updateAnimalPerson(idAnimal, newPersonId);
+            return ResponseEntity.ok("Le propriétaire de l'animal a été mis à jour avec succès.");
+        } else {
+            return ResponseEntity.badRequest().body("Le nouvel ID de la personne ne peut pas être vide.");
+        }
+    }
 
 }

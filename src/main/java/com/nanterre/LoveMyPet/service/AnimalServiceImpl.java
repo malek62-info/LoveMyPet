@@ -79,5 +79,13 @@ public class AnimalServiceImpl implements AnimalService {
         // TODO Auto-generated method stub
         return null;
     }
+    @Override
+    public void updateAnimalPerson(Integer idAnimal, Integer newPersonId) {
+        Animal animal = animalRepository.findById(idAnimal).orElse(null);
 
+        if (animal != null) {
+            animal.setIdPerson(newPersonId);
+            animalRepository.save(animal);
+        }
+    }
 }

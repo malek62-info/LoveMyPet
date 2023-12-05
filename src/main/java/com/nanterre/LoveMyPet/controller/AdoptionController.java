@@ -39,7 +39,11 @@ public class AdoptionController {
         return adoptionService.getAdoptionDetails(idAdoption);
     }
 
-
+    @DeleteMapping("/{idAdoption}")
+   public ResponseEntity<String> deleteAdoption(@PathVariable Integer idAdoption) {
+       adoptionService.deleteAdoption(idAdoption);
+       return ResponseEntity.ok("L'adoption a été supprimée avec succès.");
+   }
 
 
 
