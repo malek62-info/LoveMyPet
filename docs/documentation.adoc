@@ -269,57 +269,153 @@ Utilisation d'une architecture RESTful pour la communication entre le frontend e
 **GitAction**: Mise en place d'un système d'intégration continue pour automatiser les tests, la compilation, et la vérification de la qualité du code à chaque modification dans le référentiel Git.
 
 
-== Partie 1 : Modélisation 
+= Documentation Complète de l'Application
 
-=== Feature de l'adoption des animaux
+== Partie 1 : Modélisation
 
-Une fois que vous avez ajouté vos compagnons,(étape 1) à la section **"Mes Animaux"** ("étape 2"), vous remarquerez que chaque animal dispose d'une option unique : le bouton **"Donner"**(étape 3). En cliquant sur ce bouton, un pop-up s'affiche, offrant une expérience interactive et conviviale pour faciliter le processus d'adoption.
+=== Fonctionnalité d'Adoption des Animaux
+
+Une fonctionnalité essentielle de notre application est l'adoption d'animaux, offrant une expérience conviviale pour faciliter le processus.
+
+==== Ajout d'Animaux dans "Mes Animaux"
+
+Après avoir ajouté des compagnons dans la section "Mes Animaux", chaque animal est associé au bouton unique "Donner". Cela déclenche un pop-up interactif pour faciliter l'adoption.
 
 **étape 1**
-
 image::enregistrement.png[etape 1]
 
 **étape 2**
-
 image::donner.png[etape 2]
 
 **étape 3**
-
 image::popup.png[etape 3]
 
+==== Configuration des Dates pour l'Adoption
 
+Dans le pop-up, la date de début est obligatoire, indiquant quand l'animal sera disponible pour adoption. La date de fin est facultative, laissant aux donateurs le choix de l'adoption permanente ou temporaire, idéal pour les périodes comme les vacances.
 
-Dans ce pop-up, la date de début est une information obligatoire, permettant aux utilisateurs de spécifier quand leur animal sera disponible pour adoption. Cependant, la date de fin reste facultative, laissant aux donateurs la liberté de décider s'ils souhaitent offrir leur animal de manière permanente ou temporaire.
+==== Affichage dans la Section "Adoption"
 
-L'ajout de cette fonctionnalité temporelle est particulièrement pratique pour ceux qui envisagent de confier leur animal pendant une période spécifique, comme les vacances. En spécifiant la date de retour prévue, les utilisateurs peuvent indiquer clairement la durée pendant laquelle leur animal est disponible pour l'adoption.
-
-Une fois cette étape terminée, l'information concernant l'animal disponible est publiée dans **la section dédiée à l'adoption**. Les utilisateurs parcourant cette section trouveront une liste d'animaux prêts à être adoptés, chacun accompagné d'un bouton **"Candidater"** (étape 4). Cette approche permet à toute personne intéressée par un animal spécifique de manifester rapidement son intérêt en un simple clic.
+Une fois configuré, l'animal est répertorié dans la section dédiée à l'adoption, avec un bouton "Candidater" pour exprimer l'intérêt.
 
 **étape 4**
-
 image::adoption.png[etape 4]
 
-Cette approche flexible a pour objectif de simplifier le processus d'adoption, offrant aux propriétaires la liberté de choisir la durée de la nouvelle maison pour leur animal. En créant une plateforme conviviale, nous aspirons à faciliter la connexion entre ceux qui cherchent un compagnon et ceux qui sont prêts à partager l'amour de leurs animaux.
+Cette approche flexible simplifie l'adoption, laissant aux propriétaires le choix de la durée d'adoption.
+
+=== Fonctionnalité de Suivi des Vaccins - Carnet de Vaccination en Ligne
+
+La fonction de suivi des vaccins offre une gestion centralisée des vaccinations des animaux. Accessible depuis "Mes Animaux", elle permet aux propriétaires de maintenir un carnet de vaccination en ligne.
+
+==== Accès Simple
+
+**étape 1**
+image::suivi_vaccins.png[etape 1]
+
+**étape 2**
+image::mes_animaux.png[etape 2]
+
+==== Vue d'Ensemble des Vaccinations
+
+L'interface propose une vue d'ensemble détaillée des vaccinations, incluant le nom et la date de chaque vaccin.
+
+==== Ajout de Vaccinations
+
+Les propriétaires peuvent ajouter de nouvelles vaccinations à tout moment, garantissant un historique complet et à jour.
+
+= Documentation de la Fonctionnalité de Recherche
+
+== Recherche des Vétérinaires et Jardins à Proximité
+
+L'application offre une fonctionnalité puissante permettant aux utilisateurs de localiser rapidement des vétérinaires ou des jardins à proximité de leur emplacement actuel. Cette fonctionnalité est accessible depuis la page "Mes Services".
+
+=== Utilisation de la Carte depuis la Page "Mes Services"
+
+1. **Accès à la Page "Mes Services"**
+
+Connectez-vous à votre compte sur le site et accédez à la page "Mes Services".
+
+2. **Option "Trouver un Service"**
+
+Recherchez l'option "EXPLORATION FACILE" sur la page "Mes Services" et cliquez dessus.
+
+image::service.jpeg[service]
+
+3. **Choix entre Vétérinaires et Jardins**
+
+Une fois sur la page "EXPLORATION FACILE", les utilisateurs ont deux choix :
+- "Trouver un Vétérinaire"
+- "Rechercher un Jardin pour se Balader"
+
+Les utilisateurs peuvent sélectionner l'option qui correspond à leur recherche.
+
+image::map.png[Map]
+
+=== Requête vers l'API Overpass
+
+- **Trouver un Vétérinaire :**
+
+Lorsque l'utilisateur choisit "Trouver un Vétérinaire", l'application utilise l'API Overpass pour rechercher les vétérinaires à proximité de la position actuelle de l'utilisateur. La requête à l'API Overpass est générée dynamiquement pour récupérer les nœuds correspondant à la catégorie "amenity=veterinary" dans un rayon défini autour de la position de l'utilisateur.
 
 
 
-=== Feature de Suivi des Vaccins - Carnet de Vaccination en Ligne
+- **Rechercher un Jardin pour se Balader :**
 
-La fonctionnalité de suivi des vaccins sur notre plateforme offre aux utilisateurs une gestion centralisée et accessible des vaccinations de leurs animaux de compagnie. Conçue comme un carnet de vaccination en ligne, cette fonctionnalité permet aux propriétaires d'animaux de suivre et de mettre à jour facilement les informations relatives aux vaccins administrés à leurs compagnons.
+Si l'utilisateur opte pour "Rechercher un Jardin pour se Balader", l'application effectue une requête pour trouver les nœuds correspondant à la catégorie "leisure=garden" autour de la position actuelle de l'utilisateur. Cette requête est également générée dynamiquement pour récupérer les informations nécessaires.
 
-Principales Caractéristiques :
 
-**Accès Simple :** Les utilisateurs peuvent accéder à la fonction de **suivi** (étape 1) des vaccins depuis la section **"Mes Animaux"** (étape 2) de leur compte utilisateur. Chaque animal répertorié dispose d'une fonction dédiée pour un accès rapide.
 
-**Vue d'Ensemble des Vaccinations :** L'interface offre une vue d'ensemble détaillée des vaccinations précédemment administrées à un animal particulier. Chaque entrée inclut le nom du vaccin ainsi que la date correspondante.
+=== Affichage des Résultats sur la Carte
 
-**Ajout de Vaccinations :** Les propriétaires ont la possibilité d'ajouter de nouvelles vaccinations à tout moment. En fournissant les détails pertinents, tels que le nom du vaccin et la date d'administration, les utilisateurs peuvent maintenir un historique complet et à jour.
+- **Trouver un Vétérinaire :**
+
+Les résultats de la requête pour les vétérinaires sont affichés sur la carte sous forme de marqueurs. Chaque marqueur représente l'emplacement d'un vétérinaire trouvé.
+
+image::veterinaire.png[veterinaire]
+
+[plantuml]
+----
+   @startuml
+   class CarteVeterinaires {
+     + afficherMarqueursVetos(data: String): void
+   }
+
+   CarteVeterinaires --|> Leaflet.js
+@enduml
+----
+
+- **Rechercher un Jardin pour se Balader :**
+
+Pour la recherche de jardins, les résultats correspondants aux nœuds "leisure=garden" sont affichés sur la carte.
+
+image::Parc.png[Parc]
+
+[plantuml]
+----
+   @startuml
+   class CarteJardins {
+     + afficherMarqueursJardins(data: String): void
+   }
+
+   CarteJardins --|> Leaflet.js
+@enduml
+----
+
+== Conclusion
+
+En suivant ces étapes simples, les utilisateurs peuvent exploiter la puissance de la carte interactive pour localiser rapidement des vétérinaires ou des jardins à proximité, améliorant ainsi leur expérience utilisateur.
+
+
+[plantuml]
+
+
+
+
 
 == Partie 3 : Modélisation 
 
-=== Diagramme de classe 
 
-==== Feature 1 :
+
 
 [plantuml]
 ----
@@ -454,7 +550,7 @@ PersonService --|> PersonRepository
 @enduml
 ----
 
-==== Feature 2 :
+
 
 [plantuml]
 ----
@@ -639,7 +735,8 @@ Vaccin -- Vaccination : "0,N" Est utilisé dans "1,N"
 Vaccination -- Animal : "1,1" prend "1,N"
 
 @enduml
-----
+
+
 
 
 

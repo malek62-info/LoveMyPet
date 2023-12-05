@@ -20,9 +20,24 @@
         height: 100vh;
         margin: 0;
         background-color: #f0f0f0;
-        background-image: url('1.jpg'); /* Remplacez 'url_de_votre_image.jpg' par le chemin de votre image */
+        background-image: url('/images/1.jpg'); /* Remplacez 'url_de_votre_image.jpg' par le chemin de votre image */
         background-size: cover;
         background-position: center;
+    }
+
+    .container {
+        color: #666; /* Couleur grise pour le texte */
+    }
+
+    h1 {
+        font-weight: bold;
+        color: #333; /* Couleur du titre en gras */
+    }
+
+    p {
+        font-size: 18px;
+        line-height: 1.5;
+        margin-bottom: 30px;
     }
 
     .btn {
@@ -82,17 +97,16 @@
 
 
 <div class="container mt-5 text-center">
-  <h1>Recherche de services</h1>
 
   <!-- Bouton pour trouver les vétérinaires -->
-  <a href="#" class="btn btn-primary btn-lg mt-4">
-    <img src="2.jpg" alt="Trouver un vétérinaire" class="img-fluid">
+  <a href="/Veterinaires" class="btn btn-primary btn-lg mt-4">
+    <img src="/images/2.jpg" alt="Trouver un vétérinaire" class="img-fluid">
     Trouver un vétérinaire
   </a>
 
   <!-- Bouton pour trouver les jardins -->
-  <a href="#" class="btn btn-success btn-lg mt-4">
-    <img src="3.jpg" alt="Trouver un jardin" class="img-fluid">
+  <a href="/parc" class="btn btn-success btn-lg mt-4">
+    <img src="/images/3.jpg" alt="Trouver un jardin" class="img-fluid">
     Trouver un jardin
   </a>
 </div>
