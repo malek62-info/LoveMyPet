@@ -35,7 +35,9 @@ public class EmailController {
             return "Error sending email: " + e.getMessage();
         }
     }
-    @Scheduled(fixedDelay = 60000)
+
+    // Cette fonction envoie des e-mails toutes les 1 minute si une adresse correspond.
+    //@Scheduled(fixedDelay = 60000) commentaire temporaire
     public String sendEmailToUsersWithCurrentFeedingTime() {
         try {
             List<String> userEmails = feedingScheduleService.getUsersWithCurrentFeedingTime();
