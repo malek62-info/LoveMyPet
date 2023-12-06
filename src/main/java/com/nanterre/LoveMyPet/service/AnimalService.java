@@ -19,6 +19,5 @@ public interface AnimalService {
     public Animal findAnimalById(Integer id);
     void updateAnimalPerson(Integer idAnimal, Integer newPersonId);
 
-
 }
 

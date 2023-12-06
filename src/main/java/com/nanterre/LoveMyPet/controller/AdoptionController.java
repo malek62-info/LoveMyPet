@@ -38,12 +38,13 @@ public class AdoptionController {
     public Map<String, Object> getAdoptionDetails(@PathVariable Integer idAdoption) {
         return adoptionService.getAdoptionDetails(idAdoption);
     }
-
-    @DeleteMapping("/{idAdoption}")
+   	
+   @DeleteMapping("/{idAdoption}")
    public ResponseEntity<String> deleteAdoption(@PathVariable Integer idAdoption) {
        adoptionService.deleteAdoption(idAdoption);
        return ResponseEntity.ok("L'adoption a été supprimée avec succès.");
    }
+
 
 
 

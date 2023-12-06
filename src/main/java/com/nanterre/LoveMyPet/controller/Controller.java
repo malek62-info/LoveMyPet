@@ -54,6 +54,11 @@ public class Controller {
     public String profile() {
         return "profile";
     }
+    
+    @GetMapping("/infoAnimal")
+    public String infoAnimal() {
+        return "infoanimal";
+    }
 
 
 

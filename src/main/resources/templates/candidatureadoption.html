@@ -13,12 +13,15 @@
     <a href="/mesanimaux"> ⬅️ Mes Animaux</a>
     <div id="personDetails"></div>
 
+
+
     <script>
+        let data;
         // Fonction pour récupérer les détails de la personne à partir de l'URI de la candidature
         async function getPersonDetails(candidatureUri) {
             try {
                 const response = await fetch(candidatureUri);
-                const data = await response.json();
+                data = await response.json();
 
                 // Créer une chaîne HTML avec les informations de la personne
                 const personDetailsHtml = `
@@ -37,13 +40,16 @@
 
                 // Ajouter les détails de la personne à la div
                 document.getElementById('personDetails').innerHTML += personDetailsHtml;
-            } catch (error) {
-                console.error('Erreur lors de la récupération des détails de la personne:', error);
                 document.getElementById('acceptButton').disabled = false;
                 document.getElementById('rejectButton').disabled = false;
 
+
+            } catch (error) {
+                console.error('Erreur lors de la récupération des détails de la personne:', error);
             }
         }
+        
+
         // Fonction pour supprimer toutes les candidatures de l'animal
         async function deleteAllCandidatures() {
             try {
@@ -78,13 +84,13 @@
                 const animalId = getAnimalIdFromUrl();
                 await deleteAllCandidatures(animalId);
                 const formatDate = (date) => new Date(date).toISOString().split('T')[0];
-
+                
                 if (data.adoption.endDate === '0001-01-01') {
                     const deleteAdoptionResponse = await fetch(`/adoption/${data.adoption.idAdoption}`, { method: 'DELETE' });
 
                     if (deleteAdoptionResponse.ok) {
                         console.log(`ici`);
-
+                        
                         // Ajoutez cet appel pour mettre à jour le propriétaire de l'animal
                         const updateAnimalPersonResponse = await fetch(`/animal/${animalId}/updatePerson`, {
                             method: 'PUT',
