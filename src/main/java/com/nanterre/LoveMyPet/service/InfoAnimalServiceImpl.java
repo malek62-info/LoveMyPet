@@ -45,6 +45,14 @@ public class InfoAnimalServiceImpl implements InfoAnimalService {
         }
     }
     
+    @Transactional
+    public void updateAnimalImage(Integer idAnimal, String imageUrl) {
+        Animal animal = animalInfoRepository.findById(idAnimal).orElse(null);
+        if (animal != null) {
+            animal.setImageUrl(imageUrl);
+            animalInfoRepository.save(animal);
+        }
+    }
 	
     
 }

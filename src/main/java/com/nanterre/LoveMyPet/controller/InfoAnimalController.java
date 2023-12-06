@@ -53,6 +53,28 @@ public class InfoAnimalController {
             return ResponseEntity.badRequest().body("Le nouveau poids ne peut pas être vide.");
         }
     }
+    @PostMapping("/updateImage/{idAnimal}")
+    public ResponseEntity<String> updateAnimalImage(@PathVariable Integer idAnimal, @RequestParam("imageFile") MultipartFile imageFile) {
+        if (imageFile != null && !imageFile.isEmpty()) {
+            try {
+                String dossierImages = "src/main/resources/static/images/animals";
+                String nomDuFichier = imageFile.getOriginalFilename();
+                Path cheminFichier = Paths.get(dossierImages, nomDuFichier);
+
+                Files.write(cheminFichier, imageFile.getBytes());
+
+                // Mettez à jour l'URL de l'image de l'animal dans la base de données
+                infoAnimalService.updateAnimalImage(idAnimal, nomDuFichier);
+
+                return ResponseEntity.ok("L'image de l'animal a été mise à jour avec succès.");
+            } catch (IOException e) {
+                e.printStackTrace();
+                return new ResponseEntity<>("Erreur lors de la gestion de l'image", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } else {
+            return ResponseEntity.badRequest().body("Le fichier image ne peut pas être vide.");
+        }
+    }
     
 }
 

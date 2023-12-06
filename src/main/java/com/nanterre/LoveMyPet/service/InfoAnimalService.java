@@ -8,4 +8,5 @@ public interface InfoAnimalService {
     Animal getInfoAnimalDetailsById (Integer idAnimal);
     void updateAnimalName(Integer idAnimal, String newName);
     void updateAnimalWeight(Integer idAnimal, Double newWeight);
+    public void updateAnimalImage(Integer idAnimal, String imageUrl);
 }

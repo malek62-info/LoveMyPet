@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="/css/style_prendre_soin.css">
+    <link rel="stylesheet" href="/css/infoanimal.css">
     <!-- FONT AWESOME LINK USING BOXICON -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -61,39 +61,39 @@
 
         <script>
             async function handleModifyImageClick() {
-    const imageInput = document.getElementById("imageInput");
-    imageInput.style.display = "block";
-    
-    // Attachez un écouteur d'événements pour le changement de fichier
-    imageInput.addEventListener("change", async () => {
-        const animalId = getAnimalIdFromUrl();
-        const formData = new FormData();
-        formData.append("image", imageInput.files[0]);
+                const imageInput = document.getElementById("imageInput");
+                imageInput.style.display = "block";
 
-        const url = `/infoanimal/updateImage/${animalId}`;
+             
+                imageInput.addEventListener("change", async () => {
+                    const animalId = getAnimalIdFromUrl();
+                    const formData = new FormData();
+                    formData.append("imageFile", imageInput.files[0]);  
 
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                body: formData,
-            });
+                    const url = `/infoanimal/updateImage/${animalId}`;
 
-            if (response.ok) {
-                alert("L'image de l'animal a été mise à jour avec succès.");
-                // Mettez à jour l'image affichée sur la page
-                const animalImage = document.getElementById("animalImage");
-                animalImage.src = URL.createObjectURL(imageInput.files[0]);
-            } else {
-                alert("Erreur lors de la mise à jour de l'image de l'animal.");
+                    try {
+                        const response = await fetch(url, {
+                            method: 'POST',
+                            body: formData,
+                        });
+
+                        if (response.ok) {
+                            alert("L'image de l'animal a été mise à jour avec succès.");
+                            const animalImage = document.getElementById("animalImage");
+                            animalImage.src = URL.createObjectURL(imageInput.files[0]);
+                        } else {
+                            alert("Erreur lors de la mise à jour de l'image de l'animal.");
+                        }
+                    } catch (error) {
+                        console.error("Erreur lors de la requête de mise à jour de l'image:", error);
+                    }
+                });
+
+                // Cliquez sur le bouton d'entrée de fichier
+                imageInput.click();
             }
-        } catch (error) {
-            console.error("Erreur lors de la requête de mise à jour de l'image:", error);
-        }
-    });
 
-    // Cliquez sur le bouton d'entrée de fichier
-    imageInput.click();
-}
 
             async function handleModifyClick() {
                 // Obtenir le nouveau nom de l'utilisateur en utilisant un prompt
@@ -182,22 +182,22 @@
                     <div class="animal-card">
                         <p>
                             <input type="file" accept="image/*" id="imageInput" style="display: none;" />
-                            <button class="modify-btn" ${animal.idPerson === 1 ? 'style="background-color: green;"' : 'style="background-color: gray;"'} ${animal.idPerson === 1 ? '' : 'disabled'} onclick="handleModifyImageClick()">Modifier</button>
+                            <button class="modify-btn" ${animal.idPerson === 1 ? 'style="background-color: green;"' : 'style="background-color: gray;"'} ${animal.idPerson === 1 ? '' : 'disabled'} onclick="handleModifyImageClick()">Télécharger une nouvelle image</button>
                         </p>
                         <div class="animal-header">
-                            <img src="/images/animals/${animal.imageUrl}" alt="animal image" id="animalImage">
+                            <img src="/images/animals/${animal.imageUrl}" alt="animal image" id="animalImage" style="width: 200px; height: 200px;">
                         </div>
 
                         <div class="animal-info">
                             <p>Nom: ${animal.name}
-                                <button class="modify-btn" ${animal.idPerson === 1 ? 'style="background-color: green;"' : 'style="background-color: gray;"'} ${animal.idPerson === 1 ? '' : 'disabled'} onclick="handleModifyClick()">Modifier</button>
+                                <button class="modify-btn-name" ${animal.idPerson === 1 ? 'style="background-color: green;"' : 'style="background-color: gray;"'} ${animal.idPerson === 1 ? '' : 'disabled'} onclick="handleModifyClick()"><i class="fas fa-pen"></i></button>
                             </p>
                             <p>Catégorie: ${animal.category}</p>
                             <p>Race: ${animal.race}</p>
                             <p>Genre: <span class="gender">${animal.gender === 1 ? '♂ Mâle' : '♀ Femelle'}</span>  </p>
                             <p>Date de naissance: ${animal.dateOfBirth}</p>
                             <p>Poids: ${animal.weight}
-                                <button class="modify-btn" ${animal.idPerson === 1 ? 'style="background-color: green;"' : 'style="background-color: gray;"'} ${animal.idPerson === 1 ? '' : 'disabled'} onclick="handleModifyWeightClick()">Modifier</button>
+                                <button class="modify-btn-name" ${animal.idPerson === 1 ? 'style="background-color: green;"' : 'style="background-color: gray;"'} ${animal.idPerson === 1 ? '' : 'disabled'} onclick="handleModifyWeightClick()"><i class="fas fa-pen"></i></button>
                             </p>
                         </div>
                     </div>
