@@ -52,5 +52,18 @@ public class AdoptionServiceImpl implements AdoptionService {
     public void saveAdoption(Adoption adoption) {
         adoptionRepository.save(adoption);
     }
+    @Override
+    public void deleteAdoption(Integer idAdoption) {
+        try {
+            adoptionRepository.deleteById(idAdoption);
+            // Ajoute des logs pour indiquer le succès
+            System.out.println("Adoption supprimée avec succès. ID: " + idAdoption);
+        } catch (Exception e) {
+            // Ajoute des logs pour indiquer l'échec
+            System.err.println("Erreur lors de la suppression de l'adoption. ID: " + idAdoption);
+            e.printStackTrace();
+            throw new RuntimeException("Erreur lors de la suppression de l'adoption.", e);
+        }
+    }
 
 }

@@ -17,7 +17,7 @@ public interface AnimalService {
 
     public Animal saveAnimal(Animal animal);
     public Animal findAnimalById(Integer id);
-
+    void updateAnimalPerson(Integer idAnimal, Integer newPersonId);
 
 
 

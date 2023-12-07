@@ -198,3 +198,32 @@ button:hover {
     background-color: #45a049;
     
 }
+
+
+.animal-card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.animal-card:hover {
+    transform: scale(1.05);
+}
+
+.animal-header img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ccc;
+}
+
+.animal-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.animal-info p {
+    margin: 10px 0;
+}

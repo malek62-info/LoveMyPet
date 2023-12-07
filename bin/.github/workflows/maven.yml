@@ -1,5 +1,5 @@
 name: Java CI with Maven
-
+ 
 on:
   push:
     branches:
@@ -7,30 +7,30 @@ on:
   pull_request:
     branches:
       - main
-
+ 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+ 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
+ 
     - name: Set up JDK 17
       uses: actions/setup-java@v2
       with:
         java-version: 17
         distribution: 'temurin'
-
+ 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-
+ 
     - name: Publish JAR or WAR as an Artifact
       uses: actions/upload-artifact@v2
       with:
         name: my-artifact  # Choisissez un nom pour votre artefact
         path: target/       # Chemin vers le répertoire contenant les fichiers JAR ou WAR
-
+ 
     - name: Display Artifact URL
       run: |
         ARTIFACT_URL="${{ github.server_url }}/${{ github.repository }}/raw/${{ github.ref }}/my-artifact/"
@@ -38,7 +38,7 @@ jobs:
         echo "##[set-output name=artifact_url;]$ARTIFACT_URL"
       env:
         ARTIFACT_URL: ${{ github.server_url }}/${{ github.repository }}/raw/${{ github.ref }}/my-artifact/
-
+ 
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
       with:

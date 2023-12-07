@@ -9,7 +9,7 @@ public interface CandidatureService {
     public List<String> getCandidatureLinksByAnimalId(Integer animalId);
     Candidature getCandidatureDetailsByAnimalIdAndCandidatureId(Integer animalId, Integer candidatureId);
     void saveCandidature(Candidature candidature);
-
+    void deleteCandidature(Candidature candidature);
 
 }
 

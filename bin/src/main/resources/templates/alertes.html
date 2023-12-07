@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Feeding Times</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #FEF4F4;
+            font-family: 'Courier New', Courier, monospace;
+            flex-direction: column;
+        }
+
+        #messageContainer {
+            text-align: center;
+            margin-bottom: 20px;
+
+            
+        }
+
+        #backButton {
+            width: fit-content;
+            background-color: transparent;
+            border: 2px solid #f2a80b;
+            color: #f2a80b;
+            font-family: inherit;
+            font-size: 0.9rem;
+            padding: 10px 30px;
+            cursor: pointer;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            outline:none;
+           
+        }
+        .alerte_img {
+            width: 100px;
+            margin-bottom: 10px;
+        }
+        .gif_img {
+            width: 500px;
+            margin-top: 20px;
+            margin-bottom: 50px;
+           border-radius: 10px;
+        }
+
+    </style>
+</head>
+
+<body> 
+   
+ <button id="backButton" onclick="goBack()">Retour</button>
+ <img src="/images/alert.png" alt="" class="alerte_img">
+ <h1>Alertes</h1>
+ <img src="/images/animal_eat.gif" alt="" class="gif_img">
+ 
+<div id="messageContainer"></div>
+
+
+<script>
+    function verification(animalId) {
+        url = "animal/" + animalId;
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.scheduled) {
+                    // L'animal a des planifications de repas
+                    // Récupération de ces planifications
+                    fetchTimes(animalId);
+                } else {
+                    window.location.href= "/choicetime?id=" + animalId;
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+            });
+    }
+
+    function fetchTimes(animalId) {
+        url = "api/feeding-schedules/animal/" + animalId;
+        fetch(url)
+            .then((response) => response.json())
+            .then((data) => {
+                // Afficher un message
+                displayMessage(`Vous avez planifié le repas de votre animal à ${data.join(', ')}. Vous  allez reçevoir un e-mail !`);
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+            });
+    }
+
+    function displayMessage(message) {
+        // Get the element where you want to display the message
+        let messageContainer = document.getElementById('messageContainer');
+
+        // Check if the element exists before setting its innerHTML
+        if (messageContainer) {
+            messageContainer.textContent = message;
+        } else {
+            console.error("Element with ID 'messageContainer' not found.");
+        }
+    }
+
+    function goBack() {
+        // Ajoutez ici la logique pour retourner à la page précédente
+        window.location.href="/mesanimaux"
+    }
+
+    window.onload = function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const animalId = urlParams.get('id');
+        console.log("Id de l'animal", animalId);
+        verification(animalId);
+        // Vérifier si les repas de l'animal ont été planifiés
+    }
+</script>
+</body>
+
+</html>
