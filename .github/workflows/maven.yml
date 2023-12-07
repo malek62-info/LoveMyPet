@@ -25,12 +25,23 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
  
-    - name: Publish JAR or WAR as an Artifact
+
+    - name: Build Docker image
+      run: docker build -t asciidoctor-pdf .
+
+    - name: Generate AsciiDoc Documentation
+      run: asciidoctor -o docs/index.html docs/documentation.adoc
+
+    - name: Convert AsciiDoc to PDF using Docker
+      run: docker run --rm -v $PWD:/documents asciidoctor-pdf -o docs/documentation.pdf docs/documentation.adoc
+
+    - name: Publish JAR or WAR and Documentation as Artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: my-artifact  # Choisissez un nom pour votre artefact
-        path: target/       # Chemin vers le répertoire contenant les fichiers JAR ou WAR
- 
+        name: my-artifact
+        path: |
+          target/
+          docs/
     - name: Display Artifact URL
       run: |
         ARTIFACT_URL="${{ github.server_url }}/${{ github.repository }}/raw/${{ github.ref }}/my-artifact/"
