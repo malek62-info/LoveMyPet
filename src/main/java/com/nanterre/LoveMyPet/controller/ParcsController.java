@@ -14,7 +14,7 @@ public class ParcsController {
     @GetMapping
     public String getParc(@RequestParam double latitude, @RequestParam double longitude) {
         // Construisez l'URL de l'API Overpass en utilisant les paramètres latitude et longitude
-        String overpassApiUrl = "https://overpass-api.de/api/interpreter?data=[out:json];(node[\"amenity\"=\"animal_boarding\"](around:1000000," + latitude + "," + longitude + "););out;";
+        String overpassApiUrl = "https://overpass-api.de/api/interpreter?data=[out:json];(node[\"amenity\"=\"animal_training\"](around:10000," + latitude + "," + longitude + "););out;";
 
 
         // Utilisez RestTemplate pour faire la requête vers l'API Overpass
