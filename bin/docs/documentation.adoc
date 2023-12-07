@@ -282,12 +282,15 @@ Une fonctionnalité essentielle de notre application est l'adoption d'animaux, o
 Après avoir ajouté des compagnons dans la section "Mes Animaux", chaque animal est associé au bouton unique "Donner". Cela déclenche un pop-up interactif pour faciliter l'adoption.
 
 **étape 1**
+
 image::enregistrement.png[etape 1]
 
 **étape 2**
+
 image::donner.png[etape 2]
 
 **étape 3**
+
 image::popup.png[etape 3]
 
 ==== Configuration des Dates pour l'Adoption
@@ -299,9 +302,32 @@ Dans le pop-up, la date de début est obligatoire, indiquant quand l'animal sera
 Une fois configuré, l'animal est répertorié dans la section dédiée à l'adoption, avec un bouton "Candidater" pour exprimer l'intérêt.
 
 **étape 4**
+
 image::adoption.png[etape 4]
 
 Cette approche flexible simplifie l'adoption, laissant aux propriétaires le choix de la durée d'adoption.
+
+==== Gestion des Candidatures
+
+Chaque animal ajouté à la section "Mes Animaux" est équipé d'un bouton "Candidatures". Ce bouton permet au propriétaire de consulter les détails des personnes ayant postulé pour garder son animal.
+
+*étape 5*
+
+image::candidatures.png[etape 5]
+
+Le propriétaire peut ensuite examiner chaque candidature individuellement et décider d'accepter ou de refuser.
+
+*étape 6*
+
+image::accepter_refuser.png[etape 6]
+
+=== Petite feature pour l'affichage et la modification des informations des Animaux
+
+Chaque animal dans la section "Mes Animaux" est doté d'un bouton en haut à droite avec le signe plus (+). En cliquant sur ce bouton, les informations détaillées de l'animal sont affichées, offrant la possibilité de modifier le nom, le poids et la photo de l'animal.
+
+image::accepter_refuser.png[etape 6]
+
+image::accepter_refuser.png[etape 6]
 
 === Fonctionnalité de Suivi des Vaccins - Carnet de Vaccination en Ligne
 
@@ -323,25 +349,23 @@ L'interface propose une vue d'ensemble détaillée des vaccinations, incluant le
 
 Les propriétaires peuvent ajouter de nouvelles vaccinations à tout moment, garantissant un historique complet et à jour.
 
-= Documentation de la Fonctionnalité de Recherche
+=== Fonctionnalité de recherche des Vétérinaires et Jardins à Proximité
 
-== Recherche des Vétérinaires et Jardins à Proximité
+L'application offre une fonctionnalité avancée permettant aux utilisateurs de localiser rapidement des vétérinaires ou des jardins à proximité de leur emplacement actuel. Cette fonctionnalité est accessible depuis la page "Mes Services".
 
-L'application offre une fonctionnalité puissante permettant aux utilisateurs de localiser rapidement des vétérinaires ou des jardins à proximité de leur emplacement actuel. Cette fonctionnalité est accessible depuis la page "Mes Services".
+== Utilisation de la Carte depuis la Page "Mes Services"
 
-=== Utilisation de la Carte depuis la Page "Mes Services"
-
-1. **Accès à la Page "Mes Services"**
+=== Accès à la Page "Mes Services"
 
 Connectez-vous à votre compte sur le site et accédez à la page "Mes Services".
 
-2. **Option "Trouver un Service"**
+=== Option "Trouver un Service"
 
 Recherchez l'option "EXPLORATION FACILE" sur la page "Mes Services" et cliquez dessus.
 
-image::service.jpeg[service]
+image::service.jpeg[Services]
 
-3. **Choix entre Vétérinaires et Jardins**
+=== Choix entre Vétérinaires et Jardins
 
 Une fois sur la page "EXPLORATION FACILE", les utilisateurs ont deux choix :
 - "Trouver un Vétérinaire"
@@ -351,64 +375,74 @@ Les utilisateurs peuvent sélectionner l'option qui correspond à leur recherche
 
 image::map.png[Map]
 
-=== Requête vers l'API Overpass
+== Requête vers l'API Overpass
 
-- **Trouver un Vétérinaire :**
+=== Trouver un Vétérinaire :
 
 Lorsque l'utilisateur choisit "Trouver un Vétérinaire", l'application utilise l'API Overpass pour rechercher les vétérinaires à proximité de la position actuelle de l'utilisateur. La requête à l'API Overpass est générée dynamiquement pour récupérer les nœuds correspondant à la catégorie "amenity=veterinary" dans un rayon défini autour de la position de l'utilisateur.
 
+[plantuml]
+----
+class VeterinairesController {
+    +getVeterinaires(double latitude, double longitude): String
+    -Veterinary
+}
 
+class Veterinary {
+    -lat: double
+    -lon: double
+    -name: String
 
-- **Rechercher un Jardin pour se Balader :**
+    +Veterinary(double lat, double lon, String name)
+    +getLat(): double
+    +getLon(): double
+    +getName(): String
+}
+
+class RestTemplate {
+    +getForObject(url: String, responseType: Class<T>): T
+}
+
+VeterinairesController --> Veterinary: "1..*"
+VeterinairesController --> RestTemplate: makeApiCall()
+RestTemplate --> API: Overpass API
+----
+
+- === Rechercher un Jardin pour se Balader :
 
 Si l'utilisateur opte pour "Rechercher un Jardin pour se Balader", l'application effectue une requête pour trouver les nœuds correspondant à la catégorie "leisure=garden" autour de la position actuelle de l'utilisateur. Cette requête est également générée dynamiquement pour récupérer les informations nécessaires.
 
+[plantuml]
+----
+class ParcsController {
+    +getParc(double latitude, double longitude): String
+}
 
+class RestTemplate {
+    +getForObject(url: String, responseType: Class<T>): T
+}
 
-=== Affichage des Résultats sur la Carte
+ParcsController --> RestTemplate: restTemplate
+RestTemplate --> API: Overpass API
+----
 
-- **Trouver un Vétérinaire :**
+== Affichage des Résultats sur la Carte
+
+- === Trouver un Vétérinaire :
 
 Les résultats de la requête pour les vétérinaires sont affichés sur la carte sous forme de marqueurs. Chaque marqueur représente l'emplacement d'un vétérinaire trouvé.
 
-image::veterinaire.png[veterinaire]
+image::veterinaire.png[Vétérinaire]
 
-[plantuml]
-----
-   @startuml
-   class CarteVeterinaires {
-     + afficherMarqueursVetos(data: String): void
-   }
-
-   CarteVeterinaires --|> Leaflet.js
-@enduml
-----
-
-- **Rechercher un Jardin pour se Balader :**
+- === Rechercher un Jardin pour se Balader :
 
 Pour la recherche de jardins, les résultats correspondants aux nœuds "leisure=garden" sont affichés sur la carte.
 
 image::Parc.png[Parc]
 
-[plantuml]
-----
-   @startuml
-   class CarteJardins {
-     + afficherMarqueursJardins(data: String): void
-   }
+== Explication de l'API Overpass
 
-   CarteJardins --|> Leaflet.js
-@enduml
-----
-
-== Conclusion
-
-En suivant ces étapes simples, les utilisateurs peuvent exploiter la puissance de la carte interactive pour localiser rapidement des vétérinaires ou des jardins à proximité, améliorant ainsi leur expérience utilisateur.
-
-
-[plantuml]
-
-
+L'API Overpass est un service d'interrogation et d'analyse de données OpenStreetMap. Elle permet de récupérer des données géographiques en utilisant un langage de requête spécifique. Dans le contexte de cette application, elle est utilisée pour obtenir des informations sur les vétérinaires et les jardins à proximité en fonction de la position de l'utilisateur. Les requêtes sont construites dynamiquement pour cibler les catégories spécifiques (amenity=veterinary, leisure=garden) et les résultats sont intégrés à la carte de l'application.
 
 
 
