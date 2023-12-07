@@ -23,7 +23,7 @@ public class AnimalServiceImpl implements AnimalService {
 
     @Autowired
     private AnimalRepository animalRepository;
-    private AdoptionRepository adoptionRepository;
+    private final  AdoptionRepository adoptionRepository;
 
     @Autowired
     public AnimalServiceImpl(AdoptionRepository adoptionRepository) {
@@ -79,5 +79,8 @@ public class AnimalServiceImpl implements AnimalService {
         // TODO Auto-generated method stub
         return null;
     }
+
+    //mise a jour du champs isScheduled
+
 
 }

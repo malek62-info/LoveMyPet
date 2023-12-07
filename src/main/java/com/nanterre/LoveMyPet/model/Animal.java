@@ -3,7 +3,6 @@ package com.nanterre.LoveMyPet.model;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -29,8 +28,7 @@ public class Animal {
     @Column(name = "weight")
     private Double weight;
 
-
-    @Column(name = "gender") /*1 M , et 2 F*/
+    @Column(name = "gender")
     private Integer gender;
 
     @Column(name = "date_of_birth")
@@ -38,14 +36,20 @@ public class Animal {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
 
-
-
     @Column(name = "imageurl")
     private String imageUrl;
+
+    @Column(name = "is_scheduled")
+    private boolean isScheduled = false; // Nouveau champ ajouté avec une valeur par défaut de false
 
     @ManyToOne
     @JoinColumn(name = "idperson", referencedColumnName = "idperson", insertable = false, updatable = false)
     private Person adoptedByPerson;
+
+    // Constructeur sans argument pour JPA
+    public Animal() {
+        this.isScheduled = false; // Initialiser le champ isScheduled à false par défaut
+    }
 
     // Getters and setters
 
@@ -97,6 +101,14 @@ public class Animal {
         this.weight = weight;
     }
 
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -104,8 +116,6 @@ public class Animal {
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-
-
 
     public String getImageUrl() {
         return imageUrl;
@@ -115,18 +125,13 @@ public class Animal {
         this.imageUrl = imageUrl;
     }
 
-
-
-    // Ajoutez le getter et le setter pour le genre
-    public Integer getGender() {
-        return gender;
+    public boolean isScheduled() {
+        return isScheduled;
     }
 
-    public void setGender(Integer gender) {
-        this.gender = gender;
+    public void setScheduled(boolean scheduled) {
+        isScheduled = scheduled;
     }
-
-
 
     public Person getAdoptedByPerson() {
         return adoptedByPerson;
@@ -135,5 +140,4 @@ public class Animal {
     public void setAdoptedByPerson(Person adoptedByPerson) {
         this.adoptedByPerson = adoptedByPerson;
     }
-
 }
