@@ -37,7 +37,7 @@ public class EmailController {
     }
 
     // Cette fonction envoie des e-mails toutes les 1 minute si une adresse correspond.
-    //@Scheduled(fixedDelay = 60000) commentaire temporaire
+    @Scheduled(fixedDelay = 60000) 
     public String sendEmailToUsersWithCurrentFeedingTime() {
         try {
             List<String> userEmails = feedingScheduleService.getUsersWithCurrentFeedingTime();
