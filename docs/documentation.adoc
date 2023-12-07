@@ -282,12 +282,15 @@ Une fonctionnalité essentielle de notre application est l'adoption d'animaux, o
 Après avoir ajouté des compagnons dans la section "Mes Animaux", chaque animal est associé au bouton unique "Donner". Cela déclenche un pop-up interactif pour faciliter l'adoption.
 
 **étape 1**
+
 image::enregistrement.png[etape 1]
 
 **étape 2**
+
 image::donner.png[etape 2]
 
 **étape 3**
+
 image::popup.png[etape 3]
 
 ==== Configuration des Dates pour l'Adoption
@@ -299,9 +302,32 @@ Dans le pop-up, la date de début est obligatoire, indiquant quand l'animal sera
 Une fois configuré, l'animal est répertorié dans la section dédiée à l'adoption, avec un bouton "Candidater" pour exprimer l'intérêt.
 
 **étape 4**
+
 image::adoption.png[etape 4]
 
 Cette approche flexible simplifie l'adoption, laissant aux propriétaires le choix de la durée d'adoption.
+
+==== Gestion des Candidatures
+
+Chaque animal ajouté à la section "Mes Animaux" est équipé d'un bouton "Candidatures". Ce bouton permet au propriétaire de consulter les détails des personnes ayant postulé pour garder son animal.
+
+*étape 5*
+
+image::candidatures.png[etape 5]
+
+Le propriétaire peut ensuite examiner chaque candidature individuellement et décider d'accepter ou de refuser.
+
+*étape 6*
+
+image::accepter_refuser.png[etape 6]
+
+=== Petite feature pour l'affichage et la modification des informations des Animaux
+
+Chaque animal dans la section "Mes Animaux" est doté d'un bouton en haut à droite avec le signe plus (+). En cliquant sur ce bouton, les informations détaillées de l'animal sont affichées, offrant la possibilité de modifier le nom, le poids et la photo de l'animal.
+
+image::accepter_refuser.png[etape 6]
+
+image::accepter_refuser.png[etape 6]
 
 === Fonctionnalité de Suivi des Vaccins - Carnet de Vaccination en Ligne
 
