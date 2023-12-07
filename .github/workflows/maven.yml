@@ -22,18 +22,21 @@ jobs:
         java-version: 17
         distribution: 'temurin'
  
+    - name: Install Asciidoctor
+      run: |
+        sudo apt-get install -y asciidoctor
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
- 
-
-    - name: Build Docker image
-      run: docker build -t asciidoctor-pdf .
 
     - name: Generate AsciiDoc Documentation
       run: asciidoctor -o docs/index.html docs/documentation.adoc
 
-    - name: Convert AsciiDoc to PDF using Docker
-      run: docker run --rm -v $PWD:/documents asciidoctor-pdf -o docs/documentation.pdf docs/documentation.adoc
+    - name: Convert AsciiDoc to PDF
+      run: docker run --rm -v $PWD:/documents asciidoctor/docker-asciidoctor asciidoctor-pdf -o docs/documentation.pdf docs/documentation.adoc
+
+    - name: Build with Maven (Again, if necessary)
+      run: mvn -B package --file pom.xml
 
     - name: Publish JAR or WAR and Documentation as Artifacts
       uses: actions/upload-artifact@v2
