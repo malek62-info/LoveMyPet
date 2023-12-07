@@ -62,25 +62,4 @@ public class FeedingTime {
     public void setFeedingTime(LocalTime feedingTime) {
         this.feedingTime = feedingTime;
     }
-
-    // Equals and HashCode
-
-    /*@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        FeedingTime that = (FeedingTime) o;
-        return id.equals(that.id) &&
-                feedingSchedule.equals(that.feedingSchedule) &&
-                feedingTime.equals(that.feedingTime);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, feedingSchedule, feedingTime);
-    }
-    */
-
-
-    // Additional methods or annotations as needed
 }

@@ -2,7 +2,6 @@ package com.nanterre.LoveMyPet.model;
 
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,6 +28,14 @@ public class FeedingTimeTests {
 
         // Vérifier si l'heure d'alimentation est correcte
         assertEquals(time, feedingTime.getFeedingTime());
+    }
+    @Test
+    public void testFeedingTime() {
+        // Créer une instance de FeedingTime en utilisant le constructeur avec une chaîne
+        FeedingTime feedingTime = new FeedingTime("15:45");
+
+        // Vérifier si l'heure d'alimentation est correcte
+        assertEquals(LocalTime.of(15, 45), feedingTime.getFeedingTime());
     }
 
     @Test
