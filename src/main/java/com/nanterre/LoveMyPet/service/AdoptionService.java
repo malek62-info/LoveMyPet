@@ -9,7 +9,7 @@ import java.util.Map;
 public interface AdoptionService {
   List<String> getAllAdoptionUrls();
   Map<String, Object> getAdoptionDetails(Integer idAdoption);
-
+  void deleteAdoption(Integer idAdoption);
 
   // Malek
   void saveAdoption(Adoption adoption);

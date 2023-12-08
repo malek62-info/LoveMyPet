@@ -54,7 +54,41 @@ public class Controller {
     public String profile() {
         return "profile";
     }
+    
+    @GetMapping("/infoAnimal")
+    public String infoAnimal() {
+        return "infoanimal";
+    }
+
+    /* Feeding */
+
+    	  
+    @GetMapping("/choicetime")
+    public String TimeChoiceAnimal(){
+        return "TimeChoiceAnimal.html";
+    }
+
+    @GetMapping("/alertes")
+    public String alertes(){
+        return "alertes";
+    }
 
 
+
+
+    @GetMapping("/Veterinaires")
+    public String map() {
+        return "Veterinaires";
+    }
+
+    @GetMapping("/parc")
+    public String parc() {
+        return "parc";
+    }
+
+    @GetMapping("/Map")
+    public String donate() {
+        return "Map";
+    }
 
 }

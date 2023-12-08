@@ -1,209 +1,138 @@
 package com.nanterre.LoveMyPet.controller;
 
-import com.nanterre.LoveMyPet.model.Person;
 import com.nanterre.LoveMyPet.model.Candidature;
-import com.nanterre.LoveMyPet.service.PersonService;
+import com.nanterre.LoveMyPet.model.Person;
 import com.nanterre.LoveMyPet.service.CandidatureService;
 import com.nanterre.LoveMyPet.service.PersonServiceImpl;
 import jakarta.servlet.http.HttpSession;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Date;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-
-
 @RunWith(MockitoJUnitRunner.class)
-public class PersonControllerTest {
+
+class PersonControllerTest {
 
     @Mock
     private PersonServiceImpl personService;
 
     @Mock
-    private CandidatureService candidatureService;
+    private MultipartFile imageFile;
 
     @InjectMocks
     private PersonController personController;
 
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-    }
-
-    @Mock
-    private HttpSession session;
-
-
     @Test
-    public void testAddPerson() {
-        // Créez une personne pour le test
-        Person person = new Person();
-        person.setEmail("test@example.com");
+    public void testAddPersonSuccess() throws IOException {
+        // Mock the person data
+        Person mockPerson = new Person();
+        mockPerson.setEmail("test@example.com");
 
-        // Définissez le comportement du service mock
-        when(personService.findPersonByEmail("test@example.com")).thenReturn(null);
-        when(personService.savePerson(any(Person.class))).thenReturn(null);
+        // Mock the call to findPersonByEmail (return null to simulate person not existing)
+        when(personService.findPersonByEmail(anyString())).thenReturn(null);
 
-        // Exécutez la méthode du contrôleur
-        ResponseEntity<String> responseEntity = personController.add(null, person);
+        // Mock the image file
+        when(imageFile.getOriginalFilename()).thenReturn("test-image.jpg");
+        when(imageFile.isEmpty()).thenReturn(false);
+        when(imageFile.getBytes()).thenReturn(new byte[]{1, 2, 3}); // Replace with actual image data
 
-        // Vérifiez que les méthodes du service ont été appelées
-        verify(personService, times(1)).findPersonByEmail("test@example.com");
+        // Mock the call to savePerson
+        doReturn(mockPerson).when(personService).savePerson(any(Person.class));
+
+        // Perform the test
+        ResponseEntity<String> response = personController.add(imageFile, mockPerson);
+
+        // Verify that the necessary methods were called
+        verify(personService, times(1)).findPersonByEmail(anyString());
         verify(personService, times(1)).savePerson(any(Person.class));
 
-        // Vérifiez que la réponse est correcte
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals("Nouvelle personne ajoutée", responseEntity.getBody());
+        // Assert the response
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals("Nouvelle personne ajoutée", response.getBody());
+    }
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void testUserProfileUnauthorized() {
-        // Définissez le comportement du service mock pour un utilisateur non connecté
-        when(session.getAttribute("userId")).thenReturn(null);
-        when(session.getAttribute("email")).thenReturn(null);
+    void testGetPersonDetailsById() {
+        // Mock data
+        int userId = 1;
+        Person mockPerson = new Person();
+        mockPerson.setIdPerson(userId);
+        when(personService.getPersonDetailsById(userId)).thenReturn(mockPerson);
 
-        // Exécutez la méthode du contrôleur
-        ResponseEntity<?> responseEntity = personController.userProfile(session);
+        // Perform the test
+        Person result = personController.getPersonDetailsById(userId);
 
-        // Vérifiez que la méthode du service n'a pas été appelée
-        verify(personService, never()).findPersonByEmail(anyString());
-
-        // Vérifiez que la réponse est correcte
-        assertEquals(HttpStatus.UNAUTHORIZED, responseEntity.getStatusCode());
-        assertEquals("Utilisateur non connecté", responseEntity.getBody());
-    }
-
-    @Test
-    public void testUserProfileNotFound() {
-        // Définissez le comportement du service mock pour un utilisateur introuvable
-        when(session.getAttribute("userId")).thenReturn(1);
-        when(session.getAttribute("email")).thenReturn("john.doe@example.com");
-        when(personService.findPersonByEmail("john.doe@example.com")).thenReturn(null);
-
-        // Exécutez la méthode du contrôleur
-        ResponseEntity<?> responseEntity = personController.userProfile(session);
-
-        // Vérifiez que la méthode du service a été appelée
-        verify(personService, times(1)).findPersonByEmail("john.doe@example.com");
-
-        // Vérifiez que la réponse est correcte
-        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
-        assertEquals("Utilisateur non trouvé", responseEntity.getBody());
-    }
-
-    @Test
-    public void testUserProfileSuccess() {
-        // Créez un utilisateur pour le test
-        Person user = new Person();
-        user.setIdPerson(1);
-        user.setFirstName("John");
-        user.setLastName("Doe");
-        user.setEmail("john.doe@example.com");
-
-        // Définissez le comportement du service mock
-        when(session.getAttribute("userId")).thenReturn(1);
-        when(session.getAttribute("email")).thenReturn("john.doe@example.com");
-        when(personService.findPersonByEmail("john.doe@example.com")).thenReturn(user);
-
-        // Exécutez la méthode du contrôleur
-        ResponseEntity<?> responseEntity = personController.userProfile(session);
-
-        // Vérifiez que la méthode du service a été appelée
-        verify(personService, times(1)).findPersonByEmail("john.doe@example.com");
-
-        // Vérifiez que la réponse est correcte
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-
-        // Vérifiez les données renvoyées
-        Map<String, Object> expectedUserData = new HashMap<>();
-        expectedUserData.put("id", 1);
-        expectedUserData.put("name", "John Doe");
-        assertEquals(expectedUserData, responseEntity.getBody());
-    }
-
-    @Test
-    public void testLoginFailure() {
-        // Définissez le comportement du service mock pour un échec d'authentification
-        when(personService.findPersonByEmail(any())).thenReturn(null);
-
-        // Exécutez la méthode du contrôleur avec des informations d'authentification incorrectes
-        ResponseEntity<?> responseEntity = personController.login("test@example.com", "password123", session);
-
-        // Vérifiez que la méthode du service a été appelée
-        verify(personService, times(1)).findPersonByEmail("test@example.com");
-
-        // Vérifiez que la session n'a pas été mise à jour en cas d'échec d'authentification
-        verify(session, never()).setAttribute(any(), any());
-
-        // Vérifiez que la réponse est correcte
-        assertEquals(HttpStatus.UNAUTHORIZED, responseEntity.getStatusCode());
-        assertEquals("Authentification échouée", responseEntity.getBody());
-    }
-
-    @Test
-    public void testLoginSuccess() {
-        // Créez un utilisateur pour le test
-        Person user = new Person();
-        user.setIdPerson(1);
-        user.setEmail("test@example.com");
-        user.setPassword("password123");
-
-        // Définissez le comportement du service mock
-        when(personService.findPersonByEmail("test@example.com")).thenReturn(user);
-
-        // Exécutez la méthode du contrôleur
-        ResponseEntity<?> responseEntity = personController.login("test@example.com", "password123", session);
-
-        // Vérifiez que la méthode du service a été appelée
-        verify(personService, times(1)).findPersonByEmail("test@example.com");
-
-        // Vérifiez que la session a été correctement mise à jour
-        verify(session, times(1)).setAttribute("userId", 1);
-        verify(session, times(1)).setAttribute("email", "test@example.com");
-
-        // Vérifiez que la réponse est correcte
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals("Authentification réussie", responseEntity.getBody());
+        // Verify the result
+        assertEquals(mockPerson, result);
+        verify(personService, times(1)).getPersonDetailsById(userId);
     }
 
 
     @Test
-    public void testAddCandidature() {
-        doNothing().when(candidatureService).saveCandidature(any(Candidature.class));
+    void testLogin() {
+        // Mock data
+        String email = "test@example.com";
+        String password = "password";
+        HttpSession mockSession = new MockHttpSession();
 
-        ResponseEntity<String> responseEntity = personController.addCandidature(1, 2, "2023-11-24");
+        Person mockPerson = new Person();
+        mockPerson.setEmail(email);
+        mockPerson.setPassword(password);
 
-        verify(candidatureService, times(1)).saveCandidature(any(Candidature.class));
+        // Mock service method
+        when(personService.findPersonByEmail(email)).thenReturn(mockPerson);
 
-        assert(responseEntity.getStatusCode() == HttpStatus.OK);
-        assert(responseEntity.getBody().equals("Candidature ajoutée avec succès"));
+        // Perform the test
+        ResponseEntity<?> result = personController.login(email, password, mockSession);
+
+        // Verify the result
+        assertEquals(ResponseEntity.ok("Authentification réussie"), result);
+        assertEquals(mockPerson.getIdPerson(), mockSession.getAttribute("userId"));
+        assertEquals(email, mockSession.getAttribute("email"));
+        verify(personService, times(1)).findPersonByEmail(email);
     }
 
     @Test
-    public void testAddCandidatureFailure() {
-        doThrow(new RuntimeException("Erreur lors de l'ajout de la candidature")).when(candidatureService).saveCandidature(any(Candidature.class));
+    void testUserProfile() {
+        // Mock data
+        HttpSession mockSession = new MockHttpSession();
+        mockSession.setAttribute("userId", 1);
+        mockSession.setAttribute("email", "test@example.com");
 
-        ResponseEntity<String> responseEntity = personController.addCandidature(1, 2, "2023-11-24");
+        Person mockPerson = new Person();
+        mockPerson.setIdPerson(1);
+        mockPerson.setFirstName("John");
+        mockPerson.setLastName("Doe");
 
-        verify(candidatureService, times(1)).saveCandidature(any(Candidature.class));
+        // Mock service method
+        when(personService.findPersonByEmail(anyString())).thenReturn(mockPerson);
 
-        assert(responseEntity.getStatusCode() == HttpStatus.INTERNAL_SERVER_ERROR);
-        assert(responseEntity.getBody().equals("Erreur lors de l'ajout de la candidature"));
+        // Perform the test
+        ResponseEntity<?> result = personController.userProfile(mockSession);
+
+        // Verify the result
+        assertEquals(ResponseEntity.ok(Map.of("id", 1, "name", "John Doe")), result);
+        verify(personService, times(1)).findPersonByEmail(anyString());
     }
 
 

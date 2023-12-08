@@ -43,4 +43,9 @@ public class CandidatureServiceImpl implements CandidatureService {
     public void saveCandidature(Candidature candidature) {
         candidatureRepository.save(candidature);
     }
+    @Override
+    public void deleteCandidature(Candidature candidature) {
+        candidatureRepository.delete(candidature);
+    }
+    
 }

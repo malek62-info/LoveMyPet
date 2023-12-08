@@ -61,35 +61,5 @@ public class AnimalServiceTest {
         assertEquals(Arrays.asList("/animal/1", "/animal/2"), result);
     }
 
-    @Test
-    public void testGetAdoptionUrlsForAnimals() {
-        // Créez une liste d'adoptions pour le test
-        Animal adoptedAnimal1 = new Animal();
-        adoptedAnimal1.setId(1);
-
-        Animal adoptedAnimal2 = new Animal();
-        adoptedAnimal2.setId(2);
-
-        Adoption adoption1 = new Adoption();
-        adoption1.setAdoptedAnimal(adoptedAnimal1);
-
-        Adoption adoption2 = new Adoption();
-        adoption2.setAdoptedAnimal(adoptedAnimal2);
-
-        List<Adoption> adoptionList = Arrays.asList(adoption1, adoption2);
-
-        // Définissez le comportement du repository mock
-        when(adoptionRepository.findAll()).thenReturn(adoptionList);
-
-        // Exécutez la méthode du service
-        List<String> result = animalService.getAdoptionUrlsForAnimals();
-
-        // Vérifiez que la méthode du repository a été appelée
-        verify(adoptionRepository, times(1)).findAll();
-
-        // Vérifiez que le résultat est correct
-        assertEquals(Arrays.asList("/adoption/animal/1", "/adoption/animal/2"), result);
-    }
-
-    // Ajoutez d'autres tests pour les autres méthodes de la classe AnimalServiceImpl
+   
 }

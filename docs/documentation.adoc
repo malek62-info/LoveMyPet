@@ -269,11 +269,17 @@ Utilisation d'une architecture RESTful pour la communication entre le frontend e
 **GitAction**: Mise en place d'un système d'intégration continue pour automatiser les tests, la compilation, et la vérification de la qualité du code à chaque modification dans le référentiel Git.
 
 
-== Partie 1 : Modélisation 
+= Documentation Complète de l'Application
 
-=== Feature de l'adoption des animaux
+== Partie 1 : Modélisation
 
-Une fois que vous avez ajouté vos compagnons,(étape 1) à la section **"Mes Animaux"** ("étape 2"), vous remarquerez que chaque animal dispose d'une option unique : le bouton **"Donner"**(étape 3). En cliquant sur ce bouton, un pop-up s'affiche, offrant une expérience interactive et conviviale pour faciliter le processus d'adoption.
+=== Fonctionnalité d'Adoption des Animaux
+
+Une fonctionnalité essentielle de notre application est l'adoption d'animaux, offrant une expérience conviviale pour faciliter le processus.
+
+==== Ajout d'Animaux dans "Mes Animaux"
+
+Après avoir ajouté des compagnons dans la section "Mes Animaux", chaque animal est associé au bouton unique "Donner". Cela déclenche un pop-up interactif pour faciliter l'adoption.
 
 **étape 1**
 
@@ -287,39 +293,163 @@ image::donner.png[etape 2]
 
 image::popup.png[etape 3]
 
+==== Configuration des Dates pour l'Adoption
 
+Dans le pop-up, la date de début est obligatoire, indiquant quand l'animal sera disponible pour adoption. La date de fin est facultative, laissant aux donateurs le choix de l'adoption permanente ou temporaire, idéal pour les périodes comme les vacances.
 
-Dans ce pop-up, la date de début est une information obligatoire, permettant aux utilisateurs de spécifier quand leur animal sera disponible pour adoption. Cependant, la date de fin reste facultative, laissant aux donateurs la liberté de décider s'ils souhaitent offrir leur animal de manière permanente ou temporaire.
+==== Affichage dans la Section "Adoption"
 
-L'ajout de cette fonctionnalité temporelle est particulièrement pratique pour ceux qui envisagent de confier leur animal pendant une période spécifique, comme les vacances. En spécifiant la date de retour prévue, les utilisateurs peuvent indiquer clairement la durée pendant laquelle leur animal est disponible pour l'adoption.
-
-Une fois cette étape terminée, l'information concernant l'animal disponible est publiée dans **la section dédiée à l'adoption**. Les utilisateurs parcourant cette section trouveront une liste d'animaux prêts à être adoptés, chacun accompagné d'un bouton **"Candidater"** (étape 4). Cette approche permet à toute personne intéressée par un animal spécifique de manifester rapidement son intérêt en un simple clic.
+Une fois configuré, l'animal est répertorié dans la section dédiée à l'adoption, avec un bouton "Candidater" pour exprimer l'intérêt.
 
 **étape 4**
 
 image::adoption.png[etape 4]
 
-Cette approche flexible a pour objectif de simplifier le processus d'adoption, offrant aux propriétaires la liberté de choisir la durée de la nouvelle maison pour leur animal. En créant une plateforme conviviale, nous aspirons à faciliter la connexion entre ceux qui cherchent un compagnon et ceux qui sont prêts à partager l'amour de leurs animaux.
+Cette approche flexible simplifie l'adoption, laissant aux propriétaires le choix de la durée d'adoption.
+
+==== Gestion des Candidatures
+
+Chaque animal ajouté à la section "Mes Animaux" est équipé d'un bouton "Candidatures". Ce bouton permet au propriétaire de consulter les détails des personnes ayant postulé pour garder son animal.
+
+*étape 5*
+
+image::candidatures.png[etape 5]
+
+Le propriétaire peut ensuite examiner chaque candidature individuellement et décider d'accepter ou de refuser.
+
+*étape 6*
+
+image::accepter_refuser.png[etape 6]
+
+=== Petite feature pour l'affichage et la modification des informations des Animaux
+
+Chaque animal dans la section "Mes Animaux" est doté d'un bouton en haut à droite avec le signe plus (+). En cliquant sur ce bouton, les informations détaillées de l'animal sont affichées, offrant la possibilité de modifier le nom, le poids et la photo de l'animal.
+
+image::accepter_refuser.png[etape 6]
+
+image::accepter_refuser.png[etape 6]
+
+=== Fonctionnalité de Suivi des Vaccins - Carnet de Vaccination en Ligne
+
+La fonction de suivi des vaccins offre une gestion centralisée des vaccinations des animaux. Accessible depuis "Mes Animaux", elle permet aux propriétaires de maintenir un carnet de vaccination en ligne.
+
+==== Accès Simple
+
+**étape 1**
+image::suivi_vaccins.png[etape 1]
+
+**étape 2**
+image::mes_animaux.png[etape 2]
+
+==== Vue d'Ensemble des Vaccinations
+
+L'interface propose une vue d'ensemble détaillée des vaccinations, incluant le nom et la date de chaque vaccin.
+
+==== Ajout de Vaccinations
+
+Les propriétaires peuvent ajouter de nouvelles vaccinations à tout moment, garantissant un historique complet et à jour.
+
+=== Fonctionnalité de recherche des Vétérinaires et Jardins à Proximité
+
+L'application offre une fonctionnalité avancée permettant aux utilisateurs de localiser rapidement des vétérinaires ou des jardins à proximité de leur emplacement actuel. Cette fonctionnalité est accessible depuis la page "Mes Services".
+
+== Utilisation de la Carte depuis la Page "Mes Services"
+
+=== Accès à la Page "Mes Services"
+
+Connectez-vous à votre compte sur le site et accédez à la page "Mes Services".
+
+=== Option "Trouver un Service"
+
+Recherchez l'option "EXPLORATION FACILE" sur la page "Mes Services" et cliquez dessus.
+
+image::service.jpeg[Services]
+
+=== Choix entre Vétérinaires et Jardins
+
+Une fois sur la page "EXPLORATION FACILE", les utilisateurs ont deux choix :
+- "Trouver un Vétérinaire"
+- "Rechercher un Jardin pour se Balader"
+
+Les utilisateurs peuvent sélectionner l'option qui correspond à leur recherche.
+
+image::map.png[Map]
+
+== Requête vers l'API Overpass
+
+=== Trouver un Vétérinaire :
+
+Lorsque l'utilisateur choisit "Trouver un Vétérinaire", l'application utilise l'API Overpass pour rechercher les vétérinaires à proximité de la position actuelle de l'utilisateur. La requête à l'API Overpass est générée dynamiquement pour récupérer les nœuds correspondant à la catégorie "amenity=veterinary" dans un rayon défini autour de la position de l'utilisateur.
+
+[plantuml]
+----
+class VeterinairesController {
+    +getVeterinaires(double latitude, double longitude): String
+    -Veterinary
+}
+
+class Veterinary {
+    -lat: double
+    -lon: double
+    -name: String
+
+    +Veterinary(double lat, double lon, String name)
+    +getLat(): double
+    +getLon(): double
+    +getName(): String
+}
+
+class RestTemplate {
+    +getForObject(url: String, responseType: Class<T>): T
+}
+
+VeterinairesController --> Veterinary: "1..*"
+VeterinairesController --> RestTemplate: makeApiCall()
+RestTemplate --> API: Overpass API
+----
+
+- === Rechercher un Jardin pour se Balader :
+
+Si l'utilisateur opte pour "Rechercher un Jardin pour se Balader", l'application effectue une requête pour trouver les nœuds correspondant à la catégorie "leisure=garden" autour de la position actuelle de l'utilisateur. Cette requête est également générée dynamiquement pour récupérer les informations nécessaires.
+
+[plantuml]
+----
+class ParcsController {
+    +getParc(double latitude, double longitude): String
+}
+
+class RestTemplate {
+    +getForObject(url: String, responseType: Class<T>): T
+}
+
+ParcsController --> RestTemplate: restTemplate
+RestTemplate --> API: Overpass API
+----
+
+== Affichage des Résultats sur la Carte
+
+- === Trouver un Vétérinaire :
+
+Les résultats de la requête pour les vétérinaires sont affichés sur la carte sous forme de marqueurs. Chaque marqueur représente l'emplacement d'un vétérinaire trouvé.
+
+image::veterinaire.png[Vétérinaire]
+
+- === Rechercher un Jardin pour se Balader :
+
+Pour la recherche de jardins, les résultats correspondants aux nœuds "leisure=garden" sont affichés sur la carte.
+
+image::Parc.png[Parc]
+
+== Explication de l'API Overpass
+
+L'API Overpass est un service d'interrogation et d'analyse de données OpenStreetMap. Elle permet de récupérer des données géographiques en utilisant un langage de requête spécifique. Dans le contexte de cette application, elle est utilisée pour obtenir des informations sur les vétérinaires et les jardins à proximité en fonction de la position de l'utilisateur. Les requêtes sont construites dynamiquement pour cibler les catégories spécifiques (amenity=veterinary, leisure=garden) et les résultats sont intégrés à la carte de l'application.
 
 
-
-=== Feature de Suivi des Vaccins - Carnet de Vaccination en Ligne
-
-La fonctionnalité de suivi des vaccins sur notre plateforme offre aux utilisateurs une gestion centralisée et accessible des vaccinations de leurs animaux de compagnie. Conçue comme un carnet de vaccination en ligne, cette fonctionnalité permet aux propriétaires d'animaux de suivre et de mettre à jour facilement les informations relatives aux vaccins administrés à leurs compagnons.
-
-Principales Caractéristiques :
-
-**Accès Simple :** Les utilisateurs peuvent accéder à la fonction de **suivi** (étape 1) des vaccins depuis la section **"Mes Animaux"** (étape 2) de leur compte utilisateur. Chaque animal répertorié dispose d'une fonction dédiée pour un accès rapide.
-
-**Vue d'Ensemble des Vaccinations :** L'interface offre une vue d'ensemble détaillée des vaccinations précédemment administrées à un animal particulier. Chaque entrée inclut le nom du vaccin ainsi que la date correspondante.
-
-**Ajout de Vaccinations :** Les propriétaires ont la possibilité d'ajouter de nouvelles vaccinations à tout moment. En fournissant les détails pertinents, tels que le nom du vaccin et la date d'administration, les utilisateurs peuvent maintenir un historique complet et à jour.
 
 == Partie 3 : Modélisation 
 
-=== Diagramme de classe 
 
-==== Feature 1 :
+
 
 [plantuml]
 ----
@@ -454,7 +584,7 @@ PersonService --|> PersonRepository
 @enduml
 ----
 
-==== Feature 2 :
+
 
 [plantuml]
 ----
@@ -639,7 +769,208 @@ Vaccin -- Vaccination : "0,N" Est utilisé dans "1,N"
 Vaccination -- Animal : "1,1" prend "1,N"
 
 @enduml
+
+
+----
+= Planification des Heures de Repas et Envoi de Mails
+
+Cette fonctionnalité vise à automatiser la gestion des repas pour les animaux en permettant aux utilisateurs de planifier les heures de repas de leurs animaux de compagnie. En plus de la planification, le système envoie des rappels par e-mail aux utilisateurs à l'heure programmée pour garantir que leurs animaux reçoivent leur nourriture à temps.
+
+== 1. Création d'un Planning de Repas
+
+=== 1.1 Endpoint
+`POST /api/feeding-schedules`
+
+=== 1.2 Description
+Cette API permet aux utilisateurs de créer un planning de repas pour un animal spécifique.
+
+=== 1.3 Paramètres
+Un objet `FeedingSchedule` doit être inclus dans le corps de la requête, spécifiant l'animal, la fréquence des repas, et les heures de repas.
+
+=== 1.4 Exemple de Corps de Requête
+[source, json]
+----
+{
+  "animal": {"id": 1},
+  "feedingFrequency": 2,
+  "feedingTimes": [
+    {"feedingTime": "08:00"},
+    {"feedingTime": "18:00"}
+  ]
+}
 ----
 
+=== 1.5 Réponse
+Un message indiquant que le planning a été créé avec succès.
+
+== 2. Affichage des Utilisateurs avec un Repas Planifié à l'Heure Actuelle
+
+=== 2.1 Endpoint
+`GET /api/feeding-schedules/emails-with-current-time`
+
+=== 2.2 Description
+Cette API récupère la liste des utilisateurs ayant un repas planifié à l'heure actuelle.
+
+=== 2.3 Réponse
+Une chaîne de caractères indiquant le succès de l'opération ou une liste des e-mails dans la console.
+
+== 3. Récupération des Heures de Repas pour un Animal
+
+=== 3.1 Endpoint
+`GET /api/feeding-schedules/animal/{animalId}`
+
+=== 3.2 Description
+Récupère la liste des heures de repas pour un animal spécifique.
+
+=== 3.3 Paramètres
+L'identifiant de l'animal (`animalId`) doit être fourni dans l'URL.
+
+=== 3.4 Exemple de Réponse
+[source, json]
+----
+[
+  "08:00",
+  "18:00"
+]
+----
+
+== 4. Envoi d'E-mails
+
+=== 4.1 Endpoint
+`POST /api/feeding-schedules/send`
+
+=== 4.2 Description
+Envoie un e-mail à une adresse e-mail fixe à des fins de test.
+
+=== 4.3 Exemple de Corps de Requête
+[source, http]
+----
+POST /api/feeding-schedules/send
+----
+
+=== 4.4 Réponse
+Un message indiquant que l'e-mail a été envoyé avec succès ou une erreur en cas d'échec.
+
+== 5. Envoi Automatique d'E-mails aux Utilisateurs avec un Repas Planifié
+
+=== 5.1 Méthode
+`sendEmailToUsersWithCurrentFeedingTime`
+
+=== 5.2 Description
+Utilise une tâche planifiée (`@Scheduled`) pour envoyer automatiquement des rappels par e-mail aux utilisateurs ayant un repas planifié à l'heure actuelle.
+
+=== 5.3 Réponse
+Un message indiquant que les e-mails ont été envoyés avec succès ou une erreur en cas d'échec.
+
+== 6. API Utilisées
+
+=== 6.1 FeedingScheduleService
+
+- `createFeedingSchedule`: Crée un nouveau planning de repas.
+- `getUsersWithCurrentFeedingTime`: Récupère la liste des utilisateurs avec un repas planifié à l'heure actuelle.
+- `getFeedingTimesForAnimal`: Récupère la liste des heures de repas pour un animal spécifique.
+
+=== 6.2 EmailSenderService
+
+- `sendSimpleEmail`: Envoie un e-mail simple.
+- `sendHtmlEmail`: Envoie un e-mail au format HTML.
 
 
+
+== 7. Diagramme UML de la Fonctionnalité
+
+[plantuml]
+----
+@startuml
+package "com.nanterre.LoveMyPet.repository" {
+    class FeedingScheduleRepository {
+        // Méthodes du repository FeedingSchedule
+    }
+
+    class FeedingTimeRepository {
+        // Méthodes du repository FeedingTime
+    }
+}
+
+package "com.nanterre.LoveMyPet.service" {
+    interface FeedingScheduleService {
+        +createFeedingSchedule(feedingSchedule: FeedingSchedule): FeedingSchedule
+        +getUsersWithCurrentFeedingTime(): List<String>
+        +getFeedingTimesForAnimal(animalId: Long): List<LocalTime>
+    }
+
+    interface EmailSenderService {
+        +sendSimpleEmail(toEmail: String, subject: String, body: String): void
+        +sendHtmlEmail(toEmail: String, subject: String, body: String): void
+    }
+
+    class FeedingScheduleServiceImpl {
+        -feedingScheduleRepository: FeedingScheduleRepository
+        +createFeedingSchedule(feedingSchedule: FeedingSchedule): FeedingSchedule
+        +getUsersWithCurrentFeedingTime(): List<String>
+        +getFeedingTimesForAnimal(animalId: Long): List<LocalTime>
+    }
+
+    class EmailSenderService {
+        -javaMailSender: JavaMailSender
+        -fromEmail: String
+        +sendSimpleEmail(toEmail: String, subject: String, body: String): void
+        +sendHtmlEmail(toEmail: String, subject: String, body: String): void
+    }
+}
+
+package "com.nanterre.LoveMyPet.controller" {
+    class FeedingScheduleController {
+        -feedingScheduleService: FeedingScheduleService
+        +createFeedingSchedule(feedingSchedule: FeedingSchedule): ResponseEntity<String>
+        +displayUsersWithCurrentFeedingTime(): String
+        +getFeedingTimesForAnimal(animalId: Long): ResponseEntity<List<LocalTime>>
+        +sendEmail(): String
+        +sendEmailToUsersWithCurrentFeedingTime(): String
+    }
+}
+
+FeedingScheduleRepository -- FeedingScheduleService : "1,1" Utilise "1,N"
+FeedingScheduleRepository -- FeedingScheduleServiceImpl : "1,1" Utilise "1,1"
+FeedingTimeRepository -- FeedingScheduleService : "1,1" Utilise "0,N"
+EmailSenderService -- FeedingScheduleService : "1,1" Utilise "0,N"
+FeedingScheduleController -- FeedingScheduleService : "1,1" Utilise "1,1"
+@enduml
+----
+
+== 8. Gestion des **Alertes** et **Planification des Repas**
+
+Cette section détaille la gestion des **alertes** liées à la **planification des repas** pour les animaux de l'utilisateur.
+
+=== 8.1 **Affichage des Alertes**
+
+Lorsque l'utilisateur clique sur le bouton "Mes **Alertes**", il est dirigé vers la page "Mes **Alertes**" qui affiche toutes les **alertes** associées à la **planification des repas** de ses animaux. Chaque **alerte** présente des informations détaillées telles que l'animal concerné, l'heure prévue du repas, et d'autres détails pertinents.
+
+image::./images_planification_food/img1.png[Capture d'écran de la page "Mes **Alertes**"]
+
+=== 8.2 **Planification des Repas**
+
+Si l'utilisateur n'a pas encore **planifié de repas** pour l'un de ses animaux, il sera redirigé vers un formulaire de **planification** lorsqu'il accède à la page "Mes **Alertes**". Le formulaire initial comprend un champ permettant à l'utilisateur de spécifier le **nombre de repas** par jour pour l'animal sélectionné.
+
+image::./images_planification_food/img3.png[Capture d'écran du formulaire de **planification** initial]
+
+Une fois que l'utilisateur a saisi le **nombre de repas**, le formulaire s'ajuste dynamiquement pour afficher autant de champs que nécessaire pour entrer les **heures prévues des repas**. Chaque champ représente une **heure de repas**.
+
+image::./images_planification_food/img2.png[Capture d'écran des champs d'**heures de repas**]
+
+Après avoir rempli le formulaire, l'utilisateur est redirigé vers la page "Mes **Alertes**" pour voir les **alertes** correspondant aux **heures de repas planifiées**.
+
+=== 8.3 **Visualisation des Alertes Planifiées**
+
+La page "Mes **Alertes**" permet à l'utilisateur de visualiser toutes les **alertes planifiées** associées à ses animaux. Les **alertes** comprennent des détails tels que l'animal concerné, l'heure prévue du repas, et d'autres informations pertinentes.
+
+image::./images_planification_food/img1.png[Capture d'écran des **alertes planifiées**]
+
+
+=== 8.4 Capture d'écran du Mail Envoyé
+
+L'utilisateur reçoit un exemple de courriel pour les rappels de repas planifiés. Cet exemple illustre le contenu typique du courriel envoyé, confirmant l'heure de planification.
+
+Exemple de courriel envoyé le 18:17 (heure de planification)
+
+image::./images_planification_food/img4.png[Capture d'écran du mail envoyé]

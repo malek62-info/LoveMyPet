@@ -5,6 +5,7 @@ import com.nanterre.LoveMyPet.model.Candidature;
 import com.nanterre.LoveMyPet.model.Person;
 import com.nanterre.LoveMyPet.service.CandidatureService;
 import com.nanterre.LoveMyPet.service.PersonServiceImpl;
+
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
