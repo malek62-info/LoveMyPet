@@ -1,7 +1,8 @@
 package com.nanterre.LoveMyPet.controller;
 
 import com.nanterre.LoveMyPet.service.EmailSenderService;
-import com.nanterre.LoveMyPet.service.FeedingScheduleService;
+import com.nanterre.LoveMyPet.service.implementations.FeedingTimeServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,8 +20,9 @@ public class EmailController {
     private EmailSenderService emailSenderService;
 
     @Autowired
-    private FeedingScheduleService feedingScheduleService;
+    private FeedingTimeServiceImpl feedingTimeService;
 
+    //envoyé un email  fixe
     @PostMapping("/send")
     public String sendEmail() {
         try {
@@ -40,7 +42,7 @@ public class EmailController {
     @Scheduled(fixedDelay = 60000) 
     public String sendEmailToUsersWithCurrentFeedingTime() {
         try {
-            List<String> userEmails = feedingScheduleService.getUsersWithCurrentFeedingTime();
+            List<String> userEmails = feedingTimeService.getEmailsForUsersWithCurrentFeedingTime();
 
             for (String userEmail : userEmails) {
                 String subject = "LoveMyPet Rappel - N'oubliez pas de nourrir votre animal!";

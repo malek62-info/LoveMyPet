@@ -73,6 +73,11 @@ public class Controller {
         return "alertes";
     }
 
+    @GetMapping("/alertes_new")
+    public String alertes_new(){
+        return "alertes_new";
+    }
+
 
 
 

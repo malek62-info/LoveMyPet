@@ -39,17 +39,9 @@ public class Animal {
     @Column(name = "imageurl")
     private String imageUrl;
 
-    @Column(name = "is_scheduled")
-    private boolean isScheduled = false; // Nouveau champ ajouté avec une valeur par défaut de false
-
     @ManyToOne
     @JoinColumn(name = "idperson", referencedColumnName = "idperson", insertable = false, updatable = false)
     private Person adoptedByPerson;
-
-    // Constructeur sans argument pour JPA
-    public Animal() {
-        this.isScheduled = false; // Initialiser le champ isScheduled à false par défaut
-    }
 
     // Getters and setters
 
@@ -123,14 +115,6 @@ public class Animal {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public boolean isScheduled() {
-        return isScheduled;
-    }
-
-    public void setScheduled(boolean scheduled) {
-        isScheduled = scheduled;
     }
 
     public Person getAdoptedByPerson() {

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.*;
 import java.time.LocalTime;
-import java.util.Objects;
 
 @Entity
 @Table(name = "feeding_times")
@@ -13,46 +12,40 @@ public class FeedingTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "feeding_schedule_id", nullable = false)
-    private FeedingSchedule feedingSchedule;
+    @JoinColumn(name = "animal_id", nullable = false)
+    private Animal animal;
 
-    @Column(name = "feeding_time", columnDefinition = "TIME(0)") // Spécifie la longueur à 0 pour exclure les secondes
+    @Column(name = "feeding_time", columnDefinition = "TIME(0)")
     @JsonFormat(pattern = "HH:mm")
     private LocalTime feedingTime;
 
+    // Constructors, getters, setters
 
-    // Constructeur avec une chaîne
-    public FeedingTime(String feedingTime) {
-        this.feedingTime = LocalTime.parse(feedingTime);
-    }
-
-    // Ajoutez un constructeur sans arguments ou une méthode de fabrique avec des arguments
     public FeedingTime() {
-        // Constructeur sans arguments pour la désérialisation JSON
+        // Constructor without arguments for JSON deserialization
     }
 
-    public FeedingTime(LocalTime of) {
+    public FeedingTime(LocalTime feedingTime) {
+        this.feedingTime = feedingTime;
     }
 
-    // Getters and Setters
-
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public FeedingSchedule getFeedingSchedule() {
-        return feedingSchedule;
+    public Animal getAnimal() {
+        return animal;
     }
 
-    public void setFeedingSchedule(FeedingSchedule feedingSchedule) {
-        this.feedingSchedule = feedingSchedule;
+    public void setAnimal(Animal animal) {
+        this.animal = animal;
     }
 
     public LocalTime getFeedingTime() {
@@ -63,3 +56,4 @@ public class FeedingTime {
         this.feedingTime = feedingTime;
     }
 }
+

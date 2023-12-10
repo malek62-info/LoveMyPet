@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feeding Times</title>
+    <style>
+    </style>
+</head>
+
+<body>
+
+    <h2>Les alertes</h2>
+    <p id="noAlertMessage" style="color: red;"></p>
+
+    <form id="feedingTimeForm">
+        <input type="time" name="feedingTime" id="feedingTime">
+        <button type="button" onclick="submitForm()">Créer une alerte</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Feeding Time</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="horairesTableBody">
+            <!-- Les lignes seront ajoutées ici dynamiquement -->
+        </tbody>
+    </table>
+
+    <script>
+        // Fonction pour récupérer les horaires de planification depuis l'API
+        function fetchFeedingTimes ( animalId )
+        {
+            const url = "/api/feeding-times/" + animalId;
+            fetch( url )
+                .then( response => response.json() )
+                .then( data =>
+                {
+                    console.log( data );
+                    displayFeedingTimes( data );
+                } )
+                .catch( error =>
+                {
+                    console.error( 'Error fetching feeding times:', error );
+                } );
+        }
+
+        // Fonction pour afficher les horaires de planification
+        function displayFeedingTimes ( data )
+        {
+            const tableBody = document.getElementById( 'horairesTableBody' );
+            const table = document.querySelector( 'table' ); // Sélectionne la table
+            const messageElement = document.getElementById( 'noAlertMessage' ); // Sélectionne l'élément de message
+
+            // Supprimer le contenu existant de la table
+            tableBody.innerHTML = '';
+
+            if ( data.length === 0 ) {
+                // Si la liste est vide, afficher le message et cacher la table
+                table.style.display = 'none';
+                messageElement.style.color = 'red';
+                messageElement.innerHTML = 'Vous n\'avez aucune alerte';
+                return;
+            }
+
+            data.forEach( element =>
+            {
+                // Construire l'URL complète
+                const url = "/api/feeding-times/" + element;
+
+                // Faire une requête pour obtenir les détails de chaque horaire
+                fetch( url )
+                    .then( response => response.json() )
+                    .then( feedingTimeDetails =>
+                    {
+                        const tr = document.createElement( 'tr' );
+                        tr.innerHTML = `
+                    <td>${ feedingTimeDetails.feedingTime }</td>
+                    <td class="action-buttons">
+                        <button onclick="deleteFeedingTime(${ feedingTimeDetails.id })">Delete</button>
+                        <button onclick="updateFeedingTime(${ feedingTimeDetails.id })">Edit</button>
+                    </td>`;
+                        tableBody.appendChild( tr );
+                    } )
+                    .catch( error =>
+                    {
+                        console.error( 'Error fetching feeding time details:', error );
+                    } );
+            } );
+
+            // Si la liste n'est pas vide, afficher la table et cacher le message
+            table.style.display = 'table';
+            messageElement.style.color = 'transparent'; // Cacher le message
+            messageElement.innerHTML = '';
+        }
+
+        function load ()
+        {
+            const urlParams = new URLSearchParams( window.location.search );
+            const animalId = urlParams.get( 'id' );
+            console.log( "Id de l'animal", animalId );
+            fetchFeedingTimes( animalId );
+        }
+
+
+        window.onload = load()
+
+
+        function deleteFeedingTime ( id )
+        {
+            // Ajoutez votre logique pour supprimer l'horaire de repas
+            alert( `Delete feeding time with ID ${ id }` );
+        }
+
+        function editFeedingTime ( id )
+        {
+            // Ajoutez votre logique pour modifier l'horaire de repas
+            alert( `Edit feeding time with ID ${ id }` );
+        }
+    </script>
+
+
+
+    <script>
+        //ajouter une heure
+        function submitForm ()
+        {
+            // Récupérer la valeur de l'heure depuis le champ de saisie
+            var feedingTimeValue = document.getElementById( "feedingTime" ).value;
+
+           if(feedingTimeValue != ""){
+             // Récupérer l'ID de l'animal depuis l'URL
+             const urlParams = new URLSearchParams( window.location.search );
+            const animalId = urlParams.get( 'id' );
+
+            // Construire l'objet FormData à envoyer à l'API
+            var formData = {
+                animal: { id: parseInt( animalId ) },
+                feedingTime: feedingTimeValue
+            };
+
+            // Effectuer la requête POST vers l'API
+            fetch( '/api/feeding-times/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify( formData )
+            } )
+                .then( response =>
+                {
+                    if ( response.ok ) {
+                        load()
+                        alert( "Alerte créée avec succès !" );
+                    } else {
+                        // Afficher le message d'erreur du serveur
+                        response.text().then( errorMessage =>
+                        {
+                            console.log( errorMessage );
+                            alert( errorMessage );
+                        } );
+                    }
+                } )
+                .catch( error =>
+                {
+                    alert( "Une erreur s'est produite lors de la création de l'alerte." );
+                } );
+           }else {
+              alert( "champ vide !" );
+           }
+           
+        }
+    </script>
+
+
+    <script>
+        //supprimer un time
+        function deleteFeedingTime ( id )
+        {
+            // Effectuer la requête DELETE vers l'API
+            fetch( `/api/feeding-times/delete/${ id }`, {
+                method: 'DELETE',
+            } )
+                .then( response =>
+                {
+                    if ( response.ok ) {
+                        load()
+                        alert( "Feeding time deleted successfully." );
+
+                    } else {
+                        alert( "Une erreur s'est produite lors de la suppression de l'heure de repas." );
+                    }
+                } )
+                .catch( error =>
+                {
+                    alert( "Une erreur s'est produite lors de la suppression de l'heure de repas." );
+                } );
+        }
+
+    </script>
+
+<script>
+    function isValidTimeFormat(time) {
+        // Utiliser une expression régulière pour vérifier le format HH:mm
+        const regex = /^(?:[01]\d|2[0-3]):[0-5]\d$/;
+        return regex.test(time);
+    }
+    
+    function updateFeedingTime(id) {
+        // Récupérer l'ID de l'animal depuis l'URL
+        const urlParams = new URLSearchParams( window.location.search );
+        const animalId = urlParams.get( 'id' );
+        // Demander à l'utilisateur de fournir la nouvelle heure d'alimentation
+        const updatedFeedingTime = prompt("Entrez la nouvelle heure d'alimentation (HH:mm)");
+    
+        // Si l'utilisateur annule la saisie ou le format n'est pas valide, ne rien faire
+        if (updatedFeedingTime === null || !isValidTimeFormat(updatedFeedingTime)) {
+            alert("Anulation ou format incorrect !");
+            return;
+        }
+    
+        // Construire l'objet JSON à envoyer dans le corps de la requête
+        const requestBody = {
+            animal: {
+                id: animalId 
+            },
+            feedingTime: updatedFeedingTime
+        };
+    
+        // Effectuer la requête PUT vers l'API
+        fetch(`/api/feeding-times/update/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestBody)
+        })
+        .then(response => {
+            if (response.ok) {
+                load();
+                alert("Horaire d'alimentation mis à jour avec succès.");
+            } else {
+                // Afficher le message d'erreur du serveur
+                response.text().then(errorMessage => {
+                    alert(errorMessage);
+                });
+            }
+        })
+        .catch(error => {
+            alert("Une erreur s'est produite lors de la mise à jour de l'heure d'alimentation.");
+        });
+    }
+    </script>
+    
+
+</body>
+
+</html>
