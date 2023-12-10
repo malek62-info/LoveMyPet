@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Veterinary Map</title>
-    <!-- Inclure les bibliothèques Leaflet, Bootstrap et le style personnalisé -->
+    <title>Carte Vétérinaire</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
     <style>
         body, html {
-            height: 100%; /* Réduire la hauteur de la carte */
+            height: 100%;
             margin: 0;
         }
 
         #map {
-            height: 100%; /* Utilisez 100% de la hauteur visible de la fenêtre */
-            width: calc(100% - 150px); /* Largeur de la carte - 150px pour le menu à gauche */
-            float: right; /* Aligner la carte à droite */
+            height: 100%;
+            width: calc(100% - 150px);
+            float: right;
         }
 
         #sidebar {
@@ -35,6 +34,33 @@
             font-size: 1.5rem;
         }
 
+        #sidebar form {
+            margin-bottom: 20px;
+        }
+
+        #sidebar label {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        #sidebar input {
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 100%;
+        }
+
+        #sidebar button {
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        #sidebar button:hover {
+            background-color: #0056b3;
+        }
+
         #sidebar a {
             text-decoration: none;
             color: #fff;
@@ -47,28 +73,30 @@
         #sidebar a:hover {
             background-color: #495057;
         }
-         .logo-img {
-        max-width: 100%; /* Ajustez la largeur maximale selon vos besoins */
-        height: auto; /* Pour maintenir les proportions du logo */
-    }
+
+        .logo-img {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
 
-<!-- Div pour afficher la carte -->
 <div id="map"></div>
 
-<!-- Menu à gauche -->
 <div id="sidebar">
-    <h2><img src="images/logo.png" alt="Logo" class="logo-img" ></h2>
-
-    <a href="#" >Recherche par ville</a>
-    <a href="#" >périmètre de recherche</a>
-    <a href="/Map">Nos services</a>
+    <h2><img src="images/logo.png" alt="Logo" class="logo-img"></h2>
+    <form id="searchForm">
+        <label for="cityInput">Ville :</label>
+        <input type="text" id="cityInput" name="city" required>
+        <label for="radiusInput">Rayon de recherche (mètres) :</label>
+        <input type="number" id="radiusInput" name="radius" min="1" value="3000">
+        <button type="button" id="searchButton">Rechercher</button>
+    </form>
+    <a href="#" id="clearButton">Effacer la carte</a>
+    <a href="/Map" id="closeButton">Nos services</a>
 </div>
 
-<!-- Modal pour afficher les détails du vétérinaire -->
 <div class="modal fade" id="vetDetailsModal" tabindex="-1" aria-labelledby="vetDetailsModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -83,44 +111,118 @@
     </div>
 </div>
 
+<!-- ... Autres balises head ... -->
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Obtenir la position actuelle de l'utilisateur
-    navigator.geolocation.getCurrentPosition(position => {
-        const { latitude, longitude } = position.coords;
+    document.addEventListener("DOMContentLoaded", function () {
+       let map;
+       let latitude;
+       let longitude;
+       let city;
+       let searchRadiusCircle;
 
-        // Initialiser la carte Leaflet
-        const map = L.map('map').setView([latitude, longitude], 13);
+       navigator.geolocation.getCurrentPosition(position => {
+           latitude = position.coords.latitude;
+           longitude = position.coords.longitude;
 
-        // Ajouter une couche de tuiles OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
+           map = L.map('map').setView([latitude, longitude], 13);
 
-        // Appeler l'API Spring Boot avec les coordonnées de l'utilisateur
-        fetch(`/api/parcs?latitude=${latitude}&longitude=${longitude}`)
-            .then(response => response.json())
-            .then(data => {
-                const parcs = data.elements;
+           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+               attribution: '© OpenStreetMap contributors'
+           }).addTo(map);
 
-                // Ajouter un marqueur pour chaque parc sur la carte
-                parcs.forEach(parc => {
-                    const { tags, lat, lon } = parc;
-                    const name = tags.name || 'Parc';
+           searchRadiusCircle = L.circle([latitude, longitude], {
+               color: 'blue',
+               fillColor: 'blue',
+               fillOpacity: 0.2,
+               radius: 3000
+           }).addTo(map);
 
-                    const marker = L.marker([lat, lon]).addTo(map);
-                    marker.bindPopup(`<b>${name}</b><br>Coordonnées : ${lat}, ${lon}`);
-                });
-            })
-            .catch(error => {
-                console.error(error);
-                alert('Erreur lors de la récupération des informations sur les parcs.');
-            });
-    }, error => {
-        console.error(error);
-        alert('Impossible d\'obtenir votre position actuelle.');
-    });
+           document.getElementById('searchButton').addEventListener('click', searchVets);
+           document.getElementById('clearButton').addEventListener('click', clearMap);
+           document.getElementById('closeButton').addEventListener('click', closePage);
+
+           // Appel à searchVets lors de l'initialisation de la carte
+           searchVets();
+
+           function searchVets() {
+               city = document.getElementById('cityInput').value;
+               const radius = document.getElementById('radiusInput').value;
+
+               if (city) {
+                   const geocodingUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(city)}`;
+
+                   fetch(geocodingUrl)
+                       .then(response => response.json())
+                       .then(data => {
+                           if (data && data.length > 0) {
+                               latitude = data[0].lat;
+                               longitude = data[0].lon;
+                               performSearch(latitude, longitude, radius);
+                           } else {
+                               alert('Aucun résultat de géocodage trouvé pour la ville spécifiée.');
+                           }
+                       })
+                       .catch(error => {
+                           console.error('Erreur lors de la récupération des données de géocodage.', error);
+                       });
+               } else {
+                   // Si aucune ville n'est saisie, utilisez la position actuelle
+                   performSearch(latitude, longitude, radius);
+               }
+           }
+
+           function performSearch(latitude, longitude, radius) {
+               searchRadiusCircle.setLatLng([latitude, longitude]);
+               searchRadiusCircle.setRadius(radius);
+
+               fetch(`/api/parcs?city=${encodeURIComponent(city)}&latitude=${latitude}&longitude=${longitude}&radius=${radius}`)
+                   .then(response => response.json())
+                   .then(data => {
+                       displayVetsOnMap(data);
+                   })
+                   .catch(error => {
+                       console.error(error);
+                       alert('Erreur lors de la récupération des informations sur les vétérinaires.');
+                   });
+           }
+
+           function displayVetsOnMap(data) {
+               map.eachLayer(layer => {
+                   if (layer instanceof L.Marker) {
+                       layer.remove();
+                   }
+               });
+
+               data.forEach(vet => {
+                   const { lat, lon, name } = vet;
+                   const marker = L.marker([lat, lon]).addTo(map);
+                   marker.bindPopup(`<b>${name}</b><br>Coordonnées : ${lat}, ${lon}<br><a href="#" class="btn btn-primary" onclick="showVetDetails('${name}', '${lat}', '${lon}')">Détails</a>`);
+               });
+           }
+
+
+
+       }, error => {
+           console.error(error);
+           alert("Impossible d'obtenir votre position actuelle.");
+       });
+   });
+
+function showVetDetails(name, lat, lon, phone, website) {
+        const modalBody = document.getElementById('vetDetailsBody');
+        modalBody.innerHTML = `
+            <p><strong>Nom:</strong> ${name}</p>
+            <p><strong>Téléphone:</strong> ${phone || 'Non disponible'}</p>
+            <p><strong>Site Web:</strong> ${website || 'Non disponible'}</p>
+        `;
+
+        const modal = new bootstrap.Modal(document.getElementById('vetDetailsModal'));
+        modal.show();
+    }
 </script>
 
-<script src="https://unpkg.com/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

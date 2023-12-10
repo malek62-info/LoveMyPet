@@ -220,7 +220,17 @@
        });
    });
 
+function showVetDetails(name, lat, lon, phone, website) {
+        const modalBody = document.getElementById('vetDetailsBody');
+        modalBody.innerHTML = `
+            <p><strong>Nom:</strong> ${name}</p>
+            <p><strong>Téléphone:</strong> ${phone || 'Non disponible'}</p>
+            <p><strong>Site Web:</strong> ${website || 'Non disponible'}</p>
+        `;
 
+        const modal = new bootstrap.Modal(document.getElementById('vetDetailsModal'));
+        modal.show();
+    }
 </script>
 
 <!-- ... Autres balises body ... -->
