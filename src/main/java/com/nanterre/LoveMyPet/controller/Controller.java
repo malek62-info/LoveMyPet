@@ -68,17 +68,11 @@ public class Controller {
         return "TimeChoiceAnimal.html";
     }
 
-    @GetMapping("/alertes")
-    public String alertes(){
-        return "alertes";
-    }
 
     @GetMapping("/alertes_new")
     public String alertes_new(){
         return "alertes_new";
     }
-
-
 
 
     @GetMapping("/Veterinaires")
@@ -96,4 +90,10 @@ public class Controller {
         return "Map";
     }
 
+
+    /*publication */
+       @GetMapping("/publications")
+    public String publication() {
+        return "publications";
+    }
 }

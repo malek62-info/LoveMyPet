@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoveMyPet Publications</title>
+    <style>
+        .publication {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        .publication img {
+            height: 200px;
+            width: 200px;
+            object-fit: cover;
+        }
+
+        .like-button,
+        .dislike-button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="publications"></div>
+
+    <script>
+        window.onload = function () {
+            // Récupérer les IDs des conseils déjà présents depuis le stockage local
+            let existingAdviceIds = new Set(JSON.parse(localStorage.getItem("existingAdviceIds")) || []);
+            // Supprimer les valeurs stockées dans le stockage local avant de récupérer les nouvelles publications
+            localStorage.removeItem("existingAdviceIds");
+            console.log(existingAdviceIds);
+    
+            // Fonction pour récupérer les publications
+            function fetchPublications() {
+                fetch("/api/advices")
+                    .then(response => response.json())
+                    .then(data => {
+                        // Pour chaque conseil dans la liste, effectuez une autre requête Fetch pour récupérer les détails
+                        data.forEach(advice => {
+                            // Extraire l'ID numérique du conseil
+                            const adviceId = parseInt(advice.replace("advice/", ""), 10);
+    
+                            // Vérifiez si l'ID du conseil est déjà dans l'ensemble
+                            if (!existingAdviceIds.has(adviceId)) {
+                                console.log(adviceId);
+                                console.log(`api/advices/${adviceId}`);
+                                fetch(`api/advices/advice/${adviceId}`)
+                                    .then(response => response.json())
+                                    .then(adviceDetails => {
+                                        // Utilisez les données pour créer un élément HTML représentant le conseil
+                                        const publicationElement = createPublicationElement(adviceDetails);
+                                        // Ajoutez cet élément à la liste des publications
+                                        document.getElementById("publications").appendChild(publicationElement);
+                                        // Ajoutez l'ID du conseil à l'ensemble et mettez à jour le stockage local
+                                        existingAdviceIds.add(adviceId);
+                                        localStorage.setItem("existingAdviceIds", JSON.stringify(Array.from(existingAdviceIds)));
+                                    });
+                            }
+                        });
+                    })
+                    .catch(error => console.error("Error fetching advice:", error));
+            }
+            //afficher les publication quand la page est actualisée manuellement
+            fetchPublications()
+            // Appeler fetchPublications toutes les 5 secondes (ajustez selon vos besoins)
+            setInterval(fetchPublications, 5000);
+    
+            // Gestionnaire d'événements beforeunload pour effacer les valeurs stockées lors de la fermeture de la page
+            window.addEventListener("beforeunload", function () {
+                localStorage.removeItem("existingAdviceIds");
+            });
+    
+            function createPublicationElement(adviceDetails) {
+                // Crée un élément HTML représentant le conseil
+                const publicationElement = document.createElement("div");
+                publicationElement.className = "publication";
+    
+                // Ajoute le contenu HTML avec les détails du conseil
+                let contentHtml = '';
+    
+                // Ajoute l'auteur s'il est disponible
+                if (adviceDetails.authorName) {
+                    contentHtml += `<p><strong>Auteur:</strong> ${adviceDetails.authorName}</p>`;
+                }
+    
+                // Ajoute le texte s'il est disponible
+                if (adviceDetails.textAdvice) {
+                    contentHtml += `<p> ${adviceDetails.textAdvice}</p>`;
+                }
+    
+                // Ajoute l'URL de l'image s'il est disponible
+                if (adviceDetails.imageUrl) {
+                    contentHtml += `<img src="images/advices/${adviceDetails.imageUrl}" alt="Advice Image" style="height: 200px; width: 200px; object-fit: cover;">`;
+                }
+    
+                // Ajoute le bouton Likes s'il y a un nombre de likes
+                if (adviceDetails.likeCount !== null) {
+                    contentHtml += `<button class="like-button">Likes: ${adviceDetails.likeCount}</button>`;
+                }
+    
+                // Ajoute le bouton Dislikes s'il y a un nombre de dislikes
+                if (adviceDetails.dislikeCount !== null) {
+                    contentHtml += `<button class="dislike-button">Dislikes: ${adviceDetails.dislikeCount}</button>`;
+                }
+    
+                // Ajoute l'ID masqué s'il est disponible
+                if (adviceDetails.adviceId !== null) {
+                    contentHtml += `<input type="hidden" name="adviceId" value="${adviceDetails.adviceId}">`;
+                }
+    
+                publicationElement.innerHTML = contentHtml;
+    
+                return publicationElement;
+            }
+        };
+    </script>
+    
+
+</body>
+
+</html>
