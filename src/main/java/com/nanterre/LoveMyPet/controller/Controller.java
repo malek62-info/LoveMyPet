@@ -91,4 +91,9 @@ public class Controller {
         return "Map";
     }
 
+    @GetMapping("/AddAdvice")
+    public String Advice() {
+        return "AddAdvice";
+    }
+
 }
