@@ -93,7 +93,6 @@
         <input type="number" id="radiusInput" name="radius" min="1" value="3000">
         <button type="button" id="searchButton">Rechercher</button>
     </form>
-    <a href="#" id="clearButton">Effacer la carte</a>
     <a href="/Map" id="closeButton">Nos services</a>
 </div>
 
@@ -141,8 +140,6 @@
            }).addTo(map);
 
            document.getElementById('searchButton').addEventListener('click', searchVets);
-           document.getElementById('clearButton').addEventListener('click', clearMap);
-           document.getElementById('closeButton').addEventListener('click', closePage);
 
            // Appel à searchVets lors de l'initialisation de la carte
            searchVets();
@@ -211,9 +208,7 @@
                });
            }
 
-           function closePage() {
-               alert('Fermer la page');
-           }
+
        }, error => {
            console.error(error);
            alert("Impossible d'obtenir votre position actuelle.");
