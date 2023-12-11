@@ -11,4 +11,7 @@ public interface FeedingTimeService {
     public FeedingTime getFeedingTimeDetailsById(Integer id) ;
     public void deleteFeedingTime(Integer id) ;
     FeedingTime updateFeedingTime(Integer id, FeedingTime updatedFeedingTime) ;
+
+    //detail email et animal
+    public List<Object[]> getInfosCurrentFeedingTimes();
 }

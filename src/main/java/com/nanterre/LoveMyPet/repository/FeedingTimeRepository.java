@@ -15,14 +15,15 @@ import java.time.LocalTime;
 public interface FeedingTimeRepository extends JpaRepository<FeedingTime, Integer> {
      boolean existsByAnimalAndFeedingTime(Animal animal, LocalTime feedingTime);
      List<FeedingTime> findByAnimalId(Integer idAnimal);
-     
-     //email personne || feeding timme == heure actuelle
-     @Query(value = "SELECT DISTINCT p.email " +
-        "FROM person p " +
-        "JOIN animal a ON p.id_person = a.idperson " +
-        "JOIN feeding_times ft ON a.idanimal = ft.animal_id " +
-        "WHERE HOUR(CURRENT_TIME()) = HOUR(ft.feeding_time) " +
-        "AND MINUTE(CURRENT_TIME()) = MINUTE(ft.feeding_time)", nativeQuery = true)
-     List<String> findEmailsForCurrentFeedingTime();
+
+     @Query(nativeQuery = true, value =
+             "SELECT p.email, p.first_name, p.id_person, a.idanimal, a.name AS animal_name, a.imageurl AS animal_url, ft.id AS feeding_time_id " +
+                     "FROM person p " +
+                     "JOIN animal a ON p.id_person = a.idperson " +
+                     "JOIN feeding_times ft ON a.idanimal = ft.animal_id " +
+                     "WHERE HOUR(CURRENT_TIME()) = HOUR(ft.feeding_time) " +
+                     "AND MINUTE(CURRENT_TIME()) = MINUTE(ft.feeding_time)")
+     List<Object[]> findEmailsAndAnimalDetailsForUsersWithCurrentFeedingTime();
+
 
 }

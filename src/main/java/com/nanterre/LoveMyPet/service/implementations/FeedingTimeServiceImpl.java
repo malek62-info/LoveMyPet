@@ -1,4 +1,6 @@
 package com.nanterre.LoveMyPet.service.implementations;
+import com.nanterre.LoveMyPet.model.Person;
+import com.nanterre.LoveMyPet.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.nanterre.LoveMyPet.model.FeedingTime;
 import com.nanterre.LoveMyPet.repository.FeedingTimeRepository;
@@ -8,6 +10,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.time.LocalTime;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.util.List;
+
 
 
 @Service
@@ -16,6 +23,8 @@ public class FeedingTimeServiceImpl implements FeedingTimeService {
     @Autowired
     private FeedingTimeRepository feedingTimeRepository;
 
+    @Autowired
+    private PersonRepository personRepository;
     // ajouter une feedingtime
     @Override
     public void addFeedingTime(FeedingTime feedingTime) {
@@ -73,12 +82,13 @@ public class FeedingTimeServiceImpl implements FeedingTimeService {
     }
 
     //list email feedingtime == now
-
-    public List<String> getEmailsForUsersWithCurrentFeedingTime() {
-        return feedingTimeRepository.findEmailsForCurrentFeedingTime();
+    @Override
+    public List<Object[]> getInfosCurrentFeedingTimes() {
+        return feedingTimeRepository.findEmailsAndAnimalDetailsForUsersWithCurrentFeedingTime();
     }
 
-    
+
+
 }
     
 

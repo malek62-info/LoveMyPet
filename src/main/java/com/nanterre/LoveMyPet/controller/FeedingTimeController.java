@@ -80,4 +80,20 @@ public class FeedingTimeController {
         }
     }
 
+
+    @GetMapping("/email-animal-current-feeding-times")
+    public ResponseEntity<List<Object[]>> getCurrentFeedingTimes() {
+        try {
+            List<Object[]> feedingTimes = feedingTimeService. getInfosCurrentFeedingTimes() ;
+
+            if (feedingTimes.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            } else {
+                return ResponseEntity.ok(feedingTimes);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
 }
