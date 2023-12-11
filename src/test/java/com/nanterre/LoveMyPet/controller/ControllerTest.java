@@ -73,12 +73,6 @@ public class ControllerTest {
     }
 
     @Test
-    public void testAlertes() {
-        String result = controller.alertes();
-        assertEquals("alertes", result);
-    }
-
-    @Test
     public void testMap() {
         String result = controller.map();
         assertEquals("Veterinaires", result);

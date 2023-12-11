@@ -1,0 +1,78 @@
+package com.nanterre.LoveMyPet.service.implementations;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nanterre.LoveMyPet.model.Advice;
+import com.nanterre.LoveMyPet.model.LikeDislike;
+import com.nanterre.LoveMyPet.model.Person;
+import com.nanterre.LoveMyPet.repository.AdviceRepository;
+import com.nanterre.LoveMyPet.repository.LikeDislikeRepository;
+import com.nanterre.LoveMyPet.repository.PersonRepository;
+import com.nanterre.LoveMyPet.service.ResourceNotFoundException;
+import com.nanterre.LoveMyPet.service.interfaces.LikeDislikeService;
+
+@Service
+public class LikeDislikeServiceImpl implements LikeDislikeService {
+
+    @Autowired
+    private LikeDislikeRepository likeDislikeRepository;
+
+    @Autowired
+    private AdviceRepository adviceRepository;
+
+    @Autowired
+    private PersonRepository personRepository;
+
+    @Override
+    public void addLike(Integer adviceId, Integer personId, boolean isLike) {
+        Advice advice = adviceRepository.findById(adviceId)
+                .orElseThrow(() -> new ResourceNotFoundException("Advice not found"));
+
+        Person existingPerson = personRepository.findById(personId)
+                .orElseThrow(() -> new ResourceNotFoundException("Person not found with ID: " + personId));
+
+        // Check if the person has already interacted with the advice
+        LikeDislike existingInteraction = likeDislikeRepository.findByAdviceAndPerson(advice, existingPerson);
+        if (existingInteraction != null) {
+            // If the person has already interacted, update the existing interaction only if changing from dislike to like
+            if (!existingInteraction.isLike() && isLike) {
+                existingInteraction.setLike(isLike);
+                likeDislikeRepository.save(existingInteraction);
+            }
+        } else {
+            // If the person has not interacted, create a new interaction
+            LikeDislike like = new LikeDislike();
+            like.setAdvice(advice);
+            like.setPerson(existingPerson);
+            like.setLike(isLike);
+            likeDislikeRepository.save(like);
+        }
+    }
+
+    @Override
+    public void addDislike(Integer adviceId, Integer personId, boolean isLike) {
+        Advice advice = adviceRepository.findById(adviceId)
+                .orElseThrow(() -> new ResourceNotFoundException("Advice not found"));
+
+        Person existingPerson = personRepository.findById(personId)
+                .orElseThrow(() -> new ResourceNotFoundException("Person not found with ID: " + personId));
+
+        // Check if the person has already interacted with the advice
+        LikeDislike existingInteraction = likeDislikeRepository.findByAdviceAndPerson(advice, existingPerson);
+        if (existingInteraction != null) {
+            // If the person has already interacted, update the existing interaction only if changing from like to dislike
+            if (existingInteraction.isLike() && !isLike) {
+                existingInteraction.setLike(isLike);
+                likeDislikeRepository.save(existingInteraction);
+            }
+        } else {
+            // If the person has not interacted, create a new interaction
+            LikeDislike dislike = new LikeDislike();
+            dislike.setAdvice(advice);
+            dislike.setPerson(existingPerson);
+            dislike.setLike(isLike);
+            likeDislikeRepository.save(dislike);
+        }
+    }
+}
