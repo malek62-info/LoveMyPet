@@ -34,99 +34,207 @@
 
     <div id="publications"></div>
 
+    <!-- Inclusion de jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+        crossorigin="anonymous"></script>
     <script>
-        window.onload = function () {
+
+        let existingAdviceIds = new Set( JSON.parse( localStorage.getItem( "existingAdviceIds" ) ) || [] );
+        window.onload = function ()
+        {
             // Récupérer les IDs des conseils déjà présents depuis le stockage local
-            let existingAdviceIds = new Set(JSON.parse(localStorage.getItem("existingAdviceIds")) || []);
+
             // Supprimer les valeurs stockées dans le stockage local avant de récupérer les nouvelles publications
-            localStorage.removeItem("existingAdviceIds");
-            console.log(existingAdviceIds);
-    
+            console.log( existingAdviceIds );
+            localStorage.removeItem( "existingAdviceIds" );
+
+
+            setInterval( refreshLikeDislikeCounts, 5000 );
+
             // Fonction pour récupérer les publications
-            function fetchPublications() {
-                fetch("/api/advices")
-                    .then(response => response.json())
-                    .then(data => {
+            function fetchPublications ()
+            {
+                fetch( "/api/advices" )
+                    .then( response => response.json() )
+                    .then( data =>
+                    {
                         // Pour chaque conseil dans la liste, effectuez une autre requête Fetch pour récupérer les détails
-                        data.forEach(advice => {
+                        data.forEach( advice =>
+                        {
                             // Extraire l'ID numérique du conseil
-                            const adviceId = parseInt(advice.replace("advice/", ""), 10);
-    
+                            const adviceId = parseInt( advice.replace( "advice/", "" ), 10 );
+
                             // Vérifiez si l'ID du conseil est déjà dans l'ensemble
-                            if (!existingAdviceIds.has(adviceId)) {
-                                console.log(adviceId);
-                                console.log(`api/advices/${adviceId}`);
-                                fetch(`api/advices/advice/${adviceId}`)
-                                    .then(response => response.json())
-                                    .then(adviceDetails => {
+                            if ( !existingAdviceIds.has( adviceId ) ) {
+                                console.log( adviceId );
+                                console.log( `api/advices/${ adviceId }` );
+                                fetch( `api/advices/advice/${ adviceId }` )
+                                    .then( response => response.json() )
+                                    .then( adviceDetails =>
+                                    {
                                         // Utilisez les données pour créer un élément HTML représentant le conseil
-                                        const publicationElement = createPublicationElement(adviceDetails);
+                                        const publicationElement = createPublicationElement( adviceDetails );
                                         // Ajoutez cet élément à la liste des publications
-                                        document.getElementById("publications").appendChild(publicationElement);
+                                        document.getElementById( "publications" ).appendChild( publicationElement );
                                         // Ajoutez l'ID du conseil à l'ensemble et mettez à jour le stockage local
-                                        existingAdviceIds.add(adviceId);
-                                        localStorage.setItem("existingAdviceIds", JSON.stringify(Array.from(existingAdviceIds)));
-                                    });
+                                        existingAdviceIds.add( adviceId );
+                                        localStorage.setItem( "existingAdviceIds", JSON.stringify( Array.from( existingAdviceIds ) ) );
+                                    } );
                             }
-                        });
-                    })
-                    .catch(error => console.error("Error fetching advice:", error));
+                        } );
+                    } )
+                    .catch( error => console.error( "Error fetching advice:", error ) );
             }
             //afficher les publication quand la page est actualisée manuellement
             fetchPublications()
             // Appeler fetchPublications toutes les 5 secondes (ajustez selon vos besoins)
-            setInterval(fetchPublications, 5000);
-    
+            setInterval( fetchPublications, 5000 );
+
             // Gestionnaire d'événements beforeunload pour effacer les valeurs stockées lors de la fermeture de la page
-            window.addEventListener("beforeunload", function () {
-                localStorage.removeItem("existingAdviceIds");
-            });
-    
-            function createPublicationElement(adviceDetails) {
+            window.addEventListener( "beforeunload", function ()
+            {
+                localStorage.removeItem( "existingAdviceIds" );
+            } );
+
+            function createPublicationElement ( adviceDetails )
+            {
                 // Crée un élément HTML représentant le conseil
-                const publicationElement = document.createElement("div");
+                const publicationElement = document.createElement( "div" );
                 publicationElement.className = "publication";
-    
+
                 // Ajoute le contenu HTML avec les détails du conseil
                 let contentHtml = '';
-    
+
                 // Ajoute l'auteur s'il est disponible
-                if (adviceDetails.authorName) {
-                    contentHtml += `<p><strong>Auteur:</strong> ${adviceDetails.authorName}</p>`;
+                if ( adviceDetails.authorName ) {
+                    contentHtml += `<p><strong>Auteur:</strong> ${ adviceDetails.authorName }</p>`;
                 }
-    
+
                 // Ajoute le texte s'il est disponible
-                if (adviceDetails.textAdvice) {
-                    contentHtml += `<p> ${adviceDetails.textAdvice}</p>`;
+                if ( adviceDetails.textAdvice ) {
+                    contentHtml += `<p> ${ adviceDetails.textAdvice }</p>`;
                 }
-    
+
                 // Ajoute l'URL de l'image s'il est disponible
-                if (adviceDetails.imageUrl) {
-                    contentHtml += `<img src="images/advices/${adviceDetails.imageUrl}" alt="Advice Image" style="height: 200px; width: 200px; object-fit: cover;">`;
+                if ( adviceDetails.imageUrl ) {
+                    contentHtml += `<img src="images/advices/${ adviceDetails.imageUrl }" alt="Advice Image" style="height: 200px; width: 200px; object-fit: cover;">`;
                 }
-    
+
                 // Ajoute le bouton Likes s'il y a un nombre de likes
-                if (adviceDetails.likeCount !== null) {
-                    contentHtml += `<button class="like-button">Likes: ${adviceDetails.likeCount}</button>`;
+                if ( adviceDetails.likeCount !== null ) {
+                    contentHtml += `<button class="like-button${ adviceDetails.adviceId }" onclick="sendLikeOrDislike(true, ${ adviceDetails.adviceId })">Likes: ${ adviceDetails.likeCount }</button>`;
                 }
-    
+
                 // Ajoute le bouton Dislikes s'il y a un nombre de dislikes
-                if (adviceDetails.dislikeCount !== null) {
-                    contentHtml += `<button class="dislike-button">Dislikes: ${adviceDetails.dislikeCount}</button>`;
+                if ( adviceDetails.dislikeCount !== null ) {
+                    contentHtml += `<button class="dislike-button${ adviceDetails.adviceId }" onclick="sendLikeOrDislike(false, ${ adviceDetails.adviceId })">Dislikes: ${ adviceDetails.dislikeCount }</button>`;
                 }
-    
+
                 // Ajoute l'ID masqué s'il est disponible
-                if (adviceDetails.adviceId !== null) {
-                    contentHtml += `<input type="hidden" name="adviceId" value="${adviceDetails.adviceId}">`;
+                if ( adviceDetails.adviceId !== null ) {
+                    contentHtml += `<input type="hidden" name="adviceId" value="${ adviceDetails.adviceId }">`;
                 }
-    
+
+
                 publicationElement.innerHTML = contentHtml;
-    
+
                 return publicationElement;
             }
         };
     </script>
-    
+
+
+    <script>
+
+function sendLikeOrDislike(isLike, adviceId) {
+    const apiUrl = isLike ? "/api/like-dislike/like" : "/api/like-dislike/dislike";
+    console.log(apiUrl);
+
+    $.ajax({
+        url: "/person/profile",
+        type: "GET",
+        success: function (userData) {
+            console.log("Il est connecté", userData.id);
+
+            fetch(apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    advice_id: adviceId,
+                    person_id: userData.id
+                })
+            })
+            .then(response => response.text())
+            .then(data => {
+                // Réponse de l'API (si nécessaire)
+                console.log(data);
+                // Mettez à jour le nombre de likes/dislikes sur le bouton correspondant
+                updateLikeDislikeCount(adviceId);
+            })
+            .catch(error => {
+                console.error("Erreur lors de la requête Fetch:", error);
+            });
+        },
+        error: function (xhr, status, error) {
+            // Gérer les erreurs
+            console.error("Error fetching person ID:", error);
+            alert("Vous n'êtes pas connecté(e). Veuillez vous connecter pour effectuer cette action.");
+        }
+    });
+}
+
+        function updateLikeDislikeCount ( adviceId )
+        {
+            // Sélectionnez le bouton approprié
+            const likeButtonSelector = `.like-button${ adviceId }`;
+            const dislikeButtonSelector = `.dislike-button${ adviceId }`;
+
+            const likeButton = document.querySelector( likeButtonSelector );
+            const dislikeButton = document.querySelector( dislikeButtonSelector );
+
+
+            // Mettez à jour les counts en appelant l'API pour obtenir les dernières valeurs
+            fetch( `/api/advices/advice/${ adviceId }` )
+                .then( response => response.json() )
+                .then( adviceDetails =>
+                {
+                    // Mise à jour avec les dernières valeurs de l'API
+                    likeButton.innerHTML = `Likes: ${ adviceDetails.likeCount }`;
+                    dislikeButton.innerHTML = `Dislikes: ${ adviceDetails.dislikeCount }`;
+                } )
+                .catch( error => console.error( "Error fetching advice details:", error ) );
+        }
+
+
+
+        //mise a jours des like et dislike des autre publication chaque 5 secondes 
+
+        function refreshLikeDislikeCounts ()
+        {
+            // Parcourez les IDs existants
+            existingAdviceIds.forEach( adviceId =>
+            {
+                // Appelez l'API pour obtenir les dernières valeurs des counts
+                console.log( `lien api => /api/advices/advice/${ adviceId }` )
+                fetch( `/api/advices/advice/${ adviceId }` )
+                    .then( response => response.json() )
+                    .then( adviceDetails =>
+                    {
+                        // Mettez à jour les counts avec les dernières valeurs de l'API
+                        updateLikeDislikeCount( adviceId );
+                    } )
+                    .catch( error => console.error( "Error refreshing advice details:", error ) );
+            } );
+        }
+
+        // Appelez la fonction de rafraîchissement toutes les 5 secondes
+
+
+    </script>
+
 
 </body>
 
