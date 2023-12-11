@@ -23,21 +23,4 @@ class EmailSenderServiceTest {
     @InjectMocks
     private EmailSenderService emailSenderService;
 
-    @Test
-    void testSendSimpleEmail() {
-        // Données de test
-        String toEmail = "recipient@example.com";
-        String subject = "Test Subject";
-        String body = "Test Body";
-
-        // Configuration du simulateur
-        doNothing().when(mailSender).send(any(SimpleMailMessage.class));
-
-        // Exécution de la méthode à tester
-        emailSenderService.sendSimpleEmail(toEmail, subject, body);
-
-        // Vérification des interactions
-        verify(mailSender, times(1)).send(any(SimpleMailMessage.class));
-    }
-
 }

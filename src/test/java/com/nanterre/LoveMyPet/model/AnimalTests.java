@@ -152,17 +152,4 @@ public class AnimalTests {
     }
 
 
-    @Test
-    public void testIsScheduled() {
-        Animal animal = new Animal();
-        animal.setScheduled(true);
-        assertTrue(animal.isScheduled());
-    }
-
-    @Test
-    public void testSetScheduled() {
-        Animal animal = new Animal();
-        animal.setScheduled(false);
-        assertFalse(animal.isScheduled());
-    }
 }

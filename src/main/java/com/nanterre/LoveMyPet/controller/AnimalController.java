@@ -39,21 +39,28 @@ public class AnimalController {
                 // Spécifiez le chemin de votre dossier d'images dans les ressources
                 String dossierImages = "src/main/resources/static/images/animals";
                 String nomDuFichier = imageFile.getOriginalFilename();
+
+                // Vérifiez si nomDuFichier est nul avant de remplacer les espaces
+                if (nomDuFichier != null) {
+                    nomDuFichier = nomDuFichier.replaceAll("\\s", "-");
+                }
+
+
                 Path cheminFichier = Paths.get(dossierImages, nomDuFichier);
 
                 // Écrivez le fichier image dans le dossier spécifié
                 Files.write(cheminFichier, imageFile.getBytes());
 
-                // Stockez le nom du fichier image dans la base de données
-                animal.setImageUrl(nomDuFichier);
+                // Assurez-vous que l'URL stockée dans la base de données est relative
+                // et compatible avec le chemin des ressources statiques
+                String urlRelative = nomDuFichier;
+                animal.setImageUrl(urlRelative);
 
                 // Votre code de gestion du fichier image ici
             } catch (IOException e) {
                 e.printStackTrace();
                 return new ResponseEntity<>("Erreur lors de la gestion de l'image", HttpStatus.INTERNAL_SERVER_ERROR);
             }
-
-
         }
 
         // Enregistrez l'animal avec le nom du fichier de l'image (si applicable)
