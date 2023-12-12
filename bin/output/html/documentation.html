@@ -551,21 +551,25 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#_partie_1_modélisation">Partie 1 : Modélisation</a>
 <ul class="sectlevel2">
 <li><a href="#_fonctionnalité_dadoption_des_animaux">Fonctionnalité d&#8217;Adoption des Animaux</a></li>
+<li><a href="#_petite_feature_pour_laffichage_et_la_modification_des_informations_des_animaux">Petite feature pour l&#8217;affichage et la modification des informations des Animaux</a></li>
 <li><a href="#_fonctionnalité_de_suivi_des_vaccins_carnet_de_vaccination_en_ligne">Fonctionnalité de Suivi des Vaccins - Carnet de Vaccination en Ligne</a></li>
+<li><a href="#_fonctionnalité_de_recherche_des_vétérinaires_et_jardins_à_proximité">Fonctionnalité de recherche des Vétérinaires et Jardins à Proximité</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#_documentation_de_la_fonctionnalité_de_recherche">Documentation de la Fonctionnalité de Recherche</a>
-<ul class="sectlevel1">
-<li><a href="#_recherche_des_vétérinaires_et_jardins_à_proximité">Recherche des Vétérinaires et Jardins à Proximité</a>
+<li><a href="#_utilisation_de_la_carte_depuis_la_page_mes_services">Utilisation de la Carte depuis la Page "Mes Services"</a>
 <ul class="sectlevel2">
-<li><a href="#_utilisation_de_la_carte_depuis_la_page_mes_services">Utilisation de la Carte depuis la Page "Mes Services"</a></li>
-<li><a href="#_requête_vers_lapi_overpass">Requête vers l&#8217;API Overpass</a></li>
-<li><a href="#_affichage_des_résultats_sur_la_carte">Affichage des Résultats sur la Carte</a></li>
+<li><a href="#_accès_à_la_page_mes_services">Accès à la Page "Mes Services"</a></li>
+<li><a href="#_option_trouver_un_service">Option "Trouver un Service"</a></li>
+<li><a href="#_choix_entre_vétérinaires_et_jardins">Choix entre Vétérinaires et Jardins</a></li>
 </ul>
 </li>
-<li><a href="#_conclusion">Conclusion</a></li>
+<li><a href="#_requête_vers_lapi_overpass">Requête vers l&#8217;API Overpass</a>
+<ul class="sectlevel2">
+<li><a href="#_trouver_un_vétérinaire">Trouver un Vétérinaire :</a></li>
+</ul>
+</li>
+<li><a href="#_affichage_des_résultats_sur_la_carte">Affichage des Résultats sur la Carte</a></li>
+<li><a href="#_explication_de_lapi_overpass">Explication de l&#8217;API Overpass</a></li>
 <li><a href="#_partie_3_modélisation">Partie 3 : Modélisation</a></li>
 <li><a href="#_base_de_données">Base de données</a>
 <ul class="sectlevel2">
@@ -1068,16 +1072,28 @@ Frontend -- Backend : communique
 <p>Après avoir ajouté des compagnons dans la section "Mes Animaux", chaque animal est associé au bouton unique "Donner". Cela déclenche un pop-up interactif pour faciliter l&#8217;adoption.</p>
 </div>
 <div class="paragraph">
-<p><strong>étape 1</strong>
-image::enregistrement.png[etape 1]</p>
+<p><strong>étape 1</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="enregistrement.png" alt="etape 1">
+</div>
 </div>
 <div class="paragraph">
-<p><strong>étape 2</strong>
-image::donner.png[etape 2]</p>
+<p><strong>étape 2</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="donner.png" alt="etape 2">
+</div>
 </div>
 <div class="paragraph">
-<p><strong>étape 3</strong>
-image::popup.png[etape 3]</p>
+<p><strong>étape 3</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="popup.png" alt="etape 3">
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -1092,11 +1108,56 @@ image::popup.png[etape 3]</p>
 <p>Une fois configuré, l&#8217;animal est répertorié dans la section dédiée à l&#8217;adoption, avec un bouton "Candidater" pour exprimer l&#8217;intérêt.</p>
 </div>
 <div class="paragraph">
-<p><strong>étape 4</strong>
-image::adoption.png[etape 4]</p>
+<p><strong>étape 4</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="adoption.png" alt="etape 4">
+</div>
 </div>
 <div class="paragraph">
 <p>Cette approche flexible simplifie l&#8217;adoption, laissant aux propriétaires le choix de la durée d&#8217;adoption.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_gestion_des_candidatures">Gestion des Candidatures</h4>
+<div class="paragraph">
+<p>Chaque animal ajouté à la section "Mes Animaux" est équipé d&#8217;un bouton "Candidatures". Ce bouton permet au propriétaire de consulter les détails des personnes ayant postulé pour garder son animal.</p>
+</div>
+<div class="paragraph">
+<p><strong>étape 5</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="candidatures.png" alt="etape 5">
+</div>
+</div>
+<div class="paragraph">
+<p>Le propriétaire peut ensuite examiner chaque candidature individuellement et décider d&#8217;accepter ou de refuser.</p>
+</div>
+<div class="paragraph">
+<p><strong>étape 6</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="accepter_refuser.png" alt="etape 6">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_petite_feature_pour_laffichage_et_la_modification_des_informations_des_animaux">Petite feature pour l&#8217;affichage et la modification des informations des Animaux</h3>
+<div class="paragraph">
+<p>Chaque animal dans la section "Mes Animaux" est doté d&#8217;un bouton en haut à droite avec le signe plus (+). En cliquant sur ce bouton, les informations détaillées de l&#8217;animal sont affichées, offrant la possibilité de modifier le nom, le poids et la photo de l&#8217;animal.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="accepter_refuser.png" alt="etape 6">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="accepter_refuser.png" alt="etape 6">
 </div>
 </div>
 </div>
@@ -1129,49 +1190,36 @@ image::mes_animaux.png[etape 2]</p>
 </div>
 </div>
 </div>
-</div>
-</div>
-<h1 id="_documentation_de_la_fonctionnalité_de_recherche" class="sect0">Documentation de la Fonctionnalité de Recherche</h1>
-<div class="sect1">
-<h2 id="_recherche_des_vétérinaires_et_jardins_à_proximité">Recherche des Vétérinaires et Jardins à Proximité</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>L&#8217;application offre une fonctionnalité puissante permettant aux utilisateurs de localiser rapidement des vétérinaires ou des jardins à proximité de leur emplacement actuel. Cette fonctionnalité est accessible depuis la page "Mes Services".</p>
-</div>
 <div class="sect2">
-<h3 id="_utilisation_de_la_carte_depuis_la_page_mes_services">Utilisation de la Carte depuis la Page "Mes Services"</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><strong>Accès à la Page "Mes Services"</strong></p>
-</li>
-</ol>
+<h3 id="_fonctionnalité_de_recherche_des_vétérinaires_et_jardins_à_proximité">Fonctionnalité de recherche des Vétérinaires et Jardins à Proximité</h3>
+<div class="paragraph">
+<p>L&#8217;application offre une fonctionnalité avancée permettant aux utilisateurs de localiser rapidement des vétérinaires ou des jardins à proximité de leur emplacement actuel. Cette fonctionnalité est accessible depuis la page "Mes Services".</p>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_utilisation_de_la_carte_depuis_la_page_mes_services">Utilisation de la Carte depuis la Page "Mes Services"</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_accès_à_la_page_mes_services">Accès à la Page "Mes Services"</h3>
 <div class="paragraph">
 <p>Connectez-vous à votre compte sur le site et accédez à la page "Mes Services".</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><strong>Option "Trouver un Service"</strong></p>
-</li>
-</ol>
 </div>
+<div class="sect2">
+<h3 id="_option_trouver_un_service">Option "Trouver un Service"</h3>
 <div class="paragraph">
 <p>Recherchez l&#8217;option "EXPLORATION FACILE" sur la page "Mes Services" et cliquez dessus.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="service.jpeg" alt="service">
+<img src="service.jpeg" alt="Services">
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><strong>Choix entre Vétérinaires et Jardins</strong></p>
-</li>
-</ol>
 </div>
+<div class="sect2">
+<h3 id="_choix_entre_vétérinaires_et_jardins">Choix entre Vétérinaires et Jardins</h3>
 <div class="paragraph">
 <p>Une fois sur la page "EXPLORATION FACILE", les utilisateurs ont deux choix :
 - "Trouver un Vétérinaire"
@@ -1186,35 +1234,77 @@ image::mes_animaux.png[etape 2]</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_requête_vers_lapi_overpass">Requête vers l&#8217;API Overpass</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Trouver un Vétérinaire :</strong></p>
-</li>
-</ul>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_requête_vers_lapi_overpass">Requête vers l&#8217;API Overpass</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_trouver_un_vétérinaire">Trouver un Vétérinaire :</h3>
 <div class="paragraph">
 <p>Lorsque l&#8217;utilisateur choisit "Trouver un Vétérinaire", l&#8217;application utilise l&#8217;API Overpass pour rechercher les vétérinaires à proximité de la position actuelle de l&#8217;utilisateur. La requête à l&#8217;API Overpass est générée dynamiquement pour récupérer les nœuds correspondant à la catégorie "amenity=veterinary" dans un rayon défini autour de la position de l&#8217;utilisateur.</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre>class VeterinairesController {
+    +getVeterinaires(double latitude, double longitude): String
+    -Veterinary
+}
+
+class Veterinary {
+    -lat: double
+    -lon: double
+    -name: String
+
+    +Veterinary(double lat, double lon, String name)
+    +getLat(): double
+    +getLon(): double
+    +getName(): String
+}
+
+class RestTemplate {
+    +getForObject(url: String, responseType: Class&lt;T&gt;): T
+}
+
+VeterinairesController --&gt; Veterinary: "1..*"
+VeterinairesController --&gt; RestTemplate: makeApiCall()
+RestTemplate --&gt; API: Overpass API</pre>
+</div>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Rechercher un Jardin pour se Balader :</strong></p>
+<p>=== Rechercher un Jardin pour se Balader :</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>Si l&#8217;utilisateur opte pour "Rechercher un Jardin pour se Balader", l&#8217;application effectue une requête pour trouver les nœuds correspondant à la catégorie "leisure=garden" autour de la position actuelle de l&#8217;utilisateur. Cette requête est également générée dynamiquement pour récupérer les informations nécessaires.</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre>class ParcsController {
+    +getParc(double latitude, double longitude): String
+}
+
+class RestTemplate {
+    +getForObject(url: String, responseType: Class&lt;T&gt;): T
+}
+
+ParcsController --&gt; RestTemplate: restTemplate
+RestTemplate --&gt; API: Overpass API</pre>
 </div>
-<div class="sect2">
-<h3 id="_affichage_des_résultats_sur_la_carte">Affichage des Résultats sur la Carte</h3>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_affichage_des_résultats_sur_la_carte">Affichage des Résultats sur la Carte</h2>
+<div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Trouver un Vétérinaire :</strong></p>
+<p>=== Trouver un Vétérinaire :</p>
 </li>
 </ul>
 </div>
@@ -1223,24 +1313,13 @@ image::mes_animaux.png[etape 2]</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="veterinaire.png" alt="veterinaire">
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>   @startuml
-   class CarteVeterinaires {
-     + afficherMarqueursVetos(data: String): void
-   }
-
-   CarteVeterinaires --|&gt; Leaflet.js
-@enduml</pre>
+<img src="veterinaire.png" alt="Vétérinaire">
 </div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Rechercher un Jardin pour se Balader :</strong></p>
+<p>=== Rechercher un Jardin pour se Balader :</p>
 </li>
 </ul>
 </div>
@@ -1252,25 +1331,13 @@ image::mes_animaux.png[etape 2]</p>
 <img src="Parc.png" alt="Parc">
 </div>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre>   @startuml
-   class CarteJardins {
-     + afficherMarqueursJardins(data: String): void
-   }
-
-   CarteJardins --|&gt; Leaflet.js
-@enduml</pre>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_conclusion">Conclusion</h2>
+<h2 id="_explication_de_lapi_overpass">Explication de l&#8217;API Overpass</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>En suivant ces étapes simples, les utilisateurs peuvent exploiter la puissance de la carte interactive pour localiser rapidement des vétérinaires ou des jardins à proximité, améliorant ainsi leur expérience utilisateur.</p>
+<p>L&#8217;API Overpass est un service d&#8217;interrogation et d&#8217;analyse de données OpenStreetMap. Elle permet de récupérer des données géographiques en utilisant un langage de requête spécifique. Dans le contexte de cette application, elle est utilisée pour obtenir des informations sur les vétérinaires et les jardins à proximité en fonction de la position de l&#8217;utilisateur. Les requêtes sont construites dynamiquement pour cibler les catégories spécifiques (amenity=veterinary, leisure=garden) et les résultats sont intégrés à la carte de l&#8217;application.</p>
 </div>
 </div>
 </div>
@@ -1930,7 +1997,7 @@ FeedingScheduleController -- FeedingScheduleService : "1,1" Utilise "1,1"
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-12-07 10:22:55 +0100
+Last updated 2023-12-08 11:17:45 +0100
 </div>
 </div>
 </body>

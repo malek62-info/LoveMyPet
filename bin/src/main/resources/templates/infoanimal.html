@@ -15,10 +15,12 @@
 
 <body>
 
+
     <div class="navbar-wrapper">
         <div class="navbar">
             <div class="logo">
                 <img src="images/logo.png" style="width: 150px; height: 65px;">
+
             </div>
             <div class="nav_right">
                 <ul>
@@ -31,16 +33,14 @@
                                     <li><i class="fa-solid fa-user"></i></li>
                                     <li><i class="fa-solid fa-paw"></i></li>
                                     <li><i class="fas fa-sign-out-alt"></i></li>
-                                    <li><i class="fa-solid fa-cat"></i></li>
-
                                 </ul>
                             </div>
                             <div class="dd_right">
                                 <ul>
-                                    <li>Mon compte</li>
-                                    <li>Mes animaux</li>
-                                    <li>Se Déconnecter</li>
-                                    <li>Mes candidatures</li>
+                                    <li><a href="/profile">Mon compte</a></li>
+                                    <li><a href="/mesanimaux">Mes animaux</a></li>
+                                    <li><a>Se Déconnecter</a></li>
+                                    <li><a href="/mescandidatures">Mes candidatures</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -64,11 +64,11 @@
                 const imageInput = document.getElementById("imageInput");
                 imageInput.style.display = "block";
 
-             
+
                 imageInput.addEventListener("change", async () => {
                     const animalId = getAnimalIdFromUrl();
                     const formData = new FormData();
-                    formData.append("imageFile", imageInput.files[0]);  
+                    formData.append("imageFile", imageInput.files[0]);
 
                     const url = `/infoanimal/updateImage/${animalId}`;
 
@@ -178,29 +178,34 @@
             }
 
             async function displayInfo(animal) {
-                let infotxt = `
-                    <div class="animal-card">
-                        <p>
-                            <input type="file" accept="image/*" id="imageInput" style="display: none;" />
-                            <button class="modify-btn" ${animal.idPerson === 1 ? 'style="background-color: green;"' : 'style="background-color: gray;"'} ${animal.idPerson === 1 ? '' : 'disabled'} onclick="handleModifyImageClick()">Télécharger une nouvelle image</button>
-                        </p>
-                        <div class="animal-header">
-                            <img src="/images/animals/${animal.imageUrl}" alt="animal image" id="animalImage" style="width: 200px; height: 200px;">
-                        </div>
 
-                        <div class="animal-info">
-                            <p>Nom: ${animal.name}
-                                <button class="modify-btn-name" ${animal.idPerson === 1 ? 'style="background-color: green;"' : 'style="background-color: gray;"'} ${animal.idPerson === 1 ? '' : 'disabled'} onclick="handleModifyClick()"><i class="fas fa-pen"></i></button>
-                            </p>
-                            <p>Catégorie: ${animal.category}</p>
-                            <p>Race: ${animal.race}</p>
-                            <p>Genre: <span class="gender">${animal.gender === 1 ? '♂ Mâle' : '♀ Femelle'}</span>  </p>
-                            <p>Date de naissance: ${animal.dateOfBirth}</p>
-                            <p>Poids: ${animal.weight}
-                                <button class="modify-btn-name" ${animal.idPerson === 1 ? 'style="background-color: green;"' : 'style="background-color: gray;"'} ${animal.idPerson === 1 ? '' : 'disabled'} onclick="handleModifyWeightClick()"><i class="fas fa-pen"></i></button>
-                            </p>
-                        </div>
-                    </div>
+                const urlParams = new URLSearchParams(window.location.search);
+                const id = urlParams.get('id');
+                console.log(id);
+                let infotxt = `
+                <div class="animal-card">
+    <p>
+        <input type="file" accept="image/*" id="imageInput" style="display: none;" />
+        <button class="modify-btn" style="background-color: green;" onclick="handleModifyImageClick()">Télécharger une nouvelle image</button>
+    </p>
+    <div class="animal-header">
+        <img src="/images/animals/${animal.imageUrl}" alt="animal image" id="animalImage" style="width: 200px; height: 200px;">
+    </div>
+
+    <div class="animal-info">
+        <p>Nom: ${animal.name}
+            <button class="modify-btn-name" style="background-color: green;" onclick="handleModifyClick()"><i class="fas fa-pen"></i></button>
+        </p>
+        <p>Catégorie: ${animal.category}</p>
+        <p>Race: ${animal.race}</p>
+        <p>Genre: <span class="gender">${animal.gender === 1 ? '♂ Mâle' : '♀ Femelle'}</span> </p>
+        <p>Date de naissance: ${animal.dateOfBirth}</p>
+        <p>Poids: ${animal.weight}
+            <button class="modify-btn-name" style="background-color: green;" onclick="handleModifyWeightClick()"><i class="fas fa-pen"></i></button>
+        </p>
+    </div>
+</div>
+
                 `;
 
                 const infotxtDiv = document.querySelector(".infoanimal");

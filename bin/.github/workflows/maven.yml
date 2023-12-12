@@ -22,15 +22,29 @@ jobs:
         java-version: 17
         distribution: 'temurin'
  
+    - name: Install Asciidoctor
+      run: |
+        sudo apt-get install -y asciidoctor
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml
- 
-    - name: Publish JAR or WAR as an Artifact
+
+    - name: Generate AsciiDoc Documentation
+      run: asciidoctor -o docs/index.html docs/documentation.adoc
+
+    - name: Convert AsciiDoc to PDF
+      run: docker run --rm -v $PWD:/documents asciidoctor/docker-asciidoctor asciidoctor-pdf -o docs/documentation.pdf docs/documentation.adoc
+
+    - name: Build with Maven (Again, if necessary)
+      run: mvn -B package --file pom.xml
+
+    - name: Publish JAR or WAR and Documentation as Artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: my-artifact  # Choisissez un nom pour votre artefact
-        path: target/       # Chemin vers le répertoire contenant les fichiers JAR ou WAR
- 
+        name: my-artifact
+        path: |
+          target/
+          docs/
     - name: Display Artifact URL
       run: |
         ARTIFACT_URL="${{ github.server_url }}/${{ github.repository }}/raw/${{ github.ref }}/my-artifact/"
