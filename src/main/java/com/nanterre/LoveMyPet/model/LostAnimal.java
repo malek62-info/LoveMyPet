@@ -12,7 +12,14 @@ public class LostAnimal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idlostanimal")
     private Integer id;
+    
+    @Column(name = "category")
+    private String category;
 
+    @ManyToOne
+    @JoinColumn(name = "idperson", referencedColumnName = "idperson")
+    private Person person;
+    
     @Column(name = "name")
     private String name;
 
@@ -104,5 +111,19 @@ public class LostAnimal {
 
     public void setLostDate(Date lostDate) {
         this.lostDate = lostDate;
+    }
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
