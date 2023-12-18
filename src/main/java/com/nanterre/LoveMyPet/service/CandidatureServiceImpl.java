@@ -47,5 +47,10 @@ public class CandidatureServiceImpl implements CandidatureService {
     public void deleteCandidature(Candidature candidature) {
         candidatureRepository.delete(candidature);
     }
-    
+
+    public static interface LikeDislikeService {
+        public void addLike(Integer adviceId, Integer personId, boolean isLike);
+
+        public void addDislike(Integer adviceId, Integer personId, boolean isLike) ;
+    }
 }

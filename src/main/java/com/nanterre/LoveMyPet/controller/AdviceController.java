@@ -1,6 +1,6 @@
 package com.nanterre.LoveMyPet.controller;
 
-import com.nanterre.LoveMyPet.service.interfaces.AdviceService;
+import com.nanterre.LoveMyPet.service.AdoptionServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ import java.util.Map;
 public class AdviceController {
 
     @Autowired
-    private AdviceService adviceService;
+    private AdoptionServiceImpl.AdviceService adviceService;
     
     //liste de toutes les advices
     @GetMapping

@@ -1,10 +1,8 @@
 package com.nanterre.LoveMyPet.service;
 
 import com.nanterre.LoveMyPet.model.Adoption;
-import com.nanterre.LoveMyPet.model.Animal;
 import com.nanterre.LoveMyPet.repository.AdoptionRepository;
 import com.nanterre.LoveMyPet.repository.AnimalRepository;
-import com.nanterre.LoveMyPet.service.AdoptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,4 +64,9 @@ public class AdoptionServiceImpl implements AdoptionService {
         }
     }
 
+    public static interface AdviceService {
+        List<String> getAllAdviceReferences();
+         Map<String, Object> getAdviceDetails(Integer adviceId);
+
+    }
 }

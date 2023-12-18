@@ -19,7 +19,16 @@ public class Advice {
 
     private String imageUrl; // Path to the image
 
-
+    public Advice() {
+    }
+    // Constructeur avec paramètres
+    public Advice(Integer adviceId, Person author, String textAdvice, String imageUrl, List<LikeDislike> likeDislikes) {
+        this.adviceId = adviceId;
+        this.author = author;
+        this.textAdvice = textAdvice;
+        this.imageUrl = imageUrl;
+        this.likeDislikes = likeDislikes;
+    }
 
     @OneToMany(mappedBy = "advice", cascade = CascadeType.ALL)
     private List<LikeDislike> likeDislikes;

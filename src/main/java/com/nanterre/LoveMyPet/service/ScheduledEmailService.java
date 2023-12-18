@@ -1,6 +1,5 @@
 package com.nanterre.LoveMyPet.service;
 
-import com.nanterre.LoveMyPet.service.implementations.FeedingTimeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,7 @@ public class ScheduledEmailService {
     private EmailSenderService emailSenderService;
 
     @Autowired
-    private FeedingTimeServiceImpl feedingTimeService;
+    private AnimalServiceImpl.FeedingTimeServiceImpl feedingTimeService;
 
     // generation comfirmation code
     private String generateConfirmationCode() {

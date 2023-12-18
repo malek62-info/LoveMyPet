@@ -1,11 +1,7 @@
 package com.nanterre.LoveMyPet.service;
 
-import com.nanterre.LoveMyPet.model.Adoption;
 import com.nanterre.LoveMyPet.model.Animal;
 
-import org.springframework.stereotype.Service;
-
-import java.util.Date;
 import java.util.List;
 
 public interface AnimalService {
@@ -20,6 +16,8 @@ public interface AnimalService {
     void updateAnimalPerson(Integer idAnimal, Integer newPersonId);
 
 
-
+    interface FeedingConfirmationService {
+        public boolean confirmFeeding(Integer personId, Integer animalId, Integer feedingTimeId, String confirmationCode);
+    }
 }
 

@@ -2,6 +2,7 @@ package com.nanterre.LoveMyPet.controller;
 
 import java.util.Map;
 
+import com.nanterre.LoveMyPet.service.CandidatureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,14 +11,13 @@ import org.springframework.web.bind.annotation.*;
 import com.nanterre.LoveMyPet.model.Person;
 import com.nanterre.LoveMyPet.repository.PersonRepository;
 import com.nanterre.LoveMyPet.service.ResourceNotFoundException;
-import com.nanterre.LoveMyPet.service.implementations.LikeDislikeServiceImpl;
 
 @RestController
 @RequestMapping("/api/like-dislike")
 public class LikeDislikeController {
 
     @Autowired
-    private LikeDislikeServiceImpl likeDislikeService;
+    private CandidatureService.LikeDislikeServiceImpl likeDislikeService;
 
     @Autowired
     private PersonRepository personRepository;
