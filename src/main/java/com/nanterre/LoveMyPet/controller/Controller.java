@@ -91,9 +91,17 @@ public class Controller {
     }
 
 
+
     /*publication */
        @GetMapping("/publications")
     public String publication() {
         return "publications";
     }
+
+    @GetMapping("/AddAdvice")
+    public String Advice() {
+        return "AddAdvice";
+    }
+
+
 }

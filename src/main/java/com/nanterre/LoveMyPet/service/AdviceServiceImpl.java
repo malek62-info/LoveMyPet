@@ -5,6 +5,7 @@ import com.nanterre.LoveMyPet.repository.AdviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,9 @@ import java.util.stream.Collectors;
 
 @Service
 public  class AdviceServiceImpl implements AdviceService { // Implémenter l'interface
+
+
+
 
     @Autowired
     private AdviceRepository adviceRepository;
@@ -50,4 +54,11 @@ public  class AdviceServiceImpl implements AdviceService { // Implémenter l'int
         return adviceDetails;
     }
 
+
+
+    @Override
+    public void addAdvice(Advice advice) {
+        adviceRepository.save(advice);
+    }
 }
+

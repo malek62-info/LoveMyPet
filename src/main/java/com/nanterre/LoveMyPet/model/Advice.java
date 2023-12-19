@@ -1,11 +1,16 @@
 package com.nanterre.LoveMyPet.model;
 
+
 import java.util.List;
+
 
 import jakarta.persistence.*;
 
 @Entity
 public class Advice {
+
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +23,7 @@ public class Advice {
     private String textAdvice;
 
     private String imageUrl; // Path to the image
+
 
     public Advice() {
     }
@@ -32,6 +38,7 @@ public class Advice {
 
     @OneToMany(mappedBy = "advice", cascade = CascadeType.ALL)
     private List<LikeDislike> likeDislikes;
+
 
     // Other fields, getters, and setters
 
@@ -66,6 +73,7 @@ public class Advice {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
 
     public List<LikeDislike> getLikeDislikes() {
         return likeDislikes;

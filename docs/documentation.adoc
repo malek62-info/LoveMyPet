@@ -370,21 +370,24 @@ image::service.jpeg[Services]
 Une fois sur la page "EXPLORATION FACILE", les utilisateurs ont deux choix :
 - "Trouver un Vétérinaire"
 - "Rechercher un Jardin pour se Balader"
+- "Recherche par Ville et Périmètre"
 
 Les utilisateurs peuvent sélectionner l'option qui correspond à leur recherche.
 
 image::map.png[Map]
 
-== Requête vers l'API Overpass
+== Requête vers l'API Overpass et Nominatim
 
 === Trouver un Vétérinaire :
 
 Lorsque l'utilisateur choisit "Trouver un Vétérinaire", l'application utilise l'API Overpass pour rechercher les vétérinaires à proximité de la position actuelle de l'utilisateur. La requête à l'API Overpass est générée dynamiquement pour récupérer les nœuds correspondant à la catégorie "amenity=veterinary" dans un rayon défini autour de la position de l'utilisateur.
 
+En outre, l'application utilise l'API Nominatim pour convertir le nom de la ville saisi par l'utilisateur en coordonnées géographiques.
+
 [plantuml]
 ----
 class VeterinairesController {
-    +getVeterinaires(double latitude, double longitude): String
+    +getVeterinaires(double latitude, double longitude, String city, int radius): String
     -Veterinary
 }
 
@@ -406,25 +409,12 @@ class RestTemplate {
 VeterinairesController --> Veterinary: "1..*"
 VeterinairesController --> RestTemplate: makeApiCall()
 RestTemplate --> API: Overpass API
+RestTemplate --> API: Nominatim API
 ----
 
 - === Rechercher un Jardin pour se Balader :
 
 Si l'utilisateur opte pour "Rechercher un Jardin pour se Balader", l'application effectue une requête pour trouver les nœuds correspondant à la catégorie "leisure=garden" autour de la position actuelle de l'utilisateur. Cette requête est également générée dynamiquement pour récupérer les informations nécessaires.
-
-[plantuml]
-----
-class ParcsController {
-    +getParc(double latitude, double longitude): String
-}
-
-class RestTemplate {
-    +getForObject(url: String, responseType: Class<T>): T
-}
-
-ParcsController --> RestTemplate: restTemplate
-RestTemplate --> API: Overpass API
-----
 
 == Affichage des Résultats sur la Carte
 
@@ -433,6 +423,9 @@ RestTemplate --> API: Overpass API
 Les résultats de la requête pour les vétérinaires sont affichés sur la carte sous forme de marqueurs. Chaque marqueur représente l'emplacement d'un vétérinaire trouvé.
 
 image::veterinaire.png[Vétérinaire]
+=== Recherche par ville "Geneve":
+
+image::veterinairegeneve.png[veterinairegeneve]
 
 - === Rechercher un Jardin pour se Balader :
 
@@ -440,10 +433,11 @@ Pour la recherche de jardins, les résultats correspondants aux nœuds "leisure=
 
 image::Parc.png[Parc]
 
-== Explication de l'API Overpass
+== Explication de l'API Overpass et Nominatim
 
 L'API Overpass est un service d'interrogation et d'analyse de données OpenStreetMap. Elle permet de récupérer des données géographiques en utilisant un langage de requête spécifique. Dans le contexte de cette application, elle est utilisée pour obtenir des informations sur les vétérinaires et les jardins à proximité en fonction de la position de l'utilisateur. Les requêtes sont construites dynamiquement pour cibler les catégories spécifiques (amenity=veterinary, leisure=garden) et les résultats sont intégrés à la carte de l'application.
 
+L'API Nominatim est utilisée pour convertir le nom de la ville saisi par l'utilisateur en coordonnées géographiques, ce qui permet d'étendre la fonctionnalité de recherche par ville et périmètre.
 
 
 == Partie 3 : Modélisation 
