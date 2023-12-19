@@ -21,7 +21,7 @@ public class ParcsController {
             @RequestParam double longitude,
             @RequestParam(required = false, defaultValue = "3000") double radius
     ) {
-        String overpassApiUrl = "https://overpass-api.de/api/interpreter?data=[out:json];(node[\"amenity\"=\"animal_training\"](around:" + radius + "," + latitude + "," + longitude + "););out;";
+        String overpassApiUrl = "https://overpass-api.de/api/interpreter?data=[out:json];(node[\"leisure\"=\"garden\"](around:" + radius + "," + latitude + "," + longitude + "););out;";
 
         RestTemplate restTemplate = new RestTemplate();
         String result = restTemplate.getForObject(overpassApiUrl, String.class);
