@@ -89,7 +89,18 @@ public class Controller {
     public String donate() {
         return "Map";
     }
-
+    @GetMapping("/LostAnimals")
+    public String LostAnimals() {
+        return "LostAnimals";
+    }
+    @GetMapping("/EnregistrerLostAnimal")
+    public String EnregistrerLostAnimal() {
+        return "EnregistrerLostAnimal";
+    }
+    @GetMapping("/ListLostAnimal")
+    public String ListLostAnimal() {
+        return "ListLostAnimal";
+    }
 
 
     /*publication */

@@ -563,13 +563,18 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#_choix_entre_vétérinaires_et_jardins">Choix entre Vétérinaires et Jardins</a></li>
 </ul>
 </li>
-<li><a href="#_requête_vers_lapi_overpass">Requête vers l&#8217;API Overpass</a>
+<li><a href="#_requête_vers_lapi_overpass_et_nominatim">Requête vers l&#8217;API Overpass et Nominatim</a>
 <ul class="sectlevel2">
 <li><a href="#_trouver_un_vétérinaire">Trouver un Vétérinaire :</a></li>
 </ul>
 </li>
-<li><a href="#_affichage_des_résultats_sur_la_carte">Affichage des Résultats sur la Carte</a></li>
-<li><a href="#_explication_de_lapi_overpass">Explication de l&#8217;API Overpass</a></li>
+<li><a href="#_affichage_des_résultats_sur_la_carte">Affichage des Résultats sur la Carte</a>
+<ul class="sectlevel2">
+<li><a href="#_recherche_par_ville_geneve">Recherche par ville "Geneve":</a></li>
+</ul>
+</li>
+<li><a href="#_explication_de_lapi_overpass_et_nominatim">Explication de l&#8217;API Overpass et Nominatim</a></li>
+<li><a href="#_fonctionnalité_de_gestion_des_animaux_perdus">Fonctionnalité de Gestion des Animaux Perdus</a></li>
 <li><a href="#_partie_3_modélisation">Partie 3 : Modélisation</a></li>
 <li><a href="#_base_de_données">Base de données</a>
 <ul class="sectlevel2">
@@ -1223,7 +1228,8 @@ image::mes_animaux.png[etape 2]</p>
 <div class="paragraph">
 <p>Une fois sur la page "EXPLORATION FACILE", les utilisateurs ont deux choix :
 - "Trouver un Vétérinaire"
-- "Rechercher un Jardin pour se Balader"</p>
+- "Rechercher un Jardin pour se Balader"
+- "Recherche par Ville et Périmètre"</p>
 </div>
 <div class="paragraph">
 <p>Les utilisateurs peuvent sélectionner l&#8217;option qui correspond à leur recherche.</p>
@@ -1237,17 +1243,20 @@ image::mes_animaux.png[etape 2]</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_requête_vers_lapi_overpass">Requête vers l&#8217;API Overpass</h2>
+<h2 id="_requête_vers_lapi_overpass_et_nominatim">Requête vers l&#8217;API Overpass et Nominatim</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_trouver_un_vétérinaire">Trouver un Vétérinaire :</h3>
 <div class="paragraph">
 <p>Lorsque l&#8217;utilisateur choisit "Trouver un Vétérinaire", l&#8217;application utilise l&#8217;API Overpass pour rechercher les vétérinaires à proximité de la position actuelle de l&#8217;utilisateur. La requête à l&#8217;API Overpass est générée dynamiquement pour récupérer les nœuds correspondant à la catégorie "amenity=veterinary" dans un rayon défini autour de la position de l&#8217;utilisateur.</p>
 </div>
+<div class="paragraph">
+<p>En outre, l&#8217;application utilise l&#8217;API Nominatim pour convertir le nom de la ville saisi par l&#8217;utilisateur en coordonnées géographiques.</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre>class VeterinairesController {
-    +getVeterinaires(double latitude, double longitude): String
+    +getVeterinaires(double latitude, double longitude, String city, int radius): String
     -Veterinary
 }
 
@@ -1268,7 +1277,8 @@ class RestTemplate {
 
 VeterinairesController --&gt; Veterinary: "1..*"
 VeterinairesController --&gt; RestTemplate: makeApiCall()
-RestTemplate --&gt; API: Overpass API</pre>
+RestTemplate --&gt; API: Overpass API
+RestTemplate --&gt; API: Nominatim API</pre>
 </div>
 </div>
 <div class="ulist">
@@ -1280,20 +1290,6 @@ RestTemplate --&gt; API: Overpass API</pre>
 </div>
 <div class="paragraph">
 <p>Si l&#8217;utilisateur opte pour "Rechercher un Jardin pour se Balader", l&#8217;application effectue une requête pour trouver les nœuds correspondant à la catégorie "leisure=garden" autour de la position actuelle de l&#8217;utilisateur. Cette requête est également générée dynamiquement pour récupérer les informations nécessaires.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>class ParcsController {
-    +getParc(double latitude, double longitude): String
-}
-
-class RestTemplate {
-    +getForObject(url: String, responseType: Class&lt;T&gt;): T
-}
-
-ParcsController --&gt; RestTemplate: restTemplate
-RestTemplate --&gt; API: Overpass API</pre>
-</div>
 </div>
 </div>
 </div>
@@ -1316,6 +1312,13 @@ RestTemplate --&gt; API: Overpass API</pre>
 <img src="veterinaire.png" alt="Vétérinaire">
 </div>
 </div>
+<div class="sect2">
+<h3 id="_recherche_par_ville_geneve">Recherche par ville "Geneve":</h3>
+<div class="imageblock">
+<div class="content">
+<img src="veterinairegeneve.png" alt="veterinairegeneve">
+</div>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1333,11 +1336,33 @@ RestTemplate --&gt; API: Overpass API</pre>
 </div>
 </div>
 </div>
+</div>
 <div class="sect1">
-<h2 id="_explication_de_lapi_overpass">Explication de l&#8217;API Overpass</h2>
+<h2 id="_explication_de_lapi_overpass_et_nominatim">Explication de l&#8217;API Overpass et Nominatim</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>L&#8217;API Overpass est un service d&#8217;interrogation et d&#8217;analyse de données OpenStreetMap. Elle permet de récupérer des données géographiques en utilisant un langage de requête spécifique. Dans le contexte de cette application, elle est utilisée pour obtenir des informations sur les vétérinaires et les jardins à proximité en fonction de la position de l&#8217;utilisateur. Les requêtes sont construites dynamiquement pour cibler les catégories spécifiques (amenity=veterinary, leisure=garden) et les résultats sont intégrés à la carte de l&#8217;application.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_fonctionnalité_de_gestion_des_animaux_perdus">Fonctionnalité de Gestion des Animaux Perdus</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La section "Animaux Perdus" de LoveMyPet propose une fonctionnalité permettant aux utilisateurs de déclarer et de retrouver leurs compagnons perdus. Lorsque vous accédez à cette section depuis la page "Nos Services", vous trouverez deux boutons distincts : "Déclarer un Animal Perdu" et "Liste des Animaux Perdus".</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Déclarer un Animal Perdu :
+En cliquant sur ce bouton, les utilisateurs peuvent remplir un formulaire pour déclarer un animal perdu. Ils peuvent fournir des détails tels que le nom de l'animal, une description, une photo, et d'autres informations pertinentes.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>    Liste des Animaux Perdus :
+    Ce bouton affiche une liste des animaux perdus déclarés par la communauté LoveMyPet. Les utilisateurs peuvent parcourir cette liste pour retrouver des animaux perdus et faciliter des réunions chaleureuses entre les amis à fourrure égarés et leurs propriétaires.
+L'API Nominatim est utilisée pour convertir le nom de la ville saisi par l'utilisateur en coordonnées géographiques, ce qui permet d'étendre la fonctionnalité de recherche par ville et périmètre.</pre>
+</div>
 </div>
 </div>
 </div>
@@ -1997,11 +2022,7 @@ FeedingScheduleController -- FeedingScheduleService : "1,1" Utilise "1,1"
 </div>
 <div id="footer">
 <div id="footer-text">
-<<<<<<< HEAD
-Last updated 2023-12-08 10:04:43 +0100
-=======
-Last updated 2023-12-08 10:42:12 +0100
->>>>>>> ForumeandMapbranch
+Last updated 2023-12-19 14:05:02 +0100
 </div>
 </div>
 </body>

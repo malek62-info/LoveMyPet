@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lost Animals</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 20px;
+            background-color: #f1f1f1;
+        }
+
+        .card {
+            max-width: 800px;
+            width: 100%;
+            background-color: #fff;
+            padding: 15px;
+            margin: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .card img {
+            max-width: 200px;
+            max-height: 200px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .card .animal-info {
+            font-size: 14px;
+        }
+
+        .contact-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .contact-popup {
+            display: block;
+            /* Ajoute cette ligne si elle n'est pas déjà présente */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            visibility: hidden;
+            /* Remplace 'display: none;' par 'visibility: hidden;' */
+        }
+
+
+
+        .close-popup {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Conteneur pour les cartes d'animaux perdus -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Conteneur pour les cartes d'animaux perdus -->
+    <div id="lostAnimalsContainer"></div>
+
+    <!-- Script JavaScript pour récupérer et afficher les données -->
+    <script>
+        // Récupérer le conteneur des cartes d'animaux perdus
+        const lostAnimalsContainer = document.getElementById("lostAnimalsContainer");
+
+        // Effectuer une requête pour récupérer les données réelles des animaux perdus
+        $.ajax({
+            url: "/lost-animal/list",
+            type: "GET",
+            success: function (lostAnimalsData) {
+                // Boucler à travers les données et créer une carte pour chaque animal perdu
+                lostAnimalsData.forEach(lostAnimal => {
+                    // Créer une carte
+                    const card = document.createElement("div");
+                    card.classList.add("card");
+
+                    // Ajouter les informations de la personne
+                    const personName = document.createElement("h2");
+                    personName.textContent = lostAnimal.person.name; // Assure-toi que tu as une propriété 'name' dans la classe Person
+
+                    const comment = document.createElement("p");
+                    comment.textContent = lostAnimal.comment;
+
+                    // Ajouter les informations de l'animal
+                    const animalInfo = document.createElement("div");
+                    animalInfo.classList.add("animal-info");
+
+                    const animalName = document.createElement("p");
+                    animalName.innerHTML = `<strong>Name:</strong> ${lostAnimal.name}`;
+
+                    const animalAge = document.createElement("p");
+                    animalAge.innerHTML = `<strong>Age:</strong> ${lostAnimal.age}`;
+
+                    const animalRace = document.createElement("p");
+                    animalRace.innerHTML = `<strong>Race:</strong> ${lostAnimal.race}`;
+
+                    const animalGender = document.createElement("p");
+                    animalGender.innerHTML = `<strong>Gender:</strong> ${lostAnimal.gender}`;
+
+                    const lostDate = document.createElement("p");
+                    lostDate.innerHTML = `<strong>Lost Date:</strong> ${lostAnimal.lostDate}`;
+
+                    // Ajouter l'image de l'animal
+                    const animalImage = document.createElement("img");
+                    animalImage.src = `/images/lost-animals/${lostAnimal.imageUrl}`;
+                    animalImage.alt = `Image of ${lostAnimal.name}`;
+
+                    // Bouton "Contacter la personne qui a trouvé l'animal"
+                    const contactButton = document.createElement("button");
+                    contactButton.classList.add("contact-button");
+                    contactButton.textContent = "Contacter la personne qui a trouvé l'animal";
+                    contactButton.addEventListener("click", () => openContactPopup(lostAnimal.person));
+
+                    // Assembler la carte
+                    animalInfo.appendChild(animalName);
+                    animalInfo.appendChild(animalAge);
+                    animalInfo.appendChild(animalRace);
+                    animalInfo.appendChild(animalGender);
+                    animalInfo.appendChild(lostDate);
+
+                    card.appendChild(animalImage);
+                    card.appendChild(personName);
+                    card.appendChild(comment);
+                    card.appendChild(animalInfo);
+                    card.appendChild(contactButton);
+
+                    // Ajouter la carte au conteneur
+                    lostAnimalsContainer.appendChild(card);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("Erreur lors de la récupération des animaux perdus :", error);
+            }
+        });
+
+        // Fonction pour ouvrir la pop-up de contact
+        function openContactPopup(person) {
+            const popup = document.createElement("div");
+            popup.classList.add("contact-popup");
+            popup.style.visibility = "visible"; // Ajoute cette ligne pour définir la visibilité sur "visible"
+
+            const closeButton = document.createElement("span");
+            closeButton.classList.add("close-popup");
+            closeButton.innerHTML = "&times;";
+            closeButton.addEventListener("click", () => popup.style.display = "none");
+
+            const emailIcon = document.createElement("i");
+            emailIcon.classList.add("fas", "fa-envelope", "fa-lg");
+            const emailText = document.createTextNode(` Email: ${person.email}`);
+
+            const phoneIcon = document.createElement("i");
+            phoneIcon.classList.add("fas", "fa-phone", "fa-lg");
+            const phoneText = document.createTextNode(` Phone: ${person.phoneNumber}`);
+
+            popup.appendChild(closeButton);
+            popup.appendChild(emailIcon);
+            popup.appendChild(emailText);
+            popup.appendChild(document.createElement("br"));
+            popup.appendChild(phoneIcon);
+            popup.appendChild(phoneText);
+
+            document.body.appendChild(popup);
+        }
+
+
+    </script>
+
+</body>
+
+</html>

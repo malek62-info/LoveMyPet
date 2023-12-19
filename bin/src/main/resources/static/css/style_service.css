@@ -1,6 +1,5 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
-
 *{
     margin: 0;
     padding: 0;
@@ -180,6 +179,8 @@
 .card:hover h2{
     font-weight: 600;
 }
+
+
 .card:nth-child(1):hover{
     background: linear-gradient(45deg,
                                    rgba(192, 191, 185, 0.7) 0% ,
@@ -206,6 +207,20 @@
     rgba(192, 191, 185, 0.7) 0% ,
     rgba(143, 143, 145, 0.7)100% ) ,
                                     url('/images/bg-service4.jpg');
+                                    background-size: cover;
+}
+.card:nth-child(5):hover{
+    background: linear-gradient(45deg,
+    rgba(192, 191, 185, 0.7) 0% ,
+    rgba(143, 143, 145, 0.7)100% ) ,
+                                    url('/images/bg-service5.jpg');
+                                    background-size: cover;
+}
+.card:nth-child(6):hover{
+    background: linear-gradient(45deg,
+    rgba(192, 191, 185, 0.7) 0% ,
+    rgba(143, 143, 145, 0.7)100% ) ,
+                                    url('/images/conseil.jpg');
                                     background-size: cover;
 }
 
