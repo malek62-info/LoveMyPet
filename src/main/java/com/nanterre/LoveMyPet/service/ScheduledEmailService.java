@@ -14,7 +14,7 @@ public class ScheduledEmailService {
     private EmailSenderService emailSenderService;
 
     @Autowired
-    private AnimalServiceImpl.FeedingTimeServiceImpl feedingTimeService;
+    private FeedingTimeServiceImpl feedingTimeService;
 
     // generation comfirmation code
     private String generateConfirmationCode() {

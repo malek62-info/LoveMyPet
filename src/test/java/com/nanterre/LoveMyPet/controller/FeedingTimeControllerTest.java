@@ -2,6 +2,7 @@ package com.nanterre.LoveMyPet.controller;
 
 import com.nanterre.LoveMyPet.model.FeedingTime;
 import com.nanterre.LoveMyPet.service.AnimalServiceImpl;
+import com.nanterre.LoveMyPet.service.FeedingTimeServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,7 +20,7 @@ import static org.mockito.Mockito.*;
 class FeedingTimeControllerTest {
 
     @Mock
-    private AnimalServiceImpl.FeedingTimeServiceImpl feedingTimeService;
+    private FeedingTimeServiceImpl feedingTimeService;
 
     @InjectMocks
     private FeedingTimeController feedingTimeController;

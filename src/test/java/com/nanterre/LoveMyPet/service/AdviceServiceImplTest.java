@@ -22,7 +22,7 @@ class AdviceServiceImplTest {
     private AdviceRepository adviceRepository;
 
     @InjectMocks
-    private AnimalServiceImpl.AdviceServiceImpl adviceService;
+    private AdviceServiceImpl adviceService;
 
     @BeforeEach
     void setUp() {

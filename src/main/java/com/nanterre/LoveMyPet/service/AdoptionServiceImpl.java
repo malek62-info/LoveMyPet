@@ -64,9 +64,4 @@ public class AdoptionServiceImpl implements AdoptionService {
         }
     }
 
-    public static interface AdviceService {
-        List<String> getAllAdviceReferences();
-         Map<String, Object> getAdviceDetails(Integer adviceId);
-
-    }
 }

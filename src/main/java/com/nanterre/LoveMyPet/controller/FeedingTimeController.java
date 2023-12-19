@@ -3,6 +3,7 @@ package com.nanterre.LoveMyPet.controller;
 import java.util.*;
 
 import com.nanterre.LoveMyPet.service.AnimalServiceImpl;
+import com.nanterre.LoveMyPet.service.FeedingTimeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import com.nanterre.LoveMyPet.model.FeedingTime;
 public class FeedingTimeController {
 
     @Autowired
-    private AnimalServiceImpl.FeedingTimeServiceImpl feedingTimeService;
+    private FeedingTimeServiceImpl feedingTimeService;
 
     // Ajouter un horaire d'alimentation
     @PostMapping("/add")
