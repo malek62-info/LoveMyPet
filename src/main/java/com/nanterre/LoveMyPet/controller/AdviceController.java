@@ -49,7 +49,7 @@ public class AdviceController {
 
             if (imageFile != null && !imageFile.isEmpty()) {
                 // Spécifiez le chemin de votre dossier d'images dans les ressources
-                String imageFolderPath = "src/main/resources/static/images/adviceimage";
+                String imageFolderPath = "src/main/resources/static/images/advices";
                 String fileName = imageFile.getOriginalFilename();
                 Path filePath = Paths.get(imageFolderPath, fileName);
 
