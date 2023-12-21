@@ -762,6 +762,13 @@ package "com.nanterre.LoveMyPet.model" {
     +animal: Animal
     date: Date
   }
+
+  class Advice {
+    +idAdvice: Integer
+    description: String
+    +person: Person
+    +animal: Animal
+  }
 }
 
 Person   --  Animal : "1,1" Adopte "0,N"
@@ -770,8 +777,12 @@ Animal -- Adoption : "1,1" Est concerné par "1,1"
 Candidature -- Adoption : "1,1" Correspond à "0,N"
 Vaccin -- Vaccination : "0,N" Est utilisé dans "1,N"
 Vaccination -- Animal : "1,1" prend "1,N"
+Person -- Advice : "0,N" Partage "1,N"
+
 
 @enduml
+
+
 
 
 ----
