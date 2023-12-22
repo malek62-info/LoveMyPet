@@ -933,6 +933,26 @@ package "com.nanterre.LoveMyPet.model" {
     +id: Integer
     +feedingTime: LocalTime
   }
+  class HistoriqueAdoption {
+    +id: Integer
+    +idAnimal: Integer
+    +idPerson: Integer
+    endDate: Date
+    adoptedAnimal: Animal
+    adoptedByPerson: Person
+  }
+  class LostAnimal {
+  +id: Integer
+  category: String
+  person: Person
+  name: String
+  age: Integer
+  race: String
+  comment: String
+  gender: String
+  imageUrl: String
+  lostDate: Date
+}
 }
 
 Person   --  Animal : "1,1" Adopte "0,N"
@@ -947,7 +967,9 @@ Animal -- FeedingConfirmation : "1,1" Est concerné par "0,N"
 FeedingTime -- FeedingConfirmation : "1,1" Planifie "0,N"
 FeedingTime -- Animal : "1,1" Est associé à "0,N"
 LikeDislike -- Advice : "0,N" Est associé à "1,N"
-
+Person -- HistoriqueAdoption : "0,N" Enregistré "1,1"
+HistoriqueAdoption -- Animal : "1,1" Concerne "0,N"
+Person -- LostAnimal : "1,N" Perd "1,N"
 
 @enduml
 
