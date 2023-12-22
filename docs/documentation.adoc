@@ -414,7 +414,7 @@ Si l'utilisateur opte pour "Rechercher un Jardin pour se Balader", l'application
 
 == Affichage des Résultats sur la Carte
 
-- === Trouver un Vétérinaire :
+-  Trouver un Vétérinaire :
 
 Les résultats de la requête pour les vétérinaires sont affichés sur la carte sous forme de marqueurs. Chaque marqueur représente l'emplacement d'un vétérinaire trouvé.
 
@@ -423,7 +423,7 @@ image::veterinaire.png[Vétérinaire]
 
 image::veterinairegeneve.png[veterinairegeneve]
 
-- === Rechercher un Jardin pour se Balader :
+- Rechercher un Jardin pour se Balader :
 
 Pour la recherche de jardins, les résultats correspondants aux nœuds "leisure=garden" sont affichés sur la carte.
 
