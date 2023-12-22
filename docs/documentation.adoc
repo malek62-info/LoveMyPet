@@ -313,21 +313,17 @@ Chaque animal ajouté à la section "Mes Animaux" est équipé d'un bouton "Cand
 
 *étape 5*
 
-image::candidatures.png[etape 5]
-
 Le propriétaire peut ensuite examiner chaque candidature individuellement et décider d'accepter ou de refuser.
 
 *étape 6*
 
-image::accepter_refuser.png[etape 6]
+
 
 === Petite feature pour l'affichage et la modification des informations des Animaux
 
 Chaque animal dans la section "Mes Animaux" est doté d'un bouton en haut à droite avec le signe plus (+). En cliquant sur ce bouton, les informations détaillées de l'animal sont affichées, offrant la possibilité de modifier le nom, le poids et la photo de l'animal.
 
-image::accepter_refuser.png[etape 6]
 
-image::accepter_refuser.png[etape 6]
 
 === Fonctionnalité de Suivi des Vaccins - Carnet de Vaccination en Ligne
 
