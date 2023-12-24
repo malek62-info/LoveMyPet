@@ -60,16 +60,18 @@ form button,
     position: relative;
 }
 
+
+
 .title h1 {
     font-weight: 500;
     opacity: 0.8;
 }
 
-.animal {
+.item {
     margin: 3rem 0;
 }
 
-.animal-container {
+.item-container {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -86,26 +88,26 @@ form button,
     transition: all 0.4s ease;
 }
 
-.animal-item {
+.item-item {
     width: calc(20% - 16px);
     margin: 8px;
     background-color: #fff;
     max-width: 300px;
 }
 
-.animal-img {
+.item-img {
     position: relative;
     overflow: hidden;
 }
 
-.animal-item img {
+.item-item img {
     width: 100%;
     height: 250px;
     display: block;
     object-fit: cover;
 }
 
-.animal-img div {
+.item-img div {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -133,23 +135,23 @@ form button,
     cursor: pointer;
     text-transform: uppercase;
     margin-bottom: 5px;
-    outline:none;
+    outline: none;
 }
 
-.animal-img:hover div {
+.item-img:hover div {
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
     transform: translateY(0);
 }
 
-.animal-content {
+.item-content {
     padding: 0.5rem 1rem;
     -webkit-transition: all 0.4s ease;
     -o-transition: all 0.4s ease;
     transition: all 0.4s ease;
 }
 
-.animal-title {
+.item-title {
     display: block;
     font-weight: 700;
     color: #000;
@@ -172,7 +174,7 @@ form button,
     color: rgb(76, 99, 76);
 }
 
-.animal-content div {
+.item-content div {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -205,27 +207,48 @@ form button,
     color: #ff1616;
 }
 
+/* Vos règles de média queries restent inchangées */
 
-@media screen and (max-width: 1200px) {
-    .animal-item {
-        width: calc(25% - 16px);
-    }
+
+.description {
+    word-wrap: break-word;
 }
 
-@media screen and (max-width: 992px) {
-    .animal-item {
-        width: calc(33.3333% - 16px);
-    }
+.item-item {
+    position: relative;
 }
 
-@media screen and (max-width: 768px) {
-    .animal-item {
-        width: calc(50% - 16px);
-    }
+.contact {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #fff; /* Ajustez la couleur de fond selon vos besoins */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajustez l'ombre selon vos besoins */
+    display: flex;
+    flex-direction: column;
+}
+.contact p  {
+    padding-top: 7px;
 }
 
-@media screen and (max-width: 576px) {
-    .animal-item {
-        width: calc(100% - 16px);
-    }
+.contact span {
+    padding-bottom: 7px;
+}
+.contact.show {
+    max-height: 250px; /* Ajustez la hauteur maximale selon vos besoins */
+}
+
+.item-img {
+    position: relative;
+}
+
+.add-btn {
+    text-align: center;
 }

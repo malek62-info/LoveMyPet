@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+        }
+    
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+    
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333333;
+        }
+    
+        .content {
+            width: 100%;
+        }
+    
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+    
+        .input-box {
+            margin-bottom: 20px;
+        }
+    
+        .details {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            text-align: left;
+            color: #555555;
+        }
+    
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+    
+        .custom-file-upload {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+    
+        input[type="file"] {
+            display: none;
+        }
+    
+        .button {
+            text-align: center;
+        }
+    
+        input[type="submit"] {
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+    
+        .return-button {
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        textarea{
+            resize: vertical;
+        }
+    </style>
+    
+    
+</head>
+<body>
+<div class="container">
+    <div class="title">Donation Form</div>
+    <div class="content">
+        
+        <form id="donationForm" action="/api/items-to-donate/add" method="POST" enctype="multipart/form-data">
+            <div class="user-details">
+                <input type="hidden" id="idPerson" name="idPerson" value="">
+                <div class="input-box">
+                    <span class="details">Nom de l'objet</span>
+                    <input type="text" name="itemName" placeholder="Entrez le nom de l'objet" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Description</span>
+                    <textarea name="description" placeholder="Entrez la description" required></textarea>
+                </div>
+                <div class="input-box">
+                    <span class="details">Photo de l'objet</span>
+                    <label for="photo" class="custom-file-upload">
+                        Choisir le fichier
+                    </label>
+                    <input type="file" id="photo" name="photo">
+                </div>
+            </div>
+            <div class="button">
+                <input type="submit" value="Ajouter l'objet à donner">
+            </div>
+          
+        </form>
+        <button class="return-button" onclick="window.location.href='/itemspage'">Retour</button>
+
+    </div>
+</div>
+
+<!-- Inclure jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Votre script jQuery ici -->
+<script>
+  $(document).ready(function () {
+    // Récupérer l'ID de la personne connectée via la méthode /person/profile
+    $.ajax({
+        url: "/person/profile",
+        type: "GET",
+        success: function (data) {
+            // Mettre à jour la valeur de l'ID dans le champ caché
+            $("#idPerson").val(data.id);
+        },
+        error: function (xhr, status, error) {
+            // Gérer les erreurs
+        }
+    });
+
+    $("#donationForm").submit(function (event) {
+        event.preventDefault();
+
+        // Collecter les données du formulaire
+        var formData = new FormData(this);
+
+        // Ajouter l'ID de la personne connectée aux données du formulaire
+        formData.append("idPerson", $("#idPerson").val());
+
+        // Afficher les données dans la console
+        for (var pair of formData.entries()) {
+            console.log("donnée envoyé" +pair[0] + ', ' + pair[1]);
+        }
+
+        // Envoyer les données via AJAX
+        $.ajax({
+            url: "/api/items-to-donate/add",
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                alert(data);
+                // Réinitialisez le formulaire si nécessaire
+                $("#donationForm")[0].reset();
+            },
+            error: function (xhr, status, error) {
+                alert("Erreur : " + error);
+            }
+        });
+    });
+});
+
+
+</script>
+</body>
+</html>

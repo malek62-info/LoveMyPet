@@ -19,6 +19,10 @@ public class Person {
   private String Password;
   private String ImageUrl;
 
+  public Person(){}
+  public Person( Integer idPerson){
+    this.idPerson = idPerson ;
+  }
   public Integer getIdPerson() {
     return idPerson;
   }

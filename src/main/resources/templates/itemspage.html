@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 1)), url('/images/animal_toy.jpg');
+   background-position: center;
+   background-size: cover;
+
+}
+     .menu-container {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        position: relative;
+    
+     }
+ 
+    button {
+     width: fit-content;
+    background-color: transparent;
+    border: 2px solid #f2a80b;
+    color: #f2a80b;
+    font-family: inherit;
+    font-size: 0.9rem;
+    padding: 10px 60px;
+    cursor: pointer;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+    outline:none;
+    position: absolute;
+    bottom: 20px;
+    border-radius: 6px;
+    }
+    .menu-item {
+        background-color: #fff;
+        width: 300px;
+        height: 300px;
+        margin:  0 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 20px;
+        text-align: center;
+        position: relative;
+        border-radius: 6px;
+    }
+    .small_img {
+        width: 70px;
+
+        margin-bottom: 20px;
+    }
+    p {
+        margin-bottom: 90px;
+    }
+   </style>
+</head>
+<body>
+    <div class="menu-container">
+        <div class="menu-item" id="button1">
+            <img class="small_img" src="/images/gift.png">
+            <p>Si tu possèdes des objets pour ton animal dont tu n'as plus besoin</p>
+            <button class="menu-button" onclick="redirectTo('/donate')">Donne-les</button>
+        </div>
+        <div class="menu-item" id="button2">
+            <img class="small_img" src="/images/free_item.png">
+            <p>À la recherche d'objets gratuits pour ton animal ? Découvre-les ici !</p>
+            <button class="menu-button" onclick="redirectTo('/showdonations')">Explore</button>
+        </div>
+        <div class="menu-item" id="button3">
+            <img class="small_img" src="/images/giving.png">
+            <p>Tu as des objets à ajouter à la liste de dons ? Consulte-les ici !</p>
+            <button class="menu-button" onclick="redirectTo('/mesdonations')">Consulte</button>
+        </div>
+        <div class="menu-item" id="button3">
+            <img class="small_img" src="/images/services.png">
+            <p>Si tu n'as rien à offrir pour l'instant, ou si tu n'as rien dont tu as besoin,</p>
+            <button class="menu-button" onclick="redirectTo('/profile')">Nos services</button>
+        </div>
+        
+    </div>
+    
+
+    <script>
+        function redirectTo(url) {
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>

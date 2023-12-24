@@ -114,5 +114,27 @@ public class Controller {
         return "AddAdvice";
     }
 
+    /*Donation */
 
+    @GetMapping("/donate")
+    public String additems() {
+        return "additems";
+    }
+
+    @GetMapping("/showdonations")
+    public String itemstodonate() {
+        return "itemstodonate";
+    }
+
+     @GetMapping("/mesdonations")
+    public String mesdonations() {
+        return "mesdonations";
+    }
+
+    @GetMapping("/itemspage")
+    public String itemspage() {
+        return "itemspage";
+    }
+
+    
 }
