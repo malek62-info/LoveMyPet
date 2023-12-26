@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Événements</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+<div class="container mt-3">
+    <h2>Liste des Événements</h2>
+
+    <table class="table" id="evenementsTable">
+        <thead>
+        <tr>
+            <th scope="col">Titre</th>
+            <th scope="col">Date</th>
+            <th scope="col">Lieu</th>
+            <th scope="col">Créateur</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Les données seront ajoutées ici dynamiquement via JavaScript -->
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Effectuer une requête AJAX pour récupérer les événements depuis le contrôleur
+        $.ajax({
+            url: '/api/evenements/non-expired',
+            type: 'GET',
+            success: function (data) {
+                // Parcourir les données et les ajouter à la table
+                $.each(data, function (index, evenement) {
+                    var row = '<tr>' +
+                        '<td>' + evenement.titre + '</td>' +
+                        '<td>' + evenement.date + '</td>' +
+                        '<td>' + evenement.place + '</td>' +
+                        '<td>' + evenement.createur.firstName + ' ' + evenement.createur.lastName + '</td>' +
+                        '</tr>';
+                    $('#evenementsTable tbody').append(row);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error('Erreur lors de la récupération des événements:', error);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

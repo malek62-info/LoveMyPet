@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Event</title>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+<h2>Add Event</h2>
+
+<form id="eventForm" enctype="multipart/form-data">
+    <label for="titre">Title:</label>
+    <input type="text" id="titre" name="titre" required><br>
+
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" required><br>
+
+    <label for="place">Place:</label>
+    <input type="text" id="place" name="place" required><br>
+
+    <!-- Hidden field for the creator ID -->
+    <input type="hidden" id="createurId" name="createurId" value="1">
+
+    <label for="imageFile">Image:</label>
+    <input type="file" id="imageFile" name="imageFile"><br>
+
+    <input type="submit" value="Add Event">
+</form>
+
+<script>
+    $(document).ready(function () {
+        $('#eventForm').submit(function (e) {
+            e.preventDefault();
+
+            // Create a FormData object to send the form data
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: '/api/evenements/add',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    alert(data); // Show success message
+                    // You can redirect or perform other actions as needed
+                },
+                error: function (xhr, status, error) {
+                    alert('Error: ' + error); // Show error message
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

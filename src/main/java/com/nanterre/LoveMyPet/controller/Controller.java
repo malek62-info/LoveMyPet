@@ -114,5 +114,13 @@ public class Controller {
         return "AddAdvice";
     }
 
+    @GetMapping("/AddEvent")
+    public String Evennement() {
+        return "AddEvennement";
+    }
 
+    @GetMapping("/ShowEvent")
+    public String Listevent() {
+        return "ListEvents";
+    }
 }
