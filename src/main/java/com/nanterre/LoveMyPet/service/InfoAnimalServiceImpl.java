@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.nanterre.LoveMyPet.model.Animal;
+import com.nanterre.LoveMyPet.model.HistoriqueWeight;
 import com.nanterre.LoveMyPet.repository.InfoAnimalRepository;
 
 
@@ -39,10 +40,16 @@ public class InfoAnimalServiceImpl implements InfoAnimalService {
     @Transactional
     public void updateAnimalWeight(Integer idAnimal, Double newWeight) {
         Animal animal = animalInfoRepository.findById(idAnimal).orElse(null);
+        
         if (animal != null) {
             animal.setWeight(newWeight);
             animalInfoRepository.save(animal);
         }
+        HistoriqueWeight historiqueWeight = new HistoriqueWeight();
+        historiqueWeight.setIdAnimal(idAnimal);
+        historiqueWeight.setWeight(newWeight);
+        historiqueWeight.setDate(new Date());
+        entityManager.persist(historiqueWeight);
     }
     
     @Transactional
