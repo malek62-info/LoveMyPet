@@ -17,7 +17,7 @@
 
 <script>
     $(document).ready(function() {
-        // Faites une requête AJAX pour récupérer les événements non expirés
+        // Faites une requête AJAX pour récupérer les liens vers les détails des événements
         $.ajax({
             url: '/api/evenements/non-expired',
             type: 'GET',
@@ -26,19 +26,32 @@
                 // Manipulez les données ici, par exemple, affichez-les dans la liste
                 var evenementsList = $('#evenementsList');
 
-                // Parcourez les événements et ajoutez-les à la liste
-                $.each(data, function(index, evenement) {
-                    var listItem = '<li>' +
-                        '<strong>' + evenement.titre + '</strong><br>' +
-                        'Date: ' + evenement.date + '<br>' +
-                        'Place: ' + evenement.place + '<br>' +
-                        '<a href="' + evenement.details + '">Détails</a>' +
-                        '</li>';
-                    evenementsList.append(listItem);
+                // Parcourez les liens et ajoutez-les à la liste
+                $.each(data, function(index, evenementLink) {
+                    // Faites une requête AJAX pour récupérer les détails de l'événement
+                    $.ajax({
+                        url: evenementLink,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(evenementDetails) {
+                            // Créez un élément de liste avec les détails de l'événement
+                            var listItem = '<li>' +
+                                '<strong>' + evenementDetails.titre + '</strong><br>' +
+                                'Date: ' + evenementDetails.date + '<br>' +
+                                'Place: ' + evenementDetails.place + '<br>' +
+                                'Image: <img src="/api/evenements/image/' + evenementDetails.idEvenement + '" alt="Image">' +
+                                '<br><a href="' + evenementDetails.details + '">Détails</a>' +
+                                '</li>';
+                            evenementsList.append(listItem);
+                        },
+                        error: function(error) {
+                            console.error('Erreur lors de la récupération des détails de l\'événement:', error);
+                        }
+                    });
                 });
             },
             error: function(error) {
-                console.error('Erreur lors de la récupération des événements:', error);
+                console.error('Erreur lors de la récupération des liens d\'événement:', error);
             }
         });
     });

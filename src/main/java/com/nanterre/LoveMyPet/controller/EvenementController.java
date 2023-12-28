@@ -63,6 +63,18 @@ public class EvenementController {
             return new ResponseEntity<>("Erreur lors de la gestion de l'image", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/non-expired")
+    public ResponseEntity<List<String>> getNonExpiredEventLinks() {
+        LocalDate today = LocalDate.now();
+        List<Evenement> nonExpiredEvents = evenementService.findNonExpiredEvents(today);
+
+        List<String> eventLinks = nonExpiredEvents.stream()
+                .map(evenement -> "/api/evenements/non-expired/" + evenement.getIdEvenement())
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(eventLinks);
+    }
     @GetMapping("/non-expired/{eventId}")
     public ResponseEntity<Map<String, Object>> getNonExpiredEventById(@PathVariable Integer eventId) {
         Evenement evenement = evenementService.getEvenementById(eventId);

@@ -4,40 +4,178 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Event</title>
-    <!-- Include jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .container .title {
+            font-size: 25px;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .container .title::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 3px;
+            width: 30px;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+
+        .content form .user-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 20px 0 12px 0;
+        }
+
+        form .user-details .input-box {
+            margin-bottom: 15px;
+            width: calc(100% / 2 - 20px);
+        }
+
+        form .input-box span.details {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .user-details .input-box input {
+            height: 45px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .user-details .input-box input:focus,
+        .user-details .input-box input:valid {
+            border-color: #9b59b6;
+        }
+
+        form .category select,
+        form .input-box select {
+            height: 45px;
+            width: 100%;
+            outline: none;
+            font-size: 16px;
+            border-radius: 5px;
+            padding-left: 15px;
+            border: 1px solid #ccc;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .button {
+            height: 45px;
+            margin: 35px 0;
+        }
+
+        .button input {
+            height: 100%;
+            width: 100%;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+
+        .button input:hover {
+            background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+        }
+    </style>
 </head>
 <body>
 
-<h2>Add Event</h2>
+<div class="container">
+    <div class="title">Add Event</div>
+    <div class="content">
+        <form id="eventForm" enctype="multipart/form-data">
+            <div class="user-details">
+                <!-- ID de la personne connectée -->
+                <input type="hidden" id="createurId" name="createurId" value="">
 
-<form id="eventForm" enctype="multipart/form-data">
-    <label for="titre">Title:</label>
-    <input type="text" id="titre" name="titre" required><br>
-
-    <label for="date">Date:</label>
-    <input type="date" id="date" name="date" required><br>
-
-    <label for="place">Place:</label>
-    <input type="text" id="place" name="place" required><br>
-
-    <!-- Hidden field for the creator ID -->
-    <input type="hidden" id="createurId" name="createurId" value="1">
-
-    <label for="imageFile">Image:</label>
-    <input type="file" id="imageFile" name="imageFile"><br>
-
-    <input type="submit" value="Add Event">
-</form>
+                <div class="input-box">
+                    <span class="details">Title</span>
+                    <input type="text" id="titre" name="titre" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Date</span>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Place</span>
+                    <input type="text" id="place" name="place" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Image</span>
+                    <label for="imageFile" class="custom-file-upload">Choose File</label>
+                    <input type="file" id="imageFile" name="imageFile" style="display:none;">
+                </div>
+            </div>
+            <div class="button">
+                <input type="submit" value="Add Event">
+            </div>
+        </form>
+    </div>
+</div>
 
 <script>
     $(document).ready(function () {
+        // Récupérer l'ID de la personne connectée via la méthode /profile
+        $.ajax({
+            url: "/person/profile",
+            type: "GET",
+            success: function (data) {
+                // Mettre à jour la valeur de l'ID dans le champ caché
+                $("#createurId").val(data.id);
+            },
+            error: function (xhr, status, error) {
+                // Gérer les erreurs
+            }
+        });
+
+        // Gestion de la soumission du formulaire
         $('#eventForm').submit(function (e) {
             e.preventDefault();
-
-            // Create a FormData object to send the form data
             var formData = new FormData(this);
-
             $.ajax({
                 url: '/api/evenements/add',
                 type: 'POST',
@@ -45,11 +183,11 @@
                 processData: false,
                 contentType: false,
                 success: function (data) {
-                    alert(data); // Show success message
-                    // You can redirect or perform other actions as needed
+                    alert(data);
+                    // Vous pouvez rediriger ou effectuer d'autres actions au besoin
                 },
                 error: function (xhr, status, error) {
-                    alert('Error: ' + error); // Show error message
+                    alert('Error: ' + error);
                 }
             });
         });
