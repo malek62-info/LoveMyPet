@@ -29,40 +29,32 @@ public class EvenementController {
 
     @PostMapping("/add")
     public ResponseEntity<String> addEvenement(@RequestPart("imageFile") MultipartFile imageFile,
-                                               @RequestParam("titre") String titre,
-                                               @RequestParam("date") String dateStr,
-                                               @RequestParam("place") String place,
-                                               @RequestParam("createurId") Integer createurId) {
+                                               @ModelAttribute Evenement evenement) {
+
+
         try {
-            LocalDate date = LocalDate.parse(dateStr);
-
-            Evenement evenement = new Evenement();
-            evenement.setTitre(titre);
-            evenement.setDate(date);
-            evenement.setPlace(place);
-
-            // Settez directement l'ID du créateur sans vérifier son existence
-            Person createur = new Person();
-            createur.setIdPerson(createurId);
-            evenement.setCreateur(createur);
-
             if (imageFile != null && !imageFile.isEmpty()) {
-                String dossierImages = "src/main/resources/static/images/evenements";
-                String nomDuFichier = imageFile.getOriginalFilename();
-                Path cheminFichier = Paths.get(dossierImages, nomDuFichier);
+                // Spécifiez le chemin de votre dossier d'images dans les ressources
+                String imageFolderPath = "src/main/resources/static/evenements";
+                String fileName = imageFile.getOriginalFilename();
+                Path filePath = Paths.get(imageFolderPath, fileName);
 
-                Files.write(cheminFichier, imageFile.getBytes());
-                evenement.setImageUrl(nomDuFichier);
+                // Écrivez le fichier image dans le dossier spécifié
+                Files.write(filePath, imageFile.getBytes());
+
+                // Set the image URL in the event object
+                evenement.setImageUrl(fileName);
             }
-
-            evenementService.createEvenement(evenement);
-            return new ResponseEntity<>("Nouvel événement ajouté", HttpStatus.OK);
-
         } catch (IOException e) {
-            e.printStackTrace();
+            // Utilisez un logger pour enregistrer l'erreur
             return new ResponseEntity<>("Erreur lors de la gestion de l'image", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+        evenementService.createEvenement(evenement);
+        return new ResponseEntity<>("Nouvel événement ajouté", HttpStatus.OK);
     }
+
+
 
     @GetMapping("/non-expired")
     public ResponseEntity<List<String>> getNonExpiredEventLinks() {
@@ -94,6 +86,7 @@ public class EvenementController {
         evenementMap.put("titre", evenement.getTitre());
         evenementMap.put("date", evenement.getDate().toString());
         evenementMap.put("place", evenement.getPlace());
+        evenementMap.put("imageName", evenement.getImageUrl());
 
         // Ajouter des liens hypertextes
         evenementMap.put("details", "/api/evenements/non-expired/" + evenement.getIdEvenement());

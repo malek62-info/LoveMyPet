@@ -143,11 +143,14 @@
                 <div class="input-box">
                     <span class="details">Place</span>
                     <input type="text" id="place" name="place" required>
+                    <a href="/parc" id="openMapLink" target="_blank">Open Map</a>
+
                 </div>
                 <div class="input-box">
                     <span class="details">Image</span>
                     <label for="imageFile" class="custom-file-upload">Choose File</label>
-                    <input type="file" id="imageFile" name="imageFile" style="display:none;">
+                    <input type="file" id="imageFile" name="imageFile" style="display:none;" />
+
                 </div>
             </div>
             <div class="button">
@@ -157,6 +160,7 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     $(document).ready(function () {
         // Récupérer l'ID de la personne connectée via la méthode /profile
@@ -172,10 +176,11 @@
             }
         });
 
-        // Gestion de la soumission du formulaire
         $('#eventForm').submit(function (e) {
             e.preventDefault();
+
             var formData = new FormData(this);
+
             $.ajax({
                 url: '/api/evenements/add',
                 type: 'POST',

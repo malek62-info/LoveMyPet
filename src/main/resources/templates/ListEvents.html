@@ -5,6 +5,177 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des Événements Non Expirés</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #evenementsList {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .evenementItem {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            margin: 10px;
+            width: calc(33.33% - 20px); /* Trois cartes par ligne */
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .evenementItem:hover {
+            transform: scale(1.05);
+        }
+
+        .evenementContent {
+            padding: 20px;
+        }
+
+        .evenementContent strong {
+            display: block;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .evenementContent span {
+            display: block;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .evenementImage {
+            max-width: 100%;
+            height: auto;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+            max-height: 200px; /* Limitez la hauteur de l'image */
+        }
+
+        .inscriptionButton {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 0 0 8px 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .inscriptionButton:hover {
+            background-color: #2980b9;
+        }
+    </style>
+
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #evenementsList {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .evenementItem {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            margin: 10px;
+            width: calc(33.33% - 20px); /* Trois cartes par ligne */
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .evenementItem:hover {
+            transform: scale(1.05);
+        }
+
+        .evenementContent {
+            padding: 20px;
+        }
+
+        .evenementContent strong {
+            display: block;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .evenementContent span {
+            display: block;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .evenementImage {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+
+        .inscriptionButton {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 0 0 8px 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .inscriptionButton:hover {
+            background-color: #2980b9;
+        }
+    </style>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
@@ -15,42 +186,49 @@
     <!-- Les événements seront affichés ici dynamiquement -->
 </ul>
 
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-    $(document).ready(function() {
-        // Faites une requête AJAX pour récupérer les liens vers les détails des événements
+    $(document).ready(function () {
+        // Faites une requête AJAX pour récupérer tous les détails des événements
         $.ajax({
             url: '/api/evenements/non-expired',
             type: 'GET',
             dataType: 'json',
-            success: function(data) {
-                // Manipulez les données ici, par exemple, affichez-les dans la liste
+            success: function (data) {
                 var evenementsList = $('#evenementsList');
 
-                // Parcourez les liens et ajoutez-les à la liste
-                $.each(data, function(index, evenementLink) {
+                // Parcourez les données et ajoutez-les à la liste
+                for (var i = 0; i < data.length; i++) {
                     // Faites une requête AJAX pour récupérer les détails de l'événement
                     $.ajax({
-                        url: evenementLink,
+                        url: data[i],
                         type: 'GET',
                         dataType: 'json',
-                        success: function(evenementDetails) {
-                            // Créez un élément de liste avec les détails de l'événement
-                            var listItem = '<li>' +
-                                '<strong>' + evenementDetails.titre + '</strong><br>' +
-                                'Date: ' + evenementDetails.date + '<br>' +
-                                'Place: ' + evenementDetails.place + '<br>' +
-                                'Image: <img src="/api/evenements/image/' + evenementDetails.idEvenement + '" alt="Image">' +
-                                '<br><a href="' + evenementDetails.details + '">Détails</a>' +
+                        success: function (evenementDetails) {
+                            // Construire le chemin de l'image à partir du nom stocké dans la base de données
+                            var imagePath = '/evenements/' + evenementDetails.imageName;
+
+                            // Créer un élément de liste distinct pour chaque événement
+                            var listItem = '<li class="evenementItem">' +
+                                '<img class="evenementImage" src="' + imagePath + '" alt="Image">' +
+                                '<div class="evenementContent">' +
+                                '<strong>' + evenementDetails.titre + '</strong>' +
+                                '<span>Date: ' + evenementDetails.date + '</span>' +
+                                '<span>Place: ' + evenementDetails.place + '</span>' +
+                                '</div>' +
+                                '<a class="inscriptionButton" href="#">Inscription</a>' +
                                 '</li>';
+
                             evenementsList.append(listItem);
                         },
-                        error: function(error) {
+                        error: function (error) {
                             console.error('Erreur lors de la récupération des détails de l\'événement:', error);
                         }
                     });
-                });
+                }
             },
-            error: function(error) {
+            error: function (error) {
                 console.error('Erreur lors de la récupération des liens d\'événement:', error);
             }
         });
