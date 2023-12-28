@@ -2,50 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des Événements</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Liste des Événements Non Expirés</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 
-<div class="container mt-3">
-    <h2>Liste des Événements</h2>
+<h1>Liste des Événements Non Expirés</h1>
 
-    <table class="table" id="evenementsTable">
-        <thead>
-        <tr>
-            <th scope="col">Titre</th>
-            <th scope="col">Date</th>
-            <th scope="col">Lieu</th>
-            <th scope="col">Créateur</th>
-        </tr>
-        </thead>
-        <tbody>
-        <!-- Les données seront ajoutées ici dynamiquement via JavaScript -->
-        </tbody>
-    </table>
-</div>
+<ul id="evenementsList">
+    <!-- Les événements seront affichés ici dynamiquement -->
+</ul>
 
 <script>
-    $(document).ready(function () {
-        // Effectuer une requête AJAX pour récupérer les événements depuis le contrôleur
+    $(document).ready(function() {
+        // Faites une requête AJAX pour récupérer les événements non expirés
         $.ajax({
             url: '/api/evenements/non-expired',
             type: 'GET',
-            success: function (data) {
-                // Parcourir les données et les ajouter à la table
-                $.each(data, function (index, evenement) {
-                    var row = '<tr>' +
-                        '<td>' + evenement.titre + '</td>' +
-                        '<td>' + evenement.date + '</td>' +
-                        '<td>' + evenement.place + '</td>' +
-                        '<td>' + evenement.createur.firstName + ' ' + evenement.createur.lastName + '</td>' +
-                        '</tr>';
-                    $('#evenementsTable tbody').append(row);
+            dataType: 'json',
+            success: function(data) {
+                // Manipulez les données ici, par exemple, affichez-les dans la liste
+                var evenementsList = $('#evenementsList');
+
+                // Parcourez les événements et ajoutez-les à la liste
+                $.each(data, function(index, evenement) {
+                    var listItem = '<li>' +
+                        '<strong>' + evenement.titre + '</strong><br>' +
+                        'Date: ' + evenement.date + '<br>' +
+                        'Place: ' + evenement.place + '<br>' +
+                        '<a href="' + evenement.details + '">Détails</a>' +
+                        '</li>';
+                    evenementsList.append(listItem);
                 });
             },
-            error: function (xhr, status, error) {
+            error: function(error) {
                 console.error('Erreur lors de la récupération des événements:', error);
             }
         });

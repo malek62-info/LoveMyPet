@@ -1,5 +1,4 @@
 package com.nanterre.LoveMyPet.controller;
-
 import com.nanterre.LoveMyPet.model.Evenement;
 import com.nanterre.LoveMyPet.model.Person;
 import com.nanterre.LoveMyPet.service.EvenementService;
@@ -13,7 +12,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/evenements")
@@ -61,6 +63,29 @@ public class EvenementController {
             return new ResponseEntity<>("Erreur lors de la gestion de l'image", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("/non-expired/{eventId}")
+    public ResponseEntity<Map<String, Object>> getNonExpiredEventById(@PathVariable Integer eventId) {
+        Evenement evenement = evenementService.getEvenementById(eventId);
 
+        if (evenement == null) {
+            return ResponseEntity.notFound().build();
+        }
 
+        Map<String, Object> evenementMap = toEvenementMapWithLinks(evenement);
+
+        return ResponseEntity.ok(evenementMap);
+    }
+
+    private Map<String, Object> toEvenementMapWithLinks(Evenement evenement) {
+        Map<String, Object> evenementMap = new HashMap<>();
+        evenementMap.put("idEvenement", evenement.getIdEvenement());
+        evenementMap.put("titre", evenement.getTitre());
+        evenementMap.put("date", evenement.getDate().toString());
+        evenementMap.put("place", evenement.getPlace());
+
+        // Ajouter des liens hypertextes
+        evenementMap.put("details", "/api/evenements/non-expired/" + evenement.getIdEvenement());
+
+        return evenementMap;
+    }
 }
