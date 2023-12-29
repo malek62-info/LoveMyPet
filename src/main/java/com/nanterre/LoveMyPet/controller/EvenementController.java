@@ -1,9 +1,11 @@
 package com.nanterre.LoveMyPet.controller;
+
 import com.nanterre.LoveMyPet.model.Evenement;
 import com.nanterre.LoveMyPet.model.Person;
 import com.nanterre.LoveMyPet.service.EvenementService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -93,4 +95,27 @@ public class EvenementController {
 
         return evenementMap;
     }
+
+
+
+
+
+    @GetMapping("/user-events")
+    public ResponseEntity<List<Map<String, Object>>> getUserEvents(@RequestParam("userId") Integer userId) {
+        // Vérifier si l'ID de l'utilisateur est valide
+        if (userId != null) {
+            // Récupérer les événements de l'utilisateur depuis le service
+            List<Evenement> userEvents = evenementService.getUserEvents(userId);
+
+            // Convertir les événements en une liste de maps
+            List<Map<String, Object>> eventList = userEvents.stream()
+                    .map(this::toEvenementMapWithLinks)
+                    .collect(Collectors.toList());
+
+            return ResponseEntity.ok(eventList);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

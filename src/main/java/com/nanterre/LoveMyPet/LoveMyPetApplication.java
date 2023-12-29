@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EntityScan("com.nanterre.LoveMyPet.model")
 public class LoveMyPetApplication {
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(LoveMyPetApplication.class, args);
 	}

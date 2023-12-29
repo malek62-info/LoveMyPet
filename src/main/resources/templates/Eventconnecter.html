@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evenements de l'utilisateur</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #eventContainer {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .evenementItem {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            margin: 10px;
+            width: calc(33.33% - 20px); /* Trois cartes par ligne */
+            box-sizing: border-box;
+            cursor: pointer;
+        }
+
+        .evenementItem:hover {
+            transform: scale(1.05);
+        }
+
+        .evenementContent {
+            padding: 20px;
+        }
+
+        .evenementContent strong {
+            display: block;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .evenementContent span {
+            display: block;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .inscriptionButton {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 0 0 8px 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .inscriptionButton:hover {
+            background-color: #2980b9;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+
+<h1>Evenements de l'utilisateur</h1>
+
+<div>
+    <!-- Formulaire pour envoyer l'ID de la personne connectée -->
+    <input type="hidden" id="idPerson" value=""/>
+
+    <!-- Conteneur pour afficher les événements -->
+    <div id="eventContainer"></div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // Récupérer l'ID de la personne connectée via la méthode /person/profile
+        $.ajax({
+            url: "/person/profile",
+            type: "GET",
+            success: function (data) {
+                // Mettre à jour la valeur de l'ID dans le champ caché
+                $("#idPerson").val(data.id);
+
+                // Récupérer les événements de l'utilisateur
+                getUserEvents(data.id);
+            },
+            error: function (xhr, status, error) {
+                // Gérer les erreurs
+            }
+        });
+    });
+
+    // Fonction pour récupérer les événements de l'utilisateur
+    function getUserEvents(userId) {
+        $.ajax({
+            url: "/api/evenements/user-events",
+            type: "GET",
+            data: {
+                userId: userId
+            },
+            success: function (response) {
+                // Afficher les événements dans le conteneur dédié
+                displayEvents(response);
+            },
+            error: function (xhr, status, error) {
+                // Gérer les erreurs
+                console.error("Erreur lors de la récupération des événements de l'utilisateur");
+            }
+        });
+    }
+
+    // Fonction pour afficher les événements dans le conteneur dédié
+    function displayEvents(events) {
+        // Sélectionner le conteneur
+        var eventContainer = $("#eventContainer");
+
+        // Vider le conteneur s'il y a des éléments existants
+        eventContainer.empty();
+
+        // Ajouter chaque événement au conteneur
+        events.forEach(function (event) {
+            // Créer un élément div pour l'événement
+            var eventDiv = $("<div>").addClass("evenementItem");
+
+            // Créer un élément div pour le contenu de l'événement
+            var eventContent = $("<div>").addClass("evenementContent");
+
+            // Ajouter les détails de l'événement à l'élément div
+            eventContent.append("<strong>" + event.titre + "</strong>");
+            eventContent.append("<span>Date: " + event.date + "</span>");
+            eventContent.append("<span>Place: " + event.place + "</span>");
+
+            // Ajouter l'élément de contenu à l'élément d'événement
+            eventDiv.append(eventContent);
+
+            // Ajouter le bouton d'inscription à l'événement
+            eventDiv.append('<a class="inscriptionButton" href="#">Inscription</a>');
+
+            // Ajouter l'élément div au conteneur
+            eventContainer.append(eventDiv);
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -123,4 +123,9 @@ public class Controller {
     public String Listevent() {
         return "ListEvents";
     }
+
+    @GetMapping("/MyEvent")
+    public String Listeventconnecter() {
+        return "EventConnecter";
+    }
 }
