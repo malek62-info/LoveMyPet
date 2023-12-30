@@ -1,6 +1,7 @@
 package com.nanterre.LoveMyPet.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Date;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -46,7 +47,7 @@ public class InfoAnimalServiceImpl implements InfoAnimalService {
             animalInfoRepository.save(animal);
         }
         HistoriqueWeight historiqueWeight = new HistoriqueWeight();
-        historiqueWeight.setIdAnimal(idAnimal);
+        historiqueWeight.setAnimal(animal);
         historiqueWeight.setWeight(newWeight);
         historiqueWeight.setDate(new Date());
         entityManager.persist(historiqueWeight);

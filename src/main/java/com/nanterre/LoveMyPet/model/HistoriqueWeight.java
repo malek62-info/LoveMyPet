@@ -21,14 +21,6 @@ public class HistoriqueWeight {
 		this.id = id;
 	}
 
-	public Integer getIdAnimal() {
-		return idAnimal;
-	}
-
-	public void setIdAnimal(Integer idAnimal) {
-		this.idAnimal = idAnimal;
-	}
-
 	public Double getWeight() {
 		return weight;
 	}
@@ -45,10 +37,19 @@ public class HistoriqueWeight {
 		this.date = date;
 	}
 
-	@Column(name = "idanimal")
-    private Integer idAnimal;
+	@ManyToOne
+	@JoinColumn(name = "idanimal", referencedColumnName = "idAnimal")
+	private Animal animal;
 
-    @Column(name = "weight")
+    public Animal getAnimal() {
+		return animal;
+	}
+
+	public void setAnimal(Animal animal) {
+		this.animal = animal;
+	}
+
+	@Column(name = "weight")
     private Double weight;
 
     @Column(name = "date")

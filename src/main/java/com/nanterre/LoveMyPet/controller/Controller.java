@@ -25,6 +25,10 @@ public class Controller {
     public String showVaccinations(Model model) {
 		return "suivi";
 	}
+	@GetMapping("/suivicomplet")
+    public String suivicomplet(Model model) {
+		return "suivicomplet";
+	}
     @GetMapping("/mesCandidatures")
     public String showCandidatures(Model model) {
         return "mescandidatures";
@@ -101,8 +105,11 @@ public class Controller {
     public String ListLostAnimal() {
         return "ListLostAnimal";
     }
-
-
+    @GetMapping("/HistoriqueWeight")
+    public String HistoriqueWeightGraph() {
+        return "graphePoids";
+    }
+    
     /*publication */
        @GetMapping("/publications")
     public String publication() {
