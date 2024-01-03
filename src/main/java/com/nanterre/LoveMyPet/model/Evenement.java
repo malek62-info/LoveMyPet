@@ -4,6 +4,7 @@ package com.nanterre.LoveMyPet.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Evenement {
@@ -19,7 +20,8 @@ public class Evenement {
     @ManyToOne
     @JoinColumn(name = "idPerson")
     private Person createur;
-
+    @OneToMany(mappedBy = "evenement", cascade = CascadeType.ALL)
+    private List<Inscription> inscriptions;
     // Getters
     public Integer getIdEvenement() {
         return idEvenement;
@@ -69,4 +71,6 @@ public class Evenement {
     public void setCreateur(Person createur) {
         this.createur = createur;
     }
+
+
 }

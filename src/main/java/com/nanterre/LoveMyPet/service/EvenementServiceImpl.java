@@ -1,6 +1,7 @@
 package com.nanterre.LoveMyPet.service;
 
 import com.nanterre.LoveMyPet.model.Evenement;
+import com.nanterre.LoveMyPet.model.Inscription;
 import com.nanterre.LoveMyPet.model.Person;
 import com.nanterre.LoveMyPet.repository.EvenementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EvenementServiceImpl implements EvenementService {
@@ -39,6 +41,8 @@ public class EvenementServiceImpl implements EvenementService {
     // Autres méthodes selon les besoins
 
 
+
+
     @Override
     public List<Evenement> getUserEvents(Integer idPerson) {
         // Implémentez votre logique pour récupérer les événements de l'utilisateur
@@ -47,5 +51,6 @@ public class EvenementServiceImpl implements EvenementService {
         createur.setIdPerson(idPerson);
         return evenementRepository.findByCreateur(createur);
     }
+
 
 }

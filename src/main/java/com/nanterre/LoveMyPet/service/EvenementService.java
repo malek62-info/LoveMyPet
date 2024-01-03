@@ -1,6 +1,7 @@
 package com.nanterre.LoveMyPet.service;
 
 import com.nanterre.LoveMyPet.model.Evenement;
+import com.nanterre.LoveMyPet.model.Inscription;
 import com.nanterre.LoveMyPet.model.Person;
 
 import java.time.LocalDate;

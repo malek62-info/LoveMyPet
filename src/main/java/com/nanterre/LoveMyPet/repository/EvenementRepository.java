@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface EvenementRepository extends JpaRepository<Evenement, Integer> {
     // Autres méthodes génériques fournies par JpaRepository
-
     // Recherche un événement par son titre
     List<Evenement> findByTitre(String titre);
 
@@ -17,6 +16,9 @@ public interface EvenementRepository extends JpaRepository<Evenement, Integer> {
 
     // Recherche tous les événements créés par une personne spécifique
     List<Evenement> findByCreateur(Person createur);
+
+
+
 
 
 

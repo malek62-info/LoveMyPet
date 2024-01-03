@@ -7,20 +7,47 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
+            background-color: #f4f4f4;
         }
 
-        h1 {
-            color: #333;
+        header {
+            background-color: #232f3e;
+            color: #ffffff;
+            padding: 1rem;
             text-align: center;
-            margin-bottom: 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+            padding: 0.5rem 0;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        #content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
 
         #eventContainer {
@@ -39,9 +66,21 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
             margin: 10px;
-            width: calc(33.33% - 20px); /* Trois cartes par ligne */
+            width: calc(50% - 20px);
             box-sizing: border-box;
             cursor: pointer;
+        }
+
+        @media (min-width: 600px) {
+            .evenementItem {
+                width: calc(33.33% - 20px);
+            }
+        }
+
+        @media (min-width: 900px) {
+            .evenementItem {
+                width: calc(25% - 20px);
+            }
         }
 
         .evenementItem:hover {
@@ -65,36 +104,65 @@
             margin-bottom: 10px;
         }
 
-        .inscriptionButton {
-            display: block;
-            text-align: center;
-            padding: 10px;
+        .evenementImage {
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+        }
+
+        #noEventsMessage {
+            color: #777;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        #createEventButton {
+            padding: 15px;
             background-color: #3498db;
             color: #fff;
             text-decoration: none;
-            border-radius: 0 0 8px 8px;
+            border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
-        .inscriptionButton:hover {
+        #createEventButton:hover {
             background-color: #2980b9;
+        }
+
+        footer {
+            background-color: #232f3e;
+            color: #ffffff;
+            padding: 1rem;
+            text-align: center;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 
-<h1>Evenements de l'utilisateur</h1>
+<header>
+    <h1>Evenements de l'utilisateur</h1>
+</header>
 
-<div>
-    <!-- Formulaire pour envoyer l'ID de la personne connectée -->
+<nav>
+    <a href="#">Accueil</a>
+    <a href="#">Profil</a>
+    <a href="#">Paramètres</a>
+    <a href="#">Créer un événement</a>
+</nav>
+
+<div id="content">
     <input type="hidden" id="idPerson" value=""/>
-
-    <!-- Conteneur pour afficher les événements -->
     <div id="eventContainer"></div>
+
 </div>
 
+<footer>
+    © 2023 Evenements de l'utilisateur. Tous droits réservés.
+</footer>
 <script>
     $(document).ready(function () {
         // Récupérer l'ID de la personne connectée via la méthode /person/profile
@@ -138,32 +206,47 @@
         // Sélectionner le conteneur
         var eventContainer = $("#eventContainer");
 
+        // Sélectionner le message "Aucun événement trouvé"
+        var noEventsMessage = $("#noEventsMessage");
+
         // Vider le conteneur s'il y a des éléments existants
         eventContainer.empty();
 
-        // Ajouter chaque événement au conteneur
-        events.forEach(function (event) {
-            // Créer un élément div pour l'événement
-            var eventDiv = $("<div>").addClass("evenementItem");
+        // Afficher le message si aucun événement n'est trouvé
+        if (events.length === 0) {
+            noEventsMessage.text("Aucun événement trouvé.");
+        } else {
+            // Ajouter chaque événement au conteneur
+            events.forEach(function (event) {
+                // Créer un élément div pour l'événement
+                var eventDiv = $("<div>").addClass("evenementItem");
 
-            // Créer un élément div pour le contenu de l'événement
-            var eventContent = $("<div>").addClass("evenementContent");
+                // Créer un élément div pour le contenu de l'événement
+                var eventContent = $("<div>").addClass("evenementContent");
 
-            // Ajouter les détails de l'événement à l'élément div
-            eventContent.append("<strong>" + event.titre + "</strong>");
-            eventContent.append("<span>Date: " + event.date + "</span>");
-            eventContent.append("<span>Place: " + event.place + "</span>");
+                // Ajouter l'image de l'événement
+                var imagePath = '/evenements/' + event.imageName;
+                eventContent.append('<img class="evenementImage" src="' + imagePath + '" alt="Image">');
 
-            // Ajouter l'élément de contenu à l'élément d'événement
-            eventDiv.append(eventContent);
+                // Ajouter les détails de l'événement à l'élément div
+                eventContent.append("<strong>" + event.titre + "</strong>");
+                eventContent.append("<span>Date: " + event.date + "</span>");
+                eventContent.append("<span>Place: " + event.place + "</span>");
 
-            // Ajouter le bouton d'inscription à l'événement
-            eventDiv.append('<a class="inscriptionButton" href="#">Inscription</a>');
+                // Ajouter l'élément de contenu à l'élément d'événement
+                eventDiv.append(eventContent);
 
-            // Ajouter l'élément div au conteneur
-            eventContainer.append(eventDiv);
-        });
+                // Ajouter l'élément div au conteneur
+                eventContainer.append(eventDiv);
+            });
+        }
     }
+
+    // Gestion du clic sur le bouton "Créer un événement"
+    $("#createEventButton").click(function () {
+        // Rediriger l'utilisateur vers la page de création d'événement
+        window.location.href = "/create-event";
+    });
 </script>
 
 </body>

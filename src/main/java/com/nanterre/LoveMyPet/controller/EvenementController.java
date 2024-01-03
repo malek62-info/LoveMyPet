@@ -1,6 +1,7 @@
 package com.nanterre.LoveMyPet.controller;
 
 import com.nanterre.LoveMyPet.model.Evenement;
+import com.nanterre.LoveMyPet.model.Inscription;
 import com.nanterre.LoveMyPet.model.Person;
 import com.nanterre.LoveMyPet.service.EvenementService;
 import org.springframework.http.HttpStatus;
@@ -96,10 +97,6 @@ public class EvenementController {
         return evenementMap;
     }
 
-
-
-
-
     @GetMapping("/user-events")
     public ResponseEntity<List<Map<String, Object>>> getUserEvents(@RequestParam("userId") Integer userId) {
         // Vérifier si l'ID de l'utilisateur est valide
@@ -117,5 +114,7 @@ public class EvenementController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+
 
 }

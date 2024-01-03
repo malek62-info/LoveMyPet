@@ -190,49 +190,85 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     $(document).ready(function () {
-        // Faites une requête AJAX pour récupérer tous les détails des événements
-        $.ajax({
-            url: '/api/evenements/non-expired',
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                var evenementsList = $('#evenementsList');
+     // Récupérer l'ID de la personne connectée via la méthode /profile
+     $.ajax({
+         url: "/person/profile",
+         type: "GET",
+         success: function (data) {
 
-                // Parcourez les données et ajoutez-les à la liste
-                for (var i = 0; i < data.length; i++) {
-                    // Faites une requête AJAX pour récupérer les détails de l'événement
-                    $.ajax({
-                        url: data[i],
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function (evenementDetails) {
-                            // Construire le chemin de l'image à partir du nom stocké dans la base de données
-                            var imagePath = '/evenements/' + evenementDetails.imageName;
+             // Mettre à jour la valeur de l'ID dans le champ caché
+             var idPerson = data.id;
 
-                            // Créer un élément de liste distinct pour chaque événement
-                            var listItem = '<li class="evenementItem">' +
-                                '<img class="evenementImage" src="' + imagePath + '" alt="Image">' +
-                                '<div class="evenementContent">' +
-                                '<strong>' + evenementDetails.titre + '</strong>' +
-                                '<span>Date: ' + evenementDetails.date + '</span>' +
-                                '<span>Place: ' + evenementDetails.place + '</span>' +
-                                '</div>' +
-                                '<a class="inscriptionButton" href="#">Inscription</a>' +
-                                '</li>';
+             // Faites une requête AJAX pour récupérer tous les détails des événements
+             $.ajax({
+                 url: '/api/evenements/non-expired',
+                 type: 'GET',
+                 dataType: 'json',
+                 success: function (data) {
+                     var evenementsList = $('#evenementsList');
 
-                            evenementsList.append(listItem);
-                        },
-                        error: function (error) {
-                            console.error('Erreur lors de la récupération des détails de l\'événement:', error);
-                        }
-                    });
-                }
-            },
-            error: function (error) {
-                console.error('Erreur lors de la récupération des liens d\'événement:', error);
-            }
-        });
-    });
+                     // Parcourez les données et ajoutez-les à la liste
+                     for (var i = 0; i < data.length; i++) {
+                         // Faites une requête AJAX pour récupérer les détails de l'événement
+                         $.ajax({
+                             url: data[i],
+                             type: 'GET',
+                             dataType: 'json',
+                             success: function (evenementDetails) {
+                                 // Construire le chemin de l'image à partir du nom stocké dans la base de données
+                                 var imagePath = '/evenements/' + evenementDetails.imageName;
+
+                                 // Créer un élément de liste distinct pour chaque événement
+                                 var listItem = '<li class="evenementItem">' +
+                                     '<img class="evenementImage" src="' + imagePath + '" alt="Image">' +
+                                     '<div class="evenementContent">' +
+                                     '<strong>' + evenementDetails.titre + '</strong>' +
+                                     '<span>Date: ' + evenementDetails.date + '</span>' +
+                                     '<span>Place: ' + evenementDetails.place + '</span>' +
+                                     '</div>' +
+                                     '<a class="inscriptionButton" href="#" data-event-id="' + evenementDetails.idEvenement + '">Inscription</a>' +
+                                     '</li>';
+
+                                 evenementsList.append(listItem);
+                             },
+                             error: function (error) {
+                                 console.error('Erreur lors de la récupération des détails de l\'événement:', error);
+                             }
+                         });
+                     }
+                 },
+                 error: function (error) {
+                     console.error('Erreur lors de la récupération des liens d\'événement:', error);
+                 }
+             });
+
+             // Gestionnaire d'événements pour le clic sur le bouton d'inscription
+             $(document).on("click", ".inscriptionButton", function () {
+                 var idEvenement = $(this).data("event-id");
+
+                 // Faire une requête AJAX pour ajouter une inscription avec l'ID de la personne connectée
+                 $.ajax({
+                     url: '/api/inscription/add',
+                     type: 'POST',
+                     data: {
+                         idEvenement: idEvenement,
+                         idPerson: idPerson
+                     },
+                     success: function (response) {
+                         alert(response);
+                     },
+                     error: function (error) {
+                         console.error('Erreur lors de l\'inscription:', error);
+                     }
+                 });
+             });
+         },
+         error: function (xhr, status, error) {
+             // Gérer les erreurs
+         }
+     });
+ });
+
 </script>
 
 </body>

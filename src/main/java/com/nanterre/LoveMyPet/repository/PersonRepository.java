@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface PersonRepository extends JpaRepository<Person, Integer> {
-    // email des personne et animal , avec un feeding timme = now
+
 }
