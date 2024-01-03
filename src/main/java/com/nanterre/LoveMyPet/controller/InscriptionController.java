@@ -30,6 +30,11 @@ public class InscriptionController {
             Evenement evenement = evenementRepository.findById(idEvenement).orElse(null);
 
             if (person != null && evenement != null) {
+                // Check if the person is already connected to this event
+                if (inscriptionRepository.existsByPersonneAndEvenement(person, evenement)) {
+                    return "Person is already connected to this event!";
+                }
+
                 // Create a new Inscription
                 Inscription inscription = new Inscription();
                 inscription.setPersonne(person);
@@ -46,4 +51,5 @@ public class InscriptionController {
             return "Error adding inscription: " + e.getMessage();
         }
     }
+
 }
