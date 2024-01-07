@@ -537,6 +537,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#_titre_du_projet">titre du projet</a></li>
 <li><a href="#_abréviation">Abréviation</a></li>
 <li><a href="#_logo">Logo</a></li>
+<li><a href="#_membres_de_léquipe">Membres de l&#8217;équipe</a></li>
 <li><a href="#_présentation">Présentation</a></li>
 </ul>
 </li>
@@ -639,8 +640,9 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <img src="logo.png" alt="logo de lovemypet">
 </div>
 </div>
-<div class="sect3">
-<h4 id="_membres_de_léquipe">Membres de l&#8217;équipe</h4>
+</div>
+<div class="sect2">
+<h3 id="_membres_de_léquipe">Membres de l&#8217;équipe</h3>
 <div class="paragraph">
 <p>Le projet LoveMyPet a été réalisé par les membres suivants :</p>
 </div>
@@ -657,7 +659,6 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <div class="literalblock">
 <div class="content">
 <pre>Malek Messaoudi</pre>
-</div>
 </div>
 </div>
 </div>
@@ -840,6 +841,10 @@ RECTANGLE Backend {
   GestionUtilisateurs
   LogiqueAdoption
   SuiviVaccination
+  LogiqueAlerts
+  LogiqueSuiviDuPoids
+  LogiqueAffichageDesparcs
+  LogiqueAffichageDesVeterinaires
 }
 
 RECTANGLE BaseDeDonnees {
@@ -848,6 +853,15 @@ RECTANGLE BaseDeDonnees {
   TablesAdoption
   TablesVaccination
   TablesVaccin
+  TableAdvice
+  TableCanidature
+  TableComment
+  TableFeedingConfirmation
+  TableFeedingTime
+  TableHistoriqueAdoption
+  TableHistoriqueWeight
+  TableLikeDislike
+  TableLostAnimal
 }
 
 Backend -- BaseDeDonnees : communique
@@ -986,6 +1000,78 @@ Frontend -- Backend : communique
 </ul>
 </div>
 </div>
+<div class="sect4">
+<h5 id="_historiqueadoptioncontroller">HistoriqueAdoptionController</h5>
+<div class="paragraph">
+<p>Point de départ de l&#8217;API : <code>/historiqueadoption</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>POST /ajouteradoption</code> : ajouter une adoption temporaire dans la table.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_historiqueweightcontroller">HistoriqueWeightController</h5>
+<div class="paragraph">
+<p>Point de départ de l&#8217;API : <code>/historiqueWeight</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GET /animal/{idAnimal}</code> : Récupérer la liste des liens d&#8217;historique de poids pour un animal donné.
+*<code>GET /{id}</code> : Récupérer les détails d&#8217;un enregistrement d&#8217;historique de poids par son identifiant.
+*<code>GET /data/{idAnimal}</code> : Récupérer les données d&#8217;historique de poids pour un animal donné.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_infoanimalcontroller">InfoAnimalController</h5>
+<div class="paragraph">
+<p>Point de départ de l&#8217;API : <code>/infoanimal</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GET /{idAnimal}</code> : Récupérer les informations concernant un animal à partir de son id
+*<code>POST /updateName/{idAnimal}</code> : modifier le nom de l&#8217;animal dont l&#8217;identifiant est idAnimal.
+*<code>POST /updateWeight/{idAnimal}</code> : modifier le poids de l&#8217;animal dont l&#8217;identifiant est idAnimal.
+*<code>POST /updateImage/{idAnimal}</code> : modifier l&#8217;image de l&#8217;animal dont l&#8217;identifiant est idAnimal.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_lostanimalcontroller">LostAnimalController</h5>
+<div class="paragraph">
+<p>Point de départ de l&#8217;API : <code>/lost-animal</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>POST /add</code> : Ajouter un animal perdu dans la table LotAnimal.
+*<code>GET /list</code> : Récupérer la liste des animaux perdus.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_mescandidaturecontroller_2">MesCandidatureController</h5>
+<div class="paragraph">
+<p>Point de départ de l&#8217;API : <code>/mescandidature</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GET /person/{idPerson}</code> : Récupérer les liens des candidatures de la personne.
+*<code>GET /{idCandidature}</code> : Récupérer la candidature.</p>
+</li>
+</ul>
+</div>
+</div>
 <div class="sect3">
 <h4 id="_plateforme_technologique">plateforme technologique</h4>
 <div class="paragraph">
@@ -1112,7 +1198,138 @@ Frontend -- Backend : communique
 <div class="sect2">
 <h3 id="_petite_feature_pour_laffichage_et_la_modification_des_informations_des_animaux">Petite feature pour l&#8217;affichage et la modification des informations des Animaux</h3>
 <div class="paragraph">
-<p>Chaque animal dans la section "Mes Animaux" est doté d&#8217;un bouton en haut à droite avec le signe plus (+). En cliquant sur ce bouton, les informations détaillées de l&#8217;animal sont affichées, offrant la possibilité de modifier le nom, le poids et la photo de l&#8217;animal.</p>
+<p>Cette feature permet de viualiser et modifer les détails d&#8217;un animal sur le site.</p>
+</div>
+<div class="sect3">
+<h4 id="_maquette_du_front">Maquette du front</h4>
+<div class="paragraph">
+<p>Dans notre page des services, il faut cliquer sur SUIVI COMPLET DE L&#8217;ANIMAL</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/suiviCompet.png" alt="alt">
+</div>
+</div>
+<div class="paragraph">
+<p>Dans la page Mes animaux, il figure un signe (+) pour chaque animal, cliquez dessus pour accéder aux détails de votre animal</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MesAnimaux.png" alt="alt">
+</div>
+</div>
+<div class="paragraph">
+<p>Voici une vision des informations de votre animal, modifiables avec les trois boutons verts</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/InfoAnimal.png" alt="alt">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_diagramme_de_classes_partie_métier">Diagramme de classes (partie métier)</h4>
+<div class="paragraph">
+<p>Voici un diagramme des classes qui explique la partie métier de cette petite feature</p>
+</div>
+<div class="paragraph">
+<p>@startuml
+package com.nanterre.LoveMyPet.controller {
+    class InfoAnimalController {
+        - infoAnimalService: InfoAnimalServiceImpl
+        + getCandidatureDetailsById(idAnimal: Integer): Animal
+        + updateAnimalName(idAnimal: Integer, requestBody: Map&lt;String, String&gt;): ResponseEntity&lt;String&gt;
+        + updateAnimalWeight(idAnimal: Integer, requestBody: Map&lt;String, Double&gt;): ResponseEntity&lt;String&gt;
+        + updateAnimalImage(idAnimal: Integer, imageFile: MultipartFile): ResponseEntity&lt;String&gt;
+    }
+}</p>
+</div>
+<div class="paragraph">
+<p>package com.nanterre.LoveMyPet.model {
+    class Animal {
+        - id: Integer
+        - idPerson: Integer
+        - name: String
+        - category: String
+        - race: String
+        - weight: Double
+        - gender: Integer
+        - dateOfBirth: Date
+        - imageUrl: String
+        - adoptedByPerson: Person
+    }</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>class Person {
+    - idperson: Integer
+    // Add other attributes if needed
+}</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>    class HistoriqueWeight {
+        // Add attributes for HistoriqueWeight
+    }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>package com.nanterre.LoveMyPet.repository {
+    interface InfoAnimalRepository {
+        // Methods from JpaRepository
+    }
+}</p>
+</div>
+<div class="paragraph">
+<p>package com.nanterre.LoveMyPet.service {
+    interface InfoAnimalService {
+        + getInfoAnimalDetailsById(idAnimal: Integer): Animal
+        + updateAnimalName(idAnimal: Integer, newName: String): void
+        + updateAnimalWeight(idAnimal: Integer, newWeight: Double): void
+        + updateAnimalImage(idAnimal: Integer, imageUrl: String): void
+    }</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>    class InfoAnimalServiceImpl {
+        - entityManager: EntityManager
+        - animalInfoRepository: InfoAnimalRepository
+        + getInfoAnimalDetailsById(idAnimal: Integer): Animal
+        + updateAnimalName(idAnimal: Integer, newName: String): void
+        + updateAnimalWeight(idAnimal: Integer, newWeight: Double): void
+        + updateAnimalImage(idAnimal: Integer, imageUrl: String): void
+    }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>InfoAnimalController -&#8594; InfoAnimalServiceImpl: infoAnimalService
+InfoAnimalServiceImpl -&#8594; InfoAnimalRepository: animalInfoRepository
+InfoAnimalServiceImpl -&#8594; EntityManager: entityManager
+InfoAnimalServiceImpl -&#8594; Animal
+InfoAnimalServiceImpl -&#8594; HistoriqueWeight</p>
+</div>
+<div class="paragraph">
+<p>@enduml</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_description_api_rest">Description API REST</h4>
+<div class="paragraph">
+<p>Point de départ de l&#8217;API : <code>/infoanimal</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GET /{idAnimal}</code> : Récupérer les informations concernant un animal à partir de son id
+*<code>POST /updateName/{idAnimal}</code> : modifier le nom de l&#8217;animal dont l&#8217;identifiant est idAnimal.
+*<code>POST /updateWeight/{idAnimal}</code> : modifier le poids de l&#8217;animal dont l&#8217;identifiant est idAnimal.
+*<code>POST /updateImage/{idAnimal}</code> : modifier l&#8217;image de l&#8217;animal dont l&#8217;identifiant est idAnimal.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1940,7 +2157,7 @@ Person -- LostAnimal : "1,N" Perd "1,N"
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-12-26 22:15:53 +0100
+Last updated 2024-01-08 00:05:52 +0100
 </div>
 </div>
 </body>

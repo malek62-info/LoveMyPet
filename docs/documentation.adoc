@@ -22,7 +22,7 @@ Pour le logo du projet, on a crée le logo suivant :
 
 image::logo.png[logo de lovemypet]
 
-==== Membres de l'équipe
+=== Membres de l'équipe
 
 Le projet LoveMyPet a été réalisé par les membres suivants : 
 
@@ -167,6 +167,10 @@ RECTANGLE Backend {
   GestionUtilisateurs
   LogiqueAdoption
   SuiviVaccination
+  LogiqueAlerts
+  LogiqueSuiviDuPoids
+  LogiqueAffichageDesparcs
+  LogiqueAffichageDesVeterinaires
 }
 
 RECTANGLE BaseDeDonnees {
@@ -175,6 +179,15 @@ RECTANGLE BaseDeDonnees {
   TablesAdoption
   TablesVaccination
   TablesVaccin
+  TableAdvice
+  TableCanidature
+  TableComment
+  TableFeedingConfirmation
+  TableFeedingTime
+  TableHistoriqueAdoption
+  TableHistoriqueWeight
+  TableLikeDislike
+  TableLostAnimal
 }
 
 Backend -- BaseDeDonnees : communique
@@ -239,6 +252,47 @@ Point de départ de l'API : `/vaccination`
 Point de départ de l'API : `/vaccin`
 
 * `GET /all` : Obtenir toutes les vaccinations.
+
+===== HistoriqueAdoptionController
+
+Point de départ de l'API : `/historiqueadoption`
+
+* `POST /ajouteradoption` : ajouter une adoption temporaire dans la table.
+
+===== HistoriqueWeightController
+
+Point de départ de l'API : `/historiqueWeight`
+
+* `GET /animal/{idAnimal}` : Récupérer la liste des liens d'historique de poids pour un animal donné.
+*`GET /{id}` : Récupérer les détails d'un enregistrement d'historique de poids par son identifiant.
+*`GET /data/{idAnimal}` : Récupérer les données d'historique de poids pour un animal donné.
+
+===== InfoAnimalController
+
+Point de départ de l'API : `/infoanimal`
+
+* `GET /{idAnimal}` : Récupérer les informations concernant un animal à partir de son id
+*`POST /updateName/{idAnimal}` : modifier le nom de l'animal dont l'identifiant est idAnimal.
+*`POST /updateWeight/{idAnimal}` : modifier le poids de l'animal dont l'identifiant est idAnimal.
+*`POST /updateImage/{idAnimal}` : modifier l'image de l'animal dont l'identifiant est idAnimal.
+
+===== LostAnimalController
+
+
+
+Point de départ de l'API : `/lost-animal`
+
+* `POST /add` : Ajouter un animal perdu dans la table LotAnimal.
+*`GET /list` : Récupérer la liste des animaux perdus.
+
+===== MesCandidatureController
+
+
+
+Point de départ de l'API : `/mescandidature`
+
+* `GET /person/{idPerson}` : Récupérer les liens des candidatures de la personne.
+*`GET /{idCandidature}` : Récupérer la candidature.
 
 ==== plateforme technologique
 
@@ -321,7 +375,101 @@ Le propriétaire peut ensuite examiner chaque candidature individuellement et d�
 
 === Petite feature pour l'affichage et la modification des informations des Animaux
 
-Chaque animal dans la section "Mes Animaux" est doté d'un bouton en haut à droite avec le signe plus (+). En cliquant sur ce bouton, les informations détaillées de l'animal sont affichées, offrant la possibilité de modifier le nom, le poids et la photo de l'animal.
+Cette feature permet de viualiser et modifer les détails d'un animal sur le site.
+
+==== Maquette du front
+
+Dans notre page des services, il faut cliquer sur SUIVI COMPLET DE L'ANIMAL
+
+image::images/suiviCompet.png[alt]
+
+Dans la page Mes animaux, il figure un signe (+) pour chaque animal, cliquez dessus pour accéder aux détails de votre animal
+
+image::images/MesAnimaux.png[alt]
+
+Voici une vision des informations de votre animal, modifiables avec les trois boutons verts 
+
+image::images/InfoAnimal.png[alt]
+
+==== Diagramme de classes (partie métier)
+
+Voici un diagramme des classes qui explique la partie métier de cette petite feature 
+
+@startuml
+package com.nanterre.LoveMyPet.controller {
+    class InfoAnimalController {
+        - infoAnimalService: InfoAnimalServiceImpl
+        + getCandidatureDetailsById(idAnimal: Integer): Animal
+        + updateAnimalName(idAnimal: Integer, requestBody: Map<String, String>): ResponseEntity<String>
+        + updateAnimalWeight(idAnimal: Integer, requestBody: Map<String, Double>): ResponseEntity<String>
+        + updateAnimalImage(idAnimal: Integer, imageFile: MultipartFile): ResponseEntity<String>
+    }
+}
+
+package com.nanterre.LoveMyPet.model {
+    class Animal {
+        - id: Integer
+        - idPerson: Integer
+        - name: String
+        - category: String
+        - race: String
+        - weight: Double
+        - gender: Integer
+        - dateOfBirth: Date
+        - imageUrl: String
+        - adoptedByPerson: Person
+    }
+
+    class Person {
+        - idperson: Integer
+        // Add other attributes if needed
+    }
+
+    class HistoriqueWeight {
+        // Add attributes for HistoriqueWeight
+    }
+}
+
+package com.nanterre.LoveMyPet.repository {
+    interface InfoAnimalRepository {
+        // Methods from JpaRepository
+    }
+}
+
+package com.nanterre.LoveMyPet.service {
+    interface InfoAnimalService {
+        + getInfoAnimalDetailsById(idAnimal: Integer): Animal
+        + updateAnimalName(idAnimal: Integer, newName: String): void
+        + updateAnimalWeight(idAnimal: Integer, newWeight: Double): void
+        + updateAnimalImage(idAnimal: Integer, imageUrl: String): void
+    }
+
+    class InfoAnimalServiceImpl {
+        - entityManager: EntityManager
+        - animalInfoRepository: InfoAnimalRepository
+        + getInfoAnimalDetailsById(idAnimal: Integer): Animal
+        + updateAnimalName(idAnimal: Integer, newName: String): void
+        + updateAnimalWeight(idAnimal: Integer, newWeight: Double): void
+        + updateAnimalImage(idAnimal: Integer, imageUrl: String): void
+    }
+}
+
+InfoAnimalController --> InfoAnimalServiceImpl: infoAnimalService
+InfoAnimalServiceImpl --> InfoAnimalRepository: animalInfoRepository
+InfoAnimalServiceImpl --> EntityManager: entityManager
+InfoAnimalServiceImpl --> Animal
+InfoAnimalServiceImpl --> HistoriqueWeight
+
+@enduml
+
+==== Description API REST
+
+Point de départ de l'API : `/infoanimal`
+
+* `GET /{idAnimal}` : Récupérer les informations concernant un animal à partir de son id
+*`POST /updateName/{idAnimal}` : modifier le nom de l'animal dont l'identifiant est idAnimal.
+*`POST /updateWeight/{idAnimal}` : modifier le poids de l'animal dont l'identifiant est idAnimal.
+*`POST /updateImage/{idAnimal}` : modifier l'image de l'animal dont l'identifiant est idAnimal.
 
 
 
