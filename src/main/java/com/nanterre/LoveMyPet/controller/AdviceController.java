@@ -2,6 +2,8 @@ package com.nanterre.LoveMyPet.controller;
 
 
 import com.nanterre.LoveMyPet.model.Advice;
+import com.nanterre.LoveMyPet.model.Comment;
+import com.nanterre.LoveMyPet.model.HistoriqueWeight;
 import com.nanterre.LoveMyPet.model.Person;
 
 import com.nanterre.LoveMyPet.service.AdviceService;
@@ -73,4 +75,41 @@ public class AdviceController {
         }
 
     }
+    @PostMapping("/addComment/{adviceId}")
+    public ResponseEntity<String> addCommentToAdvice(@PathVariable Integer adviceId, @RequestBody String commentText, @RequestParam Integer idPerson) {
+        try {
+            adviceService.addCommentToAdvice(adviceId, commentText, idPerson);
+            return ResponseEntity.ok("Comment added successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding comment");
+        }
+    }
+    @GetMapping("/adviceComments/{adviceId}")
+    public List<String> getCommentLinksByAdviceId(@PathVariable Integer adviceId) {
+        return adviceService.getCommentLinksByAdviceId(adviceId);
+    }
+    @GetMapping("/comment/{commentId}")
+    public ResponseEntity<Comment> getCommentDetailsById(@PathVariable Integer commentId) {
+        Comment comment = adviceService.getCommentDetailsById(commentId);
+
+        if (comment != null) {
+            return new ResponseEntity<>(comment, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/Commentdata/{adviceId}")
+    public ResponseEntity<List<Comment>> getCommentsByAdviceId(@PathVariable Integer adviceId) {
+        List<Comment> comments = adviceService.getCommentsByAdviceId(adviceId);
+
+        if (!comments.isEmpty()) {
+            return new ResponseEntity<>(comments, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        
+    }
+
+    
 }

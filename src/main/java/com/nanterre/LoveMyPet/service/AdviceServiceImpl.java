@@ -1,7 +1,11 @@
 package com.nanterre.LoveMyPet.service;
 
 import com.nanterre.LoveMyPet.model.Advice;
+import com.nanterre.LoveMyPet.model.Comment;
+import com.nanterre.LoveMyPet.model.HistoriqueWeight;
+import com.nanterre.LoveMyPet.model.Person;
 import com.nanterre.LoveMyPet.repository.AdviceRepository;
+import com.nanterre.LoveMyPet.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +23,8 @@ public  class AdviceServiceImpl implements AdviceService { // Implémenter l'int
 
     @Autowired
     private AdviceRepository adviceRepository;
+    @Autowired
+    private CommentRepository commentRepository;
 
 
     //référence de toutes les advices
@@ -51,6 +57,7 @@ public  class AdviceServiceImpl implements AdviceService { // Implémenter l'int
         adviceDetails.put("imageUrl", advice.getImageUrl());
         adviceDetails.put("likeCount", advice.getLikeCount());
         adviceDetails.put("dislikeCount", advice.getDislikeCount());
+        adviceDetails.put("comments", advice.getComments());
         return adviceDetails;
     }
 
@@ -59,6 +66,48 @@ public  class AdviceServiceImpl implements AdviceService { // Implémenter l'int
     @Override
     public void addAdvice(Advice advice) {
         adviceRepository.save(advice);
+    }
+    
+    @Override
+    public void addCommentToAdvice(Integer adviceId, String commentText, Integer idPerson) {
+        Advice advice = adviceRepository.findById(adviceId).orElse(null);
+
+        if (advice != null) {
+            Comment comment = new Comment();
+            comment.setText(commentText);
+
+            // Créer un objet Person avec l'ID fourni
+            Person commenter = new Person();
+            commenter.setIdPerson(idPerson);
+            comment.setCommenter(commenter);
+
+            // Ajouter le commentaire à l'avis
+            advice.addComment(comment);
+
+            // Mettre à jour la base de données
+            adviceRepository.save(advice);
+        }
+    }
+    
+    @Override 
+    public List<String> getCommentLinksByAdviceId(Integer adviceId) {
+        Advice advice = adviceRepository.findById(adviceId).orElse(null);
+
+        return advice.getComments().stream()
+                .map(comment -> "/advice/" + adviceId + "/comment/" + comment.getCommentId())
+                .collect(Collectors.toList());
+    }
+    @Override
+    public Comment getCommentDetailsById(Integer commentId) {
+        return commentRepository.findById(commentId).orElse(null);
+    }
+    
+    @Override
+    public List<Comment> getCommentsByAdviceId(Integer adviceId) {
+        Advice advice = adviceRepository.findById(adviceId).orElse(null);
+
+
+        return advice.getComments();
     }
 }
 
