@@ -1,12 +1,10 @@
 package com.nanterre.LoveMyPet.controller;
-
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
@@ -17,18 +15,41 @@ public class ControllerTest {
     private Controller controller;
 
     @Mock
-    private ConcurrentModel model;
+    private Model model;
 
     public ControllerTest() {
         MockitoAnnotations.openMocks(this);
     }
 
+    @Test
+    public void testShowAdoptionPage() {
+        String result = controller.showAdoptionPage(model);
+        assertEquals("adoption", result);
+    }
 
+    @Test
+    public void testShowAnimals() {
+        String result = controller.showAnimals(model);
+        assertEquals("mesanimaux", result);
+    }
 
+    @Test
+    public void testShowCandidatureByAnimalId() {
+        String result = controller.showCandidatureByAnimalId(model);
+        assertEquals("candidatureadoption", result);
+    }
 
+    @Test
+    public void testShowVaccinations() {
+        String result = controller.showVaccinations(model);
+        assertEquals("suivi", result);
+    }
 
-
-
+    @Test
+    public void testShowCandidatures() {
+        String result = controller.showCandidatures(model);
+        assertEquals("mescandidatures", result);
+    }
 
     @Test
     public void testShowpage() {
@@ -88,5 +109,59 @@ public class ControllerTest {
     public void testDonate() {
         String result = controller.donate();
         assertEquals("Map", result);
+    }
+
+    @Test
+    public void testLostAnimals() {
+        String result = controller.LostAnimals();
+        assertEquals("LostAnimals", result);
+    }
+
+    @Test
+    public void testEnregistrerLostAnimal() {
+        String result = controller.EnregistrerLostAnimal();
+        assertEquals("EnregistrerLostAnimal", result);
+    }
+
+    @Test
+    public void testListLostAnimal() {
+        String result = controller.ListLostAnimal();
+        assertEquals("ListLostAnimal", result);
+    }
+
+    @Test
+    public void testPublication() {
+        String result = controller.publication();
+        assertEquals("publications", result);
+    }
+
+    @Test
+    public void testAdvice() {
+        String result = controller.Advice();
+        assertEquals("AddAdvice", result);
+    }
+
+    @Test
+    public void testAddItems() {
+        String result = controller.additems();
+        assertEquals("additems", result);
+    }
+
+    @Test
+    public void testItemsToDonate() {
+        String result = controller.itemstodonate();
+        assertEquals("itemstodonate", result);
+    }
+
+    @Test
+    public void testMesDonations() {
+        String result = controller.mesdonations();
+        assertEquals("mesdonations", result);
+    }
+
+    @Test
+    public void testItemsPage() {
+        String result = controller.itemspage();
+        assertEquals("itemspage", result);
     }
 }
