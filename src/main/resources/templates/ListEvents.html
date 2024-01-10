@@ -180,7 +180,26 @@
 </head>
 <body>
 
-<h1>Liste des Événements Non Expirés</h1>
+<header>
+    <h1>Liste des Événements Non Expirés</h1>
+
+</header>
+
+<nav>
+    <a href="/">Accueil</a>
+    <a href="/profile">Profil</a>
+    <a href="/AddEvent">Créer un événement</a>
+</nav>
+
+<div id="content">
+    <input type="hidden" id="idPerson" value=""/>
+    <div id="eventContainer"></div>
+
+</div>
+
+<footer>
+    © 2023 Evenements de l'utilisateur. Tous droits réservés.
+</footer>
 
 <ul id="evenementsList">
     <!-- Les événements seront affichés ici dynamiquement -->
