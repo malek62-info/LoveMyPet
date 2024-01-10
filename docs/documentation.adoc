@@ -327,49 +327,6 @@ Utilisation d'une architecture RESTful pour la communication entre le frontend e
 
 == Partie 1 : Modélisation
 
-=== Fonctionnalité d'Adoption des Animaux
-
-Une fonctionnalité essentielle de notre application est l'adoption d'animaux, offrant une expérience conviviale pour faciliter le processus.
-
-==== Ajout d'Animaux dans "Mes Animaux"
-
-Après avoir ajouté des compagnons dans la section "Mes Animaux", chaque animal est associé au bouton unique "Donner". Cela déclenche un pop-up interactif pour faciliter l'adoption.
-
-**étape 1**
-
-image::enregistrement.png[etape 1]
-
-**étape 2**
-
-image::donner.png[etape 2]
-
-**étape 3**
-
-image::popup.png[etape 3]
-
-==== Configuration des Dates pour l'Adoption
-
-Dans le pop-up, la date de début est obligatoire, indiquant quand l'animal sera disponible pour adoption. La date de fin est facultative, laissant aux donateurs le choix de l'adoption permanente ou temporaire, idéal pour les périodes comme les vacances.
-
-==== Affichage dans la Section "Adoption"
-
-Une fois configuré, l'animal est répertorié dans la section dédiée à l'adoption, avec un bouton "Candidater" pour exprimer l'intérêt.
-
-**étape 4**
-
-image::adoption.png[etape 4]
-
-Cette approche flexible simplifie l'adoption, laissant aux propriétaires le choix de la durée d'adoption.
-
-==== Gestion des Candidatures
-
-Chaque animal ajouté à la section "Mes Animaux" est équipé d'un bouton "Candidatures". Ce bouton permet au propriétaire de consulter les détails des personnes ayant postulé pour garder son animal.
-
-*étape 5*
-
-Le propriétaire peut ensuite examiner chaque candidature individuellement et décider d'accepter ou de refuser.
-
-*étape 6*
 
 
 
@@ -471,141 +428,324 @@ Point de départ de l'API : `/infoanimal`
 *`POST /updateWeight/{idAnimal}` : modifier le poids de l'animal dont l'identifiant est idAnimal.
 *`POST /updateImage/{idAnimal}` : modifier l'image de l'animal dont l'identifiant est idAnimal.
 
+==== Diagrammes de séquence des interactions front/back
+
+
+
+@startuml
+actor Utilisateur
+participant JavaScript
+participant BackEnd
+database BaseDeDonnees
+
+Utilisateur -> JavaScript: Clique sur le bouton de modification
+JavaScript -> Utilisateur: Affiche une boîte de dialogue pour entrer les nouvelles informations
+Utilisateur --> JavaScript: Entrez les nouvelles informations
+
+JavaScript -> BackEnd: Requête POST vers /infoanimal/updateName/{idAnimal} avec le nouveau nom
+BackEnd --> JavaScript: Réponse HTTP (succès ou échec)
+JavaScript -> BaseDeDonnees: Mise à jour du nom dans la base de données
+
+JavaScript -> BackEnd: Requête POST vers /infoanimal/updateWeight/{idAnimal} avec le nouveau poids
+BackEnd --> JavaScript: Réponse HTTP (succès ou échec)
+JavaScript -> BaseDeDonnees: Mise à jour du poids dans la base de données
+
+JavaScript -> BackEnd: Requête POST vers /infoanimal/updateImage/{idAnimal} avec le nouveau fichier image
+BackEnd --> JavaScript: Réponse HTTP (succès ou échec)
+JavaScript -> BaseDeDonnees: Mise à jour de l'URL de l'image dans la base de données
+
+Utilisateur -> JavaScript: Recharge la page pour refléter les modifications
+@enduml
+
+
+=== Petite feature pour commenter les publications Advice dans le forum de LoveMyPet
+
+Cette petite feature permet de rajouter de commenter les publications
+
+==== Maquette du front
+
+Dans notre page Forum Animal, commenter les publications
+
+image::images/commenter.png[alt]
+
+
+==== Diagramme de classes (partie métier)
+
+Voici un diagramme des classes qui explique la partie métier de cette petite feature 
+
+@startuml
+
+package com.nanterre.LoveMyPet.controller {
+  class AdviceController {
+    - adviceService: AdviceService
+    + addCommentToAdvice(adviceId: Integer, commentText: String, idPerson: Integer): ResponseEntity<String>
+    + getCommentLinksByAdviceId(adviceId: Integer): List<String>
+    + getCommentDetailsById(commentId: Integer): ResponseEntity<Comment>
+    + getCommentsByAdviceId(adviceId: Integer): ResponseEntity<List<Comment>>
+  }
+}
+
+package com.nanterre.LoveMyPet.model {
+  class Advice {
+    - adviceId: Integer
+    - comments: List<Comment>
+  }
+  
+  class Comment {
+    - commentId: Integer
+    - advice: Advice
+    - commenter: Person
+    - text: String
+  }
+  
+  class Person {
+    - idPerson: Integer
+  }
+}
+
+package com.nanterre.LoveMyPet.repository {
+  interface CommentRepository {
+    + findById(commentId: Integer): Optional<Comment>
+    + save(comment: Comment): Comment
+  }
+
+  interface AdviceRepository {
+    + findById(adviceId: Integer): Optional<Advice>
+    + save(advice: Advice): Advice
+  }
+}
+
+package com.nanterre.LoveMyPet.service {
+  class AdviceServiceImpl {
+    - adviceRepository: AdviceRepository
+    - commentRepository: CommentRepository
+    + addCommentToAdvice(adviceId: Integer, commentText: String, idPerson: Integer): void
+    + getCommentLinksByAdviceId(adviceId: Integer): List<String>
+    + getCommentDetailsById(commentId: Integer): Comment
+    + getCommentsByAdviceId(adviceId: Integer): List<Comment>
+  }
+}
+
+AdviceController --> AdviceService
+AdviceController --> Advice
+AdviceController --> Comment
+AdviceController --> ResponseEntity
+AdviceController --> HttpStatus
+
+Comment --> Advice
+Comment --> Person
+
+CommentRepository --> Comment
+
+AdviceServiceImpl --> AdviceRepository
+AdviceServiceImpl --> CommentRepository
+
+AdviceRepository --> Advice
+AdviceRepository --> JpaRepository
+
+@enduml
+
+==== Description API REST
+
+Point de départ de l'API : `/api/advices`
+
+* `POST /addComment/{adviceId}` : Ajouter un commentaire lié à l'advice adviceId
+*`GET /adviceComments/{adviceId}` : Récupérer la liste des liens des commentaires de la publication adviceId.
+*`GET /comment/{commentId}` : Récupérer les détails d'un commentaire.
+
+==== Diagrammes de séquence des interactions front/back
+
+@startuml
+
+actor Utilisateur
+participant JavaScript
+participant BackEnd
+database BaseDeDonnees
+
+Utilisateur -> JavaScript: Consulte les conseils
+JavaScript -> BackEnd: Requête GET vers /api/advices
+BackEnd --> JavaScript: Renvoie la liste des conseils
+
+Utilisateur -> JavaScript: Ajoute un commentaire à un conseil
+JavaScript -> BackEnd: Requête POST vers /api/advices/addComment/{adviceId}?idPerson={idPerson} avec le texte du commentaire
+BackEnd --> JavaScript: Réponse HTTP (succès ou échec)
+
+Utilisateur -> JavaScript: Consulte les commentaires d'un conseil
+JavaScript -> BackEnd: Requête GET vers /api/advices/adviceComments/{adviceId}
+BackEnd --> JavaScript: Renvoie la liste des commentaires
+
+Utilisateur -> JavaScript: Consulte les détails d'un commentaire
+JavaScript -> BackEnd: Requête GET vers /api/advices/comment/{commentId}
+BackEnd --> JavaScript: Renvoie les détails du commentaire
+
+@enduml
 
 
 === Fonctionnalité de Suivi des Vaccins - Carnet de Vaccination en Ligne
 
 La fonction de suivi des vaccins offre une gestion centralisée des vaccinations des animaux. Accessible depuis "Mes Animaux", elle permet aux propriétaires de maintenir un carnet de vaccination en ligne.
 
-==== Accès Simple
+==== Maquette du front
 
-**étape 1**
-image::suivi_vaccins.png[etape 1]
+Cette page permet d'ajouter et de visualiser les vaccinations de votre animal 
 
-**étape 2**
-image::mes_animaux.png[etape 2]
+image::images/vaccin.png[alt]
 
-==== Vue d'Ensemble des Vaccinations
+==== Diagramme de classes (partie métier)
+Voici un diagramme des classes qui explique la partie métier de cette  feature
 
-L'interface propose une vue d'ensemble détaillée des vaccinations, incluant le nom et la date de chaque vaccin.
+@startuml
 
-==== Ajout de Vaccinations
+package "com.nanterre.LoveMyPet.controller" {
+    class VaccinationController {
+        +getVaccinationReferenceByAnimalId(idAnimal: Integer): List<String>
+        +getVaccinationDetailsById(idVaccination: Integer): Vaccination
+        +add(vaccination: Vaccination, animalId: Integer): String
+    }
 
-Les propriétaires peuvent ajouter de nouvelles vaccinations à tout moment, garantissant un historique complet et à jour.
-
-=== Fonctionnalité de recherche des Vétérinaires et Jardins à Proximité
-
-L'application offre une fonctionnalité avancée permettant aux utilisateurs de localiser rapidement des vétérinaires ou des jardins à proximité de leur emplacement actuel. Cette fonctionnalité est accessible depuis la page "Mes Services".
-
-== Utilisation de la Carte depuis la Page "Mes Services"
-
-=== Accès à la Page "Mes Services"
-
-Connectez-vous à votre compte sur le site et accédez à la page "Mes Services".
-
-=== Option "Trouver un Service"
-
-Recherchez l'option "EXPLORATION FACILE" sur la page "Mes Services" et cliquez dessus.
-
-image::service.jpeg[Services]
-
-=== Choix entre Vétérinaires et Jardins
-
-Une fois sur la page "EXPLORATION FACILE", les utilisateurs ont deux choix :
-- "Trouver un Vétérinaire"
-- "Rechercher un Jardin pour se Balader"
-- "Recherche par Ville et Périmètre"
-
-Les utilisateurs peuvent sélectionner l'option qui correspond à leur recherche.
-
-image::map.png[Map]
-
-== Requête vers l'API Overpass et Nominatim
-
-=== Trouver un Vétérinaire :
-
-Lorsque l'utilisateur choisit "Trouver un Vétérinaire", l'application utilise l'API Overpass pour rechercher les vétérinaires à proximité de la position actuelle de l'utilisateur. La requête à l'API Overpass est générée dynamiquement pour récupérer les nœuds correspondant à la catégorie "amenity=veterinary" dans un rayon défini autour de la position de l'utilisateur.
-
-En outre, l'application utilise l'API Nominatim pour convertir le nom de la ville saisi par l'utilisateur en coordonnées géographiques.
-
-[plantuml]
-----
-class VeterinairesController {
-    +getVeterinaires(double latitude, double longitude, String city, int radius): String
-    -Veterinary
+    class VaccinController {
+        -vaccinService: VaccinService
+        +getAllVaccins(): Iterable<Vaccin>
+    }
 }
 
-class Veterinary {
-    -lat: double
-    -lon: double
-    -name: String
+package "com.nanterre.LoveMyPet.model" {
+    class Vaccin {
+        -idVaccin: Integer
+        -vaccinName: String
+        +getIdVaccin(): Integer
+        +getVaccinName(): String
+    }
 
-    +Veterinary(double lat, double lon, String name)
-    +getLat(): double
-    +getLon(): double
-    +getName(): String
+    class Vaccination {
+        -idVaccination: Integer
+        -vaccin: Vaccin
+        -animal: Animal
+        -date: Date
+        +getIdVaccination(): Integer
+        +getVaccin(): Vaccin
+        +getAnimal(): Animal
+        +getDate(): Date
+    }
+
+    class Animal {
+        -idAnimal: Integer
+        // ... (other attributes and methods)
+    }
 }
 
-class RestTemplate {
-    +getForObject(url: String, responseType: Class<T>): T
+package "com.nanterre.LoveMyPet.repository" {
+    interface VaccinationRepository {
+        +findByAnimalId(animalId: Integer): List<Vaccination>
+    }
+
+    interface VaccinRepository {
+        +findAll(): Iterable<Vaccin>
+    }
 }
 
-VeterinairesController --> Veterinary: "1..*"
-VeterinairesController --> RestTemplate: makeApiCall()
-RestTemplate --> API: Overpass API
-RestTemplate --> API: Nominatim API
-----
+package "com.nanterre.LoveMyPet.service" {
+    interface VaccinationService {
+        +saveVaccination(vaccination: Vaccination): Vaccination
+        +getVaccinationLinksByAnimalId(idAnimal: Integer): List<String>
+        +getVaccinationDetailsById(idVaccination: Integer): Vaccination
+    }
 
-- === Rechercher un Jardin pour se Balader :
+    class VaccinationServiceImpl {
+        -entityManager: EntityManager
+        -vaccinationRepository: VaccinationRepository
+        +saveVaccination(vaccination: Vaccination): Vaccination
+        +getVaccinationLinksByAnimalId(idAnimal: Integer): List<String>
+        +getVaccinationDetailsById(idVaccination: Integer): Vaccination
+    }
 
-Si l'utilisateur opte pour "Rechercher un Jardin pour se Balader", l'application effectue une requête pour trouver les nœuds correspondant à la catégorie "leisure=garden" autour de la position actuelle de l'utilisateur. Cette requête est également générée dynamiquement pour récupérer les informations nécessaires.
+    interface VaccinService {
+        +getAllVaccins(): Iterable<Vaccin>
+        +getVaccinById(id: Integer): Vaccin
+    }
 
-== Affichage des Résultats sur la Carte
+    class VaccinServiceImpl {
+        -vaccinRepository: VaccinRepository
+        +getAllVaccins(): Iterable<Vaccin>
+        +getVaccinById(id: Integer): Vaccin
+    }
+}
 
--  Trouver un Vétérinaire :
+VaccinationController --> VaccinationServiceImpl
+VaccinationServiceImpl --> VaccinationRepository
+VaccinController --> VaccinService
+VaccinService --> VaccinRepository
+VaccinationRepository --> Vaccination
+VaccinRepository --> Vaccin
 
-Les résultats de la requête pour les vétérinaires sont affichés sur la carte sous forme de marqueurs. Chaque marqueur représente l'emplacement d'un vétérinaire trouvé.
+Vaccination --> Vaccin
+Vaccination --> Animal
 
-image::veterinaire.png[Vétérinaire]
-=== Recherche par ville "Geneve":
+@enduml
 
-image::veterinairegeneve.png[veterinairegeneve]
+==== Description API REST 
 
-- Rechercher un Jardin pour se Balader :
+VaccinationController
 
-Pour la recherche de jardins, les résultats correspondants aux nœuds "leisure=garden" sont affichés sur la carte.
+Point de départ de l'API : `/vaccination`
 
-image::Parc.png[Parc]
+* `GET /animal/{idAnimal}` : Obtenir les références de vaccination par ID d'animal.
+* `GET /{idVaccination}` : Obtenir les détails d'une vaccination spécifique par ID.
+* `POST /add` : Ajouter une nouvelle vaccination.
 
-=== Explication de l'API Overpass et Nominatim
+VaccinController
 
-L'API Overpass est un service d'interrogation et d'analyse de données OpenStreetMap. Elle permet de récupérer des données géographiques en utilisant un langage de requête spécifique. Dans le contexte de cette application, elle est utilisée pour obtenir des informations sur les vétérinaires et les jardins à proximité en fonction de la position de l'utilisateur. Les requêtes sont construites dynamiquement pour cibler les catégories spécifiques (amenity=veterinary, leisure=garden) et les résultats sont intégrés à la carte de l'application.
+Point de départ de l'API : `/vaccin`
 
-== Interaction avec les Avis
+* `GET /all` : Obtenir toutes les vaccinations.
 
-image::images_planification_food/7.png[advice]
+==== Diagrammes de séquence des interactions front/back
 
+@startuml
 
-Dans cette sous-branche, les utilisateurs ont la possibilité d'interagir avec les avis en les consultant, en les likant, ou en les dislikant. Cette fonctionnalité permet d'exprimer des réactions vis-à-vis des conseils postés par d'autres utilisateurs.
+actor Utilisateur as User
+participant Frontend as FrontendHTML
+participant BackendController as VaccinationController
+participant VaccinationService as VaccinationServiceImpl
+participant VaccinationRepository as VaccinationRepository
+database VaccinationDB as VaccinationDB
+database VaccinDB as VaccinDB
 
-=== Consulter les Avis
+activate FrontendHTML
 
-Les utilisateurs peuvent parcourir les avis postés par d'autres membres de la communauté LoveMyPet. Ces avis peuvent contenir des conseils utiles, des expériences personnelles, ou des informations pertinentes sur les animaux de compagnie.
+User -> FrontendHTML: Accéder à la page de suivi
+activate BackendController
+FrontendHTML -> BackendController: Effectuer une requête pour obtenir les données des vaccinations
+activate VaccinationService
+BackendController -> VaccinationService: Appeler getVaccinationLinksByAnimalId
+activate VaccinationRepository
+VaccinationService -> VaccinationRepository: Appeler findByAnimalId
+VaccinationRepository -> VaccinationDB: Requête pour obtenir les vaccinations
+VaccinationDB --> VaccinationRepository: Renvoyer les données
+VaccinationRepository --> VaccinationService: Renvoyer les données
+deactivate VaccinationDB
+deactivate VaccinationRepository
+deactivate VaccinationService
+BackendController --> FrontendHTML: Renvoyer les données au frontend
+deactivate BackendController
 
-=== Liker un Avis
+User -> FrontendHTML: Ajouter un nouveau vaccin
+activate FrontendHTML
+FrontendHTML -> BackendController: Envoyer les données du formulaire
+activate VaccinationService
+BackendController -> VaccinationService: Appeler saveVaccination
+activate VaccinationRepository
+VaccinationService -> VaccinationRepository: Appeler save
+VaccinationRepository -> VaccinationDB: Enregistrer le nouveau vaccin
+VaccinationDB --> VaccinationRepository: Confirmation de l'enregistrement
+VaccinationRepository --> VaccinationService: Renvoyer la confirmation
+deactivate VaccinationDB
+deactivate VaccinationRepository
+deactivate VaccinationService
+BackendController --> FrontendHTML: Renvoyer la confirmation au frontend
+deactivate BackendController
 
-Chaque utilisateur a la possibilité de manifester son appréciation envers un avis en utilisant la fonction "Like". Lorsqu'un utilisateur clique sur le bouton "Like" d'un avis, cela indique une réaction positive envers le contenu de cet avis.
-
-=== Disliker un Avis
-
-De même, les utilisateurs peuvent exprimer leur désaccord ou leur mécontentement envers un avis en utilisant la fonction "Dislike". Cliquer sur le bouton "Dislike" signifie que l'utilisateur n'est pas en accord avec le contenu de l'avis.
-
-Ces interactions permettent de créer une dynamique communautaire où les utilisateurs peuvent partager leurs opinions et réagir aux conseils des autres membres.
-
-Les actions de "Like" et "Dislike" sont enregistrées dans la base de données, fournissant ainsi des informations sur la popularité et la réception des avis au sein de la communauté LoveMyPet.
-
-Ces fonctionnalités contribuent à renforcer l'engagement des utilisateurs et favorisent une communauté active et collaborative.
-
+@enduml
 
 
 == Fonctionnalité de Gestion des Animaux Perdus
@@ -620,122 +760,6 @@ La section "Animaux Perdus" de LoveMyPet propose une fonctionnalité permettant 
 L'API Nominatim est utilisée pour convertir le nom de la ville saisi par l'utilisateur en coordonnées géographiques, ce qui permet d'étendre la fonctionnalité de recherche par ville et périmètre.
 
 
-= Fonctionnalité de Planification des Heures de Repas et Envoi de Mails
-
-== Introduction
-La fonctionnalité de planification des heures de repas et d'envoi de mails de LoveMyPet permet aux utilisateurs de définir des horaires de repas pour leurs animaux de compagnie et de recevoir des rappels par e-mail à ces heures programmées. Cette documentation explique comment utiliser la page dédiée à cette fonctionnalité, basée sur le code HTML fourni.
-
-image::images_planification_food/3.png[Planification de repas]
-
-== Contenu de la Page HTML
-La page HTML fournie contient un formulaire pour ajouter des alertes d'alimentation, une liste d'alertes existantes avec des options pour les supprimer ou les modifier, et des scripts JavaScript pour interagir avec l'API et gérer les fonctionnalités associées.
-
-=== Structure HTML
-La structure de la page HTML est composée des éléments suivants :
-- Bouton de redirection vers la page "Mes animaux."
-- Titre "Mes alertes."
-- Message indiquant la réception de mails.
-- Formulaire pour ajouter une alerte avec champ d'heure et bouton "Créer une alerte."
-- Tableau affichant les heures de repas programmées avec options pour les supprimer ou les éditer.
-
-=== Scripts JavaScript
-Plusieurs scripts JavaScript sont inclus pour gérer la récupération, l'affichage, la suppression et la modification des horaires de repas à partir de l'API.
-
-=== Fonctionnalités Principales
-
-=== 1. Affichage des Horaires de Repas
-La fonction `fetchFeedingTimes(animalId)` récupère les horaires de repas depuis l'API et les affiche dans le tableau sur la page.
-
-=== 2. Ajout d'une Alerte d'Alimentation
-La fonction `submitForm()` récupère l'heure saisie par l'utilisateur, envoie une requête POST à l'API pour créer une nouvelle alerte, puis met à jour l'affichage.
-
-=== 3. Suppression d'une Alerte d'Alimentation
-La fonction `deleteFeedingTime(id)` envoie une requête DELETE à l'API pour supprimer l'alerte d'alimentation spécifiée par l'ID.
-
-=== 4. Modification d'une Alerte d'Alimentation
-La fonction `updateFeedingTime(id)` permet à l'utilisateur de mettre à jour l'heure d'une alerte existante en envoyant une requête PUT à l'API.
-
-=== 5. Envoi de Mails de Rappel
-Chaque heure planifiée, un e-mail de rappel est automatiquement envoyé à l'utilisateur, l'informant de l'heure de repas prévue pour son animal.
-
-image::images_planification_food/4.png[Exemple d'email envoyé a l'utilisateur]
-
-=== Utilisation de la Page
-1. Accédez à la page via le bouton "Mes animaux."
-2. Ajoutez de nouvelles alertes d'alimentation en spécifiant l'heure et en cliquant sur "Créer une alerte."
-3. Consultez et gérez les alertes existantes dans le tableau.
-4. Recevez des rappels par e-mail à chaque heure programmée.
-
-=== Confirmation de l'E-mail
-
-Pour confirmer la réception de l'e-mail et l'alimentation de l'animal, l'utilisateur peut cliquer sur le bouton de confirmation présent dans l'e-mail. Lorsqu'il le fait, un message de réussite est affiché, et une nouvelle ligne est insérée dans la base de données pour enregistrer la confirmation.
-
-Le bouton de confirmation dans l'e-mail doit rediriger l'utilisateur vers une page ou un endpoint dédié, par exemple :
-
-[source,html]
-----
-<a href="/feeding-confirmation/confirm?personId=1&amp;animalId=1&amp;feedingTimeId=39&amp;confirmationCode=ad97faf5">Confirmer</a>
-----
-
-Lorsque l'utilisateur clique sur ce lien, une requête est envoyée à l'API pour confirmer la réception de l'e-mail. Cette requête déclenche l'insertion d'une nouvelle ligne dans la base de données avec les informations associées à la confirmation.
-
-Voici un exemple de structure de la table dans la base de données :
-
-[source,sql]
-----
-CREATE TABLE confirmation_table (
-    id SERIAL PRIMARY KEY,
-    animal_id INTEGER,
-    confirmation_code VARCHAR(255),
-    confirmation_date TIMESTAMP,
-    feeding_time_id INTEGER,
-    person_id INTEGER
-);
-----
-
-Chaque confirmation est enregistrée avec les informations suivantes :
-- `id`: Identifiant unique de la confirmation (auto-incrémenté).
-- `animal_id`: Identifiant de l'animal concerné.
-- `confirmation_code`: Code de confirmation associé à l'e-mail.
-- `confirmation_date`: Date et heure de la confirmation.
-- `feeding_time_id`: Identifiant de l'horaire d'alimentation associé.
-- `person_id`: Identifiant de la personne effectuant la confirmation.
-
-Lorsqu'un utilisateur confirme l'e-mail, une nouvelle ligne est ajoutée à la table avec les données appropriées. Cette approche permet de suivre les confirmations pour chaque animal, chaque horaire d'alimentation, et chaque personne.
-
-Cette fonctionnalité offre une trace complète des confirmations et permet de garantir que les utilisateurs ont bien alimenté leurs animaux selon les horaires programmés.
-
-image::images_planification_food/5.png[Message]
-
-image::images_planification_food/6.png[Ligne dans la table feeding confirmation]
-
-=== API de la fonctionnalité
-
-==== Ajout d'un Horaire d'Alimentation
-Endpoint : `POST /api/feeding-times/add`
-Cette API permet d'ajouter un nouvel horaire d'alimentation. Elle accepte une requête POST avec les détails de l'horaire dans le corps de la requête. En cas de succès, elle renvoie un message indiquant que l'horaire a été ajouté avec succès. En cas d'erreur, elle peut retourner des messages spécifiques, tels que la détection d'un conflit si l'horaire existe déjà.
-
-==== Liste des Horaire d'Alimentation pour un Animal
-Endpoint : `GET /api/feeding-times/{idAnimal}`
-Cette API renvoie la liste des horaires de repas associés à un animal spécifié par son ID. Les horaires sont renvoyés sous forme de liste de chaînes.
-
-==== Détail d'un Horaire d'Alimentation
-Endpoint : `GET /api/feeding-times/time/{id}`
-Cette API renvoie les détails d'un horaire d'alimentation spécifié par son ID. Si l'horaire existe, elle renvoie les détails de l'horaire sous forme d'objet. Sinon, elle retourne une réponse "Not Found."
-
-==== Suppression d'un Horaire d'Alimentation
-Endpoint : `DELETE /api/feeding-times/delete/{id}`
-Cette API permet de supprimer un horaire d'alimentation en spécifiant son ID. En cas de succès, elle renvoie un message indiquant que l'horaire a été supprimé avec succès. En cas d'erreur, elle peut retourner un message générique d'erreur interne du serveur.
-
-==== Mise à Jour d'un Horaire d'Alimentation
-Endpoint : `PUT /api/feeding-times/update/{id}`
-Cette API permet de mettre à jour un horaire d'alimentation en spécifiant son ID. Elle accepte une requête PUT avec les détails mis à jour dans le corps de la requête. En cas de succès, elle renvoie un message de mise à jour réussie. En cas d'erreur, elle peut retourner un message d'erreur spécifique.
-
-==== Récupération des Horaire d'Alimentation Actuels pour les E-mails
-Endpoint : `GET /api/feeding-times/email-animal-current-feeding-times`
-Cette API renvoie une liste d'informations sur les horaires de repas actuels pour lesquels des e-mails de rappel doivent être envoyés. Les informations sont renvoyées sous forme de liste d'objets. En cas de succès, elle renvoie la liste des horaires. En cas d'absence de données, elle renvoie une réponse "No Content." En cas d'erreur, elle peut retourner une réponse générique d'erreur interne du serveur.
-
----
 
 == Partie 3 : Modélisation
 
