@@ -433,22 +433,25 @@ image::Parc.png[Parc]
 
 L'API Overpass est un service d'interrogation et d'analyse de données OpenStreetMap. Elle permet de récupérer des données géographiques en utilisant un langage de requête spécifique. Dans le contexte de cette application, elle est utilisée pour obtenir des informations sur les vétérinaires et les jardins à proximité en fonction de la position de l'utilisateur. Les requêtes sont construites dynamiquement pour cibler les catégories spécifiques (amenity=veterinary, leisure=garden) et les résultats sont intégrés à la carte de l'application.
 
-== Interaction avec les Avis
+== Fonctionnalité Interaction avec les Avis (Petite)
+
+==== Maquette du front
+
+Les utilisateurs ont la possibilité d'interagir avec les avis en les consultant, en les likant, ou en les dislikant. Cette fonctionnalité permet d'exprimer des réactions vis-à-vis des conseils postés par d'autres utilisateurs.
+
+==== Maquette du front
 
 image::images_planification_food/7.png[advice]
 
-
-Dans cette sous-branche, les utilisateurs ont la possibilité d'interagir avec les avis en les consultant, en les likant, ou en les dislikant. Cette fonctionnalité permet d'exprimer des réactions vis-à-vis des conseils postés par d'autres utilisateurs.
-
-=== Consulter les Avis
+===== Consulter les Avis
 
 Les utilisateurs peuvent parcourir les avis postés par d'autres membres de la communauté LoveMyPet. Ces avis peuvent contenir des conseils utiles, des expériences personnelles, ou des informations pertinentes sur les animaux de compagnie.
 
-=== Liker un Avis
+===== Liker un Avis
 
 Chaque utilisateur a la possibilité de manifester son appréciation envers un avis en utilisant la fonction "Like". Lorsqu'un utilisateur clique sur le bouton "Like" d'un avis, cela indique une réaction positive envers le contenu de cet avis.
 
-=== Disliker un Avis
+=====  Disliker un Avis
 
 De même, les utilisateurs peuvent exprimer leur désaccord ou leur mécontentement envers un avis en utilisant la fonction "Dislike". Cliquer sur le bouton "Dislike" signifie que l'utilisateur n'est pas en accord avec le contenu de l'avis.
 
@@ -457,6 +460,151 @@ Ces interactions permettent de créer une dynamique communautaire où les utilis
 Les actions de "Like" et "Dislike" sont enregistrées dans la base de données, fournissant ainsi des informations sur la popularité et la réception des avis au sein de la communauté LoveMyPet.
 
 Ces fonctionnalités contribuent à renforcer l'engagement des utilisateurs et favorisent une communauté active et collaborative.
+
+==== Description API back (REST)
+
+
+
+==== 1) Récupérer la liste de toutes les références des conseils
+Endpoint : `GET /api/advices`
+
+Aucun input.
+
+Output : Liste de chaînes représentant les références des conseils.
+
+==== 2) Récupérer les détails d'un conseil à partir de son ID
+Endpoint : `GET /api/advices/advice/{adviceId}`
+
+Input : {adviceId} - Identifiant du conseil (dans l'URL).
+
+Output : Map contenant les détails du conseil.
+
+==== 3) Ajouter un nouveau conseil
+Endpoint : `POST /api/advices/add`
+
+Input :
+[source,json]
+----
+{
+  "textAdvice": "Contenu du conseil",
+  "idPerson": 1,
+  "imageFile": "Fichier image (dans les données de la requête multipart)"
+}
+----
+
+Output : Réponse HTTP avec le statut de réussite ou d'erreur.
+
+=== API LikeDislikeController
+
+==== 4) Ajouter un "Like" pour un conseil spécifique
+Endpoint : `POST /api/like-dislike/like`
+
+Input :
+[source,json]
+----
+{
+  "advice_id": 1,
+  "person_id": 1
+}
+----
+
+Output : Réponse HTTP avec le statut de réussite ou d'erreur.
+
+==== 5) Ajouter un "Dislike" pour un conseil spécifique
+Endpoint : `POST /api/like-dislike/dislike`
+
+Input :
+[source,json]
+----
+{
+  "advice_id": 1,
+  "person_id": 1
+}
+----
+
+Output : Réponse HTTP avec le statut de réussite ou d'erreur.
+
+
+
+==== Diagramme de classes global (partie métier)
+[plantuml]
+----
+
+@startuml
+
+class Person {
+  idPerson: Integer
+  firstName: String
+  lastName: String
+  email: String
+}
+
+class Advice {
+  adviceId: Integer
+  author: Person
+  textAdvice: String
+  imageUrl: String
+  likeDislikes: List<LikeDislike>
+}
+
+class LikeDislike {
+  id: Integer
+  advice: Advice
+  person: Person
+  isLike: boolean
+}
+
+
+Person "1" -- "*" Advice : wrote
+Advice "1" -- "*" LikeDislike : has
+
+@enduml
+
+
+----
+
+
+==== Diagrammes de séquence des interactions front/back
+
+[plantuml]
+----
+
+@startuml
+
+actor Client
+participant AdviceController
+participant AdviceService
+participant AdviceServiceImpl
+participant AdviceRepository
+
+Client -> AdviceController: POST /api/advices/add
+AdviceController -> AdviceService: addAdvice(Advice)
+AdviceService -> AdviceServiceImpl: addAdvice(Advice)
+AdviceServiceImpl -> AdviceRepository: save(Advice)
+AdviceRepository --> AdviceServiceImpl: Database save operation
+AdviceServiceImpl --> AdviceService: Database save successful
+AdviceService --> AdviceController: Operation successful response
+
+@enduml
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -472,51 +620,25 @@ La section "Animaux Perdus" de LoveMyPet propose une fonctionnalité permettant 
 L'API Nominatim est utilisée pour convertir le nom de la ville saisi par l'utilisateur en coordonnées géographiques, ce qui permet d'étendre la fonctionnalité de recherche par ville et périmètre.
 
 
-= Fonctionnalité de Planification des Heures de Repas et Envoi de Mails
+= Fonctionnalité de Planification des Heures de Repas et Envoi de Mails et confirmation du mail
 
-== Introduction
-La fonctionnalité de planification des heures de repas et d'envoi de mails de LoveMyPet permet aux utilisateurs de définir des horaires de repas pour leurs animaux de compagnie et de recevoir des rappels par e-mail à ces heures programmées. Cette documentation explique comment utiliser la page dédiée à cette fonctionnalité, basée sur le code HTML fourni.
+=== Planification des Heures de Repas et Envoi de Mails
+
+Cette fonctionnalité permet à un utilisateur de programmer les heures auxquelles il souhaite nourrir son animal
+
+==== Maquette du front
+
+Etape 1: Rentrer une heure puis cliquer sur le boutton  "Creer une alerte" Puis l'alerte sera ajouter au tableau
+
+Aussi on peut modifier les alertes créer en cliqquand sur "Edith" , et supprimer ses alerte en "cliquand" sur Delete
 
 image::images_planification_food/3.png[Planification de repas]
 
-== Contenu de la Page HTML
-La page HTML fournie contient un formulaire pour ajouter des alertes d'alimentation, une liste d'alertes existantes avec des options pour les supprimer ou les modifier, et des scripts JavaScript pour interagir avec l'API et gérer les fonctionnalités associées.
 
-=== Structure HTML
-La structure de la page HTML est composée des éléments suivants :
-- Bouton de redirection vers la page "Mes animaux."
-- Titre "Mes alertes."
-- Message indiquant la réception de mails.
-- Formulaire pour ajouter une alerte avec champ d'heure et bouton "Créer une alerte."
-- Tableau affichant les heures de repas programmées avec options pour les supprimer ou les éditer.
-
-=== Scripts JavaScript
-Plusieurs scripts JavaScript sont inclus pour gérer la récupération, l'affichage, la suppression et la modification des horaires de repas à partir de l'API.
-
-=== Fonctionnalités Principales
-
-=== 1. Affichage des Horaires de Repas
-La fonction `fetchFeedingTimes(animalId)` récupère les horaires de repas depuis l'API et les affiche dans le tableau sur la page.
-
-=== 2. Ajout d'une Alerte d'Alimentation
-La fonction `submitForm()` récupère l'heure saisie par l'utilisateur, envoie une requête POST à l'API pour créer une nouvelle alerte, puis met à jour l'affichage.
-
-=== 3. Suppression d'une Alerte d'Alimentation
-La fonction `deleteFeedingTime(id)` envoie une requête DELETE à l'API pour supprimer l'alerte d'alimentation spécifiée par l'ID.
-
-=== 4. Modification d'une Alerte d'Alimentation
-La fonction `updateFeedingTime(id)` permet à l'utilisateur de mettre à jour l'heure d'une alerte existante en envoyant une requête PUT à l'API.
-
-=== 5. Envoi de Mails de Rappel
-Chaque heure planifiée, un e-mail de rappel est automatiquement envoyé à l'utilisateur, l'informant de l'heure de repas prévue pour son animal.
+=== Envoi de Mails de Rappel
+En suite lutilisateur n'a plus rien a faire , il recevra un email pour chaque heure rentrer  l'informant de l'heure de repas prévue pour son animal.
 
 image::images_planification_food/4.png[Exemple d'email envoyé a l'utilisateur]
-
-=== Utilisation de la Page
-1. Accédez à la page via le bouton "Mes animaux."
-2. Ajoutez de nouvelles alertes d'alimentation en spécifiant l'heure et en cliquant sur "Créer une alerte."
-3. Consultez et gérez les alertes existantes dans le tableau.
-4. Recevez des rappels par e-mail à chaque heure programmée.
 
 === Confirmation de l'E-mail
 
@@ -528,70 +650,225 @@ Le bouton de confirmation dans l'e-mail doit rediriger l'utilisateur vers une pa
 ----
 <a href="/feeding-confirmation/confirm?personId=1&amp;animalId=1&amp;feedingTimeId=39&amp;confirmationCode=ad97faf5">Confirmer</a>
 ----
+==== Diagramme de classes global (partie métier)
 
-Lorsque l'utilisateur clique sur ce lien, une requête est envoyée à l'API pour confirmer la réception de l'e-mail. Cette requête déclenche l'insertion d'une nouvelle ligne dans la base de données avec les informations associées à la confirmation.
-
-Voici un exemple de structure de la table dans la base de données :
-
-[source,sql]
-----
-CREATE TABLE confirmation_table (
-    id SERIAL PRIMARY KEY,
-    animal_id INTEGER,
-    confirmation_code VARCHAR(255),
-    confirmation_date TIMESTAMP,
-    feeding_time_id INTEGER,
-    person_id INTEGER
-);
+[plantuml]
 ----
 
-Chaque confirmation est enregistrée avec les informations suivantes :
-- `id`: Identifiant unique de la confirmation (auto-incrémenté).
-- `animal_id`: Identifiant de l'animal concerné.
-- `confirmation_code`: Code de confirmation associé à l'e-mail.
-- `confirmation_date`: Date et heure de la confirmation.
-- `feeding_time_id`: Identifiant de l'horaire d'alimentation associé.
-- `person_id`: Identifiant de la personne effectuant la confirmation.
+@startuml
+class Person {
+idPerson: Integer
+LastName: String
+FirstName: String
+Email: String
+PhoneNumber: String
+Address: String
+Password: String
+ImageUrl: String
+}
 
-Lorsqu'un utilisateur confirme l'e-mail, une nouvelle ligne est ajoutée à la table avec les données appropriées. Cette approche permet de suivre les confirmations pour chaque animal, chaque horaire d'alimentation, et chaque personne.
+class Animal {
+id: Integer
+idPerson: Integer
+name: String
+category: String
+race: String
+weight: Double
+gender: Integer
+dateOfBirth: Date
+imageUrl: String
+adoptedByPerson: Person
+}
 
-Cette fonctionnalité offre une trace complète des confirmations et permet de garantir que les utilisateurs ont bien alimenté leurs animaux selon les horaires programmés.
+class FeedingTime {
+id: Integer
+animal: Animal
+feedingTime: LocalTime
+}
 
-image::images_planification_food/5.png[Message]
+class FeedingConfirmation {
+id: Integer
+personId: Integer
+animalId: Integer
+feedingTimeId: Integer
+confirmationDate: Date
+confirmationCode: String
+}
 
-image::images_planification_food/6.png[Ligne dans la table feeding confirmation]
+Person "1" -- "*" Animal : owns
+Animal "*" -- "1" FeedingTime : has feeding times
+Animal "*" -- "*" FeedingConfirmation : may have confirmations
+
+@enduml
+----
+
+
 
 === API de la fonctionnalité
 
-==== Ajout d'un Horaire d'Alimentation
+==== 1) Ajout d'un Horaire d'Alimentation
 Endpoint : `POST /api/feeding-times/add`
-Cette API permet d'ajouter un nouvel horaire d'alimentation. Elle accepte une requête POST avec les détails de l'horaire dans le corps de la requête. En cas de succès, elle renvoie un message indiquant que l'horaire a été ajouté avec succès. En cas d'erreur, elle peut retourner des messages spécifiques, tels que la détection d'un conflit si l'horaire existe déjà.
 
-==== Liste des Horaire d'Alimentation pour un Animal
+Voici le body de la requête :
+
+[source,json]
+----
+{
+  "animal": {
+    "id": 1
+  },
+  "feedingTime": "20:45"
+}
+----
+
+et le output :
+
+`Message : Horaires d'alimentation ajouté avec succès.`
+
+
+==== 2) Liste des Horaires d'Alimentation pour un Animal
 Endpoint : `GET /api/feeding-times/{idAnimal}`
-Cette API renvoie la liste des horaires de repas associés à un animal spécifié par son ID. Les horaires sont renvoyés sous forme de liste de chaînes.
 
-==== Détail d'un Horaire d'Alimentation
+et le output :
+[source,json]
+----
+["time/1","time/2","time/3"]
+----
+
+
+==== 3) Détail d'un Horaire d'Alimentation
 Endpoint : `GET /api/feeding-times/time/{id}`
-Cette API renvoie les détails d'un horaire d'alimentation spécifié par son ID. Si l'horaire existe, elle renvoie les détails de l'horaire sous forme d'objet. Sinon, elle retourne une réponse "Not Found."
 
-==== Suppression d'un Horaire d'Alimentation
+et le output :
+[source,json]
+----
+
+{
+"id": 1,
+"animal": {
+    "id": 1,
+    "idPerson": 1,
+    "name": "xgecfie",
+    "category": "cat",
+    "race": "dde",
+    "weight": 20.0,
+    "gender": 1,
+    "dateOfBirth": "2024-01-25",
+    "imageUrl": "selenium_true_vrai.jpg",
+    "adoptedByPerson": {
+    "idPerson": 1,
+    "password": "f",
+    "address": null,
+    "email": "f@gmail.com",
+    "imageUrl": null,
+    "lastName": "ichola",
+    "firstName": "sadikou",
+    "phoneNumber": null
+    }
+},
+"feedingTime": "15:42"
+}
+----
+
+
+==== 4) Suppression d'un Horaire d'Alimentation
 Endpoint : `DELETE /api/feeding-times/delete/{id}`
-Cette API permet de supprimer un horaire d'alimentation en spécifiant son ID. En cas de succès, elle renvoie un message indiquant que l'horaire a été supprimé avec succès. En cas d'erreur, elle peut retourner un message générique d'erreur interne du serveur.
 
-==== Mise à Jour d'un Horaire d'Alimentation
+Et output :
+
+`L'heure a étét supprimer`
+
+
+==== 4)  Mise à Jour d'un Horaire d'Alimentation
 Endpoint : `PUT /api/feeding-times/update/{id}`
-Cette API permet de mettre à jour un horaire d'alimentation en spécifiant son ID. Elle accepte une requête PUT avec les détails mis à jour dans le corps de la requête. En cas de succès, elle renvoie un message de mise à jour réussie. En cas d'erreur, elle peut retourner un message d'erreur spécifique.
 
-==== Récupération des Horaire d'Alimentation Actuels pour les E-mails
+[source,json]
+----
+{
+"animal": {
+"id": 1
+},
+"feedingTime": "15:45"
+}
+----
+
+Output : `Mise à jour réussie.`
+
+==== 5) Récupération des Horaire d'Alimentation Actuels pour les E-mails
 Endpoint : `GET /api/feeding-times/email-animal-current-feeding-times`
-Cette API renvoie une liste d'informations sur les horaires de repas actuels pour lesquels des e-mails de rappel doivent être envoyés. Les informations sont renvoyées sous forme de liste d'objets. En cas de succès, elle renvoie la liste des horaires. En cas d'absence de données, elle renvoie une réponse "No Content." En cas d'erreur, elle peut retourner une réponse générique d'erreur interne du serveur.
+
+[source,json]
+----
+[
+    [
+        "f@gmail.com",
+        "Fanuel",
+        1,
+        1,
+        "loulou",
+        "image_animal.jpg",
+        4
+    ]
+]
+----
+
+==== 6) Confirmer l'email
+Endpoint : `GET /feeding-confirmation/confirm?personId=1&animalId=2&feedingTimeId=3&confirmationCode=ABC123`
+
+Output :
+
+`Comfirmation réussie Failed to confirm feeding.`
+
+
+==== Diagramme de séquence
+
+[plantuml]
+----
+@startuml
+participant Client
+participant FeedingTimeController
+participant FeedingTimeService
+participant FeedingTimeServiceImpl
+participant FeedingTimeRepository
+participant ScheduledEmailService
+participant EmailSenderService
+participant Person
+participant Animal
+
+Client->FeedingTimeController: POST /api/feeding-times/add
+FeedingTimeController->FeedingTimeService: addFeedingTime(FeedingTime)
+FeedingTimeService->FeedingTimeServiceImpl: addFeedingTime(FeedingTime)
+FeedingTimeServiceImpl->FeedingTimeRepository: save(FeedingTime)
+FeedingTimeRepository-->FeedingTimeServiceImpl: Database save operation
+FeedingTimeServiceImpl-->FeedingTimeService: Database save successful
+FeedingTimeService-->FeedingTimeController: Operation successful response
+
+ScheduledEmailService-->FeedingTimeServiceImpl: getInfosCurrentFeedingTimes()
+FeedingTimeServiceImpl->FeedingTimeRepository: findEmailsAndAnimalDetailsForUsersWithCurrentFeedingTime()
+FeedingTimeRepository-->FeedingTimeServiceImpl: Database query result
+FeedingTimeServiceImpl->EmailSenderService: sendHtmlEmail(userEmail, subject, body)
+EmailSenderService-->ScheduledEmailService: Email sent successfully
+
+Client->FeedingConfirmationController: GET /feeding-confirmation/confirm
+FeedingConfirmationController->FeedingConfirmationService: confirmFeeding(personId, animalId, feedingTimeId, confirmationCode)
+FeedingConfirmationService->FeedingConfirmationServiceImpl: confirmFeeding(personId, animalId, feedingTimeId, confirmationCode)
+FeedingConfirmationServiceImpl->FeedingConfirmationRepository: Database query to confirm feeding
+FeedingConfirmationRepository-->FeedingConfirmationServiceImpl: Database query result
+FeedingConfirmationServiceImpl-->FeedingConfirmationService: Feeding confirmation result
+FeedingConfirmationService-->FeedingConfirmationController: Feeding confirmation response
+@enduml
+----
+
+
+
+
+
+
+
 
 ---
 
 == Partie 3 : Modélisation
-
-
 
 
 [plantuml]

@@ -232,11 +232,13 @@
                 const animalId = urlParams.get( 'id' );
 
                 // Construire l'objet FormData à envoyer à l'API
+
                 var formData = {
                     animal: { id: parseInt( animalId ) },
                     feedingTime: feedingTimeValue
                 };
 
+                 console.log(formData) ;
                 // Effectuer la requête POST vers l'API
                 fetch( '/api/feeding-times/add', {
                     method: 'POST',
