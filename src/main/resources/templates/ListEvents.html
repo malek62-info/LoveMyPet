@@ -7,202 +7,184 @@
     <title>Liste des Événements Non Expirés</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        background-image: url('https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg');
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f4f4;
+    }
 
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+    h1 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+    }
 
-        #evenementsList {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
+    #evenementsList {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
 
-        .evenementItem {
-            background-color: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-            margin: 10px;
-            width: calc(33.33% - 20px); /* Trois cartes par ligne */
-            box-sizing: border-box;
-            cursor: pointer;
-        }
+    .evenementItem {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+        margin: 10px;
+        width: 80%;
+        box-sizing: border-box;
+        cursor: pointer;
+        text-align: center;
+    }
 
-        .evenementItem:hover {
-            transform: scale(1.05);
-        }
+    .evenementItem:hover {
+        transform: scale(1.05);
+    }
 
-        .evenementContent {
-            padding: 20px;
-        }
+    .evenementContent {
+        padding: 20px;
+        font-size: 1.8em; /* Taille du texte */
+        color: #000; /* Couleur du texte en noir */
+    }
 
-        .evenementContent strong {
-            display: block;
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            color: #333;
-        }
+    .evenementContent strong {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
 
-        .evenementContent span {
-            display: block;
-            color: #777;
-            margin-bottom: 10px;
-        }
+    .evenementContent span {
+        display: block;
+        margin-bottom: 10px;
+    }
 
-        .evenementImage {
-            max-width: 100%;
-            height: auto;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 10px;
-            max-height: 200px; /* Limitez la hauteur de l'image */
-        }
+    .evenementImage {
+        width: 100%;
+        height: auto;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 10px;
+        max-height: 200px;
+    }
 
-        .inscriptionButton {
-            display: block;
-            text-align: center;
-            padding: 10px;
-            background-color: #3498db;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 0 0 8px 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+    .inscriptionButton {
+        display: block;
+        text-align: center;
+        padding: 10px;
+        background-color: #343a40;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 0 0 8px 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
 
-        .inscriptionButton:hover {
-            background-color: #2980b9;
-        }
-    </style>
+    .inscriptionButton:hover {
+        background-color: #495057;
+    }
+    @media only screen and (max-width: 768px) {
+.evenementItem {
+    width: calc(100% - 20px);
+}
+}
+
+           /* Menu */
 
 
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
 
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 20px;
-        }
+       #sidebar {
+           width: 150px;
+           height: 100vh;
+           padding: 20px;
+           background-color: #343a40;
+           color: #fff;
+           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+           display: flex;
+           flex-direction: column;
+           position: fixed;
+           left: 0; /* Modifier la position à gauche */
+           top: 0;
+       }
 
-        #evenementsList {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
+       #sidebar h2 {
+           margin-bottom: 20px;
+           font-size: 1.5rem;
+       }
 
-        .evenementItem {
-            background-color: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
-            margin: 10px;
-            width: calc(33.33% - 20px); /* Trois cartes par ligne */
-            box-sizing: border-box;
-            cursor: pointer;
-        }
+       #sidebar form {
+           margin-bottom: 20px;
+       }
 
-        .evenementItem:hover {
-            transform: scale(1.05);
-        }
+       #sidebar label {
+           margin-bottom: 5px;
+           font-size: 0.9rem;
+       }
 
-        .evenementContent {
-            padding: 20px;
-        }
+       #sidebar input {
+           margin-bottom: 10px;
+           padding: 5px;
+           width: 100%;
+       }
 
-        .evenementContent strong {
-            display: block;
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            color: #333;
-        }
+       #sidebar button {
+           padding: 10px;
+           background-color: #007bff;
+           border: none;
+           color: #fff;
+           cursor: pointer;
+       }
 
-        .evenementContent span {
-            display: block;
-            color: #777;
-            margin-bottom: 10px;
-        }
+       #sidebar button:hover {
+           background-color: #0056b3;
+       }
 
-        .evenementImage {
-            width: 100%;
-            height: auto;
-            border-bottom: 1px solid #eee;
-            margin-bottom: 10px;
-        }
+       #sidebar a {
+           text-decoration: none;
+           color: #fff;
+           padding: 10px;
+           margin: 5px 0;
+           border-radius: 5px;
+           transition: background-color 0.3s;
+       }
 
-        .inscriptionButton {
-            display: block;
-            text-align: center;
-            padding: 10px;
-            background-color: #3498db;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 0 0 8px 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+       #sidebar a:hover {
+           background-color: #495057;
+       }
 
-        .inscriptionButton:hover {
-            background-color: #2980b9;
-        }
+       .logo-img {
+           max-width: 100%;
+           height: auto;
+       }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 
-<header>
-    <h1>Liste des Événements Non Expirés</h1>
 
-</header>
 
-<nav>
-    <a href="/">Accueil</a>
-    <a href="/profile">Profil</a>
-    <a href="/AddEvent">Créer un événement</a>
-</nav>
 
-<div id="content">
-    <input type="hidden" id="idPerson" value=""/>
-    <div id="eventContainer"></div>
+<div id="sidebar">
+    <h2><img src="images/logo.png" alt="Logo" class="logo-img"></h2>
 
+    <a href="/Map" id="closeButton">Nos services</a>
 </div>
 
-<footer>
-    © 2023 Evenements de l'utilisateur. Tous droits réservés.
-</footer>
+
+
+
+
 
 <ul id="evenementsList">
-    <!-- Les événements seront affichés ici dynamiquement -->
 </ul>
 
 
@@ -243,8 +225,9 @@
                                      '<div class="evenementContent">' +
                                      '<strong>' + evenementDetails.titre + '</strong>' +
                                      '<span>Date: ' + evenementDetails.date + '</span>' +
-                                     '<span>Place: ' + evenementDetails.place + '</span>' +
-                                     '</div>' +
+                                     '<span>Adresse: ' + evenementDetails.place + '</span>' + '<a href="https://www.google.com/maps/search/' + encodeURIComponent(evenementDetails.place) + '" target="_blank">Voir sur Google Maps</a>' +
+                                      '</div>' +
+
                                      '<a class="inscriptionButton" href="#" data-event-id="' + evenementDetails.idEvenement + '">Inscription</a>' +
                                      '</li>';
 

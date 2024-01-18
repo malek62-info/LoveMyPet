@@ -6,8 +6,8 @@
     <title>Add Event</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <style>
+        /* Styles généraux */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-
         * {
             margin: 0;
             padding: 0;
@@ -21,22 +21,35 @@
             justify-content: center;
             align-items: center;
             padding: 10px;
-            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+  background-image: url('https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg');
+            margin: 0; /* Ajout de cette ligne pour éliminer la marge par défaut du corps */
         }
 
-        .container {
-            max-width: 700px;
-            width: 100%;
-            background-color: #fff;
-            padding: 25px 30px;
-            border-radius: 5px;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-        }
+        /* Ajouter ces styles à la section CSS existante */
+.container {
+    max-width: 700px;
+    width: 100%;
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Retirer la règle body { align-items: center; } si elle existe, car elle affectera la mise en page */
 
         .container .title {
             font-size: 25px;
             font-weight: 500;
             position: relative;
+            margin-bottom: 20px; /* Ajout de cette ligne pour séparer le titre du formulaire */
         }
 
         .container .title::before {
@@ -55,6 +68,7 @@
             flex-wrap: wrap;
             justify-content: space-between;
             margin: 20px 0 12px 0;
+            width: 100%; /* Ajout de cette ligne pour occuper la largeur complète du conteneur */
         }
 
         form .user-details .input-box {
@@ -101,28 +115,147 @@
         .button {
             height: 45px;
             margin: 35px 0;
+            width: 100%; /* Ajout de cette ligne pour occuper la largeur complète du conteneur */
         }
 
-        .button input {
-            height: 100%;
-            width: 100%;
+      .button input {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #343a40; /* Utiliser la couleur du menu */
+}
+
+.button input:hover {
+    background-color: #495057; /* Modifier la couleur au survol si nécessaire */
+}
+
+       .content form .input-box a#openMapLink,
+.content form .input-box label.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background: #343a40; /* Utiliser la couleur du menu */
+    color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.content form .input-box a#openMapLink:hover,
+.content form .input-box label.custom-file-upload:hover {
+    background: #495057; /* Modifier la couleur au survol si nécessaire */
+}
+
+        .content form .input-box a#openMapLink {
+            display: inline-block;
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #343a40; /* Utiliser la couleur du menu */
+            color: #fff;
             border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .content form .input-box a#openMapLink:hover {
+                background: #495057; /* Modifier la couleur au survol si nécessaire */
+        }
+
+        /* Menu */
+
+        #map {
+            height: 100%;
+            width: calc(100% - 150px);
+            float: right;
+        }
+
+        #sidebar {
+            width: 150px;
+            height: 100vh;
+            padding: 20px;
+            background-color: #343a40;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            left: 0; /* Modifier la position à gauche */
+            top: 0;
+        }
+
+        #sidebar h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        #sidebar form {
+            margin-bottom: 20px;
+        }
+
+        #sidebar label {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        #sidebar input {
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 100%;
+        }
+
+        #sidebar button {
+            padding: 10px;
+            background-color: #007bff;
             border: none;
             color: #fff;
-            font-size: 18px;
-            font-weight: 500;
-            letter-spacing: 1px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            background: linear-gradient(135deg, #71b7e6, #9b59b6);
         }
 
-        .button input:hover {
-            background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+        #sidebar button:hover {
+            background-color: #0056b3;
+        }
+
+        #sidebar a {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #sidebar a:hover {
+            background-color: #495057;
+        }
+
+        .logo-img {
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
 <body>
+
+<div id="map"></div>
+
+<div id="sidebar">
+    <h2><img src="images/logo.png" alt="Logo" class="logo-img"></h2>
+
+    <a href="/Map" id="closeButton">Nos services</a>
+    <a href="/Map" id="closeButtons">Nos services</a>
+
+</div>
+
+<!-- ... Autres balises head ... -->
 
 <div class="container">
     <div class="title">Add Event</div>
@@ -144,13 +277,11 @@
                     <span class="details">Place</span>
                     <input type="text" id="place" name="place" required>
                     <a href="/parc" id="openMapLink" target="_blank">Open Map</a>
-
                 </div>
                 <div class="input-box">
                     <span class="details">Image</span>
                     <label for="imageFile" class="custom-file-upload">Choose File</label>
                     <input type="file" id="imageFile" name="imageFile" required style="display:none;" />
-
                 </div>
             </div>
             <div class="button">
@@ -189,7 +320,7 @@
                 contentType: false,
                 success: function (data) {
                     alert(data);
-                    // Vous pouvez rediriger ou effectuer d'autres actions au besoin
+                    window.location.href = '/profile';
                 },
                 error: function (xhr, status, error) {
                     alert('Error: ' + error);
