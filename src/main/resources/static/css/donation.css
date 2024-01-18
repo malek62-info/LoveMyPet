@@ -10,7 +10,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #fef4f4;
+    background-image: url(https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg);
 }
 
 .menu,
@@ -45,13 +45,12 @@ form button,
 }
 
 .wrapper {
-    overflow-x: hidden;
+    margin-left: 250px;
 }
 
 .container {
-    max-width: 1170px;
-    margin: 0 auto;
-    padding: 0 1rem;
+    width: 1800px;
+    /* width: 100%; */
 }
 
 .title {
@@ -62,10 +61,7 @@ form button,
 
 
 
-.title h1 {
-    font-weight: 500;
-    opacity: 0.8;
-}
+
 
 .item {
     margin: 3rem 0;
@@ -88,11 +84,28 @@ form button,
     transition: all 0.4s ease;
 }
 
+.big-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+}
+.small-title {
+    margin: 20px auto;
+    text-align: center;
+}
+
+
 .item-item {
-    width: calc(20% - 16px);
-    margin: 8px;
+    width: calc(23% - 16px);
     background-color: #fff;
-    max-width: 300px;
+    max-width: 350px;
+    border-radius: 10px;
+    margin: 10px;
+    overflow: hidden;
+    /* border: 2px solid #000; */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.10);
 }
 
 .item-img {
@@ -127,8 +140,8 @@ form button,
 .add-btn {
     width: 100%;
     background-color: transparent;
-    border: 2px solid #f2a80b;
-    color: #f2a80b;
+  
+
     font-family: inherit;
     font-size: 0.9rem;
     padding: 0.4rem;
@@ -136,6 +149,11 @@ form button,
     text-transform: uppercase;
     margin-bottom: 5px;
     outline: none;
+    border: 2px solid #000;
+    background-color: transparent;
+    border-radius: 3PX;
+    color: #000;
+    font-weight: bold;
 }
 
 .item-img:hover div {
