@@ -16,34 +16,26 @@
         }
 
         body {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-  background-image: url('https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg');
+            background-image: url('https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg');
             margin: 0; /* Ajout de cette ligne pour éliminer la marge par défaut du corps */
         }
 
-        /* Ajouter ces styles à la section CSS existante */
-.container {
-    max-width: 700px;
-    width: 100%;
-    background-color: #fff;
-    padding: 25px 30px;
-    border-radius: 5px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* Retirer la règle body { align-items: center; } si elle existe, car elle affectera la mise en page */
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
 
         .container .title {
             font-size: 25px;
@@ -118,40 +110,40 @@
             width: 100%; /* Ajout de cette ligne pour occuper la largeur complète du conteneur */
         }
 
-      .button input {
-    height: 100%;
-    width: 100%;
-    border-radius: 5px;
-    border: none;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background-color: #343a40; /* Utiliser la couleur du menu */
-}
+        .button input {
+            height: 100%;
+            width: 100%;
+            border-radius: 5px;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #343a40; /* Utiliser la couleur du menu */
+        }
 
-.button input:hover {
-    background-color: #495057; /* Modifier la couleur au survol si nécessaire */
-}
+        .button input:hover {
+            background-color: #495057; /* Modifier la couleur au survol si nécessaire */
+        }
 
-       .content form .input-box a#openMapLink,
-.content form .input-box label.custom-file-upload {
-    display: inline-block;
-    padding: 10px 20px;
-    cursor: pointer;
-    background: #343a40; /* Utiliser la couleur du menu */
-    color: #fff;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-}
+        .content form .input-box a#openMapLink,
+        .content form .input-box label.custom-file-upload {
+            display: inline-block;
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #343a40; /* Utiliser la couleur du menu */
+            color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
 
-.content form .input-box a#openMapLink:hover,
-.content form .input-box label.custom-file-upload:hover {
-    background: #495057; /* Modifier la couleur au survol si nécessaire */
-}
+        .content form .input-box a#openMapLink:hover,
+        .content form .input-box label.custom-file-upload:hover {
+            background: #495057; /* Modifier la couleur au survol si nécessaire */
+        }
 
         .content form .input-box a#openMapLink {
             display: inline-block;
@@ -167,95 +159,78 @@
         }
 
         .content form .input-box a#openMapLink:hover {
-                background: #495057; /* Modifier la couleur au survol si nécessaire */
+            background: #495057; /* Modifier la couleur au survol si nécessaire */
         }
 
         /* Menu */
-
-        #map {
-            height: 100%;
-            width: calc(100% - 150px);
-            float: right;
-        }
-
-        #sidebar {
-            width: 150px;
-            height: 100vh;
-            padding: 20px;
-            background-color: #343a40;
-            color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .w3-sidebar {
+            position: fixed;
+            z-index: 100;
+            background-color: #000;
             display: flex;
             flex-direction: column;
-            position: fixed;
-            left: 0; /* Modifier la position à gauche */
+            color: #fff;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+            left: 0;
             top: 0;
         }
 
-        #sidebar h2 {
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-
-        #sidebar form {
-            margin-bottom: 20px;
-        }
-
-        #sidebar label {
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-        }
-
-        #sidebar input {
-            margin-bottom: 10px;
-            padding: 5px;
-            width: 100%;
-        }
-
-        #sidebar button {
-            padding: 10px;
-            background-color: #007bff;
-            border: none;
+        .w3-button {
             color: #fff;
-            cursor: pointer;
-        }
-
-        #sidebar button:hover {
-            background-color: #0056b3;
-        }
-
-        #sidebar a {
+            outline: none;
+            padding: 10px;
             text-decoration: none;
-            color: #fff;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            transition: 0.5s;
         }
 
-        #sidebar a:hover {
-            background-color: #495057;
+        .w3-button:hover {
+            background-color: #fff;
+            text-decoration: none;
+            color: #81774E;
+            border-radius: 6px;
+        }
+
+        .w3-button:hover a {
+            color: #000;
         }
 
         .logo-img {
-            max-width: 100%;
-            height: auto;
+            text-align: center;
+            margin: 20px auto;
+            width: 100px;
+        }
+
+        .side_bar_bar {
+            background-color: #81774E;
+            border: 0;
+            height: 1px;
+            width: 100%;
+            border-radius: 2px;
+            margin: 10px 0;
         }
     </style>
 </head>
 <body>
 
-<div id="map"></div>
-
-<div id="sidebar">
-    <h2><img src="images/logo.png" alt="Logo" class="logo-img"></h2>
-
-    <a href="/Map" id="closeButton">Nos services</a>
-    <a href="/Map" id="closeButtons">Nos services</a>
-
+<!-- Sidebar -->
+<div class="w3-sidebar ">
+    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <a href="/profile" class="w3-button">Mon compte</a>
+    <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+    <hr class="side_bar_bar"></hr>
+    <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+    <a href="/adoption" class="w3-button">Adoption</a>
+    <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+    <hr class="side_bar_bar"></hr>
+    <a href="#" class="w3-button">Se Déconnecter</a>
+    <hr class="side_bar_bar"></hr>
+    <a href="/donate" class="w3-button">Donner des objets</a>
+    <a href="/showdonations" class="w3-button">Trouver des objets</a>
+    <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
 </div>
-
-<!-- ... Autres balises head ... -->
 
 <div class="container">
     <div class="title">Add Event</div>
@@ -291,7 +266,6 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     $(document).ready(function () {
         // Récupérer l'ID de la personne connectée via la méthode /profile
@@ -304,6 +278,7 @@
             },
             error: function (xhr, status, error) {
                 // Gérer les erreurs
+                alert("Erreur lors de la récupération du profil de la personne");
             }
         });
 
@@ -312,6 +287,9 @@
 
             var formData = new FormData(this);
 
+            // Ajoutez une alerte pour vérifier si le formulaire est correctement récupéré
+            alert("Formulaire soumis");
+
             $.ajax({
                 url: '/api/evenements/add',
                 type: 'POST',
@@ -319,15 +297,18 @@
                 processData: false,
                 contentType: false,
                 success: function (data) {
-                    alert(data);
+                    // Ajoutez une alerte pour voir la réponse du serveur
+                    alert("Réponse du serveur : " + data);
                     window.location.href = '/profile';
                 },
                 error: function (xhr, status, error) {
+                    // Ajoutez une alerte pour voir l'erreur
                     alert('Error: ' + error);
                 }
             });
         });
     });
+
 </script>
 
 </body>

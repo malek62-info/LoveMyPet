@@ -1,121 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nos Services</title>
-  <link rel="stylesheet" href="/css/style_service.css" class="css">
-  <!-- FONT AWESOME LINK USING BOXICON -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFk1S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-
+  <title>LoveMyPet - Trouvez votre vétérinaire et des parcs</title>
   <style>
     body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        background-color: #f0f0f0;
-        background-image: url('/images/1.jpg');
-        background-size: cover;
-        background-position: center;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
     }
 
-    h1 {
-        font-weight: bold;
-        color: #333;
+    #background-image {
+      background-image: url('/images/map.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: black; /* Modification de la couleur du texte en noir */
+      text-align: center; /* Centrer le texte */
     }
 
-    p {
-        font-size: 18px;
-        line-height: 1.5;
-        margin-bottom: 30px;
+    #title {
+      font-size: 4em;
+      margin-bottom: 20px;
     }
 
-    .btn {
-        display: inline-block;
-        padding: 180px 100px;
-        font-size: 30px;
-        font-weight: 1000;
-        text-align: center;
-        text-decoration: none;
-        border-radius: 10px;
-        transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-        background-color: #fff;
-        color: black;
-        cursor: pointer;
-        position: relative;
-        overflow: hidden;
-        margin: 10px;
+    #description {
+      font-size: 2em;
+      margin-bottom: 30px;
     }
 
-    .btn:hover {
-        background-color: transparent;
-        transform: translateY(-5px);
+    #buttons-container {
+      display: flex;
+      gap: 20px;
     }
 
-    .btn img {
-        width: 100%;
-        height: auto; /* Changement de la hauteur à 'auto' pour maintenir le ratio */
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0.6;
-        transition: opacity 0.3s ease;
+    .button {
+      padding: 25px 35px;
+      font-size: 2em;
+      text-decoration: none;
+      color: white;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
 
-    .btn:hover img {
-        opacity: 1;
+    /* Menu */
+
+    #map {
+      height: 100%;
+      width: calc(100% - 150px);
+      float: right;
     }
 
-    .card {
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border-radius: 10px;
-        overflow: hidden;
-        margin: 20px;
-        max-width: 300px;
+    #sidebar {
+      width: 150px;
+      height: 100vh;
+      padding: 20px;
+      background-color: #343a40;
+      color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      left: 0;
+      top: 0;
     }
 
-    .card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    #sidebar h2 {
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
+    #sidebar form {
+      margin-bottom: 20px;
+    }
+
+    #sidebar label {
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
+
+    #sidebar input {
+      margin-bottom: 10px;
+      padding: 5px;
+      width: 100%;
+    }
+
+    #sidebar button {
+      padding: 10px;
+      background-color: #007bff;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    #sidebar button:hover {
+      background-color: #0056b3;
+    }
+
+    #sidebar a {
+      text-decoration: none;
+      color: #fff;
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    #sidebar a:hover {
+      background-color: #495057;
+    }
+
+    .logo-img {
+      max-width: 100%;
+      height: auto;
     }
   </style>
 </head>
-
 <body>
 
-<div class="container mt-5 text-center">
+<div id="sidebar">
+  <h2><img src="images/logo.png" alt="Logo" class="logo-img"></h2>
 
-  <!-- Bouton pour trouver les vétérinaires -->
-  <a href="/Veterinaires" class="btn btn-primary btn-lg mt-4">
-    <img src="/images/2.png" alt="Trouver un vétérinaire" class="img-fluid">
-    Trouver un vétérinaire
-  </a>
 
-  <!-- Bouton pour trouver les jardins -->
-  <a href="/parc" class="btn btn-success btn-lg mt-4">
-    <img src="/images/slider-img.png" alt="Trouver un jardin" class="img-fluid">
-    Trouver un jardin
-  </a>
-
-  <a href="/profile" class="btn btn-success btn-lg mt-4">
-    <img src="/images/3.png" alt="Nos services " class="img-fluid">
-    Nos services
-  </a>
-
+  <a href="/Map" id="closeButton">Nos services</a>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
+<div id="background-image">
+  <div id="title">Trouvez votre vétérinaire et des parcs avec LoveMyPet</div>
+  <div id="description">Découvrez les vétérinaires et les parcs les plus proches de chez vous <br>grâce à notre application LoveMyPet.</div>
+  <div id="buttons-container">
+    <a href="/Veterinaires" class="button">Trouver un vétérinaire</a>
+    <a href="/parc" class="button">Trouver un parc</a>
+  </div>
+</div>
 </body>
-
 </html>

@@ -58,7 +58,6 @@ public class EvenementController {
     }
 
 
-
     @GetMapping("/non-expired")
     public ResponseEntity<List<String>> getNonExpiredEventLinks() {
         LocalDate today = LocalDate.now();
@@ -114,6 +113,18 @@ public class EvenementController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    @DeleteMapping("/delete/{evenementId}")
+    public ResponseEntity<String> deleteEvenement(@PathVariable Integer evenementId) {
+        try {
+            evenementService.deleteEvenement(evenementId);
+            return ResponseEntity.ok("Événement supprimé avec succès.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la suppression de l'événement : " + e.getMessage());
+        }
+    }
+
+
 
 
 

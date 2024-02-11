@@ -2,61 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evenements de l'utilisateur</title>
+    <title>Liste des Événements de {{username}}</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
+            height: 100vh;
             display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px 10px;
+            background-image: url('https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg');
+            margin: 0;
+            font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
         }
 
-        header {
-            background-color: #232f3e;
-            color: #ffffff;
-            padding: 1rem;
+        h1 {
+            color: #fff;
+            font-size: 36px;
+            text-shadow: white 0.006em 0.006em 0.007em,
+            #9c9c9c 1px 1px 1px,
+            #9c9c9c 1px 2px 1px,
+            #9c9c9c 1px 3px 1px,
+            #9c9c9c 1px 4px 1px,
+            #9c9c9c 1px 5px 1px,
+            #9c9c9c 1px 6px 1px,
+            #9c9c9c 1px 7px 1px,
+            #9c9c9c 1px 8px 1px,
+            #9c9c9c 1px 9px 1px,
+            #9c9c9c 1px 10px 1px,
+            #9c9c9c 1px 11px 1px,
+            #9c9c9c 1px 12px 1px;
+            background-color: transparent;
             text-align: center;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #333;
-            padding: 0.5rem 0;
-        }
-
-        nav a {
-            color: #ffffff;
-            text-decoration: none;
-            margin: 0 15px;
+            margin-bottom: 1000px;
+            margin-top: 40px;
             font-weight: bold;
-            font-size: 1.2em;
-            transition: color 0.3s;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            z-index: 999;
         }
 
-        nav a:hover {
-            color: #3498db;
-        }
-
-        #content {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-
-        #eventContainer {
+        #evenementsList {
             list-style-type: none;
             padding: 0;
-            margin: 0;
+            margin: 50px;
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-around;
+            justify-content: space-between;
+            align-items: flex-start;
+            max-width: 1200px;
+            position: relative;
+            top: 100px;
+            left: 150px;
         }
 
         .evenementItem {
@@ -65,22 +67,11 @@
             overflow: hidden;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
-            margin: 10px;
-            width: calc(50% - 20px);
+            margin: 10px 5px;
             box-sizing: border-box;
             cursor: pointer;
-        }
-
-        @media (min-width: 600px) {
-            .evenementItem {
-                width: calc(33.33% - 20px);
-            }
-        }
-
-        @media (min-width: 900px) {
-            .evenementItem {
-                width: calc(25% - 20px);
-            }
+            text-align: center;
+            width: calc(33.33% - 10px);
         }
 
         .evenementItem:hover {
@@ -89,162 +80,203 @@
 
         .evenementContent {
             padding: 20px;
+            font-size: 1.2em;
+            color: #000;
         }
 
         .evenementContent strong {
             display: block;
-            font-size: 1.5em;
             margin-bottom: 10px;
-            color: #333;
+            font-weight: bold;
         }
 
         .evenementContent span {
             display: block;
-            color: #777;
             margin-bottom: 10px;
         }
 
         .evenementImage {
             width: 100%;
             height: auto;
-            max-height: 200px;
             border-bottom: 1px solid #eee;
             margin-bottom: 10px;
+            max-height: 200px;
         }
 
-        #noEventsMessage {
-            color: #777;
-            font-size: 1.2em;
-            margin-bottom: 20px;
-        }
-
-        #createEventButton {
-            padding: 15px;
-            background-color: #3498db;
+        .inscriptionButton {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background-color: #343a40;
             color: #fff;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 0 0 8px 8px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
 
-        #createEventButton:hover {
-            background-color: #2980b9;
+        .inscriptionButton:hover {
+            background-color: #495057;
         }
 
-        footer {
-            background-color: #232f3e;
-            color: #ffffff;
-            padding: 1rem;
+        /* Bouton de suppression */
+        .deleteButton {
+            width: calc(100% - 20px);
+            padding: 10px;
+            background-color: #343a40;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        .deleteButton:hover {
+            background-color: #495057;
+        }
+
+        /* Menu */
+        .w3-sidebar {
+            position: fixed;
+            z-index: 100;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+            left: 0;
+            top: 0;
+            margin-right: 50px;
+        }
+
+        .w3-button {
+            color: #fff;
+            outline: none;
+            padding: 10px;
+            text-decoration: none;
+            transition: 0.5s;
+        }
+
+        .w3-button:hover {
+            background-color: #fff;
+            text-decoration: none;
+            color: #81774E;
+            border-radius: 6px;
+        }
+
+        .w3-button:hover a {
+            color: #000;
+        }
+
+        .logo-img {
             text-align: center;
+            margin: 20px auto;
+            width: 100px;
+        }
+
+        .side_bar_bar {
+            background-color: #81774E;
+            border: 0;
+            height: 1px;
+            width: 100%;
+            border-radius: 2px;
+            margin: 10px 0;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 
-<header>
-    <h1>Evenements de l'utilisateur</h1>
-</header>
-
-<nav>
-    <a href="/">Accueil</a>
-    <a href="/profile">Profil</a>
-    <a href="/AddEvent">Créer un événement</a>
-</nav>
-
-<div id="content">
-    <input type="hidden" id="idPerson" value=""/>
-    <div id="eventContainer"></div>
-
+<!-- Sidebar -->
+<div class="w3-sidebar ">
+    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <a href="/profile" class="w3-button">Mon compte</a>
+    <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+    <hr class="side_bar_bar">
+    <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+    <a href="/adoption" class="w3-button">Adoption</a>
+    <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+    <hr class="side_bar_bar">
+    <a href="#" class="w3-button">Se Déconnecter</a>
+    <hr class="side_bar_bar">
+    <a href="/donate" class="w3-button">Donner des objets</a>
+    <a href="/showdonations" class="w3-button">Trouver des objets</a>
+    <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
 </div>
+<h1>Liste des Événements de {{username}}</h1>
 
-<footer>
-    © 2023 Evenements de l'utilisateur. Tous droits réservés.
-</footer>
+<ul id="evenementsList"></ul>
+
 <script>
     $(document).ready(function () {
-        // Récupérer l'ID de la personne connectée via la méthode /person/profile
+        // Récupérer l'ID de la personne connectée via la méthode /profile
         $.ajax({
             url: "/person/profile",
             type: "GET",
             success: function (data) {
-                // Mettre à jour la valeur de l'ID dans le champ caché
-                $("#idPerson").val(data.id);
+                var idPerson = data.id;
+                var username = data.username;
+                $("title").text("Liste des Événements de " + username);
 
-                // Récupérer les événements de l'utilisateur
-                getUserEvents(data.id);
+                $.ajax({
+                    url: '/api/evenements/non-expired',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        var evenementsList = $('#evenementsList');
+
+                        for (var i = 0; i < data.length; i++) {
+                            $.ajax({
+                                url: data[i],
+                                type: 'GET',
+                                dataType: 'json',
+                                success: function (evenementDetails) {
+                                    var imagePath = '/evenements/' + evenementDetails.imageName;
+                                    var listItem = '<li class="evenementItem">' +
+                                        '<img class="evenementImage" src="' + imagePath + '" alt="Image">' +
+                                        '<div class="evenementContent">' +
+                                        '<strong>' + evenementDetails.titre + '</strong>' +
+                                        '<span>Date: ' + evenementDetails.date + '</span>' +
+                                        '<span>Adresse: ' + evenementDetails.place + '</span>' +
+                                        '<a href="https://www.google.com/maps/search/' + encodeURIComponent(evenementDetails.place) + '" target="_blank">Voir sur Google Maps</a>' +
+                                        '</div>' +
+                                        '<button class="deleteButton" data-event-id="' + evenementDetails.idEvenement + '">Supprimer</button>' +
+                                        '</li>';
+                                    evenementsList.append(listItem);
+                                },
+                                error: function (error) {
+                                    console.error('Erreur lors de la récupération des détails de l\'événement:', error);
+                                }
+                            });
+                        }
+                    },
+                    error: function (error) {
+                        console.error('Erreur lors de la récupération des liens d\'événement:', error);
+                    }
+                });
+
+                $(document).on("click", ".deleteButton", function () {
+                    var idEvenement = $(this).data("event-id");
+                    $.ajax({
+                        url: '/api/evenements/delete/' + idEvenement,
+                        type: 'DELETE',
+                        success: function (response) {
+                            alert('Événement supprimé avec succès!');
+                            location.reload();
+                        },
+                        error: function (error) {
+                            console.error('Erreur lors de la suppression de l\'événement:', error);
+                        }
+                    });
+                });
             },
             error: function (xhr, status, error) {
                 // Gérer les erreurs
             }
         });
-    });
-
-    // Fonction pour récupérer les événements de l'utilisateur
-    function getUserEvents(userId) {
-        $.ajax({
-            url: "/api/evenements/user-events",
-            type: "GET",
-            data: {
-                userId: userId
-            },
-            success: function (response) {
-                // Afficher les événements dans le conteneur dédié
-                displayEvents(response);
-            },
-            error: function (xhr, status, error) {
-                // Gérer les erreurs
-                console.error("Erreur lors de la récupération des événements de l'utilisateur");
-            }
-        });
-    }
-
-    // Fonction pour afficher les événements dans le conteneur dédié
-    function displayEvents(events) {
-        // Sélectionner le conteneur
-        var eventContainer = $("#eventContainer");
-
-        // Sélectionner le message "Aucun événement trouvé"
-        var noEventsMessage = $("#noEventsMessage");
-
-        // Vider le conteneur s'il y a des éléments existants
-        eventContainer.empty();
-
-        // Afficher le message si aucun événement n'est trouvé
-        if (events.length === 0) {
-            noEventsMessage.text("Aucun événement trouvé.");
-        } else {
-            // Ajouter chaque événement au conteneur
-            events.forEach(function (event) {
-                // Créer un élément div pour l'événement
-                var eventDiv = $("<div>").addClass("evenementItem");
-
-                // Créer un élément div pour le contenu de l'événement
-                var eventContent = $("<div>").addClass("evenementContent");
-
-                // Ajouter l'image de l'événement
-                var imagePath = '/evenements/' + event.imageName;
-                eventContent.append('<img class="evenementImage" src="' + imagePath + '" alt="Image">');
-
-                // Ajouter les détails de l'événement à l'élément div
-                eventContent.append("<strong>" + event.titre + "</strong>");
-                eventContent.append("<span>Date: " + event.date + "</span>");
-                eventContent.append("<span>Place: " + event.place + "</span>");
-
-                // Ajouter l'élément de contenu à l'élément d'événement
-                eventDiv.append(eventContent);
-
-                // Ajouter l'élément div au conteneur
-                eventContainer.append(eventDiv);
-            });
-        }
-    }
-
-    // Gestion du clic sur le bouton "Créer un événement"
-    $("#createEventButton").click(function () {
-        // Rediriger l'utilisateur vers la page de création d'événement
-        window.location.href = "/create-event";
     });
 </script>
 

@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface InscriptionRepository extends JpaRepository<Inscription, Integer> {
     boolean existsByPersonneAndEvenement(Person personne, Evenement evenement);
+    void deleteByEvenement(Evenement evenement);
 
 }

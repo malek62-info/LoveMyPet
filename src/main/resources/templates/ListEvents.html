@@ -7,270 +7,311 @@
     <title>Liste des Événements Non Expirés</title>
     <style>
         body {
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 10px;
-        background-image: url('https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg');
-        margin: 0;
-        font-family: 'Arial', sans-serif;
-        background-color: #f4f4f4;
-    }
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* aligner au début de la page */
+            padding: 20px 10px; /* Ajouter un espace en haut et en bas */
+            background-image: url('https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg');
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+        }
+h1 {
+    color: #fff; /* Couleur du texte (blanc) */
+    font-size: 36px; /* Taille du texte */
+    text-shadow:
+        white 0.006em 0.006em 0.007em,
+        #9c9c9c 1px 1px 1px,
+        #9c9c9c 1px 2px 1px,
+        #9c9c9c 1px 3px 1px,
+        #9c9c9c 1px 4px 1px,
+        #9c9c9c 1px 5px 1px,
+        #9c9c9c 1px 6px 1px,
+        #9c9c9c 1px 7px 1px,
+        #9c9c9c 1px 8px 1px,
+        #9c9c9c 1px 9px 1px,
+        #9c9c9c 1px 10px 1px,
+        #9c9c9c 1px 11px 1px,
+        #9c9c9c 1px 12px 1px; /* Ombre du texte */
+    background-color: transparent; /* Couleur de fond transparente */
+    text-align: center;
+    margin-bottom: 1000px;
+    margin-top: 40px;
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 999;
+}
 
-    h1 {
-        color: #333;
-        text-align: center;
-        margin-bottom: 20px;
-    }
 
-    #evenementsList {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
+#evenementsList {
+    list-style-type: none;
+    padding: 0;
+    margin: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Pour répartir l'espace entre les éléments */
+    align-items: flex-start;
+    max-width: 1200px;
+    position: relative; /* Ajouter une position relative au conteneur */
+    top: 100px; /* Déplacer vers le bas de 150px pour éviter le chevauchement */
+    left:150px;
+}
 
-    .evenementItem {
-        background-color: #f8f9fa;
-        border-radius: 8px;
-        overflow: hidden;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s;
-        margin: 10px;
-        width: 80%;
-        box-sizing: border-box;
-        cursor: pointer;
-        text-align: center;
-    }
 
-    .evenementItem:hover {
-        transform: scale(1.05);
-    }
 
-    .evenementContent {
-        padding: 20px;
-        font-size: 1.8em; /* Taille du texte */
-        color: #000; /* Couleur du texte en noir */
-    }
 
-    .evenementContent strong {
-        display: block;
-        margin-bottom: 10px;
-        font-weight: bold;
-    }
-
-    .evenementContent span {
-        display: block;
-        margin-bottom: 10px;
-    }
-
-    .evenementImage {
-        width: 100%;
-        height: auto;
-        border-bottom: 1px solid #eee;
-        margin-bottom: 10px;
-        max-height: 200px;
-    }
-
-    .inscriptionButton {
-        display: block;
-        text-align: center;
-        padding: 10px;
-        background-color: #343a40;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 0 0 8px 8px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .inscriptionButton:hover {
-        background-color: #495057;
-    }
-    @media only screen and (max-width: 768px) {
 .evenementItem {
-    width: calc(100% - 20px);
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    margin: 10px 5px; /* Ajuster la marge */
+    box-sizing: border-box;
+    cursor: pointer;
+    text-align: center;
+    width: calc(33.33% - 10px); /* Pour afficher 3 événements par ligne */
 }
+
+
+
+        .evenementItem:hover {
+            transform: scale(1.05);
+        }
+
+        .evenementContent {
+            padding: 20px;
+            font-size: 1.2em;
+            color: #000;
+        }
+
+        .evenementContent strong {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .evenementContent span {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .evenementImage {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 10px;
+            max-height: 200px;
+        }
+
+        .inscriptionButton {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background-color: #343a40;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 0 0 8px 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .inscriptionButton:hover {
+            background-color: #495057;
+        }
+
+
+@media only screen and (max-width: 768px) {
+    .evenementItem {
+        width: calc(50% - 10px); /* Pour afficher 2 événements par ligne sur les écrans plus petits */
+    }
 }
 
-           /* Menu */
+
+
+        /* Menu */
 
 
 
-       #sidebar {
-           width: 150px;
-           height: 100vh;
-           padding: 20px;
-           background-color: #343a40;
-           color: #fff;
-           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-           display: flex;
-           flex-direction: column;
-           position: fixed;
-           left: 0; /* Modifier la position à gauche */
-           top: 0;
-       }
+    .top-right {
+        width: 40px;
+        height: 40px;
+        border: 1px solid #000;
+        border-radius: 50%;
+        background-color: #000;
+        padding: 20px;
+        font-weight: bold;
+        color: #fff;
+        border: 0;
+        outline: none;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+    }
 
-       #sidebar h2 {
-           margin-bottom: 20px;
-           font-size: 1.5rem;
-       }
+  .w3-sidebar {
+    position: fixed;
+    z-index: 100;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    width: 250px;
+    padding: 20px;
+    height: 100vh;
+    overflow-y: auto;
+    left: 0; /* Positionner le menu complètement à gauche de l'écran */
+    top: 0;
+    margin-right: 50px; /* Ajouter un espace de 50px entre le menu et les cadres */
+}
 
-       #sidebar form {
-           margin-bottom: 20px;
-       }
 
-       #sidebar label {
-           margin-bottom: 5px;
-           font-size: 0.9rem;
-       }
 
-       #sidebar input {
-           margin-bottom: 10px;
-           padding: 5px;
-           width: 100%;
-       }
+    .w3-button {
+        color: #fff;
+        outline: none;
+        outline: none;
+        padding: 10px;
+        text-decoration: none;
+        transition: 0.5s;
+    }
 
-       #sidebar button {
-           padding: 10px;
-           background-color: #007bff;
-           border: none;
-           color: #fff;
-           cursor: pointer;
-       }
 
-       #sidebar button:hover {
-           background-color: #0056b3;
-       }
+    .w3-button:hover {
+        background-color: #fff;
+        text-decoration: none;
+        color: #81774E;
+        border-radius: 6px;
+    }
 
-       #sidebar a {
-           text-decoration: none;
-           color: #fff;
-           padding: 10px;
-           margin: 5px 0;
-           border-radius: 5px;
-           transition: background-color 0.3s;
-       }
+    .w3-button:hover a {
+        color: #000;
+    }
 
-       #sidebar a:hover {
-           background-color: #495057;
-       }
+    .logo-img {
+        text-align: CENTER;
+        margin: 20PX AUTO;
+        width: 100PX;
+    }
 
-       .logo-img {
-           max-width: 100%;
-           height: auto;
-       }
+    .side_bar_bar {
+        background-color: #81774E;
+    border: 0;
+    height: 1px;
+    width: 100%;
+    border-radius: 2px;
+    margin: 10px 0;
+    }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 
+<!-- Sidebar -->
+<div class="w3-sidebar ">
+    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <a href="/profile" class="w3-button">Mon compte</a>
+    <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="/mesanimaux" class="w3-button">Mes animaux</a>
 
+    <a href="/adoption" class="w3-button">Adoption</a>
+    <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="#" class="w3-button">Se Déconnecter</a>
 
-
-<div id="sidebar">
-    <h2><img src="images/logo.png" alt="Logo" class="logo-img"></h2>
-
-    <a href="/Map" id="closeButton">Nos services</a>
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="/donate" class="w3-button">Donner des objets</a>
+    <a href="/showdonations" class="w3-button">Trouver des objets</a>
+    <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
 </div>
-
-
-
-
-
+<h1>LISTE DES ÉVÉNEMENTS À VENIR</h1> <!-- Ajouter un titre -->
 
 <ul id="evenementsList">
 </ul>
 
-
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     $(document).ready(function () {
-     // Récupérer l'ID de la personne connectée via la méthode /profile
-     $.ajax({
-         url: "/person/profile",
-         type: "GET",
-         success: function (data) {
+        // Récupérer l'ID de la personne connectée via la méthode /profile
+        $.ajax({
+            url: "/person/profile",
+            type: "GET",
+            success: function (data) {
+                var idPerson = data.id;
 
-             // Mettre à jour la valeur de l'ID dans le champ caché
-             var idPerson = data.id;
+                $.ajax({
+                    url: '/api/evenements/non-expired',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        var evenementsList = $('#evenementsList');
 
-             // Faites une requête AJAX pour récupérer tous les détails des événements
-             $.ajax({
-                 url: '/api/evenements/non-expired',
-                 type: 'GET',
-                 dataType: 'json',
-                 success: function (data) {
-                     var evenementsList = $('#evenementsList');
+                        for (var i = 0; i < data.length; i++) {
+                            $.ajax({
+                                url: data[i],
+                                type: 'GET',
+                                dataType: 'json',
+                                success: function (evenementDetails) {
+                                    var imagePath = '/evenements/' + evenementDetails.imageName;
+                                    var listItem = '<li class="evenementItem">' +
+                                        '<img class="evenementImage" src="' + imagePath + '" alt="Image">' +
+                                        '<div class="evenementContent">' +
+                                        '<strong>' + evenementDetails.titre + '</strong>' +
+                                        '<span>Date: ' + evenementDetails.date + '</span>' +
+                                        '<span>Adresse: ' + evenementDetails.place + '</span>' + '<a href="https://www.google.com/maps/search/' + encodeURIComponent(evenementDetails.place) + '" target="_blank">Voir sur Google Maps</a>' +
+                                        '</div>' +
+                                        '<a class="inscriptionButton" href="#" data-event-id="' + evenementDetails.idEvenement + '">Inscription</a>' +
+                                        '</li>';
+                                    evenementsList.append(listItem);
+                                },
+                                error: function (error) {
+                                    console.error('Erreur lors de la récupération des détails de l\'événement:', error);
+                                }
+                            });
+                        }
+                    },
+                    error: function (error) {
+                        console.error('Erreur lors de la récupération des liens d\'événement:', error);
+                    }
+                });
 
-                     // Parcourez les données et ajoutez-les à la liste
-                     for (var i = 0; i < data.length; i++) {
-                         // Faites une requête AJAX pour récupérer les détails de l'événement
-                         $.ajax({
-                             url: data[i],
-                             type: 'GET',
-                             dataType: 'json',
-                             success: function (evenementDetails) {
-                                 // Construire le chemin de l'image à partir du nom stocké dans la base de données
-                                 var imagePath = '/evenements/' + evenementDetails.imageName;
-
-                                 // Créer un élément de liste distinct pour chaque événement
-                                 var listItem = '<li class="evenementItem">' +
-                                     '<img class="evenementImage" src="' + imagePath + '" alt="Image">' +
-                                     '<div class="evenementContent">' +
-                                     '<strong>' + evenementDetails.titre + '</strong>' +
-                                     '<span>Date: ' + evenementDetails.date + '</span>' +
-                                     '<span>Adresse: ' + evenementDetails.place + '</span>' + '<a href="https://www.google.com/maps/search/' + encodeURIComponent(evenementDetails.place) + '" target="_blank">Voir sur Google Maps</a>' +
-                                      '</div>' +
-
-                                     '<a class="inscriptionButton" href="#" data-event-id="' + evenementDetails.idEvenement + '">Inscription</a>' +
-                                     '</li>';
-
-                                 evenementsList.append(listItem);
-                             },
-                             error: function (error) {
-                                 console.error('Erreur lors de la récupération des détails de l\'événement:', error);
-                             }
-                         });
-                     }
-                 },
-                 error: function (error) {
-                     console.error('Erreur lors de la récupération des liens d\'événement:', error);
-                 }
-             });
-
-             // Gestionnaire d'événements pour le clic sur le bouton d'inscription
-             $(document).on("click", ".inscriptionButton", function () {
-                 var idEvenement = $(this).data("event-id");
-
-                 // Faire une requête AJAX pour ajouter une inscription avec l'ID de la personne connectée
-                 $.ajax({
-                     url: '/api/inscription/add',
-                     type: 'POST',
-                     data: {
-                         idEvenement: idEvenement,
-                         idPerson: idPerson
-                     },
-                     success: function (response) {
-                         alert(response);
-                     },
-                     error: function (error) {
-                         console.error('Erreur lors de l\'inscription:', error);
-                     }
-                 });
-             });
-         },
-         error: function (xhr, status, error) {
-             // Gérer les erreurs
-         }
-     });
- });
-
+                $(document).on("click", ".inscriptionButton", function () {
+                    var idEvenement = $(this).data("event-id");
+                    $.ajax({
+                        url: '/api/inscription/add',
+                        type: 'POST',
+                        data: {
+                            idEvenement: idEvenement,
+                            idPerson: idPerson
+                        },
+                        success: function (response) {
+                            alert(response);
+                        },
+                        error: function (error) {
+                            console.error('Erreur lors de l\'inscription:', error);
+                        }
+                    });
+                });
+            },
+            error: function (xhr, status, error) {
+                // Gérer les erreurs
+            }
+        });
+    });
 </script>
 
 </body>
