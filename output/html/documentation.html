@@ -571,72 +571,41 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#_affichage_des_résultats_sur_la_carte">Affichage des Résultats sur la Carte</a>
 <ul class="sectlevel2">
 <li><a href="#_recherche_par_ville_geneve">Recherche par ville "Geneve":</a></li>
+<li><a href="#_explication_de_lapi_overpass_et_nominatim">Explication de l&#8217;API Overpass et Nominatim</a></li>
 </ul>
 </li>
-<li><a href="#_explication_de_lapi_overpass_et_nominatim">Explication de l&#8217;API Overpass et Nominatim</a></li>
+<li><a href="#_interaction_avec_les_avis">Interaction avec les Avis</a>
+<ul class="sectlevel2">
+<li><a href="#_consulter_les_avis">Consulter les Avis</a></li>
+<li><a href="#_liker_un_avis">Liker un Avis</a></li>
+<li><a href="#_disliker_un_avis">Disliker un Avis</a></li>
+</ul>
+</li>
 <li><a href="#_fonctionnalité_de_gestion_des_animaux_perdus">Fonctionnalité de Gestion des Animaux Perdus</a></li>
+</ul>
+</li>
+<li><a href="#_fonctionnalité_de_planification_des_heures_de_repas_et_envoi_de_mails">Fonctionnalité de Planification des Heures de Repas et Envoi de Mails</a>
+<ul class="sectlevel1">
+<li><a href="#_introduction">Introduction</a></li>
+<li><a href="#_contenu_de_la_page_html">Contenu de la Page HTML</a>
+<ul class="sectlevel2">
+<li><a href="#_structure_html">Structure HTML</a></li>
+<li><a href="#_scripts_javascript">Scripts JavaScript</a></li>
+<li><a href="#_fonctionnalités_principales">Fonctionnalités Principales</a></li>
+<li><a href="#_1_affichage_des_horaires_de_repas">1. Affichage des Horaires de Repas</a></li>
+<li><a href="#_2_ajout_dune_alerte_dalimentation">2. Ajout d&#8217;une Alerte d&#8217;Alimentation</a></li>
+<li><a href="#_3_suppression_dune_alerte_dalimentation">3. Suppression d&#8217;une Alerte d&#8217;Alimentation</a></li>
+<li><a href="#_4_modification_dune_alerte_dalimentation">4. Modification d&#8217;une Alerte d&#8217;Alimentation</a></li>
+<li><a href="#_5_envoi_de_mails_de_rappel">5. Envoi de Mails de Rappel</a></li>
+<li><a href="#_utilisation_de_la_page">Utilisation de la Page</a></li>
+<li><a href="#_confirmation_de_le_mail">Confirmation de l&#8217;E-mail</a></li>
+<li><a href="#_api_de_la_fonctionnalité">API de la fonctionnalité</a></li>
+</ul>
+</li>
 <li><a href="#_partie_3_modélisation">Partie 3 : Modélisation</a></li>
 <li><a href="#_base_de_données">Base de données</a>
 <ul class="sectlevel2">
 <li><a href="#_modèle_lovemypet">Modèle LoveMyPet</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#_planification_des_heures_de_repas_et_envoi_de_mails">Planification des Heures de Repas et Envoi de Mails</a>
-<ul class="sectlevel1">
-<li><a href="#_1_création_dun_planning_de_repas">1. Création d&#8217;un Planning de Repas</a>
-<ul class="sectlevel2">
-<li><a href="#_1_1_endpoint">1.1 Endpoint</a></li>
-<li><a href="#_1_2_description">1.2 Description</a></li>
-<li><a href="#_1_3_paramètres">1.3 Paramètres</a></li>
-<li><a href="#_1_4_exemple_de_corps_de_requête">1.4 Exemple de Corps de Requête</a></li>
-<li><a href="#_1_5_réponse">1.5 Réponse</a></li>
-</ul>
-</li>
-<li><a href="#_2_affichage_des_utilisateurs_avec_un_repas_planifié_à_lheure_actuelle">2. Affichage des Utilisateurs avec un Repas Planifié à l&#8217;Heure Actuelle</a>
-<ul class="sectlevel2">
-<li><a href="#_2_1_endpoint">2.1 Endpoint</a></li>
-<li><a href="#_2_2_description">2.2 Description</a></li>
-<li><a href="#_2_3_réponse">2.3 Réponse</a></li>
-</ul>
-</li>
-<li><a href="#_3_récupération_des_heures_de_repas_pour_un_animal">3. Récupération des Heures de Repas pour un Animal</a>
-<ul class="sectlevel2">
-<li><a href="#_3_1_endpoint">3.1 Endpoint</a></li>
-<li><a href="#_3_2_description">3.2 Description</a></li>
-<li><a href="#_3_3_paramètres">3.3 Paramètres</a></li>
-<li><a href="#_3_4_exemple_de_réponse">3.4 Exemple de Réponse</a></li>
-</ul>
-</li>
-<li><a href="#_4_envoi_de_mails">4. Envoi d&#8217;E-mails</a>
-<ul class="sectlevel2">
-<li><a href="#_4_1_endpoint">4.1 Endpoint</a></li>
-<li><a href="#_4_2_description">4.2 Description</a></li>
-<li><a href="#_4_3_exemple_de_corps_de_requête">4.3 Exemple de Corps de Requête</a></li>
-<li><a href="#_4_4_réponse">4.4 Réponse</a></li>
-</ul>
-</li>
-<li><a href="#_5_envoi_automatique_de_mails_aux_utilisateurs_avec_un_repas_planifié">5. Envoi Automatique d&#8217;E-mails aux Utilisateurs avec un Repas Planifié</a>
-<ul class="sectlevel2">
-<li><a href="#_5_1_méthode">5.1 Méthode</a></li>
-<li><a href="#_5_2_description">5.2 Description</a></li>
-<li><a href="#_5_3_réponse">5.3 Réponse</a></li>
-</ul>
-</li>
-<li><a href="#_6_api_utilisées">6. API Utilisées</a>
-<ul class="sectlevel2">
-<li><a href="#_6_1_feedingscheduleservice">6.1 FeedingScheduleService</a></li>
-<li><a href="#_6_2_emailsenderservice">6.2 EmailSenderService</a></li>
-</ul>
-</li>
-<li><a href="#_7_diagramme_uml_de_la_fonctionnalité">7. Diagramme UML de la Fonctionnalité</a></li>
-<li><a href="#_8_gestion_des_alertes_et_planification_des_repas">8. Gestion des <strong>Alertes</strong> et <strong>Planification des Repas</strong></a>
-<ul class="sectlevel2">
-<li><a href="#_8_1_affichage_des_alertes">8.1 <strong>Affichage des Alertes</strong></a></li>
-<li><a href="#_8_2_planification_des_repas">8.2 <strong>Planification des Repas</strong></a></li>
-<li><a href="#_8_3_visualisation_des_alertes_planifiées">8.3 <strong>Visualisation des Alertes Planifiées</strong></a></li>
-<li><a href="#_8_4_capture_décran_du_mail_envoyé">8.4 Capture d&#8217;écran du Mail Envoyé</a></li>
 </ul>
 </li>
 </ul>
@@ -1132,21 +1101,11 @@ Frontend -- Backend : communique
 <div class="paragraph">
 <p><strong>étape 5</strong></p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="candidatures.png" alt="etape 5">
-</div>
-</div>
 <div class="paragraph">
 <p>Le propriétaire peut ensuite examiner chaque candidature individuellement et décider d&#8217;accepter ou de refuser.</p>
 </div>
 <div class="paragraph">
 <p><strong>étape 6</strong></p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="accepter_refuser.png" alt="etape 6">
-</div>
 </div>
 </div>
 </div>
@@ -1154,16 +1113,6 @@ Frontend -- Backend : communique
 <h3 id="_petite_feature_pour_laffichage_et_la_modification_des_informations_des_animaux">Petite feature pour l&#8217;affichage et la modification des informations des Animaux</h3>
 <div class="paragraph">
 <p>Chaque animal dans la section "Mes Animaux" est doté d&#8217;un bouton en haut à droite avec le signe plus (+). En cliquant sur ce bouton, les informations détaillées de l&#8217;animal sont affichées, offrant la possibilité de modifier le nom, le poids et la photo de l&#8217;animal.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="accepter_refuser.png" alt="etape 6">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="accepter_refuser.png" alt="etape 6">
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -1300,7 +1249,7 @@ RestTemplate --&gt; API: Nominatim API</pre>
 <div class="ulist">
 <ul>
 <li>
-<p>=== Trouver un Vétérinaire :</p>
+<p>Trouver un Vétérinaire :</p>
 </li>
 </ul>
 </div>
@@ -1322,7 +1271,7 @@ RestTemplate --&gt; API: Nominatim API</pre>
 <div class="ulist">
 <ul>
 <li>
-<p>=== Rechercher un Jardin pour se Balader :</p>
+<p>Rechercher un Jardin pour se Balader :</p>
 </li>
 </ul>
 </div>
@@ -1335,13 +1284,51 @@ RestTemplate --&gt; API: Nominatim API</pre>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_explication_de_lapi_overpass_et_nominatim">Explication de l&#8217;API Overpass et Nominatim</h3>
+<div class="paragraph">
+<p>L&#8217;API Overpass est un service d&#8217;interrogation et d&#8217;analyse de données OpenStreetMap. Elle permet de récupérer des données géographiques en utilisant un langage de requête spécifique. Dans le contexte de cette application, elle est utilisée pour obtenir des informations sur les vétérinaires et les jardins à proximité en fonction de la position de l&#8217;utilisateur. Les requêtes sont construites dynamiquement pour cibler les catégories spécifiques (amenity=veterinary, leisure=garden) et les résultats sont intégrés à la carte de l&#8217;application.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_explication_de_lapi_overpass_et_nominatim">Explication de l&#8217;API Overpass et Nominatim</h2>
+<h2 id="_interaction_avec_les_avis">Interaction avec les Avis</h2>
 <div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="images_planification_food/7.png" alt="advice">
+</div>
+</div>
 <div class="paragraph">
-<p>L&#8217;API Overpass est un service d&#8217;interrogation et d&#8217;analyse de données OpenStreetMap. Elle permet de récupérer des données géographiques en utilisant un langage de requête spécifique. Dans le contexte de cette application, elle est utilisée pour obtenir des informations sur les vétérinaires et les jardins à proximité en fonction de la position de l&#8217;utilisateur. Les requêtes sont construites dynamiquement pour cibler les catégories spécifiques (amenity=veterinary, leisure=garden) et les résultats sont intégrés à la carte de l&#8217;application.</p>
+<p>Dans cette sous-branche, les utilisateurs ont la possibilité d&#8217;interagir avec les avis en les consultant, en les likant, ou en les dislikant. Cette fonctionnalité permet d&#8217;exprimer des réactions vis-à-vis des conseils postés par d&#8217;autres utilisateurs.</p>
+</div>
+<div class="sect2">
+<h3 id="_consulter_les_avis">Consulter les Avis</h3>
+<div class="paragraph">
+<p>Les utilisateurs peuvent parcourir les avis postés par d&#8217;autres membres de la communauté LoveMyPet. Ces avis peuvent contenir des conseils utiles, des expériences personnelles, ou des informations pertinentes sur les animaux de compagnie.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_liker_un_avis">Liker un Avis</h3>
+<div class="paragraph">
+<p>Chaque utilisateur a la possibilité de manifester son appréciation envers un avis en utilisant la fonction "Like". Lorsqu&#8217;un utilisateur clique sur le bouton "Like" d&#8217;un avis, cela indique une réaction positive envers le contenu de cet avis.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_disliker_un_avis">Disliker un Avis</h3>
+<div class="paragraph">
+<p>De même, les utilisateurs peuvent exprimer leur désaccord ou leur mécontentement envers un avis en utilisant la fonction "Dislike". Cliquer sur le bouton "Dislike" signifie que l&#8217;utilisateur n&#8217;est pas en accord avec le contenu de l&#8217;avis.</p>
+</div>
+<div class="paragraph">
+<p>Ces interactions permettent de créer une dynamique communautaire où les utilisateurs peuvent partager leurs opinions et réagir aux conseils des autres membres.</p>
+</div>
+<div class="paragraph">
+<p>Les actions de "Like" et "Dislike" sont enregistrées dans la base de données, fournissant ainsi des informations sur la popularité et la réception des avis au sein de la communauté LoveMyPet.</p>
+</div>
+<div class="paragraph">
+<p>Ces fonctionnalités contribuent à renforcer l&#8217;engagement des utilisateurs et favorisent une communauté active et collaborative.</p>
+</div>
 </div>
 </div>
 </div>
@@ -1362,6 +1349,206 @@ En cliquant sur ce bouton, les utilisateurs peuvent remplir un formulaire pour d
 <pre>    Liste des Animaux Perdus :
     Ce bouton affiche une liste des animaux perdus déclarés par la communauté LoveMyPet. Les utilisateurs peuvent parcourir cette liste pour retrouver des animaux perdus et faciliter des réunions chaleureuses entre les amis à fourrure égarés et leurs propriétaires.
 L'API Nominatim est utilisée pour convertir le nom de la ville saisi par l'utilisateur en coordonnées géographiques, ce qui permet d'étendre la fonctionnalité de recherche par ville et périmètre.</pre>
+</div>
+</div>
+</div>
+</div>
+<h1 id="_fonctionnalité_de_planification_des_heures_de_repas_et_envoi_de_mails" class="sect0">Fonctionnalité de Planification des Heures de Repas et Envoi de Mails</h1>
+<div class="sect1">
+<h2 id="_introduction">Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La fonctionnalité de planification des heures de repas et d&#8217;envoi de mails de LoveMyPet permet aux utilisateurs de définir des horaires de repas pour leurs animaux de compagnie et de recevoir des rappels par e-mail à ces heures programmées. Cette documentation explique comment utiliser la page dédiée à cette fonctionnalité, basée sur le code HTML fourni.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images_planification_food/3.png" alt="Planification de repas">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_contenu_de_la_page_html">Contenu de la Page HTML</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La page HTML fournie contient un formulaire pour ajouter des alertes d&#8217;alimentation, une liste d&#8217;alertes existantes avec des options pour les supprimer ou les modifier, et des scripts JavaScript pour interagir avec l&#8217;API et gérer les fonctionnalités associées.</p>
+</div>
+<div class="sect2">
+<h3 id="_structure_html">Structure HTML</h3>
+<div class="paragraph">
+<p>La structure de la page HTML est composée des éléments suivants :
+- Bouton de redirection vers la page "Mes animaux."
+- Titre "Mes alertes."
+- Message indiquant la réception de mails.
+- Formulaire pour ajouter une alerte avec champ d&#8217;heure et bouton "Créer une alerte."
+- Tableau affichant les heures de repas programmées avec options pour les supprimer ou les éditer.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_scripts_javascript">Scripts JavaScript</h3>
+<div class="paragraph">
+<p>Plusieurs scripts JavaScript sont inclus pour gérer la récupération, l&#8217;affichage, la suppression et la modification des horaires de repas à partir de l&#8217;API.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_fonctionnalités_principales">Fonctionnalités Principales</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_1_affichage_des_horaires_de_repas">1. Affichage des Horaires de Repas</h3>
+<div class="paragraph">
+<p>La fonction <code>fetchFeedingTimes(animalId)</code> récupère les horaires de repas depuis l&#8217;API et les affiche dans le tableau sur la page.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_2_ajout_dune_alerte_dalimentation">2. Ajout d&#8217;une Alerte d&#8217;Alimentation</h3>
+<div class="paragraph">
+<p>La fonction <code>submitForm()</code> récupère l&#8217;heure saisie par l&#8217;utilisateur, envoie une requête POST à l&#8217;API pour créer une nouvelle alerte, puis met à jour l&#8217;affichage.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_3_suppression_dune_alerte_dalimentation">3. Suppression d&#8217;une Alerte d&#8217;Alimentation</h3>
+<div class="paragraph">
+<p>La fonction <code>deleteFeedingTime(id)</code> envoie une requête DELETE à l&#8217;API pour supprimer l&#8217;alerte d&#8217;alimentation spécifiée par l&#8217;ID.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_4_modification_dune_alerte_dalimentation">4. Modification d&#8217;une Alerte d&#8217;Alimentation</h3>
+<div class="paragraph">
+<p>La fonction <code>updateFeedingTime(id)</code> permet à l&#8217;utilisateur de mettre à jour l&#8217;heure d&#8217;une alerte existante en envoyant une requête PUT à l&#8217;API.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_5_envoi_de_mails_de_rappel">5. Envoi de Mails de Rappel</h3>
+<div class="paragraph">
+<p>Chaque heure planifiée, un e-mail de rappel est automatiquement envoyé à l&#8217;utilisateur, l&#8217;informant de l&#8217;heure de repas prévue pour son animal.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images_planification_food/4.png" alt="Exemple d&#8217;email envoyé a l&#8217;utilisateur">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_utilisation_de_la_page">Utilisation de la Page</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Accédez à la page via le bouton "Mes animaux."</p>
+</li>
+<li>
+<p>Ajoutez de nouvelles alertes d&#8217;alimentation en spécifiant l&#8217;heure et en cliquant sur "Créer une alerte."</p>
+</li>
+<li>
+<p>Consultez et gérez les alertes existantes dans le tableau.</p>
+</li>
+<li>
+<p>Recevez des rappels par e-mail à chaque heure programmée.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_confirmation_de_le_mail">Confirmation de l&#8217;E-mail</h3>
+<div class="paragraph">
+<p>Pour confirmer la réception de l&#8217;e-mail et l&#8217;alimentation de l&#8217;animal, l&#8217;utilisateur peut cliquer sur le bouton de confirmation présent dans l&#8217;e-mail. Lorsqu&#8217;il le fait, un message de réussite est affiché, et une nouvelle ligne est insérée dans la base de données pour enregistrer la confirmation.</p>
+</div>
+<div class="paragraph">
+<p>Le bouton de confirmation dans l&#8217;e-mail doit rediriger l&#8217;utilisateur vers une page ou un endpoint dédié, par exemple :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="html"><span class="tag">&lt;a</span> <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/feeding-confirmation/confirm?personId=1</span><span class="entity">&amp;amp;</span><span class="content">animalId=1</span><span class="entity">&amp;amp;</span><span class="content">feedingTimeId=39</span><span class="entity">&amp;amp;</span><span class="content">confirmationCode=ad97faf5</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Confirmer<span class="tag">&lt;/a&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lorsque l&#8217;utilisateur clique sur ce lien, une requête est envoyée à l&#8217;API pour confirmer la réception de l&#8217;e-mail. Cette requête déclenche l&#8217;insertion d&#8217;une nouvelle ligne dans la base de données avec les informations associées à la confirmation.</p>
+</div>
+<div class="paragraph">
+<p>Voici un exemple de structure de la table dans la base de données :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="sql"><span class="class">CREATE</span> <span class="type">TABLE</span> confirmation_table (
+    id SERIAL <span class="directive">PRIMARY</span> <span class="type">KEY</span>,
+    animal_id <span class="predefined-type">INTEGER</span>,
+    confirmation_code <span class="predefined-type">VARCHAR</span>(<span class="integer">255</span>),
+    confirmation_date <span class="predefined-type">TIMESTAMP</span>,
+    feeding_time_id <span class="predefined-type">INTEGER</span>,
+    person_id <span class="predefined-type">INTEGER</span>
+);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Chaque confirmation est enregistrée avec les informations suivantes :
+- <code>id</code>: Identifiant unique de la confirmation (auto-incrémenté).
+- <code>animal_id</code>: Identifiant de l&#8217;animal concerné.
+- <code>confirmation_code</code>: Code de confirmation associé à l&#8217;e-mail.
+- <code>confirmation_date</code>: Date et heure de la confirmation.
+- <code>feeding_time_id</code>: Identifiant de l&#8217;horaire d&#8217;alimentation associé.
+- <code>person_id</code>: Identifiant de la personne effectuant la confirmation.</p>
+</div>
+<div class="paragraph">
+<p>Lorsqu&#8217;un utilisateur confirme l&#8217;e-mail, une nouvelle ligne est ajoutée à la table avec les données appropriées. Cette approche permet de suivre les confirmations pour chaque animal, chaque horaire d&#8217;alimentation, et chaque personne.</p>
+</div>
+<div class="paragraph">
+<p>Cette fonctionnalité offre une trace complète des confirmations et permet de garantir que les utilisateurs ont bien alimenté leurs animaux selon les horaires programmés.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images_planification_food/5.png" alt="Message">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images_planification_food/6.png" alt="Ligne dans la table feeding confirmation">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_api_de_la_fonctionnalité">API de la fonctionnalité</h3>
+<div class="sect3">
+<h4 id="_ajout_dun_horaire_dalimentation">Ajout d&#8217;un Horaire d&#8217;Alimentation</h4>
+<div class="paragraph">
+<p>Endpoint : <code>POST /api/feeding-times/add</code>
+Cette API permet d&#8217;ajouter un nouvel horaire d&#8217;alimentation. Elle accepte une requête POST avec les détails de l&#8217;horaire dans le corps de la requête. En cas de succès, elle renvoie un message indiquant que l&#8217;horaire a été ajouté avec succès. En cas d&#8217;erreur, elle peut retourner des messages spécifiques, tels que la détection d&#8217;un conflit si l&#8217;horaire existe déjà.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_liste_des_horaire_dalimentation_pour_un_animal">Liste des Horaire d&#8217;Alimentation pour un Animal</h4>
+<div class="paragraph">
+<p>Endpoint : <code>GET /api/feeding-times/{idAnimal}</code>
+Cette API renvoie la liste des horaires de repas associés à un animal spécifié par son ID. Les horaires sont renvoyés sous forme de liste de chaînes.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_détail_dun_horaire_dalimentation">Détail d&#8217;un Horaire d&#8217;Alimentation</h4>
+<div class="paragraph">
+<p>Endpoint : <code>GET /api/feeding-times/time/{id}</code>
+Cette API renvoie les détails d&#8217;un horaire d&#8217;alimentation spécifié par son ID. Si l&#8217;horaire existe, elle renvoie les détails de l&#8217;horaire sous forme d&#8217;objet. Sinon, elle retourne une réponse "Not Found."</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_suppression_dun_horaire_dalimentation">Suppression d&#8217;un Horaire d&#8217;Alimentation</h4>
+<div class="paragraph">
+<p>Endpoint : <code>DELETE /api/feeding-times/delete/{id}</code>
+Cette API permet de supprimer un horaire d&#8217;alimentation en spécifiant son ID. En cas de succès, elle renvoie un message indiquant que l&#8217;horaire a été supprimé avec succès. En cas d&#8217;erreur, elle peut retourner un message générique d&#8217;erreur interne du serveur.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_mise_à_jour_dun_horaire_dalimentation">Mise à Jour d&#8217;un Horaire d&#8217;Alimentation</h4>
+<div class="paragraph">
+<p>Endpoint : <code>PUT /api/feeding-times/update/{id}</code>
+Cette API permet de mettre à jour un horaire d&#8217;alimentation en spécifiant son ID. Elle accepte une requête PUT avec les détails mis à jour dans le corps de la requête. En cas de succès, elle renvoie un message de mise à jour réussie. En cas d&#8217;erreur, elle peut retourner un message d&#8217;erreur spécifique.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_récupération_des_horaire_dalimentation_actuels_pour_les_e_mails">Récupération des Horaire d&#8217;Alimentation Actuels pour les E-mails</h4>
+<div class="paragraph">
+<p>Endpoint : <code>GET /api/feeding-times/email-animal-current-feeding-times</code>
+Cette API renvoie une liste d&#8217;informations sur les horaires de repas actuels pour lesquels des e-mails de rappel doivent être envoyés. Les informations sont renvoyées sous forme de liste d&#8217;objets. En cas de succès, elle renvoie la liste des horaires. En cas d&#8217;absence de données, elle renvoie une réponse "No Content." En cas d&#8217;erreur, elle peut retourner une réponse générique d&#8217;erreur interne du serveur.</p>
+</div>
+<hr>
 </div>
 </div>
 </div>
@@ -1679,6 +1866,53 @@ package "com.nanterre.LoveMyPet.model" {
     +animal: Animal
     date: Date
   }
+
+  class Advice {
+    +idAdvice: Integer
+    description: String
+    +person: Person
+    +animal: Animal
+  }
+  class LikeDislike {
+    +id: Integer
+    +advice: Advice
+    +person: Person
+    isLike: boolean
+  }
+
+  class FeedingConfirmation {
+    +id: Integer
+    +personId: Integer
+    +animalId: Integer
+    +feedingTimeId: Integer
+    confirmationDate: Date
+    confirmationCode: String
+  }
+
+  class FeedingTime {
+    +id: Integer
+    +feedingTime: LocalTime
+  }
+  class HistoriqueAdoption {
+    +id: Integer
+    +idAnimal: Integer
+    +idPerson: Integer
+    endDate: Date
+    adoptedAnimal: Animal
+    adoptedByPerson: Person
+  }
+  class LostAnimal {
+  +id: Integer
+  category: String
+  person: Person
+  name: String
+  age: Integer
+  race: String
+  comment: String
+  gender: String
+  imageUrl: String
+  lostDate: Date
+}
 }
 
 Person   --  Animal : "1,1" Adopte "0,N"
@@ -1687,333 +1921,17 @@ Animal -- Adoption : "1,1" Est concerné par "1,1"
 Candidature -- Adoption : "1,1" Correspond à "0,N"
 Vaccin -- Vaccination : "0,N" Est utilisé dans "1,N"
 Vaccination -- Animal : "1,1" prend "1,N"
+Person -- Advice : "0,N" Partage "1,N"
+LikeDislike -- Person : "1,1" Est exprimé par "0,N"
+Animal -- FeedingConfirmation : "1,1" Est concerné par "0,N"
+FeedingTime -- FeedingConfirmation : "1,1" Planifie "0,N"
+FeedingTime -- Animal : "1,1" Est associé à "0,N"
+LikeDislike -- Advice : "0,N" Est associé à "1,N"
+Person -- HistoriqueAdoption : "0,N" Enregistré "1,1"
+HistoriqueAdoption -- Animal : "1,1" Concerne "0,N"
+Person -- LostAnimal : "1,N" Perd "1,N"
 
 @enduml</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<h1 id="_planification_des_heures_de_repas_et_envoi_de_mails" class="sect0">Planification des Heures de Repas et Envoi de Mails</h1>
-<div class="openblock partintro">
-<div class="content">
-Cette fonctionnalité vise à automatiser la gestion des repas pour les animaux en permettant aux utilisateurs de planifier les heures de repas de leurs animaux de compagnie. En plus de la planification, le système envoie des rappels par e-mail aux utilisateurs à l&#8217;heure programmée pour garantir que leurs animaux reçoivent leur nourriture à temps.
-</div>
-</div>
-<div class="sect1">
-<h2 id="_1_création_dun_planning_de_repas">1. Création d&#8217;un Planning de Repas</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_1_1_endpoint">1.1 Endpoint</h3>
-<div class="paragraph">
-<p><code>POST /api/feeding-schedules</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_1_2_description">1.2 Description</h3>
-<div class="paragraph">
-<p>Cette API permet aux utilisateurs de créer un planning de repas pour un animal spécifique.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_1_3_paramètres">1.3 Paramètres</h3>
-<div class="paragraph">
-<p>Un objet <code>FeedingSchedule</code> doit être inclus dans le corps de la requête, spécifiant l&#8217;animal, la fréquence des repas, et les heures de repas.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_1_4_exemple_de_corps_de_requête">1.4 Exemple de Corps de Requête</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="json">{
-  <span class="key"><span class="delimiter">&quot;</span><span class="content">animal</span><span class="delimiter">&quot;</span></span>: {<span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>: <span class="integer">1</span>},
-  <span class="key"><span class="delimiter">&quot;</span><span class="content">feedingFrequency</span><span class="delimiter">&quot;</span></span>: <span class="integer">2</span>,
-  <span class="key"><span class="delimiter">&quot;</span><span class="content">feedingTimes</span><span class="delimiter">&quot;</span></span>: [
-    {<span class="key"><span class="delimiter">&quot;</span><span class="content">feedingTime</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">08:00</span><span class="delimiter">&quot;</span></span>},
-    {<span class="key"><span class="delimiter">&quot;</span><span class="content">feedingTime</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">18:00</span><span class="delimiter">&quot;</span></span>}
-  ]
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_1_5_réponse">1.5 Réponse</h3>
-<div class="paragraph">
-<p>Un message indiquant que le planning a été créé avec succès.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_2_affichage_des_utilisateurs_avec_un_repas_planifié_à_lheure_actuelle">2. Affichage des Utilisateurs avec un Repas Planifié à l&#8217;Heure Actuelle</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_2_1_endpoint">2.1 Endpoint</h3>
-<div class="paragraph">
-<p><code>GET /api/feeding-schedules/emails-with-current-time</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_2_2_description">2.2 Description</h3>
-<div class="paragraph">
-<p>Cette API récupère la liste des utilisateurs ayant un repas planifié à l&#8217;heure actuelle.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_2_3_réponse">2.3 Réponse</h3>
-<div class="paragraph">
-<p>Une chaîne de caractères indiquant le succès de l&#8217;opération ou une liste des e-mails dans la console.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_3_récupération_des_heures_de_repas_pour_un_animal">3. Récupération des Heures de Repas pour un Animal</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_3_1_endpoint">3.1 Endpoint</h3>
-<div class="paragraph">
-<p><code>GET /api/feeding-schedules/animal/{animalId}</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_3_2_description">3.2 Description</h3>
-<div class="paragraph">
-<p>Récupère la liste des heures de repas pour un animal spécifique.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_3_3_paramètres">3.3 Paramètres</h3>
-<div class="paragraph">
-<p>L&#8217;identifiant de l&#8217;animal (<code>animalId</code>) doit être fourni dans l&#8217;URL.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_3_4_exemple_de_réponse">3.4 Exemple de Réponse</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="json">[
-  <span class="string"><span class="delimiter">&quot;</span><span class="content">08:00</span><span class="delimiter">&quot;</span></span>,
-  <span class="string"><span class="delimiter">&quot;</span><span class="content">18:00</span><span class="delimiter">&quot;</span></span>
-]</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_4_envoi_de_mails">4. Envoi d&#8217;E-mails</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_4_1_endpoint">4.1 Endpoint</h3>
-<div class="paragraph">
-<p><code>POST /api/feeding-schedules/send</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_4_2_description">4.2 Description</h3>
-<div class="paragraph">
-<p>Envoie un e-mail à une adresse e-mail fixe à des fins de test.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_4_3_exemple_de_corps_de_requête">4.3 Exemple de Corps de Requête</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="http">POST /api/feeding-schedules/send</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_4_4_réponse">4.4 Réponse</h3>
-<div class="paragraph">
-<p>Un message indiquant que l&#8217;e-mail a été envoyé avec succès ou une erreur en cas d&#8217;échec.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_5_envoi_automatique_de_mails_aux_utilisateurs_avec_un_repas_planifié">5. Envoi Automatique d&#8217;E-mails aux Utilisateurs avec un Repas Planifié</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_5_1_méthode">5.1 Méthode</h3>
-<div class="paragraph">
-<p><code>sendEmailToUsersWithCurrentFeedingTime</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_5_2_description">5.2 Description</h3>
-<div class="paragraph">
-<p>Utilise une tâche planifiée (<code>@Scheduled</code>) pour envoyer automatiquement des rappels par e-mail aux utilisateurs ayant un repas planifié à l&#8217;heure actuelle.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_5_3_réponse">5.3 Réponse</h3>
-<div class="paragraph">
-<p>Un message indiquant que les e-mails ont été envoyés avec succès ou une erreur en cas d&#8217;échec.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_6_api_utilisées">6. API Utilisées</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_6_1_feedingscheduleservice">6.1 FeedingScheduleService</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><code>createFeedingSchedule</code>: Crée un nouveau planning de repas.</p>
-</li>
-<li>
-<p><code>getUsersWithCurrentFeedingTime</code>: Récupère la liste des utilisateurs avec un repas planifié à l&#8217;heure actuelle.</p>
-</li>
-<li>
-<p><code>getFeedingTimesForAnimal</code>: Récupère la liste des heures de repas pour un animal spécifique.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_6_2_emailsenderservice">6.2 EmailSenderService</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><code>sendSimpleEmail</code>: Envoie un e-mail simple.</p>
-</li>
-<li>
-<p><code>sendHtmlEmail</code>: Envoie un e-mail au format HTML.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_7_diagramme_uml_de_la_fonctionnalité">7. Diagramme UML de la Fonctionnalité</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre>@startuml
-package "com.nanterre.LoveMyPet.repository" {
-    class FeedingScheduleRepository {
-        // Méthodes du repository FeedingSchedule
-    }
-
-    class FeedingTimeRepository {
-        // Méthodes du repository FeedingTime
-    }
-}
-
-package "com.nanterre.LoveMyPet.service" {
-    interface FeedingScheduleService {
-        +createFeedingSchedule(feedingSchedule: FeedingSchedule): FeedingSchedule
-        +getUsersWithCurrentFeedingTime(): List&lt;String&gt;
-        +getFeedingTimesForAnimal(animalId: Long): List&lt;LocalTime&gt;
-    }
-
-    interface EmailSenderService {
-        +sendSimpleEmail(toEmail: String, subject: String, body: String): void
-        +sendHtmlEmail(toEmail: String, subject: String, body: String): void
-    }
-
-    class FeedingScheduleServiceImpl {
-        -feedingScheduleRepository: FeedingScheduleRepository
-        +createFeedingSchedule(feedingSchedule: FeedingSchedule): FeedingSchedule
-        +getUsersWithCurrentFeedingTime(): List&lt;String&gt;
-        +getFeedingTimesForAnimal(animalId: Long): List&lt;LocalTime&gt;
-    }
-
-    class EmailSenderService {
-        -javaMailSender: JavaMailSender
-        -fromEmail: String
-        +sendSimpleEmail(toEmail: String, subject: String, body: String): void
-        +sendHtmlEmail(toEmail: String, subject: String, body: String): void
-    }
-}
-
-package "com.nanterre.LoveMyPet.controller" {
-    class FeedingScheduleController {
-        -feedingScheduleService: FeedingScheduleService
-        +createFeedingSchedule(feedingSchedule: FeedingSchedule): ResponseEntity&lt;String&gt;
-        +displayUsersWithCurrentFeedingTime(): String
-        +getFeedingTimesForAnimal(animalId: Long): ResponseEntity&lt;List&lt;LocalTime&gt;&gt;
-        +sendEmail(): String
-        +sendEmailToUsersWithCurrentFeedingTime(): String
-    }
-}
-
-FeedingScheduleRepository -- FeedingScheduleService : "1,1" Utilise "1,N"
-FeedingScheduleRepository -- FeedingScheduleServiceImpl : "1,1" Utilise "1,1"
-FeedingTimeRepository -- FeedingScheduleService : "1,1" Utilise "0,N"
-EmailSenderService -- FeedingScheduleService : "1,1" Utilise "0,N"
-FeedingScheduleController -- FeedingScheduleService : "1,1" Utilise "1,1"
-@enduml</pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_8_gestion_des_alertes_et_planification_des_repas">8. Gestion des <strong>Alertes</strong> et <strong>Planification des Repas</strong></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Cette section détaille la gestion des <strong>alertes</strong> liées à la <strong>planification des repas</strong> pour les animaux de l&#8217;utilisateur.</p>
-</div>
-<div class="sect2">
-<h3 id="_8_1_affichage_des_alertes">8.1 <strong>Affichage des Alertes</strong></h3>
-<div class="paragraph">
-<p>Lorsque l&#8217;utilisateur clique sur le bouton "Mes <strong>Alertes</strong>", il est dirigé vers la page "Mes <strong>Alertes</strong>" qui affiche toutes les <strong>alertes</strong> associées à la <strong>planification des repas</strong> de ses animaux. Chaque <strong>alerte</strong> présente des informations détaillées telles que l&#8217;animal concerné, l&#8217;heure prévue du repas, et d&#8217;autres détails pertinents.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images_planification_food/img1.png" alt="Capture d&#8217;écran de la page &quot;Mes **Alertes**&quot;">
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_8_2_planification_des_repas">8.2 <strong>Planification des Repas</strong></h3>
-<div class="paragraph">
-<p>Si l&#8217;utilisateur n&#8217;a pas encore <strong>planifié de repas</strong> pour l&#8217;un de ses animaux, il sera redirigé vers un formulaire de <strong>planification</strong> lorsqu&#8217;il accède à la page "Mes <strong>Alertes</strong>". Le formulaire initial comprend un champ permettant à l&#8217;utilisateur de spécifier le <strong>nombre de repas</strong> par jour pour l&#8217;animal sélectionné.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images_planification_food/img3.png" alt="Capture d&#8217;écran du formulaire de **planification** initial">
-</div>
-</div>
-<div class="paragraph">
-<p>Une fois que l&#8217;utilisateur a saisi le <strong>nombre de repas</strong>, le formulaire s&#8217;ajuste dynamiquement pour afficher autant de champs que nécessaire pour entrer les <strong>heures prévues des repas</strong>. Chaque champ représente une <strong>heure de repas</strong>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images_planification_food/img2.png" alt="Capture d&#8217;écran des champs d'**heures de repas**">
-</div>
-</div>
-<div class="paragraph">
-<p>Après avoir rempli le formulaire, l&#8217;utilisateur est redirigé vers la page "Mes <strong>Alertes</strong>" pour voir les <strong>alertes</strong> correspondant aux <strong>heures de repas planifiées</strong>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_8_3_visualisation_des_alertes_planifiées">8.3 <strong>Visualisation des Alertes Planifiées</strong></h3>
-<div class="paragraph">
-<p>La page "Mes <strong>Alertes</strong>" permet à l&#8217;utilisateur de visualiser toutes les <strong>alertes planifiées</strong> associées à ses animaux. Les <strong>alertes</strong> comprennent des détails tels que l&#8217;animal concerné, l&#8217;heure prévue du repas, et d&#8217;autres informations pertinentes.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images_planification_food/img1.png" alt="Capture d&#8217;écran des **alertes planifiées**">
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_8_4_capture_décran_du_mail_envoyé">8.4 Capture d&#8217;écran du Mail Envoyé</h3>
-<div class="paragraph">
-<p>L&#8217;utilisateur reçoit un exemple de courriel pour les rappels de repas planifiés. Cet exemple illustre le contenu typique du courriel envoyé, confirmant l&#8217;heure de planification.</p>
-</div>
-<div class="paragraph">
-<p>Exemple de courriel envoyé le 18:17 (heure de planification)</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="./images_planification_food/img4.png" alt="Capture d&#8217;écran du mail envoyé">
 </div>
 </div>
 </div>
@@ -2022,7 +1940,7 @@ FeedingScheduleController -- FeedingScheduleService : "1,1" Utilise "1,1"
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-12-19 17:09:20 +0100
+Last updated 2024-02-11 19:46:43 +0100
 </div>
 </div>
 </body>
