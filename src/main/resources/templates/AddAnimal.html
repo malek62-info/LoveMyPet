@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Responsive Registration Form | CodingLab</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Event</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <style>
-        /* Styles de la deuxième page */
+        /* Styles généraux */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
         * {
             margin: 0;
@@ -13,10 +14,12 @@
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
+
         body {
             background-image: url('https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg');
-            margin: 0;
+            margin: 0; /* Ajout de cette ligne pour éliminer la marge par défaut du corps */
         }
+
         .container {
             max-width: 700px;
             width: 100%;
@@ -33,12 +36,14 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
+
         .container .title {
             font-size: 25px;
             font-weight: 500;
             position: relative;
-            margin-bottom: 20px;
+            margin-bottom: 20px; /* Ajout de cette ligne pour séparer le titre du formulaire */
         }
+
         .container .title::before {
             content: "";
             position: absolute;
@@ -49,22 +54,26 @@
             border-radius: 5px;
             background: linear-gradient(135deg, #71b7e6, #9b59b6);
         }
+
         .content form .user-details {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             margin: 20px 0 12px 0;
-            width: 100%;
+            width: 100%; /* Ajout de cette ligne pour occuper la largeur complète du conteneur */
         }
+
         form .user-details .input-box {
             margin-bottom: 15px;
             width: calc(100% / 2 - 20px);
         }
+
         form .input-box span.details {
             display: block;
             font-weight: 500;
             margin-bottom: 5px;
         }
+
         .user-details .input-box input {
             height: 45px;
             width: 100%;
@@ -76,10 +85,12 @@
             border-bottom-width: 2px;
             transition: all 0.3s ease;
         }
+
         .user-details .input-box input:focus,
         .user-details .input-box input:valid {
             border-color: #9b59b6;
         }
+
         form .category select,
         form .input-box select {
             height: 45px;
@@ -92,11 +103,13 @@
             border-bottom-width: 2px;
             transition: all 0.3s ease;
         }
+
         .button {
             height: 45px;
             margin: 35px 0;
-            width: 100%;
+            width: 100%; /* Ajout de cette ligne pour occuper la largeur complète du conteneur */
         }
+
         .button input {
             height: 100%;
             width: 100%;
@@ -108,31 +121,35 @@
             letter-spacing: 1px;
             cursor: pointer;
             transition: all 0.3s ease;
-            background-color: #343a40;
+            background-color: #343a40; /* Utiliser la couleur du menu */
         }
+
         .button input:hover {
-            background-color: #495057;
+            background-color: #495057; /* Modifier la couleur au survol si nécessaire */
         }
+
         .content form .input-box a#openMapLink,
         .content form .input-box label.custom-file-upload {
             display: inline-block;
             padding: 10px 20px;
             cursor: pointer;
-            background: #343a40;
+            background: #343a40; /* Utiliser la couleur du menu */
             color: #fff;
             border-radius: 5px;
             font-size: 16px;
             transition: all 0.3s ease;
         }
+
         .content form .input-box a#openMapLink:hover,
         .content form .input-box label.custom-file-upload:hover {
-            background: #495057;
+            background: #495057; /* Modifier la couleur au survol si nécessaire */
         }
+
         .content form .input-box a#openMapLink {
             display: inline-block;
             padding: 10px 20px;
             cursor: pointer;
-            background: #343a40;
+            background: #343a40; /* Utiliser la couleur du menu */
             color: #fff;
             border-radius: 5px;
             font-size: 16px;
@@ -140,129 +157,159 @@
             text-decoration: none;
             transition: all 0.3s ease;
         }
+
         .content form .input-box a#openMapLink:hover {
-            background: #495057;
+            background: #495057; /* Modifier la couleur au survol si nécessaire */
         }
 
-        /* Ajout du style pour le menu */
-        nav {
-            background-color: #343a40;
-            padding: 10px;
-            text-align: center;
-        }
-        nav a {
+        /* Menu */
+        .w3-sidebar {
+            position: fixed;
+            z-index: 100;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
             color: #fff;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+            left: 0;
+            top: 0;
+        }
+
+        .w3-button {
+            color: #fff;
+            outline: none;
+            padding: 10px;
             text-decoration: none;
-            padding: 0 10px;
+            transition: 0.5s;
+        }
+
+        .w3-button:hover {
+            background-color: #fff;
+            text-decoration: none;
+            color: #81774E;
+            border-radius: 6px;
+        }
+
+        .w3-button:hover a {
+            color: #000;
+        }
+
+        .logo-img {
+            text-align: center;
+            margin: 20px auto;
+            width: 100px;
+        }
+
+        .side_bar_bar {
+            background-color: #81774E;
+            border: 0;
+            height: 1px;
+            width: 100%;
+            border-radius: 2px;
+            margin: 10px 0;
         }
     </style>
 </head>
 <body>
-<nav>
-    <a href="#">Accueil</a>
-    <a href="#">À propos</a>
-    <a href="#">Contact</a>
-</nav>
+
+<!-- Sidebar -->
+<div class="w3-sidebar ">
+    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <a href="/profile" class="w3-button">Mon compte</a>
+    <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+    <hr class="side_bar_bar"></hr>
+    <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+    <a href="/adoption" class="w3-button">Adoption</a>
+    <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+    <hr class="side_bar_bar"></hr>
+    <a href="#" class="w3-button">Se Déconnecter</a>
+    <hr class="side_bar_bar"></hr>
+    <a href="/donate" class="w3-button">Donner des objets</a>
+    <a href="/showdonations" class="w3-button">Trouver des objets</a>
+    <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
+</div>
+
 <div class="container">
-    <div class="title">Animal Registration</div>
+    <div class="title">Add Event</div>
     <div class="content">
-        <form id="animalForm" action="/animal/add" method="POST" enctype="multipart/form-data">
+        <form id="eventForm" enctype="multipart/form-data">
             <div class="user-details">
-                <!-- Ajouter un champ caché pour l'ID de la personne -->
-                <input type="hidden" id="idPerson" name="idPerson">
+                <!-- ID de la personne connectée -->
+                <input type="hidden" id="createurId" name="createurId" value="">
 
                 <div class="input-box">
-                    <span class="details">Name</span>
-                    <input type="text" name="name" placeholder="Enter animal name" required>
+                    <span class="details">Title</span>
+                    <input type="text" id="titre" name="titre" required>
                 </div>
                 <div class="input-box">
-                    <span class="details">Category</span>
-                    <select required id="category" name="category" >
-                        <option value="" disabled selected>Select category</option>
-                        <option  name="category" value="cat">Cat</option>
-                        <option  name="category"  value="dog">Dog</option>
-                    </select>
+                    <span class="details">Date</span>
+                    <input type="date" id="date" name="date" required>
                 </div>
                 <div class="input-box">
-                    <span class="details">Race</span>
-                    <input type="text" name="race" placeholder="Enter animal race" required>
+                    <span class="details">Place</span>
+                    <input type="text" id="place" name="place" required>
+                    <a href="/parc" id="openMapLink" target="_blank">Open Map</a>
                 </div>
                 <div class="input-box">
-                    <span class="details">Weight</span>
-                    <input type="number" name="weight" placeholder="Enter animal weight" required>
-                </div>
-                <div class="input-box">
-                    <span class="details">Image Upload</span>
-                    <label for="image-upload" class="custom-file-upload">
-                        Choose File
-                    </label>
-                    <input type="file" id="image-upload" name="imageFile" style="display:none;" />
-                </div>
-                <div class="input-box">
-                    <span class="details">Gender</span>
-                    <select name="gender" required>
-                        <option value="1">Male</option>
-                        <option value="2">Female</option>
-                    </select>
-                </div>
-                <div class="input-box">
-                    <span class="details">Date of Birth</span>
-                    <input type="date" name="dateOfBirth" required>
+                    <span class="details">Image</span>
+                    <label for="imageFile" class="custom-file-upload">Choose File</label>
+                    <input type="file" id="imageFile" name="imageFile" required style="display:none;" />
                 </div>
             </div>
             <div class="button">
-                <input type="submit" value="Register">
+                <input type="submit" value="Add Event">
             </div>
         </form>
     </div>
 </div>
-<!-- Inclure jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- Votre script jQuery ici -->
 <script>
     $(document).ready(function () {
-     // Récupérer l'ID de la personne connectée via la méthode /profile
-     $.ajax({
-         url: "/person/profile",
-         type: "GET",
-         success: function (data) {
-             // Mettre à jour la valeur de l'ID dans le champ caché
-             $("#idPerson").val(data.id);
-         },
-         error: function (xhr, status, error) {
-             // Gérer les erreurs
-         }
-     });
+        // Récupérer l'ID de la personne connectée via la méthode /profile
+        $.ajax({
+            url: "/person/profile",
+            type: "GET",
+            success: function (data) {
+                // Mettre à jour la valeur de l'ID dans le champ caché
+                $("#createurId").val(data.id);
+            },
+            error: function (xhr, status, error) {
+                // Gérer les erreurs
+                alert("Erreur lors de la récupération du profil de la personne");
+            }
+        });
 
-     $("#animalForm").submit(function (event) {
-         event.preventDefault();
+        $('#eventForm').submit(function (e) {
+            e.preventDefault();
 
-         var formData = new FormData(this);
+            var formData = new FormData(this);
 
-         // Convertir la date au format ISO (AAAA-MM-JJ) avant de l'envoyer
-         formData.set("dateOfBirth", new Date(formData.get("dateOfBirth")).toISOString());
+            // Ajoutez une alerte pour vérifier si le formulaire est correctement récupéré
+            alert("Formulaire soumis");
 
-         $.ajax({
-             url: "/animal/add",
-             type: "POST",
-             data: formData,
-             processData: false,
-             contentType: false,
-             success: function (data) {
-                 alert(data);
-        window.location.href = "/profile";
-
-                 // Réinitialisez le formulaire si nécessaire
-                 $("#animalForm")[0].reset();
-             },
-             error: function (xhr, status, error) {
-                 alert("Erreur : " + error);
-             }
-         });
-     });
- });
+            $.ajax({
+                url: '/api/evenements/add',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    // Ajoutez une alerte pour voir la réponse du serveur
+                    alert("Réponse du serveur : " + data);
+                    window.location.href = '/profile';
+                },
+                error: function (xhr, status, error) {
+                    // Ajoutez une alerte pour voir l'erreur
+                    alert('Error: ' + error);
+                }
+            });
+        });
+    });
 
 </script>
+
 </body>
 </html>
