@@ -68,5 +68,3 @@ After successfully installing LoveMyPet, launch the application:
 2. **In your browser, go to:**
    - Open your browser and visit [http://localhost:8081/Calcule](http://localhost:8081/) to display our homepage.
 
-
-   e
