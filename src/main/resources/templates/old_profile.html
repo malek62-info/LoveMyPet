@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services</title>
+    <link rel="stylesheet" href="/css/style_service.css" class="css">
+    <!-- FONT AWESOME LINK USING BOXICON -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="navbar.js"></script>
+</head>
+<body>
+
+    <div class="navbar-wrapper">
+        <div class="navbar">
+            <div class="logo">
+                <img src="images/logo.png" style="width: 150px; height: 65px;">
+
+            </div>
+            <div class="nav_right">
+                <ul><p>Bonjour <span id="userName"></span> !</p>
+                    <li class="nr_li dd_main">
+                        <img src="/images/person1.jpg" alt="profile_img">
+                        <div class="dd_menu">
+                            <div class="dd_left">
+                                <ul>
+                                    <li><i class="fa-solid fa-user"></i></li>
+                                    <li><i class="fa-solid fa-paw"></i></li>
+                                    <li><i class="fas fa-sign-out-alt"></i></li>
+                                </ul>
+                            </div>
+                            <div class="dd_right">
+                                <ul>
+                                    <li><a href="/profile">Mon compte</a></li>
+                                    <li ><a href="/mesanimaux" >Mes animaux</a></li>
+                                    <li><a href="#">Se Déconnecter</a></li>
+                                    <li><a href="/mesCandidatures">Mes candidatures</a></li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </div>	
+
+    <div class="wrapper">
+        <h1>Nos Services</h1>
+        <p>Découvrez nos services dédiés à rendre la vie avec votre compagnon encore plus spéciale.</p>
+
+
+             <div class="content-box">
+                <div class="card">
+                    <img src="/images/service1.png" alt="#" style="width: 70px; height: 70px;">
+                    <h2>ADOPTER</h2>
+                  <p>Offrez à un compagnon à quatre pattes une nouvelle maison pleine d'amour et d'aventures en adoptant l'un de nos adorables amis poilus avec LoveMyPet.</p>
+                  <a href="/adoption" class="btn">Adopter maintenant</a>
+                </div>
+
+
+                <div class="card">
+                    <img src="/images/service2.png" alt="#" style="width: 70px; height: 70px;">
+                    <h2>Inscrire mon animal</h2>
+                   <p>Inscrivea votre Animal et restez connecté à chaque étape de la vie de votre compagnon avec nos notifications dédiées.soyez toujours au courant de ses besoins essentiels.</p>
+                   <a href="/AddAnimal" class="btn">scrire mon animal</a>
+                </div>
+                <div class="card">
+                    <img src="/images/service3.png" alt="#" style="width: 70px; height: 70px;">
+
+                    <h2>SUIVI COMPLET DE L'ANIMAL</h2>
+                    <p>Assurez un suivi complet de la santé de votre compagnon, de son poids à ses vaccinations, pour une vie épanouissante.</p>
+                    <a href="/mesanimaux" class="btn">Suivi complet</a>
+                </div>
+                <div class="card">
+                    <img src="/images/service4.png" alt="#" style="width: 70px; height: 70px;">
+                    <h2>EXPLORATION FACILE</h2>
+                    <p>Notre carte interactive vous guide facilement vers les vétérinaires et parcs locaux, transformant chaque sortie en une aventure agréable pour vous et votre compagnon.</p>
+                    <a href="/Map" class="btn">Explorer</a>
+                </div>
+                <div class="card">
+                    <img src="/images/service5.png" alt="#" style="width: 70px; height: 70px;">
+                    <h2>ANIMAUX PERDUS</h2>
+                    <p>LoveMyPet s'engage au bien-être des animaux. Utilisez notre service Animaux perdus pour déclarer ou retrouver un compagnon perdu, créant ainsi des réunions chaleureuses entre amis à fourrure.</p>                   
+                    <a href="/LostAnimals" class="btn">Animaux Perdus</a>
+                </div>
+
+                 <div class="card">
+                     <img src="/images/icon_conseil.png" alt="#" style="width: 70px; height: 70px;">
+                     <h2>Partager votre conseil</h2>
+                     <p>Partager votre conseil : Cultiver la richesse collective des expériences et des connaissances</p>
+                     <a href="/AddAdvice" class="btn">Partager</a>
+                 </div>
+
+                 <div class="card">
+                     <img src="/images/discussion.png" alt="#" style="width: 70px; height: 70px;">
+                     <h2>Forum Animal</h2>
+                     <p> Où les passionnés se rassemblent pour célébrer nos amis à poils, plumes et écailles.</p>
+                     <a href="/publications" class="btn">Consulter</a>
+                 </div>
+
+                 <div class="card">
+                    <img src="/images/toys.png" alt="#" style="width: 70px; height: 70px;">
+                    <h2>donner / et recevoir des objets</h2>
+                    <p> Où les passionnés se rassemblent pour célébrer nos amis à poils, plumes et écailles.</p>
+                    <a href="/itemspage" class="btn">Consulter</a>
+                </div>
+                
+             </div>
+    </div>
+    <script>
+        var dd_main = document.querySelector(".dd_main");
+    
+        dd_main.addEventListener("click", function(){
+            this.classList.toggle("active");
+        })
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "/person/profile",
+                type: "GET",
+                success: function (data) {
+                    var profileInfo = "ID : " + data.id + "<br>Nom : " + data.name;
+                    $("#profileInfo").html(profileInfo);
+                    
+                    $("#userName").text(data.name);
+                },
+                error: function (xhr, status, error) {
+                    // Gérer les erreurs
+                }
+            });
+        });
+    </script>
+</body>
+</html>
