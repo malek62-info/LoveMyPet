@@ -632,13 +632,13 @@ Etape 1: Rentrer une heure puis cliquer sur le boutton  "Creer une alerte" Puis 
 
 Aussi on peut modifier les alertes créer en cliqquand sur "Edith" , et supprimer ses alerte en "cliquand" sur Delete
 
-image::images_planification_food/3.png[Planification de repas]
+image::images_planification_food/1.png[Planification de repas]
 
 
 === Envoi de Mails de Rappel
 En suite lutilisateur n'a plus rien a faire , il recevra un email pour chaque heure rentrer  l'informant de l'heure de repas prévue pour son animal.
 
-image::images_planification_food/4.png[Exemple d'email envoyé a l'utilisateur]
+image::images_planification_food/2.png[Exemple d'email envoyé a l'utilisateur]
 
 === Confirmation de l'E-mail
 
@@ -858,6 +858,298 @@ FeedingConfirmationServiceImpl-->FeedingConfirmationService: Feeding confirmatio
 FeedingConfirmationService-->FeedingConfirmationController: Feeding confirmation response
 @enduml
 ----
+
+
+---
+= Fonctionnalité de donnation d'objets
+
+= Description de la fonctionnalité
+
+La fonctionnalité de donation d'objets permet aux utilisateurs de proposer des objets qu'ils souhaitent donner à d'autres personnes. Voici comment fonctionne cette fonctionnalité :
+
+==== Ajout d'objets à donner
+
+Les utilisateurs peuvent ajouter des informations sur les objets qu'ils souhaitent donner, telles que le nom de l'objet, une description et éventuellement une photo. En utilisant une interface conviviale, ils remplissent un formulaire avec les détails de l'objet, y compris le nom, la description et la photo facultative. Une fois le formulaire soumis, les informations sur l'objet sont enregistrées dans la base de données.
+
+==== Consultation des objets disponibles
+
+Les autres utilisateurs peuvent consulter la liste des objets disponibles à donner. Ils peuvent parcourir les objets ajoutés par d'autres utilisateurs et voir leurs détails, tels que le nom, la description et la photo. Cette fonctionnalité leur permet de trouver des objets qui pourraient les intéresser.
+
+==== Contacter le posteur pour récupérer l'objet
+
+Si un utilisateur est intéressé par un objet à donner, il peut contacter le posteur de l'objet pour organiser la récupération. Cela peut se faire par le biais de coordonnées fournies par l'utilisateur qui donne l'objet, telles qu'une adresse e-mail ou un numéro de téléphone. Les deux parties peuvent ensuite convenir d'un moment et d'un lieu pour que l'utilisateur récupère l'objet donné.
+
+==== Objectifs de la fonctionnalité
+
+- Faciliter le processus de donation d'objets en permettant aux utilisateurs de proposer des objets à donner.
+- Fournir aux utilisateurs une plateforme où ils peuvent trouver des objets disponibles à donner qui correspondent à leurs besoins.
+- Encourager le partage et la réutilisation des objets pour réduire le gaspillage et favoriser le développement durable.
+- Créer une communauté où les utilisateurs peuvent se soutenir mutuellement en donnant et en recevant des objets de manière désintéressée
+
+= API de la fonctionnalité de donation d'objets
+
+L'API de la fonctionnalité de donation d'objets permet aux utilisateurs d'effectuer différentes opérations liées à la gestion des objets à donner.
+
+==== Ajout d'objets à donner
+
+Endpoint : `POST /api/items-to-donate/add`
+
+Ce point de terminaison permet aux utilisateurs d'ajouter des informations sur les objets qu'ils souhaitent donner. Les informations nécessaires comprennent le nom de l'objet, une description et éventuellement une photo. Les paramètres de la requête sont les suivants :
+
+- `itemName` : Le nom de l'objet à donner.
+- `description` : La description de l'objet à donner.
+- `photo` : La photo de l'objet à donner (facultatif).
+- `idPerson` : L'identifiant de la personne qui donne l'objet.
+
+Exemple de corps de requête JSON :
+[source,json]
+----
+{
+  "itemName": "Chaise",
+  "description": "Chaise en bois",
+  "photo": "photo_chaise.jpg",
+  "idPerson": 123
+}
+----
+
+Réponse : En cas de succès, une réponse avec le message "Objet à donner ajouté avec succès" est renvoyée avec le code d'état HTTP 200 (OK). En cas d'erreur, une réponse avec le message "Erreur lors de l'ajout de l'objet à donner" est renvoyée avec le code d'état HTTP 500 (Internal Server Error).
+
+==== Consultation des objets disponibles
+
+Endpoint : `GET /api/items-to-donate/`
+
+Ce point de terminaison permet aux utilisateurs de consulter la liste des objets disponibles à donner. Il renvoie une liste d'URLs vers les détails de chaque objet disponible.
+
+Exemple de réponse JSON :
+[source,json]
+----
+[
+  "/api/items-to-donate/item/1",
+  "/api/items-to-donate/item/2",
+  "/api/items-to-donate/item/3"
+]
+----
+
+==== Détails d'un objet à donner
+
+Endpoint : `GET /api/items-to-donate/item/{id}`
+
+Ce point de terminaison permet aux utilisateurs de récupérer les détails d'un objet à donner spécifique en fournissant son identifiant (`id`).
+
+Exemple de réponse JSON pour un objet avec l'identifiant 1 :
+[source,json]
+----
+{
+  "id": 1,
+  "itemName": "Chaise",
+  "description": "Chaise en bois",
+  "imageUrl": "photo_chaise.jpg",
+  "donatingPerson": {
+    "idPerson": 123,
+    "firstName": "John",
+    "lastName": "Doe"
+  }
+}
+----
+
+==== Récupération des objets d'une personne
+
+Endpoint : `GET /api/items-to-donate/person/{personId}`
+
+Ce point de terminaison permet aux utilisateurs de récupérer les objets qu'une personne spécifique a l'intention de donner. Il prend en paramètre l'identifiant de la personne (`personId`) et renvoie une liste d'URLs vers les détails de chaque objet.
+
+Exemple de réponse JSON pour les objets d'une personne avec l'identifiant 123 :
+[source,json]
+----
+[
+  "/api/items-to-donate/item/1",
+  "/api/items-to-donate/item/2"
+]
+----
+
+==== Suppression d'un objet à donner
+
+Endpoint : `DELETE /api/items-to-donate/item/{id}`
+
+Ce point de terminaison permet aux utilisateurs de supprimer un objet à donner spécifique en fournissant son identifiant (`id`). En cas de succès, une réponse avec le message "Objet à donner supprimé avec succès" est renvoyée avec le code d'état HTTP 200 (OK).
+
+Exemple de réponse JSON pour la suppression d'un objet avec l'identifiant 1 :
+[source,json]
+----
+{
+  "message": "Objet à donner supprimé avec succès"
+}
+----
+
+== Diagramme de séquence
+[plantuml]
+----
+@startuml
+
+package "Controller" {
+    class ItemToDonateController {
+        - itemToDonateService: ItemToDonateServiceImpl
+        + addItemToDonate(itemName: String, description: String, photo: MultipartFile, idPerson: Integer): ResponseEntity<String>
+        - saveImage(imageFile: MultipartFile): String
+        + getAllItemReferences(): List<String>
+        + getItemDetailsById(id: Integer): ItemToDonate
+        + getItemReferencesByPersonId(personId: Integer): ResponseEntity<List<String>>
+        + deleteItemToDonate(id: Integer): ResponseEntity<String>
+    }
+}
+
+package "Model" {
+    class ItemToDonate {
+        - id: Integer
+        - itemName: String
+        - description: String
+        - imageUrl: String
+        - donatingPerson: Person
+        + ItemToDonate()
+        + ItemToDonate(itemName: String, description: String, imageUrl: String, person: Person)
+        + getId(): Integer
+        + setId(id: Integer): void
+        + getItemName(): String
+        + setItemName(itemName: String): void
+        + getDescription(): String
+        + setDescription(description: String): void
+        + getImageUrl(): String
+        + setImageUrl(imageUrl: String): void
+        + getDonatingPerson(): Person
+        + setDonatingPerson(donatingPerson: Person): void
+    }
+
+    class Person {
+        - idPerson: Integer
+        - address: String
+        - password: String
+        - email: String
+        - imageUrl: String
+        - firstName: String
+        - lastName: String
+        - phoneNumber: String
+        + Person()
+        + getIdPerson(): Integer
+        + setIdPerson(idPerson: Integer): void
+        + getAddress(): String
+        + setAddress(address: String): void
+        + getPassword(): String
+        + setPassword(password: String): void
+        + getEmail(): String
+        + setEmail(email: String): void
+        + getImageUrl(): String
+        + setImageUrl(imageUrl: String): void
+        + getFirstName(): String
+        + setFirstName(firstName: String): void
+        + getLastName(): String
+        + setLastName(lastName: String): void
+        + getPhoneNumber(): String
+        + setPhoneNumber(phoneNumber: String): void
+    }
+}
+
+package "Repository" {
+    interface ItemToDonateRepository {
+        + findByDonatingPerson_IdPerson(personId: Integer): List<ItemToDonate>
+    }
+}
+
+package "Service" {
+    interface ItemToDonateService {
+        + saveItemToDonate(itemToDonate: ItemToDonate): void
+        + getAllItems(): List<ItemToDonate>
+        + getItemById(id: Integer): ItemToDonate
+        + getItemsByPersonId(personId: Integer): List<ItemToDonate>
+        + deleteItemToDonate(id: Integer): void
+    }
+
+    class ItemToDonateServiceImpl {
+        - itemToDonateRepository: ItemToDonateRepository
+        + saveItemToDonate(itemToDonate: ItemToDonate): void
+        + getAllItems(): List<ItemToDonate>
+        + getItemById(id: Integer): ItemToDonate
+        + getItemsByPersonId(personId: Integer): List<ItemToDonate>
+        + deleteItemToDonate(id: Integer): void
+    }
+}
+
+ItemToDonateController --> ItemToDonateServiceImpl : uses
+ItemToDonateController --> ItemToDonate : uses
+ItemToDonate --> Person : has
+ItemToDonateServiceImpl --> ItemToDonateRepository : uses
+ItemToDonateServiceImpl --> ItemToDonate : uses
+ItemToDonateService <|.. ItemToDonateServiceImpl : implements
+ItemToDonateRepository <|.. ItemToDonateRepositoryImpl : implements
+
+@enduml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
