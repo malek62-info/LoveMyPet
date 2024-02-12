@@ -192,10 +192,11 @@
         </form>
     </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        $("#personneForm").submit(function (event) {
+        $("#personForm").submit(function (event) {
             event.preventDefault();
 
             var formData = new FormData(this);
@@ -207,17 +208,15 @@
                 processData: false,
                 contentType: false,
                 success: function (data) {
-                    alert("bien jouer");
+                    // Affiche l'alerte stylée
+                    alert("Vous êtes bien enregistré !");
                     window.location.href = "/login";
-                    $("#personneForm")[0].reset();
-
+                    $("#personForm")[0].reset();
                 },
                 error: function (xhr, status, error) {
                     alert("Erreur : " + error);
                 }
             });
-
-
         });
     });
 </script>
