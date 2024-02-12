@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ItemToDonateRepository extends JpaRepository<ItemToDonate, Integer> {
-    List<ItemToDonate> findByDonatingPerson_IdPerson(Integer personId);
+    List<ItemToDonate> findByDonatingPerson_IdPerson(Integer personId); 
 }
+
 
 

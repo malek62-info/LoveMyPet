@@ -33,4 +33,7 @@ public class ItemToDonateServiceImpl implements ItemToDonateService {
         return itemToDonateRepository.findByDonatingPerson_IdPerson(personId);
     }
 
+    public void deleteItemToDonate(Integer id) {
+        itemToDonateRepository.deleteById(id);
+    }
 }

@@ -29,19 +29,19 @@ public class ItemToDonateController {
             @RequestParam(name = "description") String description,
             @RequestParam(name = "photo", required = false) MultipartFile photo,
             @RequestParam(name = "idPerson") Integer idPerson) {
-    
+
         try {
             // Imprimez les valeurs pour vérification dans la console
             System.out.println("Item Name: " + itemName);
             System.out.println("Description: " + description);
             System.out.println("ID Person: " + idPerson);
-    
+
             // Enregistrez le fichier image et récupérez son URL
             String imageUrl = saveImage(photo);
-    
+
             // Imprimez l'URL de l'image pour vérification dans la console
             System.out.println("Image URL: " + imageUrl);
-    
+
             // Créez un nouvel objet à donner
             ItemToDonate itemToDonate = new ItemToDonate();
             itemToDonate.setItemName(itemName);
@@ -52,49 +52,42 @@ public class ItemToDonateController {
 
             // Définissez la relation entre ItemToDonate et Person
             itemToDonate.setDonatingPerson(donatingPerson);
-    
+
             // Imprimez l'objet pour vérification dans la console
             System.out.println("Item to Donate: " + itemToDonate);
-    
+
             // Enregistrez l'objet à donner dans la base de données
             itemToDonateService.saveItemToDonate(itemToDonate);
-    
+
             return new ResponseEntity<>("Objet à donner ajouté avec succès", HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>("Erreur lors de l'ajout de l'objet à donner", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    
+
     private String saveImage(MultipartFile imageFile) throws IOException {
         if (imageFile != null && !imageFile.isEmpty()) {
             // Spécifiez le chemin de votre dossier d'images dans les ressources
             String imagesDirectory = "src/main/resources/static/images/items-to-donate";
             String fileName = imageFile.getOriginalFilename();
-    
+
             // Vérifiez si fileName est nul avant de remplacer les espaces
             if (fileName != null) {
                 fileName = fileName.replaceAll("\\s", "-");
             }
-    
+
             Path filePath = Paths.get(imagesDirectory, fileName);
-    
+
             // Écrivez le fichier image dans le dossier spécifié
             Files.write(filePath, imageFile.getBytes());
-    
+
             // Retournez l'URL relative de l'image
             return fileName;
         }
         return null;
     }
-    
-    
 
-
-
-
-
-    
     // Ajoutez d'autres méthodes de contrôleur selon les besoins
     @GetMapping("/")
     public List<String> getAllItemReferences() {
@@ -103,12 +96,13 @@ public class ItemToDonateController {
                 .map(item -> "/item/" + item.getId())
                 .collect(Collectors.toList());
     }
+
     @GetMapping("/item/{id}")
     public ItemToDonate getItemDetailsById(@PathVariable Integer id) {
         return itemToDonateService.getItemById(id);
     }
 
-    //les objets d'une personne
+    // les objets d'une personne
     @GetMapping("person/{personId}")
     public ResponseEntity<List<String>> getItemReferencesByPersonId(@PathVariable Integer personId) {
         List<ItemToDonate> items = itemToDonateService.getItemsByPersonId(personId);
@@ -120,9 +114,19 @@ public class ItemToDonateController {
         List<String> itemReferences = items.stream()
                 .map(item -> "/item/" + item.getId())
                 .collect(Collectors.toList());
-
         return ResponseEntity.ok(itemReferences);
     }
 
+    @DeleteMapping("/item/{id}")
+    public ResponseEntity<String> deleteItemToDonate(@PathVariable Integer id) {
+        try {
+            itemToDonateService.deleteItemToDonate(id);
+            return new ResponseEntity<>("Objet à donner supprimé avec succès", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Erreur lors de la suppression de l'objet à donner",
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
