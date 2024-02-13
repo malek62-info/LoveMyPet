@@ -330,7 +330,7 @@ image::AddAnimal.png[etape 1]
 
 **étape 2**
 
-image::donner.png[etape 2]
+image::Animals/animals.png[etape 2]
 
 **étape 3**
 
@@ -346,7 +346,7 @@ Une fois configuré, l'animal est répertorié dans la section dédiée à l'ado
 
 **étape 4**
 
-image::adoption.png[etape 4]
+image::Animals/adoption.png[etape 4]
 
 Cette approche flexible simplifie l'adoption, laissant aux propriétaires le choix de la durée d'adoption.
 
@@ -829,13 +829,13 @@ FeedingConfirmationService-->FeedingConfirmationController: Feeding confirmation
 
 ---
 = Fonctionnalité de donnation d'objets
-
-= Description de la fonctionnalité
+image::Donation/Objetgratuit.png[Obtenez des objets gratuitements]
+==== Description de la fonctionnalité
 
 La fonctionnalité de donation d'objets permet aux utilisateurs de proposer des objets qu'ils souhaitent donner à d'autres personnes. Voici comment fonctionne cette fonctionnalité :
 
 ==== Ajout d'objets à donner
-
+image::Donation/Poster_des_objets.png[Postez des Objets]
 Les utilisateurs peuvent ajouter des informations sur les objets qu'ils souhaitent donner, telles que le nom de l'objet, une description et éventuellement une photo. En utilisant une interface conviviale, ils remplissent un formulaire avec les détails de l'objet, y compris le nom, la description et la photo facultative. Une fois le formulaire soumis, les informations sur l'objet sont enregistrées dans la base de données.
 
 ==== Consultation des objets disponibles
@@ -854,6 +854,8 @@ Si un utilisateur est intéressé par un objet à donner, il peut contacter le p
 - Créer une communauté où les utilisateurs peuvent se soutenir mutuellement en donnant et en recevant des objets de manière désintéressée
 
 = API de la fonctionnalité de donation d'objets
+
+-
 
 L'API de la fonctionnalité de donation d'objets permet aux utilisateurs d'effectuer différentes opérations liées à la gestion des objets à donner.
 
