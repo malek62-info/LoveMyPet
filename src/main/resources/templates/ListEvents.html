@@ -19,7 +19,7 @@
         }
 h1 {
     color: #fff; /* Couleur du texte (blanc) */
-    font-size: 36px; /* Taille du texte */
+    font-size: 40px; /* Taille du texte */
     text-shadow:
         white 0.006em 0.006em 0.007em,
         #9c9c9c 1px 1px 1px,
@@ -41,7 +41,7 @@ h1 {
     font-weight: bold;
     position: absolute;
     top: 0;
-    left: 50%;
+    left: 62%;
     transform: translateX(-50%);
     width: 100%;
     z-index: 999;
@@ -159,59 +159,55 @@ h1 {
         z-index: 10;
     }
 
-  .w3-sidebar {
-    position: fixed;
-    z-index: 100;
-    background-color: #000;
-    display: flex;
-    flex-direction: column;
-    color: #fff;
-    width: 250px;
-    padding: 20px;
-    height: 100vh;
-    overflow-y: auto;
-    left: 0; /* Positionner le menu complètement à gauche de l'écran */
-    top: 0;
-    margin-right: 50px; /* Ajouter un espace de 50px entre le menu et les cadres */
-}
+   /* Menu */
+        .w3-sidebar {
+            position: fixed;
+            z-index: 100;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+            left: 0;
+            top: 0;
+        }
 
+        .w3-button {
+            color: #fff;
+            outline: none;
+            padding: 10px;
+            text-decoration: none;
+            transition: 0.5s;
+        }
 
+        .w3-button:hover {
+            background-color: #fff;
+            text-decoration: none;
+            color: #81774E;
+            border-radius: 6px;
+        }
 
-    .w3-button {
-        color: #fff;
-        outline: none;
-        outline: none;
-        padding: 10px;
-        text-decoration: none;
-        transition: 0.5s;
-    }
+        .w3-button:hover a {
+            color: #000;
+        }
 
+        .logo-img {
+            text-align: center;
+            margin: 20px auto;
+            width: 100px;
+        }
 
-    .w3-button:hover {
-        background-color: #fff;
-        text-decoration: none;
-        color: #81774E;
-        border-radius: 6px;
-    }
-
-    .w3-button:hover a {
-        color: #000;
-    }
-
-    .logo-img {
-        text-align: CENTER;
-        margin: 20PX AUTO;
-        width: 100PX;
-    }
-
-    .side_bar_bar {
-        background-color: #81774E;
-    border: 0;
-    height: 1px;
-    width: 100%;
-    border-radius: 2px;
-    margin: 10px 0;
-    }
+        .side_bar_bar {
+            background-color: #81774E;
+            border: 0;
+            height: 1px;
+            width: 100%;
+            border-radius: 2px;
+            margin: 10px 0;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
@@ -228,9 +224,6 @@ h1 {
 
     <a href="/adoption" class="w3-button">Adoption</a>
     <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
-    <hr class="side_bar_bar">
-    </hr>
-    <a href="#" class="w3-button">Se Déconnecter</a>
 
     <hr class="side_bar_bar">
     </hr>
@@ -245,6 +238,11 @@ h1 {
     <a href="/AddEvent" class="w3-button">Ajouter un évenement</a>
     <a href="/ShowEvent" class="w3-button">Participé a un evenement</a>
     <a href="/MyEvent" class="w3-button">Mes évenement crée </a>
+
+
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="#" class="w3-button">Se Déconnecter</a>
 
 </div>
 <h1>LISTE DES ÉVÉNEMENTS À VENIR</h1> <!-- Ajouter un titre -->

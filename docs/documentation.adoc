@@ -283,7 +283,7 @@ Après avoir ajouté des compagnons dans la section "Mes Animaux", chaque animal
 
 **étape 1**
 
-image::enregistrement.png[etape 1]
+image::AddAnimal.png[etape 1]
 
 **étape 2**
 
@@ -370,7 +370,7 @@ Une fois sur la page "EXPLORATION FACILE", les utilisateurs ont deux choix :
 
 Les utilisateurs peuvent sélectionner l'option qui correspond à leur recherche.
 
-image::map.png[Map]
+image::Map/map.png[Map]
 
 == Requête vers l'API Overpass et Nominatim
 
@@ -392,10 +392,10 @@ Si l'utilisateur opte pour "Rechercher un Jardin pour se Balader", l'application
 
 Les résultats de la requête pour les vétérinaires sont affichés sur la carte sous forme de marqueurs. Chaque marqueur représente l'emplacement d'un vétérinaire trouvé.
 
-image::veterinaire.png[Vétérinaire]
+image::Map/veterinaire.png[Vétérinaire]
 === Recherche par ville "Geneve":
 
-image::veterinairegeneve.png[veterinairegeneve]
+image::Map/veterinairegeneve.png[veterinairegeneve]
 
 - Rechercher un Jardin pour se Balader :
 
@@ -435,34 +435,9 @@ VeterinairesController --> RestTemplate: makeApiCall()
 RestTemplate --> API: Overpass API
 RestTemplate --> API: Nominatim API
 ----
-===API
-= Contrôleur des Vétérinaires
+===API Contrôleur des Vétérinaires
 
 Ce contrôleur utilise l'API Overpass pour récupérer la liste des vétérinaires dans une ville donnée.
-
-== API Utilisée
-
-=== Overpass API
-
-[source,asciidoc]
-----
-[Endpoint]
-https://overpass-api.de/api/interpreter
-
-[Méthode]
-GET
-
-[Description]
-Cette API permet de requêter des données OpenStreetMap (OSM) en utilisant le langage de requête Overpass Query Language (Overpass QL).
-----
-
-== Endpoint du Contrôleur
-
-[source,asciidoc]
-----
-[Endpoint]
-/api/veterinaires
-----
 
 == Paramètres de Requête
 
@@ -491,8 +466,8 @@ Exemple de réponse:
 ----
 [
   {
-    "lat": 48.8534,
-    "lon": 2.3488,
+    "lat": 45.8534,
+    "lon": 3.3488,
     "name": "Vétérinaire A"
   },
   {
@@ -550,43 +525,6 @@ deactivate ParcsController
 @enduml
 ----
 
-== Interaction avec les Avis
-
-image::images_planification_food/7.png[advice]
-
-
-Dans cette sous-branche, les utilisateurs ont la possibilité d'interagir avec les avis en les consultant, en les likant, ou en les dislikant. Cette fonctionnalité permet d'exprimer des réactions vis-à-vis des conseils postés par d'autres utilisateurs.
-
-=== Consulter les Avis
-
-Les utilisateurs peuvent parcourir les avis postés par d'autres membres de la communauté LoveMyPet. Ces avis peuvent contenir des conseils utiles, des expériences personnelles, ou des informations pertinentes sur les animaux de compagnie.
-
-=== Liker un Avis
-
-Chaque utilisateur a la possibilité de manifester son appréciation envers un avis en utilisant la fonction "Like". Lorsqu'un utilisateur clique sur le bouton "Like" d'un avis, cela indique une réaction positive envers le contenu de cet avis.
-
-=== Disliker un Avis
-
-De même, les utilisateurs peuvent exprimer leur désaccord ou leur mécontentement envers un avis en utilisant la fonction "Dislike". Cliquer sur le bouton "Dislike" signifie que l'utilisateur n'est pas en accord avec le contenu de l'avis.
-
-Ces interactions permettent de créer une dynamique communautaire où les utilisateurs peuvent partager leurs opinions et réagir aux conseils des autres membres.
-
-Les actions de "Like" et "Dislike" sont enregistrées dans la base de données, fournissant ainsi des informations sur la popularité et la réception des avis au sein de la communauté LoveMyPet.
-
-Ces fonctionnalités contribuent à renforcer l'engagement des utilisateurs et favorisent une communauté active et collaborative.
-
-
-
-== Fonctionnalité de Gestion des Animaux Perdus
-
-La section "Animaux Perdus" de LoveMyPet propose une fonctionnalité permettant aux utilisateurs de déclarer et de retrouver leurs compagnons perdus. Lorsque vous accédez à cette section depuis la page "Nos Services", vous trouverez deux boutons distincts : "Déclarer un Animal Perdu" et "Liste des Animaux Perdus".
-
-    Déclarer un Animal Perdu :
-    En cliquant sur ce bouton, les utilisateurs peuvent remplir un formulaire pour déclarer un animal perdu. Ils peuvent fournir des détails tels que le nom de l'animal, une description, une photo, et d'autres informations pertinentes.
-
-    Liste des Animaux Perdus :
-    Ce bouton affiche une liste des animaux perdus déclarés par la communauté LoveMyPet. Les utilisateurs peuvent parcourir cette liste pour retrouver des animaux perdus et faciliter des réunions chaleureuses entre les amis à fourrure égarés et leurs propriétaires.
-L'API Nominatim est utilisée pour convertir le nom de la ville saisi par l'utilisateur en coordonnées géographiques, ce qui permet d'étendre la fonctionnalité de recherche par ville et périmètre.
 
 
 = Fonctionnalité de Planification des Heures de Repas et Envoi de Mails
@@ -726,13 +664,13 @@ image::service_event.png[service_evenemtn]
 
 Lorsque l'utilisateur clique sur le bouton "Ajouter un Événement", il est redirigé vers une page où il peut remplir un formulaire avec des informations telles que le titre, la date, l'adresse de l'événement, et même ajouter une image pour l'événement.
 
-image::add_event.png[ajouter_event]
+image::Evenement/AddEvent.png[ajouter_event]
 
 === Affichage des Événements Non Expirés
 
 En cliquant sur le bouton "Afficher les Événements Non Expirés", l'utilisateur est dirigé vers une page présentant tous les événements non expirés. Il peut facilement s'inscrire à un événement en cliquant sur le bouton d'inscription associé à l'événement choisi.
 
-image::show_event.png[afficher_evenet]
+image::Evenement/ShowEvent.png[afficher_evenet]
 
 === Inscription à un Événement
 
@@ -743,9 +681,13 @@ L'inscription à un événement est simple. L'utilisateur clique sur le bouton "
 
 Si un utilisateur souhaite voir les événements qu'il a créés, il lui suffit de se rendre dans le menu dédié. Il sera alors redirigé vers une page listant tous les événements qu'il a créés.
 
-image::my_event.png[my_event]
+image::Evenement/MyEvent.png[my_event]
 
+=== Suppression d'un Événement Créé
 
+L'utilisateur peut supprimer un événement qu'il a créé en accédant à la page "Mes Événements". Sur cette page, il voit la liste de tous les événements qu'il a créés et peut sélectionner l'événement à supprimer en cliquant sur le bouton "Supprimer".
+
+image::Evenement/MyEventsup.png[mes_evenements]
 
 == Diagramme de Classe
 
