@@ -10,7 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <!-- Include Highcharts -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <link rel="stylesheet" href="/css/infoanimal.css">
+    <link rel="stylesheet" href="/css/graphe.css">
     <!-- FONT AWESOME LINK USING BOXICON -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -20,161 +20,236 @@
     <script src="/script/navbar.js"></script>
 </head>
 
-<body>
-    <div class="navbar-wrapper">
-        <div class="navbar">
-            <div class="logo">
-                <img src="images/logo.png" style="width: 150px; height: 65px;">
+[samedi 23:02] Adenle Sadikou
 
-            </div>
-            <div class="nav_right">
-                <ul>
-                    <p>Bonjour <span id="userName"></span> !</p>
-                    <li class="nr_li dd_main">
-                        <img src="/images/person1.jpg" alt="profile_img">
-                        <div class="dd_menu">
-                            <div class="dd_left">
-                                <ul>
-                                    <li><i class="fa-solid fa-user"></i></li>
-                                    <li><i class="fa-solid fa-paw"></i></li>
-                                    <li><i class="fas fa-sign-out-alt"></i></li>
-                                </ul>
-                            </div>
-                            <div class="dd_right">
-                                <ul>
-                                    <li><a href="/profile">Mon compte</a></li>
-                                    <li><a href="/mesanimaux">Mes animaux</a></li>
-                                    <li><a>Se Déconnecter</a></li>
-                                    <li><a href="/mescandidatures">Mes candidatures</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
+<style>
+    body {
+        display: flex;
+    }
 
-                </ul>
-            </div>
-        </div>
+    .top-right {
+        width: 40px;
+        height: 40px;
+        border: 1px solid #000;
+        border-radius: 50%;
+        background-color: #000;
+        padding: 20px;
+        font-weight: bold;
+        color: #fff;
+        border: 0;
+        outline: none;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+    }
+
+    /* sitde bar */
+    .w3-sidebar {
+        position: fixed;
+        z-index: 100;
+        background-color: #000;
+        display: flex;
+        flex-direction: column;
+        color: #fff;
+        width: 250px;
+        padding: 20px;
+        height: 100vh;
+        overflow-y: auto;
+    }
+
+    .w3-button {
+        color: #fff;
+        outline: none;
+        outline: none;
+        padding: 10px;
+        text-decoration: none;
+        transition: 0.5s;
+    }
+
+    .w3-button:hover {
+        background-color: #fff;
+        text-decoration: none;
+        color: #81774E;
+        border-radius: 6px;
+    }
+
+    .w3-button:hover a {
+        color: #000;
+    }
+
+    .logo-img {
+        text-align: CENTER;
+        margin: 20PX AUTO;
+        width: 100PX;
+    }
+
+    .side_bar_bar {
+        background-color: #81774E;
+        border: 0;
+        height: 1px;
+        width: 100%;
+        border-radius: 2px;
+        margin: 10px 0;
+    }
+</style>
+<!-- Sidebar -->
+<!-- Sidebar -->
+<div class="w3-sidebar ">
+    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <a href="/profile" class="w3-button">Mon compte</a>
+    <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+
+    <a href="/adoption" class="w3-button">Adoption</a>
+    <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="/donate" class="w3-button">Donner des objets</a>
+    <a href="/showdonations" class="w3-button">Trouver des objets</a>
+    <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
+
+    <hr class="side_bar_bar">
+    <a href="/Map" class="w3-button">Map</a>
+
+    <hr class="side_bar_bar">
+    <a href="/AddEvent" class="w3-button">Ajouter un évenement</a>
+    <a href="/ShowEvent" class="w3-button">Participé a un evenement</a>
+    <a href="/MyEvent" class="w3-button">Mes évenement crée </a>
+
+
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="#" class="w3-button">Se Déconnecter</a>
+
+</div>
+
+<h1>Suivi du poids de mon animal</h1>
+<div class="container">
+    <div>
+        <!-- Ajoute des boutons pour chaque mois -->
+        <button onclick="loadHistoriqueWeightDataByMonth(1)">January</button>
+        <button onclick="loadHistoriqueWeightDataByMonth(2)">February</button>
+        <button onclick="loadHistoriqueWeightDataByMonth(3)">March</button>
+        <button onclick="loadHistoriqueWeightDataByMonth(4)">April</button>
+        <button onclick="loadHistoriqueWeightDataByMonth(5)">May</button>
+        <button onclick="loadHistoriqueWeightDataByMonth(6)">June</button>
+        <button onclick="loadHistoriqueWeightDataByMonth(7)">July</button>
+        <button onclick="loadHistoriqueWeightDataByMonth(8)">August</button>
+        <button onclick="loadHistoriqueWeightDataByMonth(9)">September</button>
+        <button onclick="loadHistoriqueWeightDataByMonth(10)">October</button>
+        <button onclick="loadHistoriqueWeightDataByMonth(11)">November</button>
+        <button onclick="loadHistoriqueWeightDataByMonth(12)">December</button>
     </div>
+</div>
 
-    <h1>Suivi du poids de mon animal</h1>
-    <div class="container">
-        <div>
-            <!-- Ajoute des boutons pour chaque mois -->
-            <button onclick="loadHistoriqueWeightDataByMonth(1)">January</button>
-            <button onclick="loadHistoriqueWeightDataByMonth(2)">February</button>
-            <button onclick="loadHistoriqueWeightDataByMonth(3)">March</button>
-            <button onclick="loadHistoriqueWeightDataByMonth(4)">April</button>
-            <button onclick="loadHistoriqueWeightDataByMonth(5)">May</button>
-            <button onclick="loadHistoriqueWeightDataByMonth(6)">June</button>
-            <button onclick="loadHistoriqueWeightDataByMonth(7)">July</button>
-            <button onclick="loadHistoriqueWeightDataByMonth(8)">August</button>
-            <button onclick="loadHistoriqueWeightDataByMonth(9)">September</button>
-            <button onclick="loadHistoriqueWeightDataByMonth(10)">October</button>
-            <button onclick="loadHistoriqueWeightDataByMonth(11)">November</button>
-            <button onclick="loadHistoriqueWeightDataByMonth(12)">December</button>
-        </div>
-    </div>
+<div id="historiqueWeightChart"></div>
 
-    <div id="historiqueWeightChart"></div>
+<script>
+    function getAnimalIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get('id');
+    }
 
-    <script>
-        function getAnimalIdFromUrl() {
-                const urlParams = new URLSearchParams(window.location.search);
-                return urlParams.get('id');
+    // Function to fetch and display historique weight data by month
+    function loadHistoriqueWeightDataByMonth(month) {
+        // Replace 1 with the actual animal ID
+        const animalId = getAnimalIdFromUrl();
+        $.ajax({
+            url: "/historiqueWeight/data/" + animalId,
+            method: "GET",
+            success: function (data) {
+                // Filter data for the selected month
+                var filteredData = data.filter(function (historiqueWeight) {
+                    return new Date(historiqueWeight.date).getMonth() + 1 === month; // Months are 0-indexed in JavaScript
+                });
+
+                displayHistoriqueWeightChart(filteredData);
+            },
+            error: function (error) {
+                console.error("Error fetching historique weight data:", error);
             }
-
-        // Function to fetch and display historique weight data by month
-        function loadHistoriqueWeightDataByMonth(month) {
-            // Replace 1 with the actual animal ID
-            const animalId = getAnimalIdFromUrl();
-            $.ajax({
-                url: "/historiqueWeight/data/" + animalId,
-                method: "GET",
-                success: function (data) {
-                    // Filter data for the selected month
-                    var filteredData = data.filter(function (historiqueWeight) {
-                        return new Date(historiqueWeight.date).getMonth() + 1 === month; // Months are 0-indexed in JavaScript
-                    });
-
-                    displayHistoriqueWeightChart(filteredData);
-                },
-                error: function (error) {
-                    console.error("Error fetching historique weight data:", error);
-                }
-            });
-        }
-
-        // Function to display historique weight data as a chart
-        function displayHistoriqueWeightChart(data) {
-            var formattedData = data.map(function (historiqueWeight) {
-                return {
-                    x: new Date(historiqueWeight.date).getTime(),
-                    y: historiqueWeight.weight
-                };
-            });
-
-            Highcharts.chart('historiqueWeightChart', {
-                chart: {
-                    type: 'line'
-                },
-                title: {
-                    text: 'Historique du poids '
-                },
-                xAxis: {
-                    type: 'datetime',
-                    title: {
-                        text: 'Date'
-                    },
-                    labels: {
-                        formatter: function () {
-                            return Highcharts.dateFormat('%Y-%m-%d', this.value);
-                        }
-                    }
-                },
-                yAxis: {
-                    title: {
-                        text: 'Poids'
-                    }
-                },
-                series: [{
-                    name: 'Weight',
-                    data: formattedData,
-                    marker: {
-                        symbol: 'url(images/scale.png)', // Replace with the actual path to your image
-                        width: 35, // Replace with the desired width
-                        height: 35 // Replace with the desired height
-                    }
-                }]
-            });
-        }
-
-        // Load data for the default month (e.g., January)
-        loadHistoriqueWeightDataByMonth(1);
-    </script>
-    <script>
-        var dd_main = document.querySelector(".dd_main");
-
-        dd_main.addEventListener("click", function () {
-            this.classList.toggle("active");
-        })
-    </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $.ajax({
-                url: "/person/profile",
-                type: "GET",
-                success: function (data) {
-                    var profileInfo = "ID : " + data.id + "<br>Nom : " + data.name;
-                    $("#profileInfo").html(profileInfo);
-
-                    $("#userName").text(data.name);
-                },
-                error: function (xhr, status, error) {
-                }
-            });
         });
-    </script>
+    }
+
+    // Function to display historique weight data as a chart
+    function displayHistoriqueWeightChart(data) {
+        var formattedData = data.map(function (historiqueWeight) {
+            return {
+                x: new Date(historiqueWeight.date).getTime(),
+                y: historiqueWeight.weight
+            };
+        });
+
+        Highcharts.chart('historiqueWeightChart', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'Historique du poids '
+            },
+            xAxis: {
+                type: 'datetime',
+                title: {
+                    text: 'Date'
+                },
+                labels: {
+                    formatter: function () {
+                        return Highcharts.dateFormat('%Y-%m-%d', this.value);
+                    }
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Poids'
+                }
+            },
+            series: [{
+                name: 'Weight',
+                data: formattedData,
+                marker: {
+                    symbol: 'url(images/scale.png)', // Replace with the actual path to your image
+                    width: 35, // Replace with the desired width
+                    height: 35 // Replace with the desired height
+                }
+            }]
+        });
+    }
+
+    // Load data for the default month (e.g., January)
+    loadHistoriqueWeightDataByMonth(1);
+</script>
+<script>
+    var dd_main = document.querySelector(".dd_main");
+
+    dd_main.addEventListener("click", function () {
+        this.classList.toggle("active");
+    })
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: "/person/profile",
+            type: "GET",
+            success: function (data) {
+                var profileInfo = "ID : " + data.id + "<br>Nom : " + data.name;
+                $("#profileInfo").html(profileInfo);
+
+                $("#userName").text(data.name);
+            },
+            error: function (xhr, status, error) {
+            }
+        });
+    });
+</script>
 </body>
 
 </html>
