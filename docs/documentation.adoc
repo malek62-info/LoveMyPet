@@ -326,7 +326,7 @@ Après avoir ajouté des compagnons dans la section "Mes Animaux", chaque animal
 
 **étape 1**
 
-image::animal/AddAnimal.png[etape 1]
+image::AddAnimal.png[etape 1]
 
 **étape 2**
 
@@ -463,14 +463,11 @@ Point de départ de l'API : `/infoanimal`
 
 
 
-<<<<<<< HEAD
 @startuml
 actor Utilisateur
 participant JavaScript
 participant BackEnd
 database BaseDeDonnees
-=======
-
 
 Utilisateur -> JavaScript: Clique sur le bouton de modification
 JavaScript -> Utilisateur: Affiche une boîte de dialogue pour entrer les nouvelles informations
@@ -490,6 +487,9 @@ JavaScript -> BaseDeDonnees: Mise à jour de l'URL de l'image dans la base de do
 
 Utilisateur -> JavaScript: Recharge la page pour refléter les modifications
 @enduml
+
+
+
 
 === Fonctionnalité de Suivi des Médicaments - Journal de Medicaments en Ligne
 
@@ -672,11 +672,11 @@ deactivate BackendController
 @enduml
 
 
-== Fonctionnalité de recherche des Vétérinaires et Jardins à Proximité
+=== Fonctionnalité de recherche des Vétérinaires et Jardins à Proximité
 
 L'application offre une fonctionnalité avancée permettant aux utilisateurs de localiser rapidement des vétérinaires ou des jardins à proximité de leur emplacement actuel. Cette fonctionnalité est accessible depuis la page "Mes Services".
 
-=== Utilisation de la Carte depuis la Page "Mes Services"
+== Utilisation de la Carte depuis la Page "Mes Services"
 
 === Accès à la Page "Mes Services"
 
@@ -686,7 +686,7 @@ Connectez-vous à votre compte sur le site et accédez à la page "Mes Services"
 
 Recherchez l'option "EXPLORATION FACILE" sur la page "Mes Services" et cliquez dessus.
 
-image::Exploration.png[Services]
+image::service.jpeg[Services]
 
 === Choix entre Vétérinaires et Jardins
 
@@ -699,7 +699,7 @@ Les utilisateurs peuvent sélectionner l'option qui correspond à leur recherche
 
 image::Map/map.png[Map]
 
-=== Requête vers l'API Overpass et Nominatim
+== Requête vers l'API Overpass et Nominatim
 
 === Trouver un Vétérinaire :
 
@@ -709,11 +709,11 @@ En outre, l'application utilise l'API Nominatim pour convertir le nom de la vill
 
 
 
-=== Rechercher un Jardin pour se Balader :
+- === Rechercher un Jardin pour se Balader :
 
 Si l'utilisateur opte pour "Rechercher un Jardin pour se Balader", l'application effectue une requête pour trouver les nœuds correspondant à la catégorie "leisure=garden" autour de la position actuelle de l'utilisateur. Cette requête est également générée dynamiquement pour récupérer les informations nécessaires.
 
-=== Affichage des Résultats sur la Carte
+== Affichage des Résultats sur la Carte
 
 -  Trouver un Vétérinaire :
 
@@ -762,11 +762,11 @@ VeterinairesController --> RestTemplate: makeApiCall()
 RestTemplate --> API: Overpass API
 RestTemplate --> API: Nominatim API
 ----
-=== API Contrôleur des Vétérinaires
+===API Contrôleur des Vétérinaires
 
 Ce contrôleur utilise l'API Overpass pour récupérer la liste des vétérinaires dans une ville donnée.
 
-=== Paramètres de Requête
+== Paramètres de Requête
 
 Ce contrôleur accepte les paramètres de requête suivants :
 
@@ -780,30 +780,51 @@ Exemple de requête:
 [source,asciidoc]
 ----
 [Exemple]
-/api/veterinaires?city=Paris&latitude=50.8566&longitude=4.3444&radius=5000
+/api/veterinaires?city=Paris&latitude=48.8566&longitude=2.3522&radius=5000
 ----
 
-=== Exemple de Réponse
+== Exemple de Réponse
 
 La réponse du contrôleur est une liste d'objets `Veterinary` avec les coordonnées géographiques et le nom du vétérinaire.
 
+Exemple de réponse:
+
+image::Parc.png[Parc]
+
+=== Explication de l'API Overpass et Nominatim
+
+L'API Overpass est un service d'interrogation et d'analyse de données OpenStreetMap. Elle permet de récupérer des données géographiques en utilisant un langage de requête spécifique. Dans le contexte de cette application, elle est utilisée pour obtenir des informations sur les vétérinaires et les jardins à proximité en fonction de la position de l'utilisateur. Les requêtes sont construites dynamiquement pour cibler les catégories spécifiques (amenity=veterinary, leisure=garden) et les résultats sont intégrés à la carte de l'application.
+
+== Fonctionnalité Interaction avec les Avis (Petite)
+
+==== Maquette du front
+
+Les utilisateurs ont la possibilité d'interagir avec les avis en les consultant, en les likant, ou en les dislikant. Cette fonctionnalité permet d'exprimer des réactions vis-à-vis des conseils postés par d'autres utilisateurs.
+
+==== Maquette du front
+
+image::images_planification_food/7.png[advice]
+
+===== Consulter les Avis
+[source,asciidoc]
+----
 [
   {
-    "lat": 50.8566,
-    "lon": 4.3444,
+    "lat": 45.8534,
+    "lon": 3.3488,
     "name": "Vétérinaire A"
   },
   {
     "lat": 48.8591,
-    "lon": 4.3444,
+    "lon": 2.3637,
     "name": "Vétérinaire B"
   },
   // ...
 ]
+----
+
 
 === Diagramme de séquence
-
-
 [plantuml]
 ----
 @startuml
@@ -1321,20 +1342,20 @@ ItemToDonateRepository <|.. ItemToDonateRepositoryImpl : implements
 ---
 
 
-== Fonctionnalité de Création et Inscription aux Événements sur LoveMyPet
+= Fonctionnalité de Création et Inscription aux Événements sur LoveMyPet
 
-=== Présentation
+== Présentation
 
 Cette fonctionnalité sur l'application LoveMyPet permet aux utilisateurs de créer et partager des événements, tels que des sorties en groupe, et de s'inscrire à des événements créés par d'autres utilisateurs.
 
-=== Utilisation depuis la Page "Mes Services"
+== Utilisation depuis la Page "Mes Services"
 
 Sur la page "Mes Services", deux boutons sont disponibles :
 
 - Un bouton permettant à l'utilisateur de visualiser tous les événements créés par d'autres utilisateurs qui ne sont pas encore expirés.
 - Un bouton permettant à l'utilisateur de créer un nouvel événement et de le partager avec la communauté. De plus, l'utilisateur peut visualiser tous les événements qu'il a créés.
 
-image::Exploration.png[service_evenemtn]
+image::service_event.png[service_evenemtn]
 
 === Ajout d'un Événement
 
@@ -1365,7 +1386,7 @@ L'utilisateur peut supprimer un événement qu'il a créé en accédant à la pa
 
 image::Evenement/MyEventsup.png[mes_evenements]
 
-=== Diagramme de Classe
+== Diagramme de Classe
 
 [plantuml, diagramme-de-classe, svg]
 ----
@@ -1459,7 +1480,7 @@ InscriptionServiceImpl "1" --> "1" InscriptionRepository : inscriptionRepository
 @enduml
 ----
 
-=== API
+== API
 
 === Ajout d'Événement
 
@@ -1567,7 +1588,7 @@ InscriptionServiceImpl "1" --> "1" InscriptionRepository : inscriptionRepository
 * Échec (Status Code 400 Bad Request): "Personne est déjà inscrite à cet événement!"
 
 
-=== Diagramme de Séquence - Ajout d'Événement
+== Diagramme de Séquence - Ajout d'Événement
 
 [plantuml, diagramme-de-sequence-ajout-evenement, svg]
 ----
@@ -1598,7 +1619,7 @@ deactivate EvenementController
 @enduml
 ----
 
-=== Diagramme de Séquence - Affichage des Événements Non Expirés
+== Diagramme de Séquence - Affichage des Événements Non Expirés
 
 [plantuml, diagramme-de-sequence-affichage-evenements, svg]
 ----
@@ -1628,7 +1649,7 @@ deactivate EvenementController
 @enduml
 ----
 
-=== Diagramme de Séquence - Inscription à un Événement
+== Diagramme de Séquence - Inscription à un Événement
 
 [plantuml, diagramme-de-sequence-inscription-evenement, svg]
 ----
