@@ -276,14 +276,6 @@ Point de départ de l'API : `/infoanimal`
 *`POST /updateWeight/{idAnimal}` : modifier le poids de l'animal dont l'identifiant est idAnimal.
 *`POST /updateImage/{idAnimal}` : modifier l'image de l'animal dont l'identifiant est idAnimal.
 
-===== LostAnimalController
-
-
-
-Point de départ de l'API : `/lost-animal`
-
-* `POST /add` : Ajouter un animal perdu dans la table LotAnimal.
-*`GET /list` : Récupérer la liste des animaux perdus.
 
 ===== MesCandidatureController
 
