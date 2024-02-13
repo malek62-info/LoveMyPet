@@ -364,29 +364,313 @@ Le propriétaire peut ensuite examiner chaque candidature individuellement et d�
 
 === Petite feature pour l'affichage et la modification des informations des Animaux
 
-Chaque animal dans la section "Mes Animaux" est doté d'un bouton en haut à droite avec le signe plus (+). En cliquant sur ce bouton, les informations détaillées de l'animal sont affichées, offrant la possibilité de modifier le nom, le poids et la photo de l'animal.
+Cette feature permet de viualiser et modifer les détails d'un animal sur le site.
+
+==== Maquette du front
+
+Dans notre page des services, il faut cliquer sur Mes animaux
+
+
+Dans la page Mes animaux, il figure un signe (+) pour chaque animal, cliquez dessus pour accéder aux détails de votre animal
+
+image::info/1.png[alt]
+
+Voici une vision des informations de votre animal, modifiables avec les trois boutons verts 
+
+image::info/2.png[alt]
+
+==== Diagramme de classes (partie métier)
+
+Voici un diagramme des classes qui explique la partie métier de cette petite feature 
+
+@startuml
+package com.nanterre.LoveMyPet.controller {
+    class InfoAnimalController {
+        - infoAnimalService: InfoAnimalServiceImpl
+        + getCandidatureDetailsById(idAnimal: Integer): Animal
+        + updateAnimalName(idAnimal: Integer, requestBody: Map<String, String>): ResponseEntity<String>
+        + updateAnimalWeight(idAnimal: Integer, requestBody: Map<String, Double>): ResponseEntity<String>
+        + updateAnimalImage(idAnimal: Integer, imageFile: MultipartFile): ResponseEntity<String>
+    }
+}
+
+package com.nanterre.LoveMyPet.model {
+    class Animal {
+        - id: Integer
+        - idPerson: Integer
+        - name: String
+        - category: String
+        - race: String
+        - weight: Double
+        - gender: Integer
+        - dateOfBirth: Date
+        - imageUrl: String
+        - adoptedByPerson: Person
+    }
+
+    class Person {
+        - idperson: Integer
+        // Add other attributes if needed
+    }
+
+    class HistoriqueWeight {
+        // Add attributes for HistoriqueWeight
+    }
+}
+
+package com.nanterre.LoveMyPet.repository {
+    interface InfoAnimalRepository {
+        // Methods from JpaRepository
+    }
+}
+
+package com.nanterre.LoveMyPet.service {
+    interface InfoAnimalService {
+        + getInfoAnimalDetailsById(idAnimal: Integer): Animal
+        + updateAnimalName(idAnimal: Integer, newName: String): void
+        + updateAnimalWeight(idAnimal: Integer, newWeight: Double): void
+        + updateAnimalImage(idAnimal: Integer, imageUrl: String): void
+    }
+
+    class InfoAnimalServiceImpl {
+        - entityManager: EntityManager
+        - animalInfoRepository: InfoAnimalRepository
+        + getInfoAnimalDetailsById(idAnimal: Integer): Animal
+        + updateAnimalName(idAnimal: Integer, newName: String): void
+        + updateAnimalWeight(idAnimal: Integer, newWeight: Double): void
+        + updateAnimalImage(idAnimal: Integer, imageUrl: String): void
+    }
+}
+
+InfoAnimalController --> InfoAnimalServiceImpl: infoAnimalService
+InfoAnimalServiceImpl --> InfoAnimalRepository: animalInfoRepository
+InfoAnimalServiceImpl --> EntityManager: entityManager
+InfoAnimalServiceImpl --> Animal
+InfoAnimalServiceImpl --> HistoriqueWeight
+
+@enduml
+
+==== Description API REST
+
+Point de départ de l'API : `/infoanimal`
+
+* `GET /{idAnimal}` : Récupérer les informations concernant un animal à partir de son id
+*`POST /updateName/{idAnimal}` : modifier le nom de l'animal dont l'identifiant est idAnimal.
+*`POST /updateWeight/{idAnimal}` : modifier le poids de l'animal dont l'identifiant est idAnimal.
+*`POST /updateImage/{idAnimal}` : modifier l'image de l'animal dont l'identifiant est idAnimal.
+
+==== Diagrammes de séquence des interactions front/back
 
 
 
-=== Fonctionnalité de Suivi des Vaccins - Carnet de Vaccination en Ligne
+@startuml
+actor Utilisateur
+participant JavaScript
+participant BackEnd
+database BaseDeDonnees
 
-La fonction de suivi des vaccins offre une gestion centralisée des vaccinations des animaux. Accessible depuis "Mes Animaux", elle permet aux propriétaires de maintenir un carnet de vaccination en ligne.
+Utilisateur -> JavaScript: Clique sur le bouton de modification
+JavaScript -> Utilisateur: Affiche une boîte de dialogue pour entrer les nouvelles informations
+Utilisateur --> JavaScript: Entrez les nouvelles informations
+
+JavaScript -> BackEnd: Requête POST vers /infoanimal/updateName/{idAnimal} avec le nouveau nom
+BackEnd --> JavaScript: Réponse HTTP (succès ou échec)
+JavaScript -> BaseDeDonnees: Mise à jour du nom dans la base de données
+
+JavaScript -> BackEnd: Requête POST vers /infoanimal/updateWeight/{idAnimal} avec le nouveau poids
+BackEnd --> JavaScript: Réponse HTTP (succès ou échec)
+JavaScript -> BaseDeDonnees: Mise à jour du poids dans la base de données
+
+JavaScript -> BackEnd: Requête POST vers /infoanimal/updateImage/{idAnimal} avec le nouveau fichier image
+BackEnd --> JavaScript: Réponse HTTP (succès ou échec)
+JavaScript -> BaseDeDonnees: Mise à jour de l'URL de l'image dans la base de données
+
+Utilisateur -> JavaScript: Recharge la page pour refléter les modifications
+@enduml
+
+
+
+
+=== Fonctionnalité de Suivi des Médicaments - Journal de Medicaments en Ligne
+
+La fonction de suivi des medicaments. Cette fonctionnalité permet aux propriétaires d'animaux de garder facilement une trace des traitements administrés, assurant ainsi un suivi efficace de la santé de leur animal de compagnie
 
 ==== Accès Simple
 
 **étape 1**
-image::suivi_vaccins.png[etape 1]
+
+Cliquez sur Medicaments dans la page suivi complet 
+
+image::medocs/1.png[etape 1]
 
 **étape 2**
-image::mes_animaux.png[etape 2]
 
-==== Vue d'Ensemble des Vaccinations
+image::medocs/2.png[etape 2]
 
-L'interface propose une vue d'ensemble détaillée des vaccinations, incluant le nom et la date de chaque vaccin.
+==== Vue d'Ensemble des Medicaments pris par l'animal
 
-==== Ajout de Vaccinations
+L'interface propose une vue d'ensemble détaillée des medicaments, incluant le nom et la date de chaque médicaments.
 
-Les propriétaires peuvent ajouter de nouvelles vaccinations à tout moment, garantissant un historique complet et à jour.
+==== Ajout de Medicaments
+
+Les propriétaires peuvent ajouter des Medicaments à tout moment, garantissant un historique complet et à jour.
+
+==== Diagramme de classes (partie métier)
+Voici un diagramme des classes qui explique la partie métier de cette  feature
+
+@startuml
+
+package "com.nanterre.LoveMyPet.controller" {
+    class VaccinationController {
+        +getVaccinationReferenceByAnimalId(idAnimal: Integer): List<String>
+        +getVaccinationDetailsById(idVaccination: Integer): Vaccination
+        +add(vaccination: Vaccination, animalId: Integer): String
+    }
+
+    class VaccinController {
+        -vaccinService: VaccinService
+        +getAllVaccins(): Iterable<Vaccin>
+    }
+}
+
+package "com.nanterre.LoveMyPet.model" {
+    class Vaccin {
+        -idVaccin: Integer
+        -vaccinName: String
+        +getIdVaccin(): Integer
+        +getVaccinName(): String
+    }
+
+    class Vaccination {
+        -idVaccination: Integer
+        -vaccin: Vaccin
+        -animal: Animal
+        -date: Date
+        +getIdVaccination(): Integer
+        +getVaccin(): Vaccin
+        +getAnimal(): Animal
+        +getDate(): Date
+    }
+
+    class Animal {
+        -idAnimal: Integer
+        // ... (other attributes and methods)
+    }
+}
+
+package "com.nanterre.LoveMyPet.repository" {
+    interface VaccinationRepository {
+        +findByAnimalId(animalId: Integer): List<Vaccination>
+    }
+
+    interface VaccinRepository {
+        +findAll(): Iterable<Vaccin>
+    }
+}
+
+package "com.nanterre.LoveMyPet.service" {
+    interface VaccinationService {
+        +saveVaccination(vaccination: Vaccination): Vaccination
+        +getVaccinationLinksByAnimalId(idAnimal: Integer): List<String>
+        +getVaccinationDetailsById(idVaccination: Integer): Vaccination
+    }
+
+    class VaccinationServiceImpl {
+        -entityManager: EntityManager
+        -vaccinationRepository: VaccinationRepository
+        +saveVaccination(vaccination: Vaccination): Vaccination
+        +getVaccinationLinksByAnimalId(idAnimal: Integer): List<String>
+        +getVaccinationDetailsById(idVaccination: Integer): Vaccination
+    }
+
+    interface VaccinService {
+        +getAllVaccins(): Iterable<Vaccin>
+        +getVaccinById(id: Integer): Vaccin
+    }
+
+    class VaccinServiceImpl {
+        -vaccinRepository: VaccinRepository
+        +getAllVaccins(): Iterable<Vaccin>
+        +getVaccinById(id: Integer): Vaccin
+    }
+}
+
+VaccinationController --> VaccinationServiceImpl
+VaccinationServiceImpl --> VaccinationRepository
+VaccinController --> VaccinService
+VaccinService --> VaccinRepository
+VaccinationRepository --> Vaccination
+VaccinRepository --> Vaccin
+
+Vaccination --> Vaccin
+Vaccination --> Animal
+
+@enduml
+
+==== Description API REST 
+
+VaccinationController
+
+Point de départ de l'API : `/vaccination`
+
+* `GET /animal/{idAnimal}` : Obtenir les références de vaccination par ID d'animal.
+* `GET /{idVaccination}` : Obtenir les détails d'une vaccination spécifique par ID.
+* `POST /add` : Ajouter une nouvelle vaccination.
+
+VaccinController
+
+Point de départ de l'API : `/vaccin`
+
+* `GET /all` : Obtenir toutes les vaccinations.
+
+==== Diagrammes de séquence des interactions front/back
+
+@startuml
+
+actor Utilisateur as User
+participant Frontend as FrontendHTML
+participant BackendController as VaccinationController
+participant VaccinationService as VaccinationServiceImpl
+participant VaccinationRepository as VaccinationRepository
+database VaccinationDB as VaccinationDB
+database VaccinDB as VaccinDB
+
+activate FrontendHTML
+
+User -> FrontendHTML: Accéder à la page de suivi
+activate BackendController
+FrontendHTML -> BackendController: Effectuer une requête pour obtenir les données des vaccinations
+activate VaccinationService
+BackendController -> VaccinationService: Appeler getVaccinationLinksByAnimalId
+activate VaccinationRepository
+VaccinationService -> VaccinationRepository: Appeler findByAnimalId
+VaccinationRepository -> VaccinationDB: Requête pour obtenir les vaccinations
+VaccinationDB --> VaccinationRepository: Renvoyer les données
+VaccinationRepository --> VaccinationService: Renvoyer les données
+deactivate VaccinationDB
+deactivate VaccinationRepository
+deactivate VaccinationService
+BackendController --> FrontendHTML: Renvoyer les données au frontend
+deactivate BackendController
+
+User -> FrontendHTML: Ajouter un nouveau vaccin
+activate FrontendHTML
+FrontendHTML -> BackendController: Envoyer les données du formulaire
+activate VaccinationService
+BackendController -> VaccinationService: Appeler saveVaccination
+activate VaccinationRepository
+VaccinationService -> VaccinationRepository: Appeler save
+VaccinationRepository -> VaccinationDB: Enregistrer le nouveau vaccin
+VaccinationDB --> VaccinationRepository: Confirmation de l'enregistrement
+VaccinationRepository --> VaccinationService: Renvoyer la confirmation
+deactivate VaccinationDB
+deactivate VaccinationRepository
+deactivate VaccinationService
+BackendController --> FrontendHTML: Renvoyer la confirmation au frontend
+deactivate BackendController
+
+@enduml
+
 
 === Fonctionnalité de recherche des Vétérinaires et Jardins à Proximité
 
