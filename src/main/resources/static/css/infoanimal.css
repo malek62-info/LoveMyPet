@@ -134,7 +134,7 @@ h1 {
     position: absolute;
     top: 8px; /* Ajuste la position verticale selon tes préférences */
     left: 8px; /* Ajuste la position horizontale selon tes préférences */
-    background-color: #4caf50;
+    background-color: #000;
     color: #fff;
     padding: 8px;
     border: none;
@@ -149,11 +149,12 @@ h1 {
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     margin-bottom: 10px;
+    margin-top: 30px;
 }
 
 .modify-btn-name,
 .modify-btn-weight {
-    background-color: #4caf50;
+    background-color: #000;
     color: #fff;
     padding: 6px;
     border: none;
@@ -171,7 +172,7 @@ h1 {
 
 .modify-btn-name:hover,
 .modify-btn-weight:hover {
-    background-color: #45a049;
+    background-color: #000;
 }
 .container div {
     width: 100%;
@@ -184,7 +185,7 @@ h1 {
 }
 
 button {
-    background-color: #5b91cf;
+    background-color: #000;
     color: white;
     padding: 10px 20px;
     margin: 10px;
