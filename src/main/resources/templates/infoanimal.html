@@ -16,39 +16,101 @@
 <body>
 
 
-    <div class="navbar-wrapper">
-        <div class="navbar">
-            <div class="logo">
-                <img src="images/logo.png" style="width: 150px; height: 65px;">
+    [samedi 23:02] Adenle Sadikou
 
-            </div>
-            <div class="nav_right">
-                <ul>
-                    <p>Bonjour <span id="userName"></span> !</p>
-                    <li class="nr_li dd_main">
-                        <img src="/images/person1.jpg" alt="profile_img">
-                        <div class="dd_menu">
-                            <div class="dd_left">
-                                <ul>
-                                    <li><i class="fa-solid fa-user"></i></li>
-                                    <li><i class="fa-solid fa-paw"></i></li>
-                                    <li><i class="fas fa-sign-out-alt"></i></li>
-                                </ul>
-                            </div>
-                            <div class="dd_right">
-                                <ul>
-                                    <li><a href="/profile">Mon compte</a></li>
-                                    <li><a href="/mesanimaux">Mes animaux</a></li>
-                                    <li><a>Se Déconnecter</a></li>
-                                    <li><a href="/mescandidatures">Mes candidatures</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
+    <style>
+        body {
+            display: flex;
+        }
 
-                </ul>
-            </div>
-        </div>
+        .top-right {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #000;
+            border-radius: 50%;
+            background-color: #000;
+            padding: 20px;
+            font-weight: bold;
+            color: #fff;
+            border: 0;
+            outline: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        /* sitde bar */
+        .w3-sidebar {
+            position: fixed;
+            z-index: 100;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .w3-button {
+            color: #fff;
+            outline: none;
+            outline: none;
+            padding: 10px;
+            text-decoration: none;
+            transition: 0.5s;
+        }
+
+        .w3-button:hover {
+            background-color: #fff;
+            text-decoration: none;
+            color: #81774E;
+            border-radius: 6px;
+        }
+
+        .w3-button:hover a {
+            color: #000;
+        }
+
+        .logo-img {
+            text-align: CENTER;
+            margin: 20PX AUTO;
+            width: 100PX;
+        }
+
+        .side_bar_bar {
+            background-color: #81774E;
+            border: 0;
+            height: 1px;
+            width: 100%;
+            border-radius: 2px;
+            margin: 10px 0;
+        }
+    </style>
+    <!-- Sidebar -->
+    <div class="w3-sidebar ">
+        <img src="images/logo.png" alt="Logo" class="logo-img">
+        <a href="/profile" class="w3-button">Mon compte</a>
+        <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+        <a href="/adoption" class="w3-button">Adoption</a>
+        <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="#" class="w3-button">Se Déconnecter</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/donate" class="w3-button">Donner des objets</a>
+        <a href="/showdonations" class="w3-button">Trouver des objets</a>
+        <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
     </div>
     <div class="wrapper">
         <h1>Informations sur mon Animal</h1>
