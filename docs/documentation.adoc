@@ -470,8 +470,7 @@ participant JavaScript
 participant BackEnd
 database BaseDeDonnees
 =======
-== Fonctionnalité de Suivi des Vaccins - Carnet de Vaccination en Ligne
->>>>>>> 9a14fd95c49c47e19f0036f149317c725258e8c9
+
 
 Utilisateur -> JavaScript: Clique sur le bouton de modification
 JavaScript -> Utilisateur: Affiche une boîte de dialogue pour entrer les nouvelles informations
@@ -495,7 +494,7 @@ Utilisateur -> JavaScript: Recharge la page pour refléter les modifications
 
 
 
-=== Fonctionnalité de Suivi des Médicaments - Journal de Medicaments en Ligne
+==== Fonctionnalité de Suivi des Médicaments - Journal de Medicaments en Ligne
 
 La fonction de suivi des medicaments. Cette fonctionnalité permet aux propriétaires d'animaux de garder facilement une trace des traitements administrés, assurant ainsi un suivi efficace de la santé de leur animal de compagnie
 
