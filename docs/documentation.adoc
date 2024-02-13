@@ -330,422 +330,333 @@ Utilisation d'une architecture RESTful pour la communication entre le frontend e
 
 
 
+Après avoir ajouté des compagnons dans la section "Mes Animaux", chaque animal est associé au bouton unique "Donner". Cela déclenche un pop-up interactif pour faciliter l'adoption.
+
+**étape 1**
+
+image::enregistrement.png[etape 1]
+
+**étape 2**
+
+image::donner.png[etape 2]
+
+**étape 3**
+
+image::popup.png[etape 3]
+
+==== Configuration des Dates pour l'Adoption
+
+Dans le pop-up, la date de début est obligatoire, indiquant quand l'animal sera disponible pour adoption. La date de fin est facultative, laissant aux donateurs le choix de l'adoption permanente ou temporaire, idéal pour les périodes comme les vacances.
+
+==== Affichage dans la Section "Adoption"
+
+Une fois configuré, l'animal est répertorié dans la section dédiée à l'adoption, avec un bouton "Candidater" pour exprimer l'intérêt.
+
+**étape 4**
+
+image::adoption.png[etape 4]
+
+Cette approche flexible simplifie l'adoption, laissant aux propriétaires le choix de la durée d'adoption.
+
+==== Gestion des Candidatures
+
+Chaque animal ajouté à la section "Mes Animaux" est équipé d'un bouton "Candidatures". Ce bouton permet au propriétaire de consulter les détails des personnes ayant postulé pour garder son animal.
+
+*étape 5*
+
+Le propriétaire peut ensuite examiner chaque candidature individuellement et décider d'accepter ou de refuser.
+
+*étape 6*
+
+
+
 === Petite feature pour l'affichage et la modification des informations des Animaux
 
-Cette feature permet de viualiser et modifer les détails d'un animal sur le site.
+Chaque animal dans la section "Mes Animaux" est doté d'un bouton en haut à droite avec le signe plus (+). En cliquant sur ce bouton, les informations détaillées de l'animal sont affichées, offrant la possibilité de modifier le nom, le poids et la photo de l'animal.
 
-==== Maquette du front
-
-Dans notre page des services, il faut cliquer sur SUIVI COMPLET DE L'ANIMAL
-
-image::images/suiviCompet.png[alt]
-
-Dans la page Mes animaux, il figure un signe (+) pour chaque animal, cliquez dessus pour accéder aux détails de votre animal
-
-image::images/MesAnimaux.png[alt]
-
-Voici une vision des informations de votre animal, modifiables avec les trois boutons verts 
-
-image::images/InfoAnimal.png[alt]
-
-==== Diagramme de classes (partie métier)
-
-Voici un diagramme des classes qui explique la partie métier de cette petite feature 
-
-@startuml
-package com.nanterre.LoveMyPet.controller {
-    class InfoAnimalController {
-        - infoAnimalService: InfoAnimalServiceImpl
-        + getCandidatureDetailsById(idAnimal: Integer): Animal
-        + updateAnimalName(idAnimal: Integer, requestBody: Map<String, String>): ResponseEntity<String>
-        + updateAnimalWeight(idAnimal: Integer, requestBody: Map<String, Double>): ResponseEntity<String>
-        + updateAnimalImage(idAnimal: Integer, imageFile: MultipartFile): ResponseEntity<String>
-    }
-}
-
-package com.nanterre.LoveMyPet.model {
-    class Animal {
-        - id: Integer
-        - idPerson: Integer
-        - name: String
-        - category: String
-        - race: String
-        - weight: Double
-        - gender: Integer
-        - dateOfBirth: Date
-        - imageUrl: String
-        - adoptedByPerson: Person
-    }
-
-    class Person {
-        - idperson: Integer
-        // Add other attributes if needed
-    }
-
-    class HistoriqueWeight {
-        // Add attributes for HistoriqueWeight
-    }
-}
-
-package com.nanterre.LoveMyPet.repository {
-    interface InfoAnimalRepository {
-        // Methods from JpaRepository
-    }
-}
-
-package com.nanterre.LoveMyPet.service {
-    interface InfoAnimalService {
-        + getInfoAnimalDetailsById(idAnimal: Integer): Animal
-        + updateAnimalName(idAnimal: Integer, newName: String): void
-        + updateAnimalWeight(idAnimal: Integer, newWeight: Double): void
-        + updateAnimalImage(idAnimal: Integer, imageUrl: String): void
-    }
-
-    class InfoAnimalServiceImpl {
-        - entityManager: EntityManager
-        - animalInfoRepository: InfoAnimalRepository
-        + getInfoAnimalDetailsById(idAnimal: Integer): Animal
-        + updateAnimalName(idAnimal: Integer, newName: String): void
-        + updateAnimalWeight(idAnimal: Integer, newWeight: Double): void
-        + updateAnimalImage(idAnimal: Integer, imageUrl: String): void
-    }
-}
-
-InfoAnimalController --> InfoAnimalServiceImpl: infoAnimalService
-InfoAnimalServiceImpl --> InfoAnimalRepository: animalInfoRepository
-InfoAnimalServiceImpl --> EntityManager: entityManager
-InfoAnimalServiceImpl --> Animal
-InfoAnimalServiceImpl --> HistoriqueWeight
-
-@enduml
-
-==== Description API REST
-
-Point de départ de l'API : `/infoanimal`
-
-* `GET /{idAnimal}` : Récupérer les informations concernant un animal à partir de son id
-*`POST /updateName/{idAnimal}` : modifier le nom de l'animal dont l'identifiant est idAnimal.
-*`POST /updateWeight/{idAnimal}` : modifier le poids de l'animal dont l'identifiant est idAnimal.
-*`POST /updateImage/{idAnimal}` : modifier l'image de l'animal dont l'identifiant est idAnimal.
-
-==== Diagrammes de séquence des interactions front/back
-
-
-
-@startuml
-actor Utilisateur
-participant JavaScript
-participant BackEnd
-database BaseDeDonnees
-
-Utilisateur -> JavaScript: Clique sur le bouton de modification
-JavaScript -> Utilisateur: Affiche une boîte de dialogue pour entrer les nouvelles informations
-Utilisateur --> JavaScript: Entrez les nouvelles informations
-
-JavaScript -> BackEnd: Requête POST vers /infoanimal/updateName/{idAnimal} avec le nouveau nom
-BackEnd --> JavaScript: Réponse HTTP (succès ou échec)
-JavaScript -> BaseDeDonnees: Mise à jour du nom dans la base de données
-
-JavaScript -> BackEnd: Requête POST vers /infoanimal/updateWeight/{idAnimal} avec le nouveau poids
-BackEnd --> JavaScript: Réponse HTTP (succès ou échec)
-JavaScript -> BaseDeDonnees: Mise à jour du poids dans la base de données
-
-JavaScript -> BackEnd: Requête POST vers /infoanimal/updateImage/{idAnimal} avec le nouveau fichier image
-BackEnd --> JavaScript: Réponse HTTP (succès ou échec)
-JavaScript -> BaseDeDonnees: Mise à jour de l'URL de l'image dans la base de données
-
-Utilisateur -> JavaScript: Recharge la page pour refléter les modifications
-@enduml
-
-
-=== Petite feature pour commenter les publications Advice dans le forum de LoveMyPet
-
-Cette petite feature permet de rajouter de commenter les publications
-
-==== Maquette du front
-
-Dans notre page Forum Animal, commenter les publications
-
-image::images/commenter.png[alt]
-
-
-==== Diagramme de classes (partie métier)
-
-Voici un diagramme des classes qui explique la partie métier de cette petite feature 
-
-@startuml
-
-package com.nanterre.LoveMyPet.controller {
-  class AdviceController {
-    - adviceService: AdviceService
-    + addCommentToAdvice(adviceId: Integer, commentText: String, idPerson: Integer): ResponseEntity<String>
-    + getCommentLinksByAdviceId(adviceId: Integer): List<String>
-    + getCommentDetailsById(commentId: Integer): ResponseEntity<Comment>
-    + getCommentsByAdviceId(adviceId: Integer): ResponseEntity<List<Comment>>
-  }
-}
-
-package com.nanterre.LoveMyPet.model {
-  class Advice {
-    - adviceId: Integer
-    - comments: List<Comment>
-  }
-  
-  class Comment {
-    - commentId: Integer
-    - advice: Advice
-    - commenter: Person
-    - text: String
-  }
-  
-  class Person {
-    - idPerson: Integer
-  }
-}
-
-package com.nanterre.LoveMyPet.repository {
-  interface CommentRepository {
-    + findById(commentId: Integer): Optional<Comment>
-    + save(comment: Comment): Comment
-  }
-
-  interface AdviceRepository {
-    + findById(adviceId: Integer): Optional<Advice>
-    + save(advice: Advice): Advice
-  }
-}
-
-package com.nanterre.LoveMyPet.service {
-  class AdviceServiceImpl {
-    - adviceRepository: AdviceRepository
-    - commentRepository: CommentRepository
-    + addCommentToAdvice(adviceId: Integer, commentText: String, idPerson: Integer): void
-    + getCommentLinksByAdviceId(adviceId: Integer): List<String>
-    + getCommentDetailsById(commentId: Integer): Comment
-    + getCommentsByAdviceId(adviceId: Integer): List<Comment>
-  }
-}
-
-AdviceController --> AdviceService
-AdviceController --> Advice
-AdviceController --> Comment
-AdviceController --> ResponseEntity
-AdviceController --> HttpStatus
-
-Comment --> Advice
-Comment --> Person
-
-CommentRepository --> Comment
-
-AdviceServiceImpl --> AdviceRepository
-AdviceServiceImpl --> CommentRepository
-
-AdviceRepository --> Advice
-AdviceRepository --> JpaRepository
-
-@enduml
-
-==== Description API REST
-
-Point de départ de l'API : `/api/advices`
-
-* `POST /addComment/{adviceId}` : Ajouter un commentaire lié à l'advice adviceId
-*`GET /adviceComments/{adviceId}` : Récupérer la liste des liens des commentaires de la publication adviceId.
-*`GET /comment/{commentId}` : Récupérer les détails d'un commentaire.
-
-==== Diagrammes de séquence des interactions front/back
-
-@startuml
-
-actor Utilisateur
-participant JavaScript
-participant BackEnd
-database BaseDeDonnees
-
-Utilisateur -> JavaScript: Consulte les conseils
-JavaScript -> BackEnd: Requête GET vers /api/advices
-BackEnd --> JavaScript: Renvoie la liste des conseils
-
-Utilisateur -> JavaScript: Ajoute un commentaire à un conseil
-JavaScript -> BackEnd: Requête POST vers /api/advices/addComment/{adviceId}?idPerson={idPerson} avec le texte du commentaire
-BackEnd --> JavaScript: Réponse HTTP (succès ou échec)
-
-Utilisateur -> JavaScript: Consulte les commentaires d'un conseil
-JavaScript -> BackEnd: Requête GET vers /api/advices/adviceComments/{adviceId}
-BackEnd --> JavaScript: Renvoie la liste des commentaires
-
-Utilisateur -> JavaScript: Consulte les détails d'un commentaire
-JavaScript -> BackEnd: Requête GET vers /api/advices/comment/{commentId}
-BackEnd --> JavaScript: Renvoie les détails du commentaire
-
-@enduml
 
 
 === Fonctionnalité de Suivi des Vaccins - Carnet de Vaccination en Ligne
 
 La fonction de suivi des vaccins offre une gestion centralisée des vaccinations des animaux. Accessible depuis "Mes Animaux", elle permet aux propriétaires de maintenir un carnet de vaccination en ligne.
 
+==== Accès Simple
+
+**étape 1**
+image::suivi_vaccins.png[etape 1]
+
+**étape 2**
+image::mes_animaux.png[etape 2]
+
+==== Vue d'Ensemble des Vaccinations
+
+L'interface propose une vue d'ensemble détaillée des vaccinations, incluant le nom et la date de chaque vaccin.
+
+==== Ajout de Vaccinations
+
+Les propriétaires peuvent ajouter de nouvelles vaccinations à tout moment, garantissant un historique complet et à jour.
+
+=== Fonctionnalité de recherche des Vétérinaires et Jardins à Proximité
+
+L'application offre une fonctionnalité avancée permettant aux utilisateurs de localiser rapidement des vétérinaires ou des jardins à proximité de leur emplacement actuel. Cette fonctionnalité est accessible depuis la page "Mes Services".
+
+== Utilisation de la Carte depuis la Page "Mes Services"
+
+=== Accès à la Page "Mes Services"
+
+Connectez-vous à votre compte sur le site et accédez à la page "Mes Services".
+
+=== Option "Trouver un Service"
+
+Recherchez l'option "EXPLORATION FACILE" sur la page "Mes Services" et cliquez dessus.
+
+image::service.jpeg[Services]
+
+=== Choix entre Vétérinaires et Jardins
+
+Une fois sur la page "EXPLORATION FACILE", les utilisateurs ont deux choix :
+- "Trouver un Vétérinaire"
+- "Rechercher un Jardin pour se Balader"
+- "Recherche par Ville et Périmètre"
+
+Les utilisateurs peuvent sélectionner l'option qui correspond à leur recherche.
+
+image::map.png[Map]
+
+== Requête vers l'API Overpass et Nominatim
+
+=== Trouver un Vétérinaire :
+
+Lorsque l'utilisateur choisit "Trouver un Vétérinaire", l'application utilise l'API Overpass pour rechercher les vétérinaires à proximité de la position actuelle de l'utilisateur. La requête à l'API Overpass est générée dynamiquement pour récupérer les nœuds correspondant à la catégorie "amenity=veterinary" dans un rayon défini autour de la position de l'utilisateur.
+
+En outre, l'application utilise l'API Nominatim pour convertir le nom de la ville saisi par l'utilisateur en coordonnées géographiques.
+
+[plantuml]
+----
+class VeterinairesController {
+    +getVeterinaires(double latitude, double longitude, String city, int radius): String
+    -Veterinary
+}
+
+class Veterinary {
+    -lat: double
+    -lon: double
+    -name: String
+
+    +Veterinary(double lat, double lon, String name)
+    +getLat(): double
+    +getLon(): double
+    +getName(): String
+}
+
+class RestTemplate {
+    +getForObject(url: String, responseType: Class<T>): T
+}
+
+VeterinairesController --> Veterinary: "1..*"
+VeterinairesController --> RestTemplate: makeApiCall()
+RestTemplate --> API: Overpass API
+RestTemplate --> API: Nominatim API
+----
+
+- === Rechercher un Jardin pour se Balader :
+
+Si l'utilisateur opte pour "Rechercher un Jardin pour se Balader", l'application effectue une requête pour trouver les nœuds correspondant à la catégorie "leisure=garden" autour de la position actuelle de l'utilisateur. Cette requête est également générée dynamiquement pour récupérer les informations nécessaires.
+
+== Affichage des Résultats sur la Carte
+
+-  Trouver un Vétérinaire :
+
+Les résultats de la requête pour les vétérinaires sont affichés sur la carte sous forme de marqueurs. Chaque marqueur représente l'emplacement d'un vétérinaire trouvé.
+
+image::veterinaire.png[Vétérinaire]
+=== Recherche par ville "Geneve":
+
+image::veterinairegeneve.png[veterinairegeneve]
+
+- Rechercher un Jardin pour se Balader :
+
+Pour la recherche de jardins, les résultats correspondants aux nœuds "leisure=garden" sont affichés sur la carte.
+
+image::Parc.png[Parc]
+
+=== Explication de l'API Overpass et Nominatim
+
+L'API Overpass est un service d'interrogation et d'analyse de données OpenStreetMap. Elle permet de récupérer des données géographiques en utilisant un langage de requête spécifique. Dans le contexte de cette application, elle est utilisée pour obtenir des informations sur les vétérinaires et les jardins à proximité en fonction de la position de l'utilisateur. Les requêtes sont construites dynamiquement pour cibler les catégories spécifiques (amenity=veterinary, leisure=garden) et les résultats sont intégrés à la carte de l'application.
+
+== Fonctionnalité Interaction avec les Avis (Petite)
+
 ==== Maquette du front
 
-Cette page permet d'ajouter et de visualiser les vaccinations de votre animal 
+Les utilisateurs ont la possibilité d'interagir avec les avis en les consultant, en les likant, ou en les dislikant. Cette fonctionnalité permet d'exprimer des réactions vis-à-vis des conseils postés par d'autres utilisateurs.
 
-image::images/vaccin.png[alt]
+==== Maquette du front
 
-==== Diagramme de classes (partie métier)
-Voici un diagramme des classes qui explique la partie métier de cette  feature
+image::images_planification_food/7.png[advice]
+
+===== Consulter les Avis
+
+Les utilisateurs peuvent parcourir les avis postés par d'autres membres de la communauté LoveMyPet. Ces avis peuvent contenir des conseils utiles, des expériences personnelles, ou des informations pertinentes sur les animaux de compagnie.
+
+===== Liker un Avis
+
+Chaque utilisateur a la possibilité de manifester son appréciation envers un avis en utilisant la fonction "Like". Lorsqu'un utilisateur clique sur le bouton "Like" d'un avis, cela indique une réaction positive envers le contenu de cet avis.
+
+=====  Disliker un Avis
+
+De même, les utilisateurs peuvent exprimer leur désaccord ou leur mécontentement envers un avis en utilisant la fonction "Dislike". Cliquer sur le bouton "Dislike" signifie que l'utilisateur n'est pas en accord avec le contenu de l'avis.
+
+Ces interactions permettent de créer une dynamique communautaire où les utilisateurs peuvent partager leurs opinions et réagir aux conseils des autres membres.
+
+Les actions de "Like" et "Dislike" sont enregistrées dans la base de données, fournissant ainsi des informations sur la popularité et la réception des avis au sein de la communauté LoveMyPet.
+
+Ces fonctionnalités contribuent à renforcer l'engagement des utilisateurs et favorisent une communauté active et collaborative.
+
+==== Description API back (REST)
+
+
+
+==== 1) Récupérer la liste de toutes les références des conseils
+Endpoint : `GET /api/advices`
+
+Aucun input.
+
+Output : Liste de chaînes représentant les références des conseils.
+
+==== 2) Récupérer les détails d'un conseil à partir de son ID
+Endpoint : `GET /api/advices/advice/{adviceId}`
+
+Input : {adviceId} - Identifiant du conseil (dans l'URL).
+
+Output : Map contenant les détails du conseil.
+
+==== 3) Ajouter un nouveau conseil
+Endpoint : `POST /api/advices/add`
+
+Input :
+[source,json]
+----
+{
+  "textAdvice": "Contenu du conseil",
+  "idPerson": 1,
+  "imageFile": "Fichier image (dans les données de la requête multipart)"
+}
+----
+
+Output : Réponse HTTP avec le statut de réussite ou d'erreur.
+
+=== API LikeDislikeController
+
+==== 4) Ajouter un "Like" pour un conseil spécifique
+Endpoint : `POST /api/like-dislike/like`
+
+Input :
+[source,json]
+----
+{
+  "advice_id": 1,
+  "person_id": 1
+}
+----
+
+Output : Réponse HTTP avec le statut de réussite ou d'erreur.
+
+==== 5) Ajouter un "Dislike" pour un conseil spécifique
+Endpoint : `POST /api/like-dislike/dislike`
+
+Input :
+[source,json]
+----
+{
+  "advice_id": 1,
+  "person_id": 1
+}
+----
+
+Output : Réponse HTTP avec le statut de réussite ou d'erreur.
+
+
+
+==== Diagramme de classes global (partie métier)
+[plantuml]
+----
 
 @startuml
 
-package "com.nanterre.LoveMyPet.controller" {
-    class VaccinationController {
-        +getVaccinationReferenceByAnimalId(idAnimal: Integer): List<String>
-        +getVaccinationDetailsById(idVaccination: Integer): Vaccination
-        +add(vaccination: Vaccination, animalId: Integer): String
-    }
-
-    class VaccinController {
-        -vaccinService: VaccinService
-        +getAllVaccins(): Iterable<Vaccin>
-    }
+class Person {
+  idPerson: Integer
+  firstName: String
+  lastName: String
+  email: String
 }
 
-package "com.nanterre.LoveMyPet.model" {
-    class Vaccin {
-        -idVaccin: Integer
-        -vaccinName: String
-        +getIdVaccin(): Integer
-        +getVaccinName(): String
-    }
-
-    class Vaccination {
-        -idVaccination: Integer
-        -vaccin: Vaccin
-        -animal: Animal
-        -date: Date
-        +getIdVaccination(): Integer
-        +getVaccin(): Vaccin
-        +getAnimal(): Animal
-        +getDate(): Date
-    }
-
-    class Animal {
-        -idAnimal: Integer
-        // ... (other attributes and methods)
-    }
+class Advice {
+  adviceId: Integer
+  author: Person
+  textAdvice: String
+  imageUrl: String
+  likeDislikes: List<LikeDislike>
 }
 
-package "com.nanterre.LoveMyPet.repository" {
-    interface VaccinationRepository {
-        +findByAnimalId(animalId: Integer): List<Vaccination>
-    }
-
-    interface VaccinRepository {
-        +findAll(): Iterable<Vaccin>
-    }
+class LikeDislike {
+  id: Integer
+  advice: Advice
+  person: Person
+  isLike: boolean
 }
 
-package "com.nanterre.LoveMyPet.service" {
-    interface VaccinationService {
-        +saveVaccination(vaccination: Vaccination): Vaccination
-        +getVaccinationLinksByAnimalId(idAnimal: Integer): List<String>
-        +getVaccinationDetailsById(idVaccination: Integer): Vaccination
-    }
 
-    class VaccinationServiceImpl {
-        -entityManager: EntityManager
-        -vaccinationRepository: VaccinationRepository
-        +saveVaccination(vaccination: Vaccination): Vaccination
-        +getVaccinationLinksByAnimalId(idAnimal: Integer): List<String>
-        +getVaccinationDetailsById(idVaccination: Integer): Vaccination
-    }
-
-    interface VaccinService {
-        +getAllVaccins(): Iterable<Vaccin>
-        +getVaccinById(id: Integer): Vaccin
-    }
-
-    class VaccinServiceImpl {
-        -vaccinRepository: VaccinRepository
-        +getAllVaccins(): Iterable<Vaccin>
-        +getVaccinById(id: Integer): Vaccin
-    }
-}
-
-VaccinationController --> VaccinationServiceImpl
-VaccinationServiceImpl --> VaccinationRepository
-VaccinController --> VaccinService
-VaccinService --> VaccinRepository
-VaccinationRepository --> Vaccination
-VaccinRepository --> Vaccin
-
-Vaccination --> Vaccin
-Vaccination --> Animal
+Person "1" -- "*" Advice : wrote
+Advice "1" -- "*" LikeDislike : has
 
 @enduml
 
-==== Description API REST 
 
-VaccinationController
+----
 
-Point de départ de l'API : `/vaccination`
-
-* `GET /animal/{idAnimal}` : Obtenir les références de vaccination par ID d'animal.
-* `GET /{idVaccination}` : Obtenir les détails d'une vaccination spécifique par ID.
-* `POST /add` : Ajouter une nouvelle vaccination.
-
-VaccinController
-
-Point de départ de l'API : `/vaccin`
-
-* `GET /all` : Obtenir toutes les vaccinations.
 
 ==== Diagrammes de séquence des interactions front/back
 
+[plantuml]
+----
+
 @startuml
 
-actor Utilisateur as User
-participant Frontend as FrontendHTML
-participant BackendController as VaccinationController
-participant VaccinationService as VaccinationServiceImpl
-participant VaccinationRepository as VaccinationRepository
-database VaccinationDB as VaccinationDB
-database VaccinDB as VaccinDB
+actor Client
+participant AdviceController
+participant AdviceService
+participant AdviceServiceImpl
+participant AdviceRepository
 
-activate FrontendHTML
-
-User -> FrontendHTML: Accéder à la page de suivi
-activate BackendController
-FrontendHTML -> BackendController: Effectuer une requête pour obtenir les données des vaccinations
-activate VaccinationService
-BackendController -> VaccinationService: Appeler getVaccinationLinksByAnimalId
-activate VaccinationRepository
-VaccinationService -> VaccinationRepository: Appeler findByAnimalId
-VaccinationRepository -> VaccinationDB: Requête pour obtenir les vaccinations
-VaccinationDB --> VaccinationRepository: Renvoyer les données
-VaccinationRepository --> VaccinationService: Renvoyer les données
-deactivate VaccinationDB
-deactivate VaccinationRepository
-deactivate VaccinationService
-BackendController --> FrontendHTML: Renvoyer les données au frontend
-deactivate BackendController
-
-User -> FrontendHTML: Ajouter un nouveau vaccin
-activate FrontendHTML
-FrontendHTML -> BackendController: Envoyer les données du formulaire
-activate VaccinationService
-BackendController -> VaccinationService: Appeler saveVaccination
-activate VaccinationRepository
-VaccinationService -> VaccinationRepository: Appeler save
-VaccinationRepository -> VaccinationDB: Enregistrer le nouveau vaccin
-VaccinationDB --> VaccinationRepository: Confirmation de l'enregistrement
-VaccinationRepository --> VaccinationService: Renvoyer la confirmation
-deactivate VaccinationDB
-deactivate VaccinationRepository
-deactivate VaccinationService
-BackendController --> FrontendHTML: Renvoyer la confirmation au frontend
-deactivate BackendController
+Client -> AdviceController: POST /api/advices/add
+AdviceController -> AdviceService: addAdvice(Advice)
+AdviceService -> AdviceServiceImpl: addAdvice(Advice)
+AdviceServiceImpl -> AdviceRepository: save(Advice)
+AdviceRepository --> AdviceServiceImpl: Database save operation
+AdviceServiceImpl --> AdviceService: Database save successful
+AdviceService --> AdviceController: Operation successful response
 
 @enduml
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 == Fonctionnalité de Gestion des Animaux Perdus
@@ -760,10 +671,475 @@ La section "Animaux Perdus" de LoveMyPet propose une fonctionnalité permettant 
 L'API Nominatim est utilisée pour convertir le nom de la ville saisi par l'utilisateur en coordonnées géographiques, ce qui permet d'étendre la fonctionnalité de recherche par ville et périmètre.
 
 
+= Fonctionnalité de Planification des Heures de Repas et Envoi de Mails et confirmation du mail
+
+=== Planification des Heures de Repas et Envoi de Mails
+
+Cette fonctionnalité permet à un utilisateur de programmer les heures auxquelles il souhaite nourrir son animal
+
+==== Maquette du front
+
+Etape 1: Rentrer une heure puis cliquer sur le boutton  "Creer une alerte" Puis l'alerte sera ajouter au tableau
+
+Aussi on peut modifier les alertes créer en cliqquand sur "Edith" , et supprimer ses alerte en "cliquand" sur Delete
+
+image::images_planification_food/1.png[Planification de repas]
+
+
+=== Envoi de Mails de Rappel
+En suite lutilisateur n'a plus rien a faire , il recevra un email pour chaque heure rentrer  l'informant de l'heure de repas prévue pour son animal.
+
+image::images_planification_food/2.png[Exemple d'email envoyé a l'utilisateur]
+
+=== Confirmation de l'E-mail
+
+Pour confirmer la réception de l'e-mail et l'alimentation de l'animal, l'utilisateur peut cliquer sur le bouton de confirmation présent dans l'e-mail. Lorsqu'il le fait, un message de réussite est affiché, et une nouvelle ligne est insérée dans la base de données pour enregistrer la confirmation.
+
+Le bouton de confirmation dans l'e-mail doit rediriger l'utilisateur vers une page ou un endpoint dédié, par exemple :
+
+[source,html]
+----
+<a href="/feeding-confirmation/confirm?personId=1&amp;animalId=1&amp;feedingTimeId=39&amp;confirmationCode=ad97faf5">Confirmer</a>
+----
+==== Diagramme de classes global (partie métier)
+
+[plantuml]
+----
+
+@startuml
+class Person {
+idPerson: Integer
+LastName: String
+FirstName: String
+Email: String
+PhoneNumber: String
+Address: String
+Password: String
+ImageUrl: String
+}
+
+class Animal {
+id: Integer
+idPerson: Integer
+name: String
+category: String
+race: String
+weight: Double
+gender: Integer
+dateOfBirth: Date
+imageUrl: String
+adoptedByPerson: Person
+}
+
+class FeedingTime {
+id: Integer
+animal: Animal
+feedingTime: LocalTime
+}
+
+class FeedingConfirmation {
+id: Integer
+personId: Integer
+animalId: Integer
+feedingTimeId: Integer
+confirmationDate: Date
+confirmationCode: String
+}
+
+Person "1" -- "*" Animal : owns
+Animal "*" -- "1" FeedingTime : has feeding times
+Animal "*" -- "*" FeedingConfirmation : may have confirmations
+
+@enduml
+----
+
+
+
+=== API de la fonctionnalité
+
+==== 1) Ajout d'un Horaire d'Alimentation
+Endpoint : `POST /api/feeding-times/add`
+
+Voici le body de la requête :
+
+[source,json]
+----
+{
+  "animal": {
+    "id": 1
+  },
+  "feedingTime": "20:45"
+}
+----
+
+et le output :
+
+`Message : Horaires d'alimentation ajouté avec succès.`
+
+
+==== 2) Liste des Horaires d'Alimentation pour un Animal
+Endpoint : `GET /api/feeding-times/{idAnimal}`
+
+et le output :
+[source,json]
+----
+["time/1","time/2","time/3"]
+----
+
+
+==== 3) Détail d'un Horaire d'Alimentation
+Endpoint : `GET /api/feeding-times/time/{id}`
+
+et le output :
+[source,json]
+----
+
+{
+"id": 1,
+"animal": {
+    "id": 1,
+    "idPerson": 1,
+    "name": "xgecfie",
+    "category": "cat",
+    "race": "dde",
+    "weight": 20.0,
+    "gender": 1,
+    "dateOfBirth": "2024-01-25",
+    "imageUrl": "selenium_true_vrai.jpg",
+    "adoptedByPerson": {
+    "idPerson": 1,
+    "password": "f",
+    "address": null,
+    "email": "f@gmail.com",
+    "imageUrl": null,
+    "lastName": "ichola",
+    "firstName": "sadikou",
+    "phoneNumber": null
+    }
+},
+"feedingTime": "15:42"
+}
+----
+
+
+==== 4) Suppression d'un Horaire d'Alimentation
+Endpoint : `DELETE /api/feeding-times/delete/{id}`
+
+Et output :
+
+`L'heure a étét supprimer`
+
+
+==== 4)  Mise à Jour d'un Horaire d'Alimentation
+Endpoint : `PUT /api/feeding-times/update/{id}`
+
+[source,json]
+----
+{
+"animal": {
+"id": 1
+},
+"feedingTime": "15:45"
+}
+----
+
+Output : `Mise à jour réussie.`
+
+==== 5) Récupération des Horaire d'Alimentation Actuels pour les E-mails
+Endpoint : `GET /api/feeding-times/email-animal-current-feeding-times`
+
+[source,json]
+----
+[
+    [
+        "f@gmail.com",
+        "Fanuel",
+        1,
+        1,
+        "loulou",
+        "image_animal.jpg",
+        4
+    ]
+]
+----
+
+==== 6) Confirmer l'email
+Endpoint : `GET /feeding-confirmation/confirm?personId=1&animalId=2&feedingTimeId=3&confirmationCode=ABC123`
+
+Output :
+
+`Comfirmation réussie Failed to confirm feeding.`
+
+
+==== Diagramme de séquence
+
+[plantuml]
+----
+@startuml
+participant Client
+participant FeedingTimeController
+participant FeedingTimeService
+participant FeedingTimeServiceImpl
+participant FeedingTimeRepository
+participant ScheduledEmailService
+participant EmailSenderService
+participant Person
+participant Animal
+
+Client->FeedingTimeController: POST /api/feeding-times/add
+FeedingTimeController->FeedingTimeService: addFeedingTime(FeedingTime)
+FeedingTimeService->FeedingTimeServiceImpl: addFeedingTime(FeedingTime)
+FeedingTimeServiceImpl->FeedingTimeRepository: save(FeedingTime)
+FeedingTimeRepository-->FeedingTimeServiceImpl: Database save operation
+FeedingTimeServiceImpl-->FeedingTimeService: Database save successful
+FeedingTimeService-->FeedingTimeController: Operation successful response
+
+ScheduledEmailService-->FeedingTimeServiceImpl: getInfosCurrentFeedingTimes()
+FeedingTimeServiceImpl->FeedingTimeRepository: findEmailsAndAnimalDetailsForUsersWithCurrentFeedingTime()
+FeedingTimeRepository-->FeedingTimeServiceImpl: Database query result
+FeedingTimeServiceImpl->EmailSenderService: sendHtmlEmail(userEmail, subject, body)
+EmailSenderService-->ScheduledEmailService: Email sent successfully
+
+Client->FeedingConfirmationController: GET /feeding-confirmation/confirm
+FeedingConfirmationController->FeedingConfirmationService: confirmFeeding(personId, animalId, feedingTimeId, confirmationCode)
+FeedingConfirmationService->FeedingConfirmationServiceImpl: confirmFeeding(personId, animalId, feedingTimeId, confirmationCode)
+FeedingConfirmationServiceImpl->FeedingConfirmationRepository: Database query to confirm feeding
+FeedingConfirmationRepository-->FeedingConfirmationServiceImpl: Database query result
+FeedingConfirmationServiceImpl-->FeedingConfirmationService: Feeding confirmation result
+FeedingConfirmationService-->FeedingConfirmationController: Feeding confirmation response
+@enduml
+----
+
+
+---
+= Fonctionnalité de donnation d'objets
+
+= Description de la fonctionnalité
+
+La fonctionnalité de donation d'objets permet aux utilisateurs de proposer des objets qu'ils souhaitent donner à d'autres personnes. Voici comment fonctionne cette fonctionnalité :
+
+==== Ajout d'objets à donner
+
+Les utilisateurs peuvent ajouter des informations sur les objets qu'ils souhaitent donner, telles que le nom de l'objet, une description et éventuellement une photo. En utilisant une interface conviviale, ils remplissent un formulaire avec les détails de l'objet, y compris le nom, la description et la photo facultative. Une fois le formulaire soumis, les informations sur l'objet sont enregistrées dans la base de données.
+
+==== Consultation des objets disponibles
+
+Les autres utilisateurs peuvent consulter la liste des objets disponibles à donner. Ils peuvent parcourir les objets ajoutés par d'autres utilisateurs et voir leurs détails, tels que le nom, la description et la photo. Cette fonctionnalité leur permet de trouver des objets qui pourraient les intéresser.
+
+==== Contacter le posteur pour récupérer l'objet
+
+Si un utilisateur est intéressé par un objet à donner, il peut contacter le posteur de l'objet pour organiser la récupération. Cela peut se faire par le biais de coordonnées fournies par l'utilisateur qui donne l'objet, telles qu'une adresse e-mail ou un numéro de téléphone. Les deux parties peuvent ensuite convenir d'un moment et d'un lieu pour que l'utilisateur récupère l'objet donné.
+
+==== Objectifs de la fonctionnalité
+
+- Faciliter le processus de donation d'objets en permettant aux utilisateurs de proposer des objets à donner.
+- Fournir aux utilisateurs une plateforme où ils peuvent trouver des objets disponibles à donner qui correspondent à leurs besoins.
+- Encourager le partage et la réutilisation des objets pour réduire le gaspillage et favoriser le développement durable.
+- Créer une communauté où les utilisateurs peuvent se soutenir mutuellement en donnant et en recevant des objets de manière désintéressée
+
+= API de la fonctionnalité de donation d'objets
+
+L'API de la fonctionnalité de donation d'objets permet aux utilisateurs d'effectuer différentes opérations liées à la gestion des objets à donner.
+
+==== Ajout d'objets à donner
+
+Endpoint : `POST /api/items-to-donate/add`
+
+Ce point de terminaison permet aux utilisateurs d'ajouter des informations sur les objets qu'ils souhaitent donner. Les informations nécessaires comprennent le nom de l'objet, une description et éventuellement une photo. Les paramètres de la requête sont les suivants :
+
+- `itemName` : Le nom de l'objet à donner.
+- `description` : La description de l'objet à donner.
+- `photo` : La photo de l'objet à donner (facultatif).
+- `idPerson` : L'identifiant de la personne qui donne l'objet.
+
+Exemple de corps de requête JSON :
+[source,json]
+----
+{
+  "itemName": "Chaise",
+  "description": "Chaise en bois",
+  "photo": "photo_chaise.jpg",
+  "idPerson": 123
+}
+----
+
+Réponse : En cas de succès, une réponse avec le message "Objet à donner ajouté avec succès" est renvoyée avec le code d'état HTTP 200 (OK). En cas d'erreur, une réponse avec le message "Erreur lors de l'ajout de l'objet à donner" est renvoyée avec le code d'état HTTP 500 (Internal Server Error).
+
+==== Consultation des objets disponibles
+
+Endpoint : `GET /api/items-to-donate/`
+
+Ce point de terminaison permet aux utilisateurs de consulter la liste des objets disponibles à donner. Il renvoie une liste d'URLs vers les détails de chaque objet disponible.
+
+Exemple de réponse JSON :
+[source,json]
+----
+[
+  "/api/items-to-donate/item/1",
+  "/api/items-to-donate/item/2",
+  "/api/items-to-donate/item/3"
+]
+----
+
+==== Détails d'un objet à donner
+
+Endpoint : `GET /api/items-to-donate/item/{id}`
+
+Ce point de terminaison permet aux utilisateurs de récupérer les détails d'un objet à donner spécifique en fournissant son identifiant (`id`).
+
+Exemple de réponse JSON pour un objet avec l'identifiant 1 :
+[source,json]
+----
+{
+  "id": 1,
+  "itemName": "Chaise",
+  "description": "Chaise en bois",
+  "imageUrl": "photo_chaise.jpg",
+  "donatingPerson": {
+    "idPerson": 123,
+    "firstName": "John",
+    "lastName": "Doe"
+  }
+}
+----
+
+==== Récupération des objets d'une personne
+
+Endpoint : `GET /api/items-to-donate/person/{personId}`
+
+Ce point de terminaison permet aux utilisateurs de récupérer les objets qu'une personne spécifique a l'intention de donner. Il prend en paramètre l'identifiant de la personne (`personId`) et renvoie une liste d'URLs vers les détails de chaque objet.
+
+Exemple de réponse JSON pour les objets d'une personne avec l'identifiant 123 :
+[source,json]
+----
+[
+  "/api/items-to-donate/item/1",
+  "/api/items-to-donate/item/2"
+]
+----
+
+==== Suppression d'un objet à donner
+
+Endpoint : `DELETE /api/items-to-donate/item/{id}`
+
+Ce point de terminaison permet aux utilisateurs de supprimer un objet à donner spécifique en fournissant son identifiant (`id`). En cas de succès, une réponse avec le message "Objet à donner supprimé avec succès" est renvoyée avec le code d'état HTTP 200 (OK).
+
+Exemple de réponse JSON pour la suppression d'un objet avec l'identifiant 1 :
+[source,json]
+----
+{
+  "message": "Objet à donner supprimé avec succès"
+}
+----
+
+== Diagramme de séquence
+[plantuml]
+----
+@startuml
+
+package "Controller" {
+    class ItemToDonateController {
+        - itemToDonateService: ItemToDonateServiceImpl
+        + addItemToDonate(itemName: String, description: String, photo: MultipartFile, idPerson: Integer): ResponseEntity<String>
+        - saveImage(imageFile: MultipartFile): String
+        + getAllItemReferences(): List<String>
+        + getItemDetailsById(id: Integer): ItemToDonate
+        + getItemReferencesByPersonId(personId: Integer): ResponseEntity<List<String>>
+        + deleteItemToDonate(id: Integer): ResponseEntity<String>
+    }
+}
+
+package "Model" {
+    class ItemToDonate {
+        - id: Integer
+        - itemName: String
+        - description: String
+        - imageUrl: String
+        - donatingPerson: Person
+        + ItemToDonate()
+        + ItemToDonate(itemName: String, description: String, imageUrl: String, person: Person)
+        + getId(): Integer
+        + setId(id: Integer): void
+        + getItemName(): String
+        + setItemName(itemName: String): void
+        + getDescription(): String
+        + setDescription(description: String): void
+        + getImageUrl(): String
+        + setImageUrl(imageUrl: String): void
+        + getDonatingPerson(): Person
+        + setDonatingPerson(donatingPerson: Person): void
+    }
+
+    class Person {
+        - idPerson: Integer
+        - address: String
+        - password: String
+        - email: String
+        - imageUrl: String
+        - firstName: String
+        - lastName: String
+        - phoneNumber: String
+        + Person()
+        + getIdPerson(): Integer
+        + setIdPerson(idPerson: Integer): void
+        + getAddress(): String
+        + setAddress(address: String): void
+        + getPassword(): String
+        + setPassword(password: String): void
+        + getEmail(): String
+        + setEmail(email: String): void
+        + getImageUrl(): String
+        + setImageUrl(imageUrl: String): void
+        + getFirstName(): String
+        + setFirstName(firstName: String): void
+        + getLastName(): String
+        + setLastName(lastName: String): void
+        + getPhoneNumber(): String
+        + setPhoneNumber(phoneNumber: String): void
+    }
+}
+
+package "Repository" {
+    interface ItemToDonateRepository {
+        + findByDonatingPerson_IdPerson(personId: Integer): List<ItemToDonate>
+    }
+}
+
+package "Service" {
+    interface ItemToDonateService {
+        + saveItemToDonate(itemToDonate: ItemToDonate): void
+        + getAllItems(): List<ItemToDonate>
+        + getItemById(id: Integer): ItemToDonate
+        + getItemsByPersonId(personId: Integer): List<ItemToDonate>
+        + deleteItemToDonate(id: Integer): void
+    }
+
+    class ItemToDonateServiceImpl {
+        - itemToDonateRepository: ItemToDonateRepository
+        + saveItemToDonate(itemToDonate: ItemToDonate): void
+        + getAllItems(): List<ItemToDonate>
+        + getItemById(id: Integer): ItemToDonate
+        + getItemsByPersonId(personId: Integer): List<ItemToDonate>
+        + deleteItemToDonate(id: Integer): void
+    }
+}
+
+ItemToDonateController --> ItemToDonateServiceImpl : uses
+ItemToDonateController --> ItemToDonate : uses
+ItemToDonate --> Person : has
+ItemToDonateServiceImpl --> ItemToDonateRepository : uses
+ItemToDonateServiceImpl --> ItemToDonate : uses
+ItemToDonateService <|.. ItemToDonateServiceImpl : implements
+ItemToDonateRepository <|.. ItemToDonateRepositoryImpl : implements
+
+@enduml
+
+----
+
+
+---
 
 == Partie 3 : Modélisation
-
-
 
 
 [plantuml]

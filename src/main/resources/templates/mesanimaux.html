@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html>
 
 <head>
     <meta charset="UTF-8">
@@ -14,257 +13,185 @@
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-
-    <style>
-        /* Styles personnalisés pour la modal */
-        .modal-adoption .modal-body {
-            padding: 70px;
-        }
-
-        /* Ajustements spécifiques aux éléments du formulaire */
-        .modal-adoption form {
-            margin-bottom: 20px;
-        }
-
-        .modal-adoption label {
-            font-weight: bold;
-        }
-
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-
-
-        @import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            list-style: none;
-            font-family: 'Jost', sans-serif;
-        }
-
-
-        .navbar {
-            background: black;
-            width: 100%;
-            height: 60px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 50px;
-        }
-
-        .navbar .logo a {
-            display: block;
-            text-decoration: none;
-            color: #fff;
-            font-weight: 700;
-            letter-spacing: 2px;
-            font-size: 25px;
-            text-transform: uppercase;
-        }
-
-        .navbar .nav_right>ul {
-            display: flex;
-            align-items: center;
-        }
-
-        .nav_right p {
-            color: #fff;
-            font-weight: 600;
-        }
-
-        .navbar .nav_right ul li.nr_li {
-            margin-left: 25px;
-            cursor: pointer;
-            color: #fff;
-            font-size: 20px;
-            position: relative;
-        }
-
-        .navbar .nav_right ul li.nr_li:hover {
-            color: #cefffc;
-        }
-
-        .navbar .nav_right ul li img {
-            width: 60px;
-            vertical-align: middle;
-            border-radius: 50%;
-        }
-
-        .navbar .dd_menu {
-            position: absolute;
-            right: -25px;
-            top: 47px;
-            display: flex;
-            background: #fff;
-            border-radius: 15px;
-            box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.25);
-            display: none;
-            width: 280px;
-        }
-
-        .navbar .dd_menu .dd_left {
-            background: #b4b4b2;
-            padding: 15px 20px;
-            border-top-left-radius: 15px;
-            border-bottom-left-radius: 15px;
-        }
-
-        .navbar .dd_menu .dd_left li {
-            color: #fff;
-        }
-
-        .navbar .dd_menu .dd_right {
-            padding: 15px 20px;
-        }
-
-        .navbar .dd_menu li {
-            margin-bottom: 10px;
-            color: #868686;
-        }
-
-        .navbar .dd_menu:before {
-            content: "";
-            position: absolute;
-            top: -20px;
-            right: 30px;
-            border: 10px solid;
-            border-color: transparent transparent #fff transparent;
-        }
-
-        .navbar .dd_main.active .dd_menu {
-            display: flex;
-        }
-
-        .top-right {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background-color: #4caf50;
-            color: #fff;
-            padding: 6px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 12px;
-        }
-        /* Ajoutez d'autres styles personnalisés au besoin */
-    </style>
-
 </head>
-
-
-
 
 <body>
 
-    <div class="navbar-wrapper">
-        <div class="navbar">
-            <div class="logo">
-                <img src="images/logo.png" style="width: 150px; height: 65px;">
 
-            </div>
-            <div class="nav_right">
-                <ul>
-                    <p>Bonjour <span id="userName"></span> !</p>
-                    <li class="nr_li dd_main">
-                        <img src="/images/person1.jpg" alt="profile_img">
-                        <div class="dd_menu">
-                            <div class="dd_left">
-                                <ul>
-                                    <li><i class="fa-solid fa-user"></i></li>
-                                    <li><i class="fa-solid fa-paw"></i></li>
-                                    <li><i class="fas fa-sign-out-alt"></i></li>
-                                </ul>
+    <style>
+        body {
+            display: flex;
+
+        }
+
+        .top-right {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #000;
+            border-radius: 50%;
+            background-color: #000;
+            padding: 20px;
+            font-weight: bold;
+            color: #fff;
+            border: 0;
+            outline: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        /* sitde bar */
+
+        .w3-sidebar {
+            position: fixed;
+            z-index: 100;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .w3-button {
+            color: #fff;
+            outline: none;
+            outline: none;
+            padding: 10px;
+            text-decoration: none;
+            transition: 0.5s;
+        }
+
+
+        .w3-button:hover {
+            background-color: #fff;
+            text-decoration: none;
+            color: #81774E;
+            border-radius: 6px;
+        }
+
+        .w3-button:hover a {
+            color: #000;
+        }
+
+        .logo-img {
+            text-align: CENTER;
+            margin: 20PX AUTO;
+            width: 100PX;
+        }
+
+        .side_bar_bar {
+            background-color: #81774E;
+        border: 0;
+        height: 1px;
+        width: 100%;
+        border-radius: 2px;
+        margin: 10px 0;
+        }
+    </style>
+
+ <!-- Sidebar -->
+<div class="w3-sidebar ">
+    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <a href="/profile" class="w3-button">Mon compte</a>
+    <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+
+    <a href="/adoption" class="w3-button">Adoption</a>
+    <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="/donate" class="w3-button">Donner des objets</a>
+    <a href="/showdonations" class="w3-button">Trouver des objets</a>
+    <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
+
+    <hr class="side_bar_bar">
+    <a href="/Map" class="w3-button">Map</a>
+
+    <hr class="side_bar_bar">
+    <a href="/AddEvent" class="w3-button">Ajouter un évenement</a>
+    <a href="/ShowEvent" class="w3-button">Participé a un evenement</a>
+    <a href="/MyEvent" class="w3-button">Mes évenement crée </a>
+
+
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="#" class="w3-button">Se Déconnecter</a>
+
+</div>
+
+
+    <div class="big-container">
+        <!-- Modal d'adoption -->
+        <div class="modal" id="adoptionModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Formulaire d'adoption</h4><br>
+                        <button type="button" class="close" data-dismiss="modal"
+                            onclick="closeAdoptionPopup">&times;</button>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+
+                        <!-- Formulaire d'adoption avec les champs de date et de checkbox -->
+                        <form id="adoptionForm">
+                            <!-- Ajout du champ pour l'ID de l'animal -->
+                            <input type="hidden" id="animalId" name="animalId" value="">
+
+                            <div class="form-group">
+                                <label for="startDate">Date de début d'adoption</label>
+                                <input type="date" class="form-control" id="startDate" required>
                             </div>
-                            <div class="dd_right">
-                                <ul>
-                                    <li><a href="/profile">Mon compte</a></li>
-                                    <li><a href="/mesanimaux">Mes animaux</a></li>
-                                    <li><a>Se Déconnecter</a></li>
-                                    <li><a href="/mescandidatures">Mes candidatures</a></li>
 
-                                </ul>
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="finalAdoption"
+                                    onchange="toggleEndDate()">
+                                <label class="form-check-label" for="finalAdoption">Adoption temporaire</label>
                             </div>
-                        </div>
-                    </li>
 
-                </ul>
+                            <div class="form-group">
+                                <label for="endDate">Date de fin d'adoption</label>
+                                <input type="date" class="form-control" id="endDate" disabled>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            onclick="closeAdoptionPopup">Fermer</button>
+                        <button type="button" class="btn btn-primary" onclick="submitForm()">Enregistrer</button>
+                    </div>
+
+                </div>
             </div>
         </div>
-    </div>
+        <div class="wrapper">
+            <div class="container">
+                <h2 class="small-title">Mes animaux</h2>
+                <div class="animal">
+                    <!-- Ajouter un champ caché pour l'ID de la personne -->
 
-    <!-- Modal d'adoption -->
-    <div class="modal" id="adoptionModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Formulaire d'adoption</h4><br>
-                    <button type="button" class="close" data-dismiss="modal"
-                        onclick="closeAdoptionPopup">&times;</button>
+                    <div class="animal-container">
+                        <!-- Liste des animaux ici -->
+                    </div>
+                    <div id="error-message"></div>
                 </div>
-
-                <!-- Modal Body -->
-                <div class="modal-body">
-
-                    <!-- Formulaire d'adoption avec les champs de date et de checkbox -->
-                    <form id="adoptionForm">
-                        <!-- Ajout du champ pour l'ID de l'animal -->
-                        <input type="hidden" id="animalId" name="animalId" value="">
-
-                        <div class="form-group">
-                            <label for="startDate">Date de début d'adoption</label>
-                            <input type="date" class="form-control" id="startDate" required>
-                        </div>
-
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="finalAdoption"
-                                onchange="toggleEndDate()">
-                            <label class="form-check-label" for="finalAdoption">Adoption temporaire</label>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="endDate">Date de fin d'adoption</label>
-                            <input type="date" class="form-control" id="endDate" disabled>
-                        </div>
-                    </form>
-
-                </div>
-
-                <!-- Modal Footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                        onclick="closeAdoptionPopup">Fermer</button>
-                    <button type="button" class="btn btn-primary" onclick="submitForm()">Enregistrer</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="wrapper">
-        <div class="container">
-            <div class="title">
-                <h1>Mes animaux</h1>
-            </div>
-
-            <div class="animal">
-                <!-- Ajouter un champ caché pour l'ID de la personne -->
-
-                <div class="animal-container">
-                    <!-- Liste des animaux ici -->
-                </div>
-                <div id="error-message"></div>
             </div>
         </div>
     </div>
@@ -349,10 +276,6 @@
 
 
     <script>
-
-
-
-
         function fetchData(userId) {
             var personId; // Déclarer la variable à l'extérieur de la fonction AJAX
 
@@ -432,12 +355,12 @@
                                 <button type="button" class="add-btn" data-toggle="modal" data-target="#adoptionModal" onclick="handleDonationClick(${ animalDetails.id })">Donner 🙏</button>
                             </div>
                         </div>
+                        
                         <div class="animal-content">
-                            <a href="#" class="animal-title">🔥 ${animalDetails.name} </a>
-                            <p class="race"><span>ℹ️ ${animalDetails.race}</span></p>
-                            <div>
-                                <span class="gender">${animalDetails.gender === 1 ? '♂ Mâle' : '♀ Femelle'}</span>
-                            </div>
+                            <h2 href="#" class="animal-title">${animalDetails.name} </h2>
+                            <p class="race"><span>${animalDetails.race}</span></p>
+                           <span class="gender">${animalDetails.gender === 1 ? '♂ Mâle' : '♀ Femelle'}</span>
+                          
                         </div>
                     </div>
                 `;
