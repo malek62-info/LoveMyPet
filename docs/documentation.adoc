@@ -334,7 +334,7 @@ Après avoir ajouté des compagnons dans la section "Mes Animaux", chaque animal
 
 **étape 1**
 
-image::enregistrement.png[etape 1]
+image::AddAnimal.png[etape 1]
 
 **étape 2**
 
@@ -421,7 +421,7 @@ Une fois sur la page "EXPLORATION FACILE", les utilisateurs ont deux choix :
 
 Les utilisateurs peuvent sélectionner l'option qui correspond à leur recherche.
 
-image::map.png[Map]
+image::Map/map.png[Map]
 
 == Requête vers l'API Overpass et Nominatim
 
@@ -431,6 +431,34 @@ Lorsque l'utilisateur choisit "Trouver un Vétérinaire", l'application utilise 
 
 En outre, l'application utilise l'API Nominatim pour convertir le nom de la ville saisi par l'utilisateur en coordonnées géographiques.
 
+
+
+- === Rechercher un Jardin pour se Balader :
+
+Si l'utilisateur opte pour "Rechercher un Jardin pour se Balader", l'application effectue une requête pour trouver les nœuds correspondant à la catégorie "leisure=garden" autour de la position actuelle de l'utilisateur. Cette requête est également générée dynamiquement pour récupérer les informations nécessaires.
+
+== Affichage des Résultats sur la Carte
+
+-  Trouver un Vétérinaire :
+
+Les résultats de la requête pour les vétérinaires sont affichés sur la carte sous forme de marqueurs. Chaque marqueur représente l'emplacement d'un vétérinaire trouvé.
+
+image::Map/veterinaire.png[Vétérinaire]
+=== Recherche par ville "Geneve":
+
+image::Map/veterinairegeneve.png[veterinairegeneve]
+
+- Rechercher un Jardin pour se Balader :
+
+Pour la recherche de jardins, les résultats correspondants aux nœuds "leisure=garden" sont affichés sur la carte.
+
+image::Parc.png[Parc]
+
+=== Explication de l'API Overpass et Nominatim
+
+L'API Overpass est un service d'interrogation et d'analyse de données OpenStreetMap. Elle permet de récupérer des données géographiques en utilisant un langage de requête spécifique. Dans le contexte de cette application, elle est utilisée pour obtenir des informations sur les vétérinaires et les jardins à proximité en fonction de la position de l'utilisateur. Les requêtes sont construites dynamiquement pour cibler les catégories spécifiques (amenity=veterinary, leisure=garden) et les résultats sont intégrés à la carte de l'application.
+
+=== Diagramme de class
 [plantuml]
 ----
 class VeterinairesController {
@@ -458,25 +486,32 @@ VeterinairesController --> RestTemplate: makeApiCall()
 RestTemplate --> API: Overpass API
 RestTemplate --> API: Nominatim API
 ----
+===API Contrôleur des Vétérinaires
 
-- === Rechercher un Jardin pour se Balader :
+Ce contrôleur utilise l'API Overpass pour récupérer la liste des vétérinaires dans une ville donnée.
 
-Si l'utilisateur opte pour "Rechercher un Jardin pour se Balader", l'application effectue une requête pour trouver les nœuds correspondant à la catégorie "leisure=garden" autour de la position actuelle de l'utilisateur. Cette requête est également générée dynamiquement pour récupérer les informations nécessaires.
+== Paramètres de Requête
 
-== Affichage des Résultats sur la Carte
+Ce contrôleur accepte les paramètres de requête suivants :
 
--  Trouver un Vétérinaire :
+- `city` (String): Nom de la ville.
+- `latitude` (double): Latitude du point central.
+- `longitude` (double): Longitude du point central.
+- `radius` (double, facultatif, valeur par défaut: 3000): Rayon de recherche en mètres.
 
-Les résultats de la requête pour les vétérinaires sont affichés sur la carte sous forme de marqueurs. Chaque marqueur représente l'emplacement d'un vétérinaire trouvé.
+Exemple de requête:
 
-image::veterinaire.png[Vétérinaire]
-=== Recherche par ville "Geneve":
+[source,asciidoc]
+----
+[Exemple]
+/api/veterinaires?city=Paris&latitude=48.8566&longitude=2.3522&radius=5000
+----
 
-image::veterinairegeneve.png[veterinairegeneve]
+== Exemple de Réponse
 
-- Rechercher un Jardin pour se Balader :
+La réponse du contrôleur est une liste d'objets `Veterinary` avec les coordonnées géographiques et le nom du vétérinaire.
 
-Pour la recherche de jardins, les résultats correspondants aux nœuds "leisure=garden" sont affichés sur la carte.
+Exemple de réponse:
 
 image::Parc.png[Parc]
 
@@ -495,180 +530,69 @@ Les utilisateurs ont la possibilité d'interagir avec les avis en les consultant
 image::images_planification_food/7.png[advice]
 
 ===== Consulter les Avis
-
-Les utilisateurs peuvent parcourir les avis postés par d'autres membres de la communauté LoveMyPet. Ces avis peuvent contenir des conseils utiles, des expériences personnelles, ou des informations pertinentes sur les animaux de compagnie.
-
-===== Liker un Avis
-
-Chaque utilisateur a la possibilité de manifester son appréciation envers un avis en utilisant la fonction "Like". Lorsqu'un utilisateur clique sur le bouton "Like" d'un avis, cela indique une réaction positive envers le contenu de cet avis.
-
-=====  Disliker un Avis
-
-De même, les utilisateurs peuvent exprimer leur désaccord ou leur mécontentement envers un avis en utilisant la fonction "Dislike". Cliquer sur le bouton "Dislike" signifie que l'utilisateur n'est pas en accord avec le contenu de l'avis.
-
-Ces interactions permettent de créer une dynamique communautaire où les utilisateurs peuvent partager leurs opinions et réagir aux conseils des autres membres.
-
-Les actions de "Like" et "Dislike" sont enregistrées dans la base de données, fournissant ainsi des informations sur la popularité et la réception des avis au sein de la communauté LoveMyPet.
-
-Ces fonctionnalités contribuent à renforcer l'engagement des utilisateurs et favorisent une communauté active et collaborative.
-
-==== Description API back (REST)
-
-
-
-==== 1) Récupérer la liste de toutes les références des conseils
-Endpoint : `GET /api/advices`
-
-Aucun input.
-
-Output : Liste de chaînes représentant les références des conseils.
-
-==== 2) Récupérer les détails d'un conseil à partir de son ID
-Endpoint : `GET /api/advices/advice/{adviceId}`
-
-Input : {adviceId} - Identifiant du conseil (dans l'URL).
-
-Output : Map contenant les détails du conseil.
-
-==== 3) Ajouter un nouveau conseil
-Endpoint : `POST /api/advices/add`
-
-Input :
-[source,json]
+[source,asciidoc]
 ----
-{
-  "textAdvice": "Contenu du conseil",
-  "idPerson": 1,
-  "imageFile": "Fichier image (dans les données de la requête multipart)"
-}
+[
+  {
+    "lat": 45.8534,
+    "lon": 3.3488,
+    "name": "Vétérinaire A"
+  },
+  {
+    "lat": 48.8591,
+    "lon": 2.3637,
+    "name": "Vétérinaire B"
+  },
+  // ...
+]
 ----
 
-Output : Réponse HTTP avec le statut de réussite ou d'erreur.
 
-=== API LikeDislikeController
-
-==== 4) Ajouter un "Like" pour un conseil spécifique
-Endpoint : `POST /api/like-dislike/like`
-
-Input :
-[source,json]
-----
-{
-  "advice_id": 1,
-  "person_id": 1
-}
-----
-
-Output : Réponse HTTP avec le statut de réussite ou d'erreur.
-
-==== 5) Ajouter un "Dislike" pour un conseil spécifique
-Endpoint : `POST /api/like-dislike/dislike`
-
-Input :
-[source,json]
-----
-{
-  "advice_id": 1,
-  "person_id": 1
-}
-----
-
-Output : Réponse HTTP avec le statut de réussite ou d'erreur.
-
-
-
-==== Diagramme de classes global (partie métier)
+=== Diagramme de séquence
 [plantuml]
 ----
-
 @startuml
+actor Utilisateur
+participant VeterinairesController
+participant "Overpass API" as OverpassAPI
 
-class Person {
-  idPerson: Integer
-  firstName: String
-  lastName: String
-  email: String
-}
+Utilisateur -> VeterinairesController: Requête: /api/veterinaires
+activate VeterinairesController
 
-class Advice {
-  adviceId: Integer
-  author: Person
-  textAdvice: String
-  imageUrl: String
-  likeDislikes: List<LikeDislike>
-}
+VeterinairesController -> OverpassAPI: Appel à l'Overpass API
+activate OverpassAPI
 
-class LikeDislike {
-  id: Integer
-  advice: Advice
-  person: Person
-  isLike: boolean
-}
+OverpassAPI --> VeterinairesController: Résultat de l'Overpass API
+deactivate OverpassAPI
 
-
-Person "1" -- "*" Advice : wrote
-Advice "1" -- "*" LikeDislike : has
-
-@enduml
-
-
-----
-
-
-==== Diagrammes de séquence des interactions front/back
-
-[plantuml]
-----
-
-@startuml
-
-actor Client
-participant AdviceController
-participant AdviceService
-participant AdviceServiceImpl
-participant AdviceRepository
-
-Client -> AdviceController: POST /api/advices/add
-AdviceController -> AdviceService: addAdvice(Advice)
-AdviceService -> AdviceServiceImpl: addAdvice(Advice)
-AdviceServiceImpl -> AdviceRepository: save(Advice)
-AdviceRepository --> AdviceServiceImpl: Database save operation
-AdviceServiceImpl --> AdviceService: Database save successful
-AdviceService --> AdviceController: Operation successful response
+VeterinairesController --> Utilisateur: Réponse au client
+deactivate VeterinairesController
 
 @enduml
 ----
 
+[plantuml]
+----
+@startuml
+actor Utilisateur
+participant ParcsController
+participant "Overpass API" as OverpassAPI
 
+Utilisateur -> ParcsController: Requête: /api/parcs
+activate ParcsController
 
+ParcsController -> OverpassAPI: Appel à l'Overpass API
+activate OverpassAPI
 
+OverpassAPI --> ParcsController: Résultat de l'Overpass API
+deactivate OverpassAPI
 
+ParcsController --> Utilisateur: Réponse au client
+deactivate ParcsController
 
+@enduml
+----
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-== Fonctionnalité de Gestion des Animaux Perdus
-
-La section "Animaux Perdus" de LoveMyPet propose une fonctionnalité permettant aux utilisateurs de déclarer et de retrouver leurs compagnons perdus. Lorsque vous accédez à cette section depuis la page "Nos Services", vous trouverez deux boutons distincts : "Déclarer un Animal Perdu" et "Liste des Animaux Perdus".
-
-    Déclarer un Animal Perdu :
-    En cliquant sur ce bouton, les utilisateurs peuvent remplir un formulaire pour déclarer un animal perdu. Ils peuvent fournir des détails tels que le nom de l'animal, une description, une photo, et d'autres informations pertinentes.
-
-    Liste des Animaux Perdus :
-    Ce bouton affiche une liste des animaux perdus déclarés par la communauté LoveMyPet. Les utilisateurs peuvent parcourir cette liste pour retrouver des animaux perdus et faciliter des réunions chaleureuses entre les amis à fourrure égarés et leurs propriétaires.
-L'API Nominatim est utilisée pour convertir le nom de la ville saisi par l'utilisateur en coordonnées géographiques, ce qui permet d'étendre la fonctionnalité de recherche par ville et périmètre.
 
 
 = Fonctionnalité de Planification des Heures de Repas et Envoi de Mails et confirmation du mail
@@ -1138,6 +1062,341 @@ ItemToDonateRepository <|.. ItemToDonateRepositoryImpl : implements
 
 
 ---
+
+
+= Fonctionnalité de Création et Inscription aux Événements sur LoveMyPet
+
+== Présentation
+
+Cette fonctionnalité sur l'application LoveMyPet permet aux utilisateurs de créer et partager des événements, tels que des sorties en groupe, et de s'inscrire à des événements créés par d'autres utilisateurs.
+
+== Utilisation depuis la Page "Mes Services"
+
+Sur la page "Mes Services", deux boutons sont disponibles :
+
+- Un bouton permettant à l'utilisateur de visualiser tous les événements créés par d'autres utilisateurs qui ne sont pas encore expirés.
+- Un bouton permettant à l'utilisateur de créer un nouvel événement et de le partager avec la communauté. De plus, l'utilisateur peut visualiser tous les événements qu'il a créés.
+
+image::service_event.png[service_evenemtn]
+
+=== Ajout d'un Événement
+
+Lorsque l'utilisateur clique sur le bouton "Ajouter un Événement", il est redirigé vers une page où il peut remplir un formulaire avec des informations telles que le titre, la date, l'adresse de l'événement, et même ajouter une image pour l'événement.
+
+image::Evenement/AddEvent.png[ajouter_event]
+
+=== Affichage des Événements Non Expirés
+
+En cliquant sur le bouton "Afficher les Événements Non Expirés", l'utilisateur est dirigé vers une page présentant tous les événements non expirés. Il peut facilement s'inscrire à un événement en cliquant sur le bouton d'inscription associé à l'événement choisi.
+
+image::Evenement/ShowEvent.png[afficher_evenet]
+
+=== Inscription à un Événement
+
+L'inscription à un événement est simple. L'utilisateur clique sur le bouton "Inscription" associé à l'événement de son choix. Une fois inscrit, une entrée est ajoutée à la table des inscriptions avec l'ID de l'événement et l'ID de l'utilisateur.
+
+
+=== Affichage des Événements Créés par un Utilisateur
+
+Si un utilisateur souhaite voir les événements qu'il a créés, il lui suffit de se rendre dans le menu dédié. Il sera alors redirigé vers une page listant tous les événements qu'il a créés.
+
+image::Evenement/MyEvent.png[my_event]
+
+=== Suppression d'un Événement Créé
+
+L'utilisateur peut supprimer un événement qu'il a créé en accédant à la page "Mes Événements". Sur cette page, il voit la liste de tous les événements qu'il a créés et peut sélectionner l'événement à supprimer en cliquant sur le bouton "Supprimer".
+
+image::Evenement/MyEventsup.png[mes_evenements]
+
+== Diagramme de Classe
+
+[plantuml, diagramme-de-classe, svg]
+----
+@startuml
+class Evenement {
+  idEvenement: Integer
+  titre: String
+  date: LocalDate
+  imageUrl: String
+  place: String
+  createur: Person
+}
+
+class Inscription {
+  idInscription: Integer
+  personne: Person
+  evenement: Evenement
+}
+
+class EvenementController {
+  evenementService: EvenementService
+  + addEvenement(imageFile: MultipartFile, evenement: Evenement): ResponseEntity<String>
+  + getNonExpiredEventLinks(): ResponseEntity<List<String>>
+  + getNonExpiredEventById(eventId: Integer): ResponseEntity<Map<String, Object>>
+  + getUserEvents(userId: Integer): ResponseEntity<List<Map<String, Object>>>
+}
+
+class EvenementService {
+  evenementRepository: EvenementRepository
+  + getAllEvenements(): List<Evenement>
+  + getEvenementById(id: Integer): Evenement
+  + createEvenement(evenement: Evenement): Evenement
+  + findNonExpiredEvents(date: LocalDate): List<Evenement>
+  + getUserEvents(idPerson: Integer): List<Evenement>
+}
+
+class EvenementServiceImpl {
+  evenementRepository: EvenementRepository
+  + getAllEvenements(): List<Evenement>
+  + getEvenementById(id: Integer): Evenement
+  + createEvenement(evenement: Evenement): Evenement
+  + findNonExpiredEvents(date: LocalDate): List<Evenement>
+  + getUserEvents(idPerson: Integer): List<Evenement>
+}
+
+class EvenementRepository {
+  + findByTitre(titre: String): List<Evenement>
+  + findByDateAfter(date: LocalDate): List<Evenement>
+  + findByCreateur(createur: Person): List<Evenement>
+}
+
+class Evenement {
+  idEvenement: Integer
+  titre: String
+  date: LocalDate
+  imageUrl: String
+  place: String
+  createur: Person
+}
+
+class InscriptionController {
+  inscriptionService: InscriptionService
+  + addInscription(idEvenement: Integer, idPerson: Integer): String
+}
+
+class InscriptionService {
+  + addInscription(idEvenement: Integer, idPerson: Integer): void
+}
+
+class InscriptionServiceImpl {
+  inscriptionRepository: InscriptionRepository
+  personRepository: PersonRepository
+  evenementRepository: EvenementRepository
+  + addInscription(idEvenement: Integer, idPerson: Integer): void
+}
+
+class InscriptionRepository {
+  + existsByPersonneAndEvenement(personne: Person, evenement: Evenement): boolean
+}
+
+
+
+Evenement "1" --> "0..n" Inscription : inscriptions
+EvenementController "1" --> "1" EvenementService : evenementService
+EvenementService "1" --> "1" EvenementRepository : evenementRepository
+EvenementServiceImpl "1" --> "1" EvenementRepository : evenementRepository
+Inscription "0..n" --> "1" Evenement : evenement
+InscriptionController "1" --> "1" InscriptionService : inscriptionService
+InscriptionService "1" --> "1" InscriptionRepository : inscriptionRepository
+InscriptionServiceImpl "1" --> "1" InscriptionRepository : inscriptionRepository
+@enduml
+----
+
+== API
+
+=== Ajout d'Événement
+
+.Inscription d'un nouvel événement dans l'application.
+[Method]
+* Type: `POST`
+* Endpoint: `/api/evenements/add`
+
+[Entrées JSON]
+[source,json]
+----
+{
+  "imageFile": "Contenu de l'image en format MultipartFile",
+  "evenement": {
+    "titre": "Sortie au Parc",
+    "date": "2024-02-01",
+    "place": "Parc XYZ",
+    "createur": {
+      "idPerson": 123
+    }
+  }
+}
+----
+
+[Résultat Attendu]
+* Succès (Status Code 200 OK): "Nouvel événement ajouté"
+
+=== Affichage des Événements Non Expirés
+
+.Obtention de la liste des liens vers les événements non expirés.
+[Method]
+* Type: `GET`
+* Endpoint: `/api/evenements/non-expired`
+
+[Résultat Attendu]
+* Succès (Status Code 200 OK): Liste des liens vers les événements non expirés
+
+=== Détails d'un Événement Non Expiré
+
+.Obtention des détails d'un événement non expiré.
+[Method]
+* Type: `GET`
+* Endpoint: `/api/evenements/non-expired/1`
+
+[Résultat Attendu]
+
+
+* Succès (Status Code 200 OK):
+[source,json]
+----
+[
+    "/api/evenements/non-expired/4",
+    "/api/evenements/non-expired/5",
+    "/api/evenements/non-expired/7",
+    "/api/evenements/non-expired/8",
+    "/api/evenements/non-expired/14"
+]
+----
+
+* Échec (Status Code 404 Not Found): Événement non trouvé
+
+=== Liste des Événements Créés par un Utilisateur
+
+.Obtention de la liste des événements créés par un utilisateur.
+[Method]
+* Type: `GET`
+* Endpoint: `/api/evenements/user-events?userId=123`
+
+[Résultat Attendu]
+* Succès (Status Code 200 OK):
+[source,json]
+----
+[
+  {
+    "idEvenement": 1,
+    "titre": "Sortie au Parc",
+    "date": "2024-02-01",
+    "place": "Parc XYZ",
+    "imageName": "sortie_parc.jpg",
+    "details": "/api/evenements/non-expired/1"
+  },
+  {
+    "idEvenement": 2,
+    "titre": "Promenade en Ville",
+    "date": "2024-02-15",
+    "place": "Centre-ville",
+    "imageName": "promenade_ville.jpg",
+    "details": "/api/evenements/non-expired/2"
+  }
+]
+----
+
+* Échec (Status Code 400 Bad Request): Paramètre manquant
+
+=== Inscription à un Événement
+
+.Inscription à un événement spécifique.
+[Method]
+* Type: `POST`
+* Endpoint: `/api/inscription/add?idEvenement=1&idPerson=456`
+
+[Résultat Attendu]
+* Succès (Status Code 200 OK): "Inscription ajoutée avec succès!"
+* Échec (Status Code 404 Not Found): "Personne ou événement non trouvé!"
+* Échec (Status Code 400 Bad Request): "Personne est déjà inscrite à cet événement!"
+
+
+== Diagramme de Séquence - Ajout d'Événement
+
+[plantuml, diagramme-de-sequence-ajout-evenement, svg]
+----
+@startuml
+actor Utilisateur
+participant EvenementController
+participant EvenementService
+participant EvenementRepository
+participant MultipartFile
+database Database
+
+Utilisateur -> EvenementController: addEvenement(imageFile, evenement)
+activate EvenementController
+EvenementController -> EvenementService: createEvenement(evenement)
+activate EvenementService
+EvenementService -> EvenementRepository: save(evenement)
+activate EvenementRepository
+EvenementRepository -> Database: Enregistrement en base de données
+activate Database
+Database --> EvenementRepository: Confirmation d'enregistrement
+deactivate Database
+EvenementRepository --> EvenementService: Retourne l'événement créé
+deactivate EvenementRepository
+EvenementService --> EvenementController: Retourne une réponse HTTP
+deactivate EvenementService
+EvenementController --> Utilisateur: Retourne une réponse HTTP
+deactivate EvenementController
+@enduml
+----
+
+== Diagramme de Séquence - Affichage des Événements Non Expirés
+
+[plantuml, diagramme-de-sequence-affichage-evenements, svg]
+----
+@startuml
+actor Utilisateur
+participant EvenementController
+participant EvenementService
+participant EvenementRepository
+database Database
+
+Utilisateur -> EvenementController: getNonExpiredEventLinks()
+activate EvenementController
+EvenementController -> EvenementService: findNonExpiredEvents(today)
+activate EvenementService
+EvenementService -> EvenementRepository: findByDateAfter(today)
+activate EvenementRepository
+EvenementRepository -> Database: Recherche des événements non expirés
+activate Database
+Database --> EvenementRepository: Résultat de la recherche
+deactivate Database
+EvenementRepository --> EvenementService: Liste des événements non expirés
+deactivate EvenementRepository
+EvenementService --> EvenementController: Liste des liens vers les événements
+deactivate EvenementService
+EvenementController --> Utilisateur: Liste des liens vers les événements
+deactivate EvenementController
+@enduml
+----
+
+== Diagramme de Séquence - Inscription à un Événement
+
+[plantuml, diagramme-de-sequence-inscription-evenement, svg]
+----
+@startuml
+actor Utilisateur
+participant InscriptionController
+participant InscriptionService
+participant InscriptionRepository
+
+Utilisateur -> InscriptionController: addInscription(idEvenement, idPerson)
+activate InscriptionController
+InscriptionController -> InscriptionService: addInscription(idEvenement, idPerson)
+activate InscriptionService
+InscriptionService -> InscriptionRepository: save(inscription)
+activate InscriptionRepository
+InscriptionRepository --> InscriptionService: Confirmation d'enregistrement
+deactivate InscriptionRepository
+InscriptionService --> InscriptionController: Confirmation d'inscription
+deactivate InscriptionService
+InscriptionController --> Utilisateur: Confirmation d'inscription
+deactivate InscriptionController
+@enduml
+----
+
+
 
 == Partie 3 : Modélisation
 

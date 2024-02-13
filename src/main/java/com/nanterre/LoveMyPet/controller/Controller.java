@@ -93,33 +93,14 @@ public class Controller {
     public String donate() {
         return "Map";
     }
-    @GetMapping("/LostAnimals")
-    public String LostAnimals() {
-        return "LostAnimals";
-    }
-    @GetMapping("/EnregistrerLostAnimal")
-    public String EnregistrerLostAnimal() {
-        return "EnregistrerLostAnimal";
-    }
-    @GetMapping("/ListLostAnimal")
-    public String ListLostAnimal() {
-        return "ListLostAnimal";
-    }
+    
     @GetMapping("/HistoriqueWeight")
     public String HistoriqueWeightGraph() {
         return "graphePoids";
     }
     
-    /*publication */
-       @GetMapping("/publications")
-    public String publication() {
-        return "publications";
-    }
+    
 
-    @GetMapping("/AddAdvice")
-    public String Advice() {
-        return "AddAdvice";
-    }
 
     /*Donation */
 
@@ -144,4 +125,20 @@ public class Controller {
     }
 
     
+
+    @GetMapping("/AddEvent")
+    public String Evennement() {
+        return "AddEvennement";
+    }
+
+    @GetMapping("/ShowEvent")
+    public String Listevent() {
+        return "ListEvents";
+    }
+
+    @GetMapping("/MyEvent")
+    public String Listeventconnecter() {
+        return "EventConnecter";
+    }
+
 }

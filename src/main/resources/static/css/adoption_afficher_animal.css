@@ -93,12 +93,15 @@ form button,
     -webkit-transition: all 0.4s ease;
     -o-transition: all 0.4s ease;
     transition: all 0.4s ease;
+    width: 100%;
 }
 
 .animal-item {
-    width: calc(23% - 16px);
-    background-color: #fff;
+
+    /* width: 100%; */
+    width: calc(25%);
     max-width: 350px;
+    min-width: 250px;
     border-radius: 10px;
     margin: 10px;
     overflow: hidden;
@@ -109,6 +112,8 @@ form button,
 .animal-img {
     position: relative;
     overflow: hidden;
+    background-color: red;
+
 }
 
 .animal-item img {
@@ -174,7 +179,7 @@ form button,
     font-size: 0.9rem;
     font-weight: 300;
     padding: 0.2rem 0;
-    
+
 }
 
 .race {
@@ -250,3 +255,4 @@ form button,
         width: calc(100% - 16px);
     }
 }
+Dispose d’un menu contextuel

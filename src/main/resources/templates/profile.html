@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -7,9 +7,9 @@
     <title>Adoption</title>
     <link rel="stylesheet" href="/css/profile.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-</head>
 
-<body>
+
+
 <style>
     body {
         display: flex;
@@ -88,7 +88,9 @@
         margin: 10px 0;
     }
 </style>
+</head>
 
+<body>
 <!-- Sidebar -->
 <div class="w3-sidebar ">
     <img src="images/logo.png" alt="Logo" class="logo-img">
@@ -135,6 +137,9 @@
                                     Adopter 🧡
                                 </button>
                             </div>
+
+
+
                         </div>
                         <div class="profil-content">
                             <a href="/adoption" class="profil-title">ADOPTER</a>
@@ -183,37 +188,40 @@
                         </div>
                         <div class="profil-content">
                             <a href="/Map" class="profil-title">EXPLORATION FACILE</a>
-                            <p class="description">Notre carte interactive vous guide vers les vétérinaires et parcs locaux.</p>
+                            <p class="description">Notre carte interactive vous guide vers les vétérinaires et parcs<br> locaux.</p>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="profil-item">
+                        <div class="profil-img">
+                            <img src="/images/partager.png" alt="#" />
+                            <div>
+                                <button type="button" class="add-btn" onclick="window.location.href = '/AddEvent'">
+                                    Partager un Evenement
+                                </button>
+                            </div>
+                        </div>
+                        <div class="profil-content">
+                            <a href="/AddEvent" class="profil-title">Partager UN EVENEMENT</a>
+                            <p class="description"> Où les passionnés se rassemblent pour célébrer nos amis à poils,écailles.</p>
                         </div>
                     </div>
 
                     <div class="profil-item">
                         <div class="profil-img">
-                            <img src="/images/service5.png" alt="#" />
+                            <img src="/images/participer.png" alt="#" />
                             <div>
-                                <button type="button" class="add-btn" onclick="window.location.href = '/LostAnimals'">
-                                    Animaux Perdus
+                                <button type="button" class="add-btn" onclick="window.location.href = '/ShowEvent'">
+                                    Participé a un  evenemetn
                                 </button>
                             </div>
                         </div>
                         <div class="profil-content">
-                            <a href="/LostAnimals" class="profil-title">ANIMAUX PERDUS</a>
-                            <p class="description">Déclarez ou retrouvez un compagnon perdu avec notre service Animaux perdus.</p>
-                        </div>
-                    </div>
-
-                    <div class="profil-item">
-                        <div class="profil-img">
-                            <img src="/images/icon_conseil.png" alt="#" />
-                            <div>
-                                <button type="button" class="add-btn" onclick="window.location.href = '/AddAdvice'">
-                                    Partager
-                                </button>
-                            </div>
-                        </div>
-                        <div class="profil-content">
-                            <a href="/AddAdvice" class="profil-title">Partager votre conseil</a>
-                            <p class="description">Cultivez la richesse collective des expériences et des connaissances en partageant vos conseils.</p>
+                            <a href="/ShowEvent" class="profil-title">Participé a un  evenement</a>
+                            <p class="description">Célébrons ensemble notre passion lors d'un rassemblement inoubliable!.</p>
                         </div>
                     </div>
 
@@ -221,14 +229,14 @@
                         <div class="profil-img">
                             <img src="/images/discussion.png" alt="#" />
                             <div>
-                                <button type="button" class="add-btn" onclick="window.location.href = '/publications'">
-                                    Consulter
+                                <button type="button" class="add-btn" onclick="window.location.href = '/showdonations'">
+                                    Recevoir des objets
                                 </button>
                             </div>
                         </div>
                         <div class="profil-content">
-                            <a href="/publications" class="profil-title">Forum Animal</a>
-                            <p class="description">Rassemblez-vous pour célébrer nos amis à poils, plumes et écailles.</p>
+                            <a href="/showdonations" class="profil-title">Recevoir des objets</a>
+                            <p class="description">recevez des objets pour le bien-être de vos compagnons.</p>
                         </div>
                     </div>
 
@@ -236,13 +244,13 @@
                         <div class="profil-img">
                             <img src="/images/toys.png" alt="#" />
                             <div>
-                                <button type="button" class="add-btn" onclick="window.location.href = '/itemspage'">
-                                    Consulter
+                                <button type="button" class="add-btn" onclick="window.location.href = '/donate'">
+                                    Donner un object
                                 </button>
                             </div>
                         </div>
                         <div class="profil-content">
-                            <a href="/itemspage" class="profil-title">Donner / Recevoir des objets</a>
+                            <a href="/donate" class="profil-title">Donner / Recevoir des objets</a>
                             <p class="description">Donnez et recevez des objets pour le bien-être de vos compagnons.</p>
                         </div>
                     </div>
@@ -251,7 +259,10 @@
                 </div>
             </div>
         </div>
-    </div>
+
+    </div>	
+
+</div>
 
 
 </body>

@@ -1,18 +1,14 @@
 package com.nanterre.LoveMyPet.service;
 
 import com.nanterre.LoveMyPet.model.Adoption;
-import com.nanterre.LoveMyPet.model.Advice;
 import com.nanterre.LoveMyPet.model.Animal;
-import com.nanterre.LoveMyPet.model.FeedingTime;
 import com.nanterre.LoveMyPet.repository.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
