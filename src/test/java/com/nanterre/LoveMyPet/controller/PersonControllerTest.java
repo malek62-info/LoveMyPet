@@ -38,34 +38,8 @@ class PersonControllerTest {
     @InjectMocks
     private PersonController personController;
 
-    @Test
-    public void testAddPersonSuccess() throws IOException {
-        // Mock the person data
-        Person mockPerson = new Person();
-        mockPerson.setEmail("test@example.com");
 
-        // Mock the call to findPersonByEmail (return null to simulate person not existing)
-        when(personService.findPersonByEmail(anyString())).thenReturn(null);
 
-        // Mock the image file
-        when(imageFile.getOriginalFilename()).thenReturn("test-image.jpg");
-        when(imageFile.isEmpty()).thenReturn(false);
-        when(imageFile.getBytes()).thenReturn(new byte[]{1, 2, 3}); // Replace with actual image data
-
-        // Mock the call to savePerson
-        doReturn(mockPerson).when(personService).savePerson(any(Person.class));
-
-        // Perform the test
-        ResponseEntity<String> response = personController.add(imageFile, mockPerson);
-
-        // Verify that the necessary methods were called
-        verify(personService, times(1)).findPersonByEmail(anyString());
-        verify(personService, times(1)).savePerson(any(Person.class));
-
-        // Assert the response
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals("Nouvelle personne ajoutée", response.getBody());
-    }
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);

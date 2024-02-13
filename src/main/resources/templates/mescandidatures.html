@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="/css/style_prendre_soin.css">
+    <link rel="stylesheet" href="/css/mescandidatures.css">
     <!-- FONT AWESOME LINK USING BOXICON -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
@@ -15,41 +15,119 @@
 
 <body>
 
-    <div class="navbar-wrapper">
-        <div class="navbar">
-            <div class="logo">
-                <img src="images/logo.png" style="width: 150px; height: 65px;">
-            </div>
-            <div class="nav_right">
-                <ul>
-                    <p>Bonjour <span id="userName"></span> !</p>
-                    <li class="nr_li dd_main">
-                        <img src="/images/person1.jpg" alt="profile_img">
-                        <div class="dd_menu">
-                            <div class="dd_left">
-                                <ul>
-                                    <li><i class="fa-solid fa-user"></i></li>
-                                    <li><i class="fa-solid fa-paw"></i></li>
-                                    <li><i class="fas fa-sign-out-alt"></i></li>
-                                    <li><i class="fa-solid fa-cat"></i></li>
 
-                                </ul>
-                            </div>
-                            <div class="dd_right">
-                                <ul>
-                                    <li>Mon compte</li>
-                                    <li>Mes animaux</li>
-                                    <li>Se Déconnecter</li>
-                                    <li>Mes candidatures</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
-                </ul>
-            </div>
-        </div>
-    </div>
+        body {
+            display: flex;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .top-right {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #000;
+            border-radius: 50%;
+            background-color: #000;
+            padding: 20px;
+            font-weight: bold;
+            color: #fff;
+            border: 0;
+            outline: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        /* sitde bar */
+        .w3-sidebar {
+            position: fixed;
+            z-index: 100;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .w3-button {
+            color: #fff;
+            outline: none;
+            outline: none;
+            padding: 10px;
+            text-decoration: none;
+            transition: 0.5s;
+        }
+
+        .w3-button:hover {
+            background-color: #fff;
+            text-decoration: none;
+            color: #81774E;
+            border-radius: 6px;
+        }
+
+        .w3-button:hover a {
+            color: #000;
+        }
+
+        .logo-img {
+            text-align: CENTER;
+            margin: 20PX AUTO;
+            width: 100PX;
+        }
+
+        .side_bar_bar {
+            background-color: #81774E;
+            border: 0;
+            height: 1px;
+            width: 100%;
+            border-radius: 2px;
+            margin: 10px 0;
+        }
+    </style>
+    <!-- Sidebar -->
+    <!-- Sidebar -->
+<div class="w3-sidebar ">
+    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <a href="/profile" class="w3-button">Mon compte</a>
+    <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+
+    <a href="/adoption" class="w3-button">Adoption</a>
+    <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="/donate" class="w3-button">Donner des objets</a>
+    <a href="/showdonations" class="w3-button">Trouver des objets</a>
+    <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
+
+    <hr class="side_bar_bar">
+    <a href="/Map" class="w3-button">Map</a>
+
+    <hr class="side_bar_bar">
+    <a href="/AddEvent" class="w3-button">Ajouter un évenement</a>
+    <a href="/ShowEvent" class="w3-button">Participé a un evenement</a>
+    <a href="/MyEvent" class="w3-button">Mes évenement crée </a>
+
+
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="#" class="w3-button">Se Déconnecter</a>
+
+</div>
     <div class="wrapper">
         <h1>Mes Candidatures</h1>
         <div id="candidature-info"></div>
@@ -61,6 +139,25 @@
 
 
         <script>
+            // Fonction pour formater la date
+            function formatDate(dateString) {
+                // Convertir la chaîne de date en objet Date
+                const date = new Date(dateString);
+
+                // Extraire les composants de la date
+                const year = date.getFullYear();
+                const month = ('0' + (date.getMonth() + 1)).slice(-2);
+                const day = ('0' + date.getDate()).slice(-2);
+                const hours = ('0' + date.getHours()).slice(-2);
+                const minutes = ('0' + date.getMinutes()).slice(-2);
+                const seconds = ('0' + date.getSeconds()).slice(-2);
+
+                // Construire la chaîne de date formatée
+                const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+                return formattedDate;
+            }
+
             function fetchData(candidatureId) {
                 $(document).ready(function () {
                     $.ajax({
@@ -135,16 +232,17 @@
                         console.log(candidatureDetails);
 
                         if (candidatureDetails) {
+                            const formattedDate = formatDate(candidatureDetails.dateCandidature);
                             candidatureList += `
                            
                                 <tr>
-                                    <td>email: ${candidatureDetails.person.email} tel: ${candidatureDetails.person.phoneNumber}                                                                           </td>
+                                    <td>${candidatureDetails.person.email}<br>${candidatureDetails.person.phoneNumber}                                                                           </td>
                                     <td>${candidatureDetails.person.address}                                                                          </td>
                                     <td>${candidatureDetails.adoption.adoptedAnimal.name}                                                                          </td>
-                                    <td><img src="/images/animals/${candidatureDetails.adoption.adoptedAnimal.imageUrl}" alt="animal image">           </td>
+                                    <td><img src="/images/animals/${candidatureDetails.adoption.adoptedAnimal.imageUrl}" alt="Animal Image" style="width: 130px; height: 130px;">  </td>
                                     <td>${candidatureDetails.adoption.adoptedAnimal.race}                                                                          </td>
                                     <td><span class="gender">${candidatureDetails.adoption.adoptedAnimal.gender === 1 ? '♂ Mâle' : '♀ Femelle'}</span>                                                                          </td>
-                                    <td>${candidatureDetails.dateCandidature}                                                                          </td>
+                                    <td>${formattedDate}                                                                          </td>
 
                                 </tr>
                            `;

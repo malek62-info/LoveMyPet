@@ -6,6 +6,7 @@ import com.nanterre.LoveMyPet.model.Person;
 import com.nanterre.LoveMyPet.service.CandidatureService;
 import com.nanterre.LoveMyPet.service.PersonServiceImpl;
 
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,29 +39,24 @@ public class PersonController {
 
 
     @PostMapping("/add")
-    public ResponseEntity<String> add(@RequestPart("imageFile") MultipartFile imageFile, Person person) {
+    public ResponseEntity<String> add(
+            @RequestPart("imageFile") MultipartFile imageFile,
+            Person person,
+            HttpServletResponse response) {
+
         // Vérifiez si l'e-mail existe déjà dans la base de données
         Person existingPerson = personService.findPersonByEmail(person.getEmail());
         if (existingPerson != null) {
-           // return ResponseEntity.badRequest().body("L'e-mail existe déjà");
-            return new ResponseEntity<>("Le Mail existe déja", HttpStatus.INTERNAL_SERVER_ERROR);
-
+            return new ResponseEntity<>("Le Mail existe déjà", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
         if (imageFile != null && !imageFile.isEmpty()) {
             try {
-                // Spécifiez le chemin de votre dossier d'images dans les ressources
                 String dossierImages = "src/main/resources/static/images/persons";
                 String nomDuFichier = imageFile.getOriginalFilename();
                 Path cheminFichier = Paths.get(dossierImages, nomDuFichier);
-
-                // Écrivez le fichier image dans le dossier spécifié
                 Files.write(cheminFichier, imageFile.getBytes());
-
-                // Stockez le nom du fichier image dans la base de données
                 person.setImageUrl(nomDuFichier);
-
-                // Votre code de gestion du fichier image ici
             } catch (IOException e) {
                 e.printStackTrace();
                 return new ResponseEntity<>("Erreur lors de la gestion de l'image", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -68,8 +64,16 @@ public class PersonController {
         }
 
         personService.savePerson(person);
-        return new ResponseEntity<>("Nouvelle personne ajoutée", HttpStatus.OK);
 
+        // Redirection vers la page de login
+        try {
+            response.sendRedirect("/login");
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Erreur de redirection vers la page de login", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        return new ResponseEntity<>("Nouvelle personne ajoutée", HttpStatus.OK);
     }
 
 

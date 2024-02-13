@@ -10,13 +10,12 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #fef4f4;
+    background-image: url(https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg);
 }
 
-.menu,
-form {
-    display: flex;
-}
+
+
+
 
 .menu {
     justify-content: center;
@@ -36,7 +35,7 @@ form button,
 form button,
 .actualisation_btn {
     cursor: pointer;
-    background-color: #f2a80b;
+    background-color: #000;
     color: #fff;
 }
 
@@ -44,39 +43,36 @@ form button,
     color: red;
 }
 
+ .big-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin-left: 250px; */
+    /* overflow-x: hidden; */
+
+    width: 100%;
+}
 .wrapper {
-    overflow-x: hidden;
+    margin-left: 250px;
 }
 
 .container {
-    max-width: 1170px;
-    margin: 0 auto;
-    padding: 0 1rem;
+    /*  */
+    max-width: 1500px;
+    /* margin-left: 250px; */
+    width: 100%;
 }
 
-.title {
+/* .H1 {
     margin-top: 3rem;
     text-align: center;
     position: relative;
 }
 
-.title::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    -webkit-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
-    height: 3px;
-    width: 200px;
-    background-color: #000;
-}
-
-.title h1 {
+.H1 h1 {
     font-weight: 500;
     opacity: 0.8;
-}
+} */
 
 .animal {
     margin: 3rem 0;
@@ -97,18 +93,27 @@ form button,
     -webkit-transition: all 0.4s ease;
     -o-transition: all 0.4s ease;
     transition: all 0.4s ease;
+    width: 100%;
 }
 
 .animal-item {
-    width: calc(20% - 16px);
-    margin: 8px;
-    background-color: #fff;
-    max-width: 300px;
+
+    /* width: 100%; */
+    width: calc(25%);
+    max-width: 350px;
+    min-width: 250px;
+    border-radius: 10px;
+    margin: 10px;
+    overflow: hidden;
+    /* border: 2px solid #000; */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.10);
 }
 
 .animal-img {
     position: relative;
     overflow: hidden;
+    background-color: red;
+
 }
 
 .animal-item img {
@@ -138,8 +143,11 @@ form button,
 .add-btn {
     width: 100%;
     background-color: transparent;
-    border: 2px solid #f2a80b;
-    color: #f2a80b;
+    border: 2px solid #000;
+    background-color: transparent;
+    border-radius: 3PX;
+    color: #000;
+    font-weight: bold;
     font-family: inherit;
     font-size: 0.9rem;
     padding: 0.4rem;
@@ -171,6 +179,7 @@ form button,
     font-size: 0.9rem;
     font-weight: 300;
     padding: 0.2rem 0;
+
 }
 
 .race {
@@ -203,7 +212,7 @@ form button,
 }
 
 .rating li {
-    color: #f2a80b;
+    color: #000;
     display: inline-block;
     font-size: 0.8rem;
 }
@@ -216,6 +225,10 @@ form button,
 
 .gender {
     color: #ff1616;
+}
+.small-title {
+    margin: 20px auto;
+    text-align: center;
 }
 
 

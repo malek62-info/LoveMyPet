@@ -25,6 +25,10 @@ public class Controller {
     public String showVaccinations(Model model) {
 		return "suivi";
 	}
+	@GetMapping("/suivicomplet")
+    public String suivicomplet(Model model) {
+		return "suivicomplet";
+	}
     @GetMapping("/mesCandidatures")
     public String showCandidatures(Model model) {
         return "mescandidatures";
@@ -89,30 +93,52 @@ public class Controller {
     public String donate() {
         return "Map";
     }
-    @GetMapping("/LostAnimals")
-    public String LostAnimals() {
-        return "LostAnimals";
+    
+    @GetMapping("/HistoriqueWeight")
+    public String HistoriqueWeightGraph() {
+        return "graphePoids";
     }
-    @GetMapping("/EnregistrerLostAnimal")
-    public String EnregistrerLostAnimal() {
-        return "EnregistrerLostAnimal";
-    }
-    @GetMapping("/ListLostAnimal")
-    public String ListLostAnimal() {
-        return "ListLostAnimal";
-    }
+    
+    
 
 
-    /*publication */
-       @GetMapping("/publications")
-    public String publication() {
-        return "publications";
+    /*Donation */
+
+    @GetMapping("/donate")
+    public String additems() {
+        return "additems";
     }
 
-    @GetMapping("/AddAdvice")
-    public String Advice() {
-        return "AddAdvice";
+    @GetMapping("/showdonations")
+    public String itemstodonate() {
+        return "itemstodonate";
     }
 
+     @GetMapping("/mesdonations")
+    public String mesdonations() {
+        return "mesdonations";
+    }
+
+    @GetMapping("/itemspage")
+    public String itemspage() {
+        return "itemspage";
+    }
+
+    
+
+    @GetMapping("/AddEvent")
+    public String Evennement() {
+        return "AddEvennement";
+    }
+
+    @GetMapping("/ShowEvent")
+    public String Listevent() {
+        return "ListEvents";
+    }
+
+    @GetMapping("/MyEvent")
+    public String Listeventconnecter() {
+        return "EventConnecter";
+    }
 
 }

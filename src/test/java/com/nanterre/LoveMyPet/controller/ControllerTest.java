@@ -1,92 +1,182 @@
 package com.nanterre.LoveMyPet.controller;
-
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.verify;
 
-public class ControllerTest {
-
-    @InjectMocks
-    private Controller controller;
-
-    @Mock
-    private ConcurrentModel model;
-
-    public ControllerTest() {
-        MockitoAnnotations.openMocks(this);
-    }
-
-
-
-
-
-
-
+class ControllerTest {
 
     @Test
-    public void testShowpage() {
+    void testShowAdoptionPage() {
+        Controller controller = new Controller();
+        Model model = null; // Utilisez un mock pour Model si nécessaire
+
+        String result = controller.showAdoptionPage(model);
+
+        assertEquals("adoption", result);
+    }
+
+    @Test
+    void testShowAnimals() {
+        Controller controller = new Controller();
+        Model model = null; // Utilisez un mock pour Model si nécessaire
+
+        String result = controller.showAnimals(model);
+
+        assertEquals("mesanimaux", result);
+    }
+
+    @Test
+    void testShowCandidatureByAnimalId() {
+        Controller controller = new Controller();
+        Model model = null; // Utilisez un mock pour Model si nécessaire
+
+        String result = controller.showCandidatureByAnimalId(model);
+
+        assertEquals("candidatureadoption", result);
+    }
+
+    @Test
+    void testShowVaccinations() {
+        Controller controller = new Controller();
+        Model model = null; // Utilisez un mock pour Model si nécessaire
+
+        String result = controller.showVaccinations(model);
+
+        assertEquals("suivi", result);
+    }
+
+    @Test
+    void testSuivicomplet() {
+        Controller controller = new Controller();
+        Model model = null; // Utilisez un mock pour Model si nécessaire
+
+        String result = controller.suivicomplet(model);
+
+        assertEquals("suivicomplet", result);
+    }
+
+    @Test
+    void testShowCandidatures() {
+        Controller controller = new Controller();
+        Model model = null; // Utilisez un mock pour Model si nécessaire
+
+        String result = controller.showCandidatures(model);
+
+        assertEquals("mescandidatures", result);
+    }
+
+    @Test
+    void testShowpage() {
+        Controller controller = new Controller();
+
         String result = controller.showpage();
+
         assertEquals("AddPersonne", result);
     }
 
     @Test
-    public void testShowpageaddAnimal() {
+    void testShowpageaddAnimal() {
+        Controller controller = new Controller();
+
         String result = controller.showpageaddAnimal();
+
         assertEquals("AddAnimal", result);
     }
 
+    // Ajoute d'autres tests similaires pour les autres méthodes du contrôleur
+
+    // ... (Tests précédents)
+
     @Test
-    public void testShowpagelogin() {
+    void testShowpagelogin() {
+        Controller controller = new Controller();
+
         String result = controller.showpagelogin();
+
         assertEquals("login", result);
     }
 
     @Test
-    public void testHomePage() {
+    void testHomePage() {
+        Controller controller = new Controller();
+
         String result = controller.homePage();
+
         assertEquals("home", result);
     }
 
     @Test
-    public void testProfile() {
+    void testProfile() {
+        Controller controller = new Controller();
+
         String result = controller.profile();
+
         assertEquals("profile", result);
     }
 
     @Test
-    public void testInfoAnimal() {
+    void testInfoAnimal() {
+        Controller controller = new Controller();
+
         String result = controller.infoAnimal();
+
         assertEquals("infoanimal", result);
     }
 
     @Test
-    public void testTimeChoiceAnimal() {
+    void testTimeChoiceAnimal() {
+        Controller controller = new Controller();
+
         String result = controller.TimeChoiceAnimal();
+
         assertEquals("TimeChoiceAnimal.html", result);
     }
 
     @Test
-    public void testMap() {
+    void testAlertes_new() {
+        Controller controller = new Controller();
+
+        String result = controller.alertes_new();
+
+        assertEquals("alertes_new", result);
+    }
+
+    @Test
+    void testMap() {
+        Controller controller = new Controller();
+
         String result = controller.map();
+
         assertEquals("Veterinaires", result);
     }
 
     @Test
-    public void testParc() {
+    void testParc() {
+        Controller controller = new Controller();
+
         String result = controller.parc();
+
         assertEquals("parc", result);
     }
 
     @Test
-    public void testDonate() {
+    void testDonate() {
+        Controller controller = new Controller();
+
         String result = controller.donate();
+
         assertEquals("Map", result);
     }
+
+    @Test
+    void testHistoriqueWeightGraph() {
+        Controller controller = new Controller();
+
+        String result = controller.HistoriqueWeightGraph();
+
+        assertEquals("graphePoids", result);
+    }
+
+
 }
