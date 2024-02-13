@@ -66,7 +66,7 @@ select, input {
 }
 
 button {
-    background-color: #4caf50;
+    background-color: #000;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -76,7 +76,7 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #1d1c1c;
 }
 
 /* Sidebar styles */
