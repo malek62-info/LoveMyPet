@@ -141,4 +141,9 @@ public class Controller {
         return "EventConnecter";
     }
 
+    @GetMapping("/calendar")
+    public String showCalendar() {
+        return "calendar";
+    }
+
 }

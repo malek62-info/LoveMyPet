@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='utf-8' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <script src="https://unpkg.com/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6.3.3/dist/tippy-bundle.umd.min.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/@popperjs/core@2.11.6/dist/umd/popper.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6.3.3/dist/tippy.css">
+
+    <script>
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                locale: 'fr',
+                initialView: 'timeGridWeek',
+                slotMinTime: '08:00:00', // Définir l'heure de début
+                slotMaxTime: '23:00:00', // Définir l'heure de fin
+                allDaySlot: false,
+                events: [
+                {
+           
+                        title: 'Médicament quotidien',
+                        start: '2024-02-26T16:30:00', // Débute le lundi 26 février 2024 à 16h30
+                        end: '2024-02-26T17:00:00', // Se termine le lundi 26 février 2024 à 17h00
+                        description: 'Donner un médicament quotidien à Animal 1',
+                        color: 'blue'
+                    },
+                    {
+                        title: 'Médicament quotidien',
+                        start: '2024-02-27T16:30:00', // Débute le mardi 27 février 2024 à 16h30
+                        end: '2024-02-27T17:00:00', // Se termine le mardi 27 février 2024 à 17h00
+                        description: 'Donner un médicament quotidien à Animal 1',
+                        color: 'blue'
+                    },
+                    {
+                        title: 'Médicament quotidien',
+                        start: '2024-02-28T16:30:00', // Débute le mercredi 28 février 2024 à 16h30
+                        end: '2024-02-28T17:00:00', // Se termine le mercredi 28 février 2024 à 17h00
+                        description: 'Donner un médicament quotidien à Animal 1',
+                        color: 'blue'
+                    },
+                    {
+                        title: 'Médicament quotidien',
+                        start: '2024-02-29T16:30:00', // Débute le jeudi 29 février 2024 à 16h30
+                        end: '2024-02-29T17:00:00', // Se termine le jeudi 29 février 2024 à 17h00
+                        description: 'Donner un médicament quotidien à Animal 1',
+                        color: 'blue'
+                    },
+                    {
+                        title: 'Médicament quotidien',
+                        start: '2024-03-01T16:30:00', // Débute le vendredi 1er mars 2024 à 16h30
+                        end: '2024-03-01T17:00:00', // Se termine le vendredi 1er mars 2024 à 17h00
+                        description: 'Donner un médicament quotidien à Animal 1',
+                        color: 'blue'
+                    },
+                    {
+                        title: 'Médicament quotidien',
+                        start: '2024-03-02T16:30:00', // Débute le samedi 2 mars 2024 à 16h30
+                        end: '2024-03-02T17:00:00', // Se termine le samedi 2 mars 2024 à 17h00
+                        description: 'Donner un médicament quotidien à Animal 1',
+                        color: 'blue'
+                    },
+                    // Ajoutez d'autres événements ici selon le même modèle
+                ],
+                eventDidMount: function (info) {
+                    tippy(info.el, {
+                        content: info.event.title + '<br>' + info.event.extendedProps.description,
+                        allowHTML: true,
+                        placement: 'top',
+                        trigger: 'mouseenter focus',
+                        interactive: true
+                    });
+                }
+            });
+            calendar.render();
+        });
+
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            font-family: 'Poppins', sans-serif;
+
+        }
+
+        .top-right {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #000;
+            border-radius: 50%;
+            background-color: #000;
+            padding: 20px;
+            font-weight: bold;
+            color: #fff;
+            border: 0;
+            outline: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        /* sitde bar */
+
+        .w3-sidebar {
+            position: fixed;
+            z-index: 100;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .w3-button {
+            color: #fff;
+            outline: none;
+            outline: none;
+            padding: 10px;
+            text-decoration: none;
+            transition: 0.5s;
+        }
+
+
+        .w3-button:hover {
+            background-color: #fff;
+            text-decoration: none;
+            color: #81774E;
+            border-radius: 6px;
+        }
+
+        .w3-button:hover a {
+            color: #000;
+        }
+
+        .logo-img {
+            text-align: CENTER;
+            margin: 20PX AUTO;
+            width: 100PX;
+        }
+
+        .side_bar_bar {
+            background-color: #81774E;
+            border: 0;
+            height: 1px;
+            width: 100%;
+            border-radius: 2px;
+            margin: 10px 0;
+        }
+
+        .big-container {
+            margin-left: 250px;
+
+            padding: 20px 90px;
+
+            width: 100%;
+        }
+
+        #calendar {
+            height: fit-content;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="w3-sidebar ">
+        <img src="images/logo.png" alt="Logo" class="logo-img">
+        <a href="/profile" class="w3-button">Mon compte</a>
+        <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+
+        <a href="/adoption" class="w3-button">Adoption</a>
+        <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/donate" class="w3-button">Donner des objets</a>
+        <a href="/showdonations" class="w3-button">Trouver des objets</a>
+        <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
+
+        <hr class="side_bar_bar">
+        <a href="/Map" class="w3-button">Map</a>
+
+        <hr class="side_bar_bar">
+        <a href="/AddEvent" class="w3-button">Ajouter un évenement</a>
+        <a href="/ShowEvent" class="w3-button">Participé a un evenement</a>
+        <a href="/MyEvent" class="w3-button">Mes évenement crée </a>
+
+
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="#" class="w3-button">Se Déconnecter</a>
+
+    </div>
+
+    <div class="w3-sidebar ">
+        <img src="images/logo.png" alt="Logo" class="logo-img">
+        <a href="/profile" class="w3-button">Mon compte</a>
+        <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+
+        <a href="/adoption" class="w3-button">Adoption</a>
+        <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/donate" class="w3-button">Donner des objets</a>
+        <a href="/showdonations" class="w3-button">Trouver des objets</a>
+        <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
+
+        <hr class="side_bar_bar">
+        <a href="/Map" class="w3-button">Map</a>
+
+        <hr class="side_bar_bar">
+        <a href="/AddEvent" class="w3-button">Ajouter un évenement</a>
+        <a href="/ShowEvent" class="w3-button">Participé a un evenement</a>
+        <a href="/MyEvent" class="w3-button">Mes évenement crée </a>
+
+
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="#" class="w3-button">Se Déconnecter</a>
+
+    </div>
+    <div class="big-container">
+        <div>Animal 1</div>
+        <div id='calendar'></div>
+    </div>
+
+
+
+</body>
+
+</html>
