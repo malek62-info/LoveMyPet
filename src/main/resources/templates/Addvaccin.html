@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Vaccination</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Styles généraux */
+     body {
+         background-image: url('https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg');
+         margin: 0; /* Ajout de cette ligne pour éliminer la marge par défaut du corps */
+         font-family: 'Poppins', sans-serif;
+     }
+
+     .container {
+         max-width: 700px;
+         width: 100%;
+         background-color: #fff;
+         padding: 25px 30px;
+         border-radius: 5px;
+         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         justify-content: center;
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+     }
+
+     .container .title {
+         font-size: 25px;
+         font-weight: 500;
+         position: relative;
+         margin-bottom: 20px; /* Ajout de cette ligne pour séparer le titre du formulaire */
+     }
+
+     .container .title::before {
+         content: "";
+         position: absolute;
+         left: 0;
+         bottom: 0;
+         height: 3px;
+         width: 30px;
+         border-radius: 5px;
+         background: linear-gradient(135deg, #71b7e6, #9b59b6);
+     }
+
+     .content form .user-details {
+         display: flex;
+         flex-wrap: wrap;
+         justify-content: space-between;
+         margin: 20px 0 12px 0;
+         width: 100%; /* Ajout de cette ligne pour occuper la largeur complète du conteneur */
+     }
+
+     form .user-details .input-box {
+         margin-bottom: 15px;
+         width: calc(100% / 2 - 20px);
+     }
+
+     form .input-box span.details {
+         display: block;
+         font-weight: 500;
+         margin-bottom: 5px;
+     }
+
+     .user-details .input-box input,
+     .user-details .input-box select {
+         height: 45px;
+         width: 100%;
+         outline: none;
+         font-size: 16px;
+         border-radius: 5px;
+         padding-left: 15px;
+         border: 1px solid #ccc;
+         border-bottom-width: 2px;
+         transition: all 0.3s ease;
+     }
+
+     .user-details .input-box input:focus,
+     .user-details .input-box input:valid,
+     .user-details .input-box select:focus,
+     .user-details .input-box select:valid {
+         border-color: #9b59b6;
+     }
+
+     .button {
+         height: 45px;
+         margin: 35px 0;
+         width: 100%; /* Ajout de cette ligne pour occuper la largeur complète du conteneur */
+     }
+
+     .button input {
+         height: 100%;
+         width: 100%;
+         border-radius: 5px;
+         border: none;
+         color: #fff;
+         font-size: 18px;
+         font-weight: 500;
+         letter-spacing: 1px;
+         cursor: pointer;
+         transition: all 0.3s ease;
+         background-color: #343a40; /* Utiliser la couleur du menu */
+     }
+
+     .button input:hover {
+         background-color: #495057; /* Modifier la couleur au survol si nécessaire */
+     }
+
+     /* Menu */
+     .w3-sidebar {
+         position: fixed;
+         z-index: 100;
+         background-color: #000;
+         display: flex;
+         flex-direction: column;
+         color: #fff;
+         width: 250px;
+         padding: 20px;
+         height: 100vh;
+         overflow-y: auto;
+         left: 0;
+         top: 0;
+     }
+
+     .w3-button {
+         color: #fff;
+         outline: none;
+         padding: 10px;
+         text-decoration: none;
+         transition: 0.5s;
+     }
+
+     .w3-button:hover {
+         background-color: #fff;
+         text-decoration: none;
+         color: #81774E;
+         border-radius: 6px;
+     }
+
+     .w3-button:hover a {
+         color: #000;
+     }
+
+     .logo-img {
+         text-align: center;
+         margin: 20px auto;
+         width: 100px;
+     }
+
+     .side_bar_bar {
+         background-color: #81774E;
+         border: 0;
+         height: 1px;
+         width: 100%;
+         border-radius: 2px;
+         margin: 10px 0;
+     }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="w3-sidebar">
+    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <a href="/profile" class="w3-button">Mon compte</a>
+    <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+    <hr class="side_bar_bar">
+    <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+    <a href="/adoption" class="w3-button">Adoption</a>
+    <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+    <hr class="side_bar_bar">
+    <a href="/donate" class="w3-button">Donner des objets</a>
+    <a href="/showdonations" class="w3-button">Trouver des objets</a>
+    <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
+    <hr class="side_bar_bar"></hr>
+    <a href="/Map" class="w3-button">Map</a>
+    <hr class="side_bar_bar"></hr>
+    <a href="/AddEvent" class="w3-button">Ajouter un évenement</a>
+    <a href="/ShowEvent" class="w3-button">Participé a un evenement</a>
+    <a href="/MyEvent" class="w3-button">Mes évenement crée</a>
+    <hr class="side_bar_bar"></hr>
+    <a href="#" class="w3-button">Se Déconnecter</a>
+</div>
+
+<div class="container">
+    <div class="title">Add Vaccination</div>
+    <div class="content">
+        <form id="vaccinationForm" action="/vaccination/add" method="POST" enctype="multipart/form-data">
+            <div class="user-details">
+                <input type="hidden" id="idPerson" name="idPerson">
+                <div class="input-box">
+                    <span class="details">Animal</span>
+                    <select id="animalList" name="animal" required>
+                        <option value="" disabled selected>Select animal</option>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <span class="details">Vaccination Type</span>
+                    <input type="text" name="type" placeholder="Enter vaccination type" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Vaccination Date</span>
+                    <input type="date" name="date" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Next Vaccination Date</span>
+                    <input type="date" name="nextDate" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Vaccination Location</span>
+                    <input type="text" name="location" placeholder="Enter vaccination location" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Vaccinator Name</span>
+                    <input type="text" name="vaccinatorName" placeholder="Enter vaccinator name" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Notes</span>
+                    <textarea name="notes" placeholder="Enter notes"></textarea>
+                </div>
+            </div>
+            <div class="button">
+                <input type="submit" value="Add Vaccination">
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Inclure jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Votre script jQuery ici -->
+<script>
+    $(document).ready(function () {
+    // Récupérer l'ID de la personne connectée via la méthode /profile
+    $.ajax({
+        url: "/person/profile",
+        type: "GET",
+        success: function (data) {
+            // Mettre à jour la valeur de l'ID dans le champ caché
+            $("#idPerson").val(data.id);
+            console.log(data.id);
+
+            // Déclarer une variable pour stocker la liste des animaux
+            var animalList = [];
+
+            // Effectuer une requête AJAX pour récupérer la liste des animaux de la personne
+            $.ajax({
+                url: "/animal/person/" + data.id,
+                type: "GET",
+                success: function (animalReferences) {
+                    // Pour chaque référence d'animal, récupérer les détails de l'animal
+                    animalReferences.forEach(function (animalRef) {
+                        // Effectuer une autre requête AJAX pour récupérer les détails de cet animal
+                        $.ajax({
+                            url: animalRef,
+                            type: "GET",
+                            success: function (animal) {
+                                // Ajouter les détails de l'animal à la liste des animaux
+                                animalList.push(animal);
+                                // Construire le libellé pour l'option de la liste déroulante
+                                var optionLabel = animal.category + " - " + animal.name;
+                                // Créer une nouvelle option avec le libellé
+                                var option = $("<option>").text(optionLabel).val(animal.id);
+                                // Ajouter l'option à la liste déroulante
+                                $("#animalList").append(option);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("Erreur lors de la récupération des détails de l'animal:", error);
+                            }
+                        });
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error("Une erreur s'est produite lors de la récupération de la liste des animaux:", error);
+                }
+            });
+        },
+        error: function (xhr, status, error) {
+            console.error("Une erreur s'est produite lors de la récupération de l'ID de la personne:", error);
+        }
+    });
+});
+
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

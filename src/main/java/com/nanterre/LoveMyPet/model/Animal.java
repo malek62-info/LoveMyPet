@@ -17,7 +17,7 @@ public class Animal {
     private Integer idPerson;
 
     @Column(name = "name")
-    private String name;
+    private String  name;
 
     @Column(name = "category")
     private String category;
