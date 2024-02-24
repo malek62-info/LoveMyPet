@@ -4,9 +4,9 @@ import com.nanterre.LoveMyPet.model.Vaccination;
 
 
 import java.util.List;
+import java.util.Optional;
 
 public interface VaccinationService {
-    Vaccination saveVaccination(Vaccination vaccination);
-    List<String> getVaccinationLinksByAnimalId(Integer idAnimal);
-    Vaccination getVaccinationDetailsById (Integer idVaccination);
+    List<String> getVaccinationsByAnimalId(Integer idAnimal);
+    Optional<Vaccination> getVaccinationById(Integer idVaccination);
 }

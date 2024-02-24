@@ -13,16 +13,6 @@ import com.nanterre.LoveMyPet.service.VaccinService;
 @RestController
 @RequestMapping("/vaccin")
 public class VaccinController {
-    private final VaccinService vaccinService;
 
-    @Autowired
-    public VaccinController(VaccinService vaccinService) {
-        this.vaccinService = vaccinService;
-    }
-
-    @GetMapping("/all")
-    public Iterable<Vaccin> getAllVaccins() {
-        return vaccinService.getAllVaccins();
-    }
     
 }
