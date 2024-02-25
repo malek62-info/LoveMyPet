@@ -7,10 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.nanterre.LoveMyPet.model.Vaccination;
 
-	
-
 @Repository
 public interface VaccinationRepository extends JpaRepository<Vaccination, Integer> {
-	List<Vaccination> findByAnimalId(Integer animalId);
+	// Méthode pour rechercher des vaccinations par ID d'animal
+	List<Vaccination> findByIdAnimal(Integer animalId);
 }
-	
