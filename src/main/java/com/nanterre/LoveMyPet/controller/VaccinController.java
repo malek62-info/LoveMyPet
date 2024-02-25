@@ -15,7 +15,10 @@ public class VaccinController {
 
     @Autowired
     private VaccinService vaccinService;
-
+    @Autowired
+    public VaccinController(VaccinService vaccinService) {
+        this.vaccinService = vaccinService;
+    }
     @GetMapping("/vaccins")
     public ResponseEntity<List<String>> getAllVaccins() {
         List<String> vaccinReferences = vaccinService.getAllVaccinReferences();
