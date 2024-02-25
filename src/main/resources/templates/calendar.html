@@ -168,18 +168,22 @@
     </script>
 
 
+
+
     <script>
+
+
         document.addEventListener('DOMContentLoaded', function () {
             // Extraire l'ID de l'animal à partir de l'URL de la page
             var queryParams = new URLSearchParams(window.location.search);
             var animalId = queryParams.get('id');
-
 
             // Si l'ID de l'animal est valide
             if (animalId) {
                 // Définir une fonction pour récupérer les événements en fonction de l'ID de l'animal
                 function getAnimalEvents(animalId) {
                     var calendarEl = document.getElementById('calendar');
+                    calendarEl.innerHTML = "";
                     var calendar = new FullCalendar.Calendar(calendarEl, {
                         locale: 'fr',
                         initialView: 'timeGridWeek',
@@ -187,53 +191,94 @@
                         slotMaxTime: '23:00:00',
                         allDaySlot: false,
                         events: function (fetchInfo, successCallback, failureCallback) {
-                            fetch(`/api/vaccinations/${animalId}`)
+                            // Promesse pour récupérer les détails des vaccinations de l'animal
+                            var fetchVaccinations = fetch(`/api/vaccinations/${animalId}`)
                                 .then(response => response.json())
-                                .then(data => {
-                                    console.log(`Références des vaccinations de l'animal ${animalId} :`, data);
-                                    var events = [];
-                                    var promises = data.map(vaccinationId => {
-                                        return fetch(`/api${vaccinationId}`)
-                                            .then(response => response.json())
-                                            .then(vaccination => {
-                                                console.log("Détails de la vaccination :", vaccination);
-                                                var startTime = vaccination.date + 'T' + vaccination.vaccinationTime;
-                                                var endTime = new Date(startTime);
-                                                endTime.setMinutes(endTime.getMinutes() + 30);
-                                                events.push({
-                                                    title: vaccination.vaccin.vaccinName,
-                                                    start: startTime,
-                                                    end: endTime,
-                                                    description: vaccination.comment,
-                                                    vetName: vaccination.vetName, // Ajoutez la propriété vetName
-                                                    vetAddress: vaccination.vetAddress, // Ajoutez la propriété vetAddress
-                                                    color: 'blue'
-                                                });
+                                .then(data => data.map(vaccinationId => `/api${vaccinationId}`))
+                                .then(urls => Promise.all(urls.map(url => fetch(url).then(response => response.json()))));
 
-                                            })
-                                            .catch(error => console.error('Erreur lors de la récupération des détails de la vaccination :', error));
+                            // Promesse pour récupérer les détails des traitements de l'animal
+                            var fetchTraitements = fetch(`/api/traitements/${animalId}`)
+                                .then(response => response.json())
+                                .then(data => data.map(traitementId => `/api/${traitementId}`))
+                                .then(urls => Promise.all(urls.map(url => fetch(url).then(response => response.json()))));
+
+                            // Attendre que les deux promesses se terminent
+                            Promise.all([fetchVaccinations, fetchTraitements])
+                                .then(responses => {
+                                    var vaccinations = responses[0];
+                                    var traitements = responses[1];
+
+                                    var vaccinationEvents = [];
+                                    vaccinations.forEach(vaccination => {
+                                        var startTime = new Date(vaccination.date + 'T' + vaccination.vaccinationTime);
+                                        var endTime = new Date(startTime);
+                                        endTime.setMinutes(endTime.getMinutes() + 30);
+                                        vaccinationEvents.push({
+                                            title: `Vaccination :${vaccination.vaccin.vaccinName}`,
+                                            start: startTime,
+                                            end: endTime,
+                                            description: vaccination.comment,
+                                            vetName: vaccination.vetName,
+                                            vetAddress: vaccination.vetAddress,
+                                            color: 'blue'
+                                        });
                                     });
-                                    Promise.all(promises).then(() => {
-                                        console.log("Tableau d'événements :", events);
-                                        successCallback(events);
+
+                                    var traitementEvents = [];
+                                    var counter = 0;
+                                    traitements.forEach(traitement => {
+                                        var startDate = new Date(traitement.dateDebut);
+                                        var endDate = new Date(traitement.dateFin);
+                                        var diffDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+                                        traitement.heures.forEach(heure => {
+                                            for (var i = 0; i <= diffDays; i++) {
+                                                var eventDate = new Date(startDate);
+                                                eventDate.setDate(eventDate.getDate() + i);
+                                                eventDate.setHours(heure.heure.split(':')[0]);
+                                                eventDate.setMinutes(heure.heure.split(':')[1]);
+                                                traitementEvents.push({
+                                                    title: `Traitement : ${traitement.medicament.medicamentName}`,
+                                                    start: eventDate,
+                                                    allDay: false,
+                                                    description: traitement.commentaire,
+                                                    color: 'green'
+
+                                                });
+                                                counter++;
+                                            }
+                                        });
                                     });
+
+                                    // Concaténer les événements de vaccination et de traitement
+                                    var allEvents = vaccinationEvents.concat(traitementEvents);
+                                    successCallback(allEvents);
                                 })
                                 .catch(error => {
-                                    console.error(`Erreur lors de la récupération des références des vaccinations de l'animal ${animalId} :`, error);
+                                    console.error(`Erreur lors de la récupération des données :`, error);
                                     failureCallback(error);
                                 });
                         },
-
                         eventDidMount: function (info) {
                             const event = info.event;
-                            const content = `
-                            <div style="padding: 5px 0;">
-                                <strong style="margin-bottom: 5px;">Titre:</strong> ${event.title}<br><br>
-                                <strong style="margin-bottom: 5px;">Description:</strong> ${event.extendedProps.description}<br><br>
-                                <strong style="margin-bottom: 5px;">Vétérinaire:</strong> ${event.extendedProps.vetName}<br><br>
-                                <strong style="margin-bottom: 5px;">Adresse du vétérinaire:</strong> ${event.extendedProps.vetAddress}<br><br>
-                            </div>
-                            `;
+                            let content = `
+        <div style="padding: 5px 0;">
+            <strong style="margin-bottom: 5px;">Titre:</strong> ${event.title}<br><br>
+    `;
+                            if (event.title.includes('Traitement')) {
+                                // C'est un événement de traitement
+                                content += `
+            <strong style="margin-bottom: 5px;">Commentaire:</strong> ${event.extendedProps.description}<br><br>
+        `;
+                            } else if (event.title.includes('Vaccination')) {
+                                // C'est un événement de vaccination
+                                content += `
+            <strong style="margin-bottom: 5px;">Vétérinaire:</strong> ${event.extendedProps.vetName}<br><br>
+            <strong style="margin-bottom: 5px;">Adresse du vétérinaire:</strong> ${event.extendedProps.vetAddress}<br><br>
+            <strong style="margin-bottom: 5px;">Commentaire:</strong> ${event.extendedProps.description}<br><br>
+        `;
+                            }
+                            content += `</div>`;
                             tippy(info.el, {
                                 content: content,
                                 allowHTML: true,
@@ -242,6 +287,8 @@
                                 interactive: true
                             });
                         }
+
+
                     });
                     calendar.render();
                 }
@@ -250,6 +297,8 @@
                 getAnimalEvents(animalId);
             }
         });
+    </script>
+
 
 
     </script>
