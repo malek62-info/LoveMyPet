@@ -1,17 +1,16 @@
 package com.nanterre.LoveMyPet.service;
 
 
+import com.nanterre.LoveMyPet.model.Vaccin;
+
 import java.util.List;
 
 public interface VaccinService {
 
 
-    void loadDataFromJson(String jsonFilePath);
+    public List<String> getAllVaccinReferences();
+    public Vaccin getVaccinById(Integer id);
 
-    List<String> getAllVaccinNames();
-
-
-    public Integer findVaccinIdByName(String vaccinName);
 
 
 
