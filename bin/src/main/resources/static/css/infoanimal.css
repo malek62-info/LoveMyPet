@@ -173,3 +173,29 @@ h1 {
 .modify-btn-weight:hover {
     background-color: #45a049;
 }
+.container div {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 20px auto;
+}
+
+.container div {
+    padding: 20px;
+}
+
+button {
+    background-color: #5b91cf;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    text-align: center;
+}
+
+#historiqueWeightChart {
+    margin: 20px auto;
+    max-width: 800px; /* ajuste la largeur maximale selon tes besoins */
+}

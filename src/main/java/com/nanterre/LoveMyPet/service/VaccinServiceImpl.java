@@ -18,8 +18,6 @@ public class VaccinServiceImpl implements VaccinService {
 
     @Override
     public Vaccin getVaccinById(Integer id) {
-        // Ajoutez la logique pour récupérer un vaccin par son ID depuis le repository
-        // par exemple : return vaccinRepository.findById(id).orElse(null);
         return null;
     }
 }

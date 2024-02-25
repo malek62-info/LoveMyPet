@@ -1,0 +1,65 @@
+/* CSS pour le reste de la page, excluant la barre latérale */
+
+/* Style général pour le corps de la page */
+body {
+    display: flex;
+    flex-direction: column; /* Pour aligner les éléments verticalement */
+    font-family: Arial, sans-serif; /* Utilisation d'une police de caractères générique */
+    margin: 0; /* Supprimer les marges par défaut */
+    padding: 0; /* Supprimer les rembourrages par défaut */
+    background-image: url('https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg');
+}
+
+/* Style pour le bouton de fermeture en haut à droite */
+.top-right {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    background-color: #000;
+    padding: 20px;
+    font-weight: bold;
+    color: #fff;
+    border: 0;
+    outline: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+/* Style pour le titre principal */
+h1 {
+    text-align: center; /* Centrer le titre */
+    margin-top: 40px; /* Ajouter un peu d'espace en haut */
+}
+
+/* Style pour les boutons de sélection de mois */
+.container {
+    text-align: center; /* Centrer les boutons */
+    margin-top: 20px; /* Ajouter un peu d'espace en haut */
+}
+
+.container button {
+    margin: 5px; /* Ajouter de l'espace entre les boutons */
+    padding: 8px 12px; /* Ajouter un peu de rembourrage */
+    background-color: #007bff; /* Couleur de fond */
+    color: #fff; /* Couleur du texte */
+    border: none; /* Supprimer les bordures */
+    border-radius: 4px; /* Ajouter des coins arrondis */
+    cursor: pointer; /* Définir le curseur en pointeur au survol */
+    transition: background-color 0.3s; /* Transition en douceur pour le changement de couleur de fond */
+}
+
+.container button:hover {
+    background-color: #0056b3; /* Changement de couleur de fond au survol */
+}
+
+/* Ajouter un peu d'espace en bas pour éviter que le graphique ne soit collé au bas de la fenêtre */
+#historiqueWeightChart {
+    margin-bottom: 40px;
+}
