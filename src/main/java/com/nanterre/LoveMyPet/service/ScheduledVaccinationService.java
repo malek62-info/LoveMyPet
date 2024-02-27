@@ -19,8 +19,8 @@ public class ScheduledVaccinationService {
 
 
 
-    // Cette fonction envoie des e-mails toutes les 1 minute si une adresse correspond.
-    @Scheduled(fixedRate = 20000)
+    // Cette fonction envoie des e-mails toutes les jours a 6h du matin
+    @Scheduled(cron = "0 0 6 * * ?")
     public void sendEmailToUsersWithScheduledVaccination() {
         try {
             List<Object[]> vaccinationDetails = vaccinationRepository.findVaccinationDetailsForEmails();
@@ -40,16 +40,16 @@ public class ScheduledVaccinationService {
                     String vaccineName = (String) vaccinationDetail[6];
                     String vaccinationComment = (String) vaccinationDetail[7];
 
-                    String subject = "LoveMyPet Rappel - Vaccination dans 1h de "+  animalName ;
+                    String subject = "LoveMyPet Rappel - Vaccination de "+animalName+" dans 1 mois  ";
 
                     // Corps de l'e-mail avec HTML et CSS
                     String body = "<html><head>"
                             + "<style>"
                             + "body {font-family: Arial, sans-serif;}"
                             + ".container {max-width: 600px; margin: 0 auto;}"
-                            + ".header {background-color: #4CAF50; color: white; padding: 20px; text-align: center;}"
+                            + ".header {background-color: #000; color: white; padding: 20px; text-align: center;}"
                             + ".content {padding: 20px;}"
-                            + ".content p {margin-bottom: 10px;}"
+                            + ".content p {margin-bottom: 10px; color: #000;}"
                             + ".content p span {font-weight: bold;}"
                             + ".footer {background-color: #f4f4f4; padding: 20px; text-align: center;}"
                             + "</style>"
