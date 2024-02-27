@@ -143,5 +143,8 @@ public class Controller {
         return "Addvaccin";
     }
 
-
+    @GetMapping("/updatevaccination")
+    public String updatevaccination() {
+        return "updatevaccination";
+    }
 }
