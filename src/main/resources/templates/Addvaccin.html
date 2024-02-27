@@ -232,6 +232,8 @@
                     <select id="vaccinationType" name="vaccinationType" required>
                         <option value="" disabled selected>Select vaccination type</option>
                     </select>
+                    <a href="#" id="vaccinInfoLink">Afficher les informations sur le vaccin</a>
+
                 </div>
                 <div class="input-box">
                     <span class="details">Vaccination Date</span>
@@ -275,160 +277,168 @@
 
 <script>
     $(document).ready(function () {
-    var selectedAnimalId; // Variable pour stocker l'ID de l'animal sélectionné
-    var selectedVaccinId; // Variable pour stocker l'ID du vaccin sélectionné
-    var vaccinDetailsList = []; // Liste pour stocker les détails des vaccins
+     var selectedAnimalId; // Variable pour stocker l'ID de l'animal sélectionné
+     var selectedVaccinId; // Variable pour stocker l'ID du vaccin sélectionné
+     var vaccinDetailsList = []; // Liste pour stocker les détails des vaccins
+     var selectedVaccin; // Variable pour stocker le vaccin sélectionné
 
-    // Récupérer l'ID de la personne connectée via la méthode /profile
-    $.ajax({
-        url: "/person/profile",
-        type: "GET",
-        success: function (data) {
-            // Mettre à jour la valeur de l'ID dans le champ caché
-            $("#idPerson").val(data.id);
+     // Récupérer l'ID de la personne connectée via la méthode /profile
+     $.ajax({
+         url: "/person/profile",
+         type: "GET",
+         success: function (data) {
+             // Mettre à jour la valeur de l'ID dans le champ caché
+             $("#idPerson").val(data.id);
 
-            // Récupérer les références des vaccins depuis le backend
-            $.ajax({
-                url: "/vaccin/vaccins", // Endpoint pour récupérer les références des vaccins
-                type: "GET",
-                success: function (vaccinReferences) {
-                    // Boucle à travers les références des vaccins
-                    vaccinReferences.forEach(function (vaccinRef) {
-                        // Extraire l'ID de chaque référence de vaccin
-                        var vaccinId = parseInt(vaccinRef.split("/").pop()); // Supposons que l'ID est à la fin de chaque référence
+             // Récupérer les références des vaccins depuis le backend
+             $.ajax({
+                 url: "/vaccin/vaccins", // Endpoint pour récupérer les références des vaccins
+                 type: "GET",
+                 success: function (vaccinReferences) {
+                     // Boucle à travers les références des vaccins
+                     vaccinReferences.forEach(function (vaccinRef) {
+                         // Extraire l'ID de chaque référence de vaccin
+                         var vaccinId = parseInt(vaccinRef.split("/").pop()); // Supposons que l'ID est à la fin de chaque référence
 
-                        // Appeler la fonction pour récupérer les détails du vaccin et les stocker dans la liste
-                        getVaccinDetails(vaccinId);
-                    });
-                },
-                error: function (xhr, status, error) {
-                    console.error("Erreur lors de la récupération des références des vaccins :", error);
-                }
-            });
+                         // Appeler la fonction pour récupérer les détails du vaccin et les stocker dans la liste
+                         getVaccinDetails(vaccinId);
+                     });
+                 },
+                 error: function (xhr, status, error) {
+                     console.error("Erreur lors de la récupération des références des vaccins :", error);
+                 }
+             });
 
-            // Récupérer les noms des animaux de la personne
-            $.ajax({
-                url: "/animal/person/" + data.id,
-                type: "GET",
-                success: function (animalReferences) {
-                    // Effacer le contenu de la liste déroulante des animaux
-                    $("#animalList").empty();
+             // Récupérer les noms des animaux de la personne
+             $.ajax({
+                 url: "/animal/person/" + data.id,
+                 type: "GET",
+                 success: function (animalReferences) {
+                     // Effacer le contenu de la liste déroulante des animaux
+                     $("#animalList").empty();
 
-                    // Pour chaque référence d'animal, récupérer les détails de l'animal
-                    animalReferences.forEach(function (animalRef) {
-                        // Effectuer une autre requête AJAX pour récupérer les détails de cet animal
-                        $.ajax({
-                            url: animalRef,
-                            type: "GET",
-                            success: function (animal) {
-                                // Construire le libellé pour l'option de la liste déroulante
-                                var optionLabel = animal.name; // Supposons que le nom de l'animal est stocké dans la propriété "name"
-                                // Créer une nouvelle option avec le libellé
-                                var option = $("<option>").text(optionLabel).val(animal.id); // Supposons que l'ID de l'animal est stocké dans la propriété "id"
-                                // Ajouter l'option à la liste déroulante
-                                $("#animalList").append(option);
-                            },
-                            error: function (xhr, status, error) {
-                                console.error("Erreur lors de la récupération des détails de l'animal:", error);
-                            }
-                        });
-                    });
-                },
-                error: function (xhr, status, error) {
-                    console.error("Une erreur s'est produite lors de la récupération de la liste des animaux:", error);
-                }
-            });
-        }
-    });
+                     // Pour chaque référence d'animal, récupérer les détails de l'animal
+                     animalReferences.forEach(function (animalRef) {
+                         // Effectuer une autre requête AJAX pour récupérer les détails de cet animal
+                         $.ajax({
+                             url: animalRef,
+                             type: "GET",
+                             success: function (animal) {
+                                 // Construire le libellé pour l'option de la liste déroulante
+                                 var optionLabel = animal.name; // Supposons que le nom de l'animal est stocké dans la propriété "name"
+                                 // Créer une nouvelle option avec le libellé
+                                 var option = $("<option>").text(optionLabel).val(animal.id); // Supposons que l'ID de l'animal est stocké dans la propriété "id"
+                                 // Ajouter l'option à la liste déroulante
+                                 $("#animalList").append(option);
+                             },
+                             error: function (xhr, status, error) {
+                                 console.error("Erreur lors de la récupération des détails de l'animal:", error);
+                             }
+                         });
+                     });
+                 },
+                 error: function (xhr, status, error) {
+                     console.error("Une erreur s'est produite lors de la récupération de la liste des animaux:", error);
+                 }
+             });
+         }
+     });
 
-    // Fonction pour récupérer les détails du vaccin par son ID
-    function getVaccinDetails(vaccinId) {
-        $.ajax({
-            url: "/vaccin/vaccins/" + vaccinId,
-            type: "GET",
-            success: function (vaccin) {
-                // Ajouter les détails du vaccin à la liste
-                vaccinDetailsList.push(vaccin);
+     // Fonction pour récupérer les détails du vaccin par son ID
+     function getVaccinDetails(vaccinId) {
+         $.ajax({
+             url: "/vaccin/vaccins/" + vaccinId,
+             type: "GET",
+             success: function (vaccin) {
+                 // Ajouter les détails du vaccin à la liste
+                 vaccinDetailsList.push(vaccin);
 
-                // Ajouter le nom du vaccin dans la liste déroulante
-                var option = $("<option>").text(vaccin.vaccinName).val(vaccin.idVaccin);
-                $("#vaccinationType").append(option);
-            },
-            error: function (xhr, status, error) {
-                console.error("Erreur lors de la récupération des détails du vaccin :", error);
-            }
-        });
-    }
+                 // Ajouter le nom du vaccin dans la liste déroulante
+                 var option = $("<option>").text(vaccin.vaccinName).val(vaccin.idVaccin);
+                 $("#vaccinationType").append(option);
+             },
+             error: function (xhr, status, error) {
+                 console.error("Erreur lors de la récupération des détails du vaccin :", error);
+             }
+         });
+     }
 
-    // Événement de changement pour la liste déroulante du type de vaccination
-    $('#vaccinationType').change(function () {
-        // Récupérer le nom du vaccin sélectionné
-        var selectedVaccinName = $(this).find("option:selected").text(); // Récupérer le texte de l'option sélectionnée
+     // Événement de changement pour la liste déroulante du type de vaccination
+     $('#vaccinationType').change(function () {
+         // Récupérer le nom du vaccin sélectionné
+         var selectedVaccinName = $(this).find("option:selected").text(); // Récupérer le texte de l'option sélectionnée
 
-        // Trouver l'ID du vaccin sélectionné dans la liste des détails des vaccins
-        var selectedVaccin = vaccinDetailsList.find(function (vaccin) {
-            return vaccin.vaccinName === selectedVaccinName;
-        });
+         // Trouver l'ID du vaccin sélectionné dans la liste des détails des vaccins
+          selectedVaccin = vaccinDetailsList.find(function (vaccin) {
+             return vaccin.vaccinName === selectedVaccinName;
+         });
+          // Stocker l'ID du vaccin sélectionné
+             selectedVaccinId = selectedVaccin.idVaccin;
 
-        if (selectedVaccin) {
 
-         var alertMessage = "Nom du vaccin : " + selectedVaccin.vaccinName + "\n" +
-                           "Informations sur le vaccin : " + selectedVaccin.infoVaccin;
+     });
 
-        // Afficher les détails du vaccin dans une alerte
-        alert(alertMessage);
-            // Stocker l'ID du vaccin sélectionné
-            selectedVaccinId = selectedVaccin.idVaccin;
-        } else {
-            console.error("Le vaccin sélectionné est introuvable.");
-        }
-    });
+     // Événement de changement pour la liste déroulante des animaux
+     $('#animalList').change(function () {
+         // Récupérer l'ID de l'animal sélectionné
+         selectedAnimalId = $(this).val();
+     });
 
-    // Événement de changement pour la liste déroulante des animaux
-    $('#animalList').change(function () {
-        // Récupérer l'ID de l'animal sélectionné
-        selectedAnimalId = $(this).val();
-    });
+     // Événement de soumission du formulaire de vaccination
+     $('#vaccinationForm').submit(function (event) {
+         event.preventDefault(); // Empêche la soumission du formulaire par défaut
+         var vaccinationDate = $("input[name='date']").val(); // Récupérer la date de vaccination
+         var nextVaccinationTime = $("input[name='nextTime']").val(); // Récupérer l'heure de la prochaine vaccination
+         var vaccinationLocation = $("input[name='location']").val(); // Récupérer l'emplacement de la vaccination
+         var vaccinatorName = $("input[name='vaccinatorName']").val(); // Récupérer le nom du vaccinateur
+         var notes = $("textarea[name='notes']").val(); // Récupérer les notes
 
-    // Événement de soumission du formulaire de vaccination
-    $('#vaccinationForm').submit(function (event) {
-        event.preventDefault(); // Empêche la soumission du formulaire par défaut
-        var vaccinationDate = $("input[name='date']").val(); // Récupérer la date de vaccination
-        var nextVaccinationTime = $("input[name='nextTime']").val(); // Récupérer l'heure de la prochaine vaccination
-        var vaccinationLocation = $("input[name='location']").val(); // Récupérer l'emplacement de la vaccination
-        var vaccinatorName = $("input[name='vaccinatorName']").val(); // Récupérer le nom du vaccinateur
-        var notes = $("textarea[name='notes']").val(); // Récupérer les notes
+         // Créer un objet contenant les données de la vaccination
+         var vaccinationData = {
+             idAnimal: selectedAnimalId,
+             idVaccin: selectedVaccinId,
+             date: vaccinationDate,
+             vaccinationTime: nextVaccinationTime,
+             vetAddress: vaccinationLocation,
+             vetName: vaccinatorName,
+             comment: notes
+         };
 
-        // Créer un objet contenant les données de la vaccination
-        var vaccinationData = {
-            idAnimal: selectedAnimalId,
-            idVaccin: selectedVaccinId,
-            date: vaccinationDate,
-            vaccinationTime: nextVaccinationTime,
-            vetAddress: vaccinationLocation,
-            vetName: vaccinatorName,
-            comment: notes
-        };
+         // Effectuer une requête AJAX pour ajouter la vaccination
+         $.ajax({
+             url: "/vaccination/add", // Endpoint pour ajouter une vaccination
+             type: "POST",
+             contentType: "application/json",
+             data: JSON.stringify(vaccinationData), // Convertir l'objet en JSON
+             success: function (response) {
+                 // Traitement en cas de succès
+                 console.log("Vaccination ajoutée avec succès :", response);
+                 // Réinitialiser le formulaire après l'ajout de la vaccination
+                 $('#vaccinationForm')[0].reset();
+             },
+             error: function (xhr, status, error) {
+                 // Traitement en cas d'erreur
+                 console.error("Erreur lors de l'ajout de la vaccination :", error);
+             }
+         });
+     });
 
-        // Effectuer une requête AJAX pour ajouter la vaccination
-        $.ajax({
-            url: "/vaccination/add", // Endpoint pour ajouter une vaccination
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(vaccinationData), // Convertir l'objet en JSON
-            success: function (response) {
-                // Traitement en cas de succès
-                console.log("Vaccination ajoutée avec succès :", response);
-                // Réinitialiser le formulaire après l'ajout de la vaccination
-                $('#vaccinationForm')[0].reset();
-            },
-            error: function (xhr, status, error) {
-                // Traitement en cas d'erreur
-                console.error("Erreur lors de l'ajout de la vaccination :", error);
-            }
-        });
-    });
-});
+     // Événement de clic pour afficher les informations sur le vaccin
+     $('#vaccinInfoLink').click(function (event) {
+         event.preventDefault(); // Empêcher le comportement par défaut du lien
+
+         // Vérifier si un vaccin est sélectionné
+         if (selectedVaccin) {
+             var alertMessage = "Nom du vaccin : " + selectedVaccin.vaccinName + "\n" +
+                 "Informations sur le vaccin : " + selectedVaccin.infoVaccin;
+
+             // Afficher les détails du vaccin dans une boîte de dialogue
+             alert(alertMessage);
+         } else {
+             console.error("Le vaccin sélectionné est introuvable.");
+         }
+     });
+ });
 
 </script>
 
