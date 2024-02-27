@@ -9,4 +9,6 @@ import java.util.Optional;
 public interface VaccinationService {
     List<String> getVaccinationsByAnimalId(Integer idAnimal);
     Optional<Vaccination> getVaccinationById(Integer idVaccination);
+
+    List<Object[]> getVaccinationDetailsForEmails();
 }

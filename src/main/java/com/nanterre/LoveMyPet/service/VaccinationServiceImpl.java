@@ -31,4 +31,14 @@ public class VaccinationServiceImpl implements VaccinationService {
     public Optional<Vaccination> getVaccinationById(Integer idVaccination) {
         return vaccinationRepository.findById(idVaccination);
     }
+
+    //liste email
+
+    @Override
+    public List<Object[]> getVaccinationDetailsForEmails() {
+        return vaccinationRepository.findVaccinationDetailsForEmails();
+    }
+
+
+
 }
