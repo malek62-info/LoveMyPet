@@ -180,7 +180,7 @@
 
             // Si l'ID de l'animal est valide
             if (animalId) {
-                // Définir une fonction pour récupérer les événements en fonction de l'ID de l'animal
+                // Définir une fonction pour ; les événements en fonction de l'ID de l'animal
                 function getAnimalEvents(animalId) {
                     var calendarEl = document.getElementById('calendar');
                     calendarEl.innerHTML = "";
@@ -214,15 +214,40 @@
                                         var startTime = new Date(vaccination.date + 'T' + vaccination.vaccinationTime);
                                         var endTime = new Date(startTime);
                                         endTime.setMinutes(endTime.getMinutes() + 30);
-                                        vaccinationEvents.push({
-                                            title: `Vaccination :${vaccination.vaccin.vaccinName}`,
-                                            start: startTime,
-                                            end: endTime,
-                                            description: vaccination.comment,
-                                            vetName: vaccination.vetName,
-                                            vetAddress: vaccination.vetAddress,
-                                            color: 'blue'
-                                        });
+
+                                        console.log("Voici le ID" + vaccination.idVaccin);
+
+
+                                        // var jsonNameVaccin = callAPI(vaccination.idVaccin);
+
+                                        // console.log(jsonNameVaccin);
+
+                                        let vaccinNameResult;
+
+                                        callAPI(vaccination.idVaccin)
+                                            .then(vaccinName => {
+                                                console.log("get element :", vaccinName);
+                                                vaccinNameResult = vaccinName; // Stocker le résultat dans la variable
+                                               
+                                                vaccinationEvents.push({
+                                                    title: `Vaccination :${vaccinName}`,
+                                                    start: startTime,
+                                                    end: endTime,
+                                                    description: vaccination.comment,
+                                                    vetName: vaccination.vetName,
+                                                    vetAddress: vaccination.vetAddress,
+                                                    color: 'blue'
+                                                });
+
+                                                console.log(vaccinationEvents);
+                                            })
+                                            .catch(error => {
+                                                console.error(error);
+                                            });
+
+                                       
+
+                                        
                                     });
 
                                     var traitementEvents = [];
@@ -297,6 +322,38 @@
                 getAnimalEvents(animalId);
             }
         });
+    </script>
+
+
+
+    <script>
+
+console.log("get element" + callAPI(vaccination.idVaccin))
+var x ="";
+    function callAPI(id) {
+        return $.ajax({
+            url: `/vaccin/vaccins/${id}`,
+            method: 'GET',
+            dataType: 'json'
+        })
+        .then(data => {
+            // Convertir JSON en hashmap (clé-valeur)
+            const hashmap = new Map();
+            for (const key in data) {
+                hashmap.set(key, data[key]);
+            }
+            console.log(hashmap.get("vaccinName"));
+            x = hashmap.get("vaccinName");;
+            return x
+        })
+        .fail((xhr, status, error) => {
+            console.error('Une erreur s\'est produite lors de la récupération des données :', error);
+            throw error;
+        });
+    }
+
+
+
     </script>
 
 

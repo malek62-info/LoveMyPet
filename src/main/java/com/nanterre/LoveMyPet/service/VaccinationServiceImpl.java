@@ -21,7 +21,7 @@ public class VaccinationServiceImpl implements VaccinationService {
 
     @Override
     public List<String> getVaccinationsByAnimalId(Integer idAnimal) {
-        List<Vaccination> list = vaccinationRepository.findByAnimalId(idAnimal);
+        List<Vaccination> list = vaccinationRepository.findByIdAnimal(idAnimal);
         return list.stream()
                 .map(x -> "/vaccination/" + x.getIdVaccination())
                 .collect(Collectors.toList());

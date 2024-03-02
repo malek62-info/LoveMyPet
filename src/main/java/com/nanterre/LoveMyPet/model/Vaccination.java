@@ -12,13 +12,13 @@ public class Vaccination {
     @Column(name = "idvaccination")
     private Integer idVaccination;
 
-    @ManyToOne
-    @JoinColumn(name = "idvaccin", referencedColumnName = "idvaccin")
-    private Vaccin vaccin;
 
-    @ManyToOne
-    @JoinColumn(name = "idanimal", referencedColumnName = "idAnimal")
-    private Animal animal;
+    @JoinColumn(name = "idvaccin")
+    private Integer idVaccin;
+
+
+    @JoinColumn(name = "idanimal")
+    private Integer idAnimal;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "date")
@@ -47,20 +47,20 @@ public class Vaccination {
         this.idVaccination = idVaccination;
     }
 
-    public Vaccin getVaccin() {
-        return vaccin;
+    public Integer getIdVaccin() {
+        return idVaccin;
     }
 
-    public void setVaccin(Vaccin vaccin) {
-        this.vaccin = vaccin;
+    public void setIdVaccin(Integer idVaccin) {
+        this.idVaccin = idVaccin;
     }
 
-    public Animal getAnimal() {
-        return animal;
+    public Integer getIdAnimal() {
+        return idAnimal;
     }
 
-    public void setAnimal(Animal animal) {
-        this.animal = animal;
+    public void setIdAnimal(Integer idAnimal) {
+        this.idAnimal = idAnimal;
     }
 
     public Date getDate() {
@@ -102,4 +102,5 @@ public class Vaccination {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
 }
