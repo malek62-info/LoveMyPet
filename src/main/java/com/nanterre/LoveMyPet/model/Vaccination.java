@@ -37,6 +37,8 @@ public class Vaccination {
     @Column(name = "comment", length = 255)
     private String comment;
 
+
+
     // Getters and setters
 
     public Integer getIdVaccination() {

@@ -44,6 +44,13 @@ public class Traitement {
     @JsonManagedReference
     private List<Heure> heures;
 
+    public Traitement(int traitementId, int i, String traitement1) {
+    }
+
+    public Traitement() {
+
+    }
+
     // Getters and setters
 
     public Integer getIdTraitement() {

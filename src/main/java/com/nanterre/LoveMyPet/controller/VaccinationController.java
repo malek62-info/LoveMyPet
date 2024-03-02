@@ -45,14 +45,5 @@ public class VaccinationController {
         }
     }
 
-    //vaccination dans 1 heures
-    @GetMapping("/vaccination-upcoming-details")
-    public ResponseEntity<?> getUpcomingVaccinationDetails() {
-        List<Object[]> vaccinationDetails = vaccinationService.getVaccinationDetailsForEmails();
-        if (vaccinationDetails.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There are no animals scheduled for vaccination in an hour.");
-        }
-        return ResponseEntity.ok(vaccinationDetails);
-    }
 
 }
