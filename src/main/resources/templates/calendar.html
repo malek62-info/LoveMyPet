@@ -171,8 +171,6 @@
 
 
     <script>
-
-
         document.addEventListener('DOMContentLoaded', function () {
             // Extraire l'ID de l'animal à partir de l'URL de la page
             var queryParams = new URLSearchParams(window.location.search);
@@ -180,7 +178,7 @@
 
             // Si l'ID de l'animal est valide
             if (animalId) {
-                // Définir une fonction pour ; les événements en fonction de l'ID de l'animal
+                // Définir une fonction pour récupérer les événements en fonction de l'ID de l'animal
                 function getAnimalEvents(animalId) {
                     var calendarEl = document.getElementById('calendar');
                     calendarEl.innerHTML = "";
@@ -210,45 +208,43 @@
                                     var traitements = responses[1];
 
                                     var vaccinationEvents = [];
+                                    var fetchVaccinNamePromises = [];
+
+                                    // Définir une fonction pour récupérer le nom du vaccin
+                                    // Définir une fonction pour récupérer le nom du vaccin
                                     vaccinations.forEach(vaccination => {
                                         var startTime = new Date(vaccination.date + 'T' + vaccination.vaccinationTime);
                                         var endTime = new Date(startTime);
                                         endTime.setMinutes(endTime.getMinutes() + 30);
 
-                                        console.log("Voici le ID" + vaccination.idVaccin);
-
-
-                                        // var jsonNameVaccin = callAPI(vaccination.idVaccin);
-
-                                        // console.log(jsonNameVaccin);
-
-                                        let vaccinNameResult;
-
-                                        callAPI(vaccination.idVaccin)
-                                            .then(vaccinName => {
-                                                console.log("get element :", vaccinName);
-                                                vaccinNameResult = vaccinName; // Stocker le résultat dans la variable
-                                               
-                                                vaccinationEvents.push({
-                                                    title: `Vaccination :${vaccinName}`,
-                                                    start: startTime,
-                                                    end: endTime,
-                                                    description: vaccination.comment,
-                                                    vetName: vaccination.vetName,
-                                                    vetAddress: vaccination.vetAddress,
-                                                    color: 'blue'
-                                                });
-
-                                                console.log(vaccinationEvents);
-                                            })
-                                            .catch(error => {
-                                                console.error(error);
-                                            });
-
-                                       
-
-                                        
+                                        fetchVaccinNamePromises.push(
+                                            fetch(`/vaccin/vaccins/${vaccination.idVaccin}`)
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    console.log("Nom du vaccin pour ID " + vaccination.idVaccin + ":", data.vaccinName);
+                                                    return {
+                                                        id :vaccination.idVaccin,
+                                                        title: "Vaccination" + data.vaccinName,
+                                                        start: startTime,
+                                                        end: endTime,
+                                                        description: vaccination.comment,
+                                                        vetName: vaccination.vetName,
+                                                        vetAddress: vaccination.vetAddress,
+                                                        color: 'blue'
+                                                    };
+                                                })
+                                                .catch(error => {
+                                                    console.error('Une erreur s\'est produite lors de la récupération du nom du vaccin pour ID ' + vaccination.idVaccin + ':', error);
+                                                    return null; // Retourner null en cas d'erreur
+                                                })
+                                        );
                                     });
+
+                                    // Afficher la liste des promesses
+                                    console.log("Liste des promesses pour la récupération des noms de vaccin :", fetchVaccinNamePromises);
+
+
+
 
                                     var traitementEvents = [];
                                     var counter = 0;
@@ -262,22 +258,42 @@
                                                 eventDate.setDate(eventDate.getDate() + i);
                                                 eventDate.setHours(heure.heure.split(':')[0]);
                                                 eventDate.setMinutes(heure.heure.split(':')[1]);
+                                                console.log("traitement" +  traitement)
+                                                console.log("ID du traitement :", traitement.id);
                                                 traitementEvents.push({
+                                                    id: traitement.idTraitement, 
                                                     title: `Traitement : ${traitement.medicament.medicamentName}`,
                                                     start: eventDate,
                                                     allDay: false,
                                                     description: traitement.commentaire,
                                                     color: 'green'
-
                                                 });
                                                 counter++;
                                             }
                                         });
                                     });
 
-                                    // Concaténer les événements de vaccination et de traitement
-                                    var allEvents = vaccinationEvents.concat(traitementEvents);
-                                    successCallback(allEvents);
+                                    // Attendre que toutes les promesses pour récupérer les noms de vaccins soient terminées
+                                    return Promise.all(fetchVaccinNamePromises)
+                                        .then(results => {
+
+                                            console.log("Tous les noms de vaccin récupérés :", results);
+                                            // Créer les événements de vaccination avec les noms récupérés
+                                            // console.log("voici un événement vaccin", JSON.stringify(vaccinEvenement));
+
+                                            results.forEach(vaccinEvenement => {
+                                                vaccinationEvents.push(vaccinEvenement);
+                                            });
+                                            console.log(vaccinationEvents)
+                                            console.log(traitementEvents)
+                                            // Concaténer les événements de vaccination et de traitement
+                                            var allEvents = vaccinationEvents.concat(traitementEvents);
+
+                                            // Appeler successCallback avec les événements
+                                            console.log("Tous les événements", JSON.stringify(allEvents, null, 2));
+
+                                            successCallback(allEvents);
+                                        });
                                 })
                                 .catch(error => {
                                     console.error(`Erreur lors de la récupération des données :`, error);
@@ -287,21 +303,27 @@
                         eventDidMount: function (info) {
                             const event = info.event;
                             let content = `
-        <div style="padding: 5px 0;">
-            <strong style="margin-bottom: 5px;">Titre:</strong> ${event.title}<br><br>
-    `;
+                                <div style="padding: 5px 0;">
+                                    <strong style="margin-bottom: 5px;">Titre:</strong> ${event.title}<br><br>
+                            `;
                             if (event.title.includes('Traitement')) {
                                 // C'est un événement de traitement
                                 content += `
-            <strong style="margin-bottom: 5px;">Commentaire:</strong> ${event.extendedProps.description}<br><br>
-        `;
+                                    <strong style="margin-bottom: 5px;">Commentaire:</strong> ${event.extendedProps.description}<br><br>
+                                    <button style="background-color: green; color: white; border-radius: 2px; padding: 10px 30px;border:0px solid #fff;">
+                                        <a href="/modifier?id=${event.id}" style="text-decoration: none; color: white;">Modifier</a>
+                                    </button>
+                                `;
                             } else if (event.title.includes('Vaccination')) {
                                 // C'est un événement de vaccination
                                 content += `
-            <strong style="margin-bottom: 5px;">Vétérinaire:</strong> ${event.extendedProps.vetName}<br><br>
-            <strong style="margin-bottom: 5px;">Adresse du vétérinaire:</strong> ${event.extendedProps.vetAddress}<br><br>
-            <strong style="margin-bottom: 5px;">Commentaire:</strong> ${event.extendedProps.description}<br><br>
-        `;
+                                    <strong style="margin-bottom: 5px;">Vétérinaire:</strong> ${event.extendedProps.vetName}<br><br>
+                                    <strong style="margin-bottom: 5px;">Adresse du vétérinaire:</strong> ${event.extendedProps.vetAddress}<br><br>
+                                    <strong style="margin-bottom: 5px;">Commentaire:</strong> ${event.extendedProps.description}<br><br>
+                                    <button style="background-color: blue; color: white; border-radius: 2px; padding: 10px 30px;border:0px solid #fff;">
+                                        <a href="/modifier?id=${event.id}" style="text-decoration: none; color: white;">Modifier</a>
+                                    </button>
+                                `;
                             }
                             content += `</div>`;
                             tippy(info.el, {
@@ -312,8 +334,6 @@
                                 interactive: true
                             });
                         }
-
-
                     });
                     calendar.render();
                 }
@@ -322,43 +342,10 @@
                 getAnimalEvents(animalId);
             }
         });
-    </script>
-
-
-
-    <script>
-
-console.log("get element" + callAPI(vaccination.idVaccin))
-var x ="";
-    function callAPI(id) {
-        return $.ajax({
-            url: `/vaccin/vaccins/${id}`,
-            method: 'GET',
-            dataType: 'json'
-        })
-        .then(data => {
-            // Convertir JSON en hashmap (clé-valeur)
-            const hashmap = new Map();
-            for (const key in data) {
-                hashmap.set(key, data[key]);
-            }
-            console.log(hashmap.get("vaccinName"));
-            x = hashmap.get("vaccinName");;
-            return x
-        })
-        .fail((xhr, status, error) => {
-            console.error('Une erreur s\'est produite lors de la récupération des données :', error);
-            throw error;
-        });
-    }
-
-
 
     </script>
 
 
-
-    </script>
 </head>
 
 <body>
@@ -428,6 +415,7 @@ var x ="";
                     console.error('Error fetching animal list:', error);
                 });
         }
+
 
         function fetchAnimalDetails(animalUri, select) {
             fetch(animalUri)
