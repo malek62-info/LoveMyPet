@@ -550,8 +550,10 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#_documentation_complète_de_lapplication">Documentation Complète de l&#8217;Application</a>
 <ul class="sectlevel1">
 <li><a href="#_partie_1_modélisation">Partie 1 : Modélisation</a>
-<ul class="sectlevel2">
-<li><a href="#_fonctionnalité_dadoption_des_animaux">Fonctionnalité d&#8217;Adoption des Animaux</a></li>
+<ul class="sectlevel3">
+<li><a href="#_configuration_des_dates_pour_ladoption">Configuration des Dates pour l&#8217;Adoption</a></li>
+<li><a href="#_affichage_dans_la_section_adoption">Affichage dans la Section "Adoption"</a></li>
+<li><a href="#_gestion_des_candidatures">Gestion des Candidatures</a></li>
 <li><a href="#_petite_feature_pour_laffichage_et_la_modification_des_informations_des_animaux">Petite feature pour l&#8217;affichage et la modification des informations des Animaux</a></li>
 <li><a href="#_fonctionnalité_de_suivi_des_vaccins_carnet_de_vaccination_en_ligne">Fonctionnalité de Suivi des Vaccins - Carnet de Vaccination en Ligne</a></li>
 <li><a href="#_fonctionnalité_de_recherche_des_vétérinaires_et_jardins_à_proximité">Fonctionnalité de recherche des Vétérinaires et Jardins à Proximité</a></li>
@@ -573,42 +575,76 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <ul class="sectlevel2">
 <li><a href="#_recherche_par_ville_geneve">Recherche par ville "Geneve":</a></li>
 <li><a href="#_explication_de_lapi_overpass_et_nominatim">Explication de l&#8217;API Overpass et Nominatim</a></li>
+<li><a href="#_diagramme_de_class">Diagramme de class</a></li>
 </ul>
 </li>
-<li><a href="#_interaction_avec_les_avis">Interaction avec les Avis</a>
+<li><a href="#_paramètres_de_requête">Paramètres de Requête</a></li>
+<li><a href="#_exemple_de_réponse">Exemple de Réponse</a>
 <ul class="sectlevel2">
-<li><a href="#_consulter_les_avis">Consulter les Avis</a></li>
-<li><a href="#_liker_un_avis">Liker un Avis</a></li>
-<li><a href="#_disliker_un_avis">Disliker un Avis</a></li>
+<li><a href="#_explication_de_lapi_overpass_et_nominatim_2">Explication de l&#8217;API Overpass et Nominatim</a></li>
 </ul>
 </li>
-<li><a href="#_fonctionnalité_de_gestion_des_animaux_perdus">Fonctionnalité de Gestion des Animaux Perdus</a></li>
+<li><a href="#_fonctionnalité_interaction_avec_les_avis_petite">Fonctionnalité Interaction avec les Avis (Petite)</a>
+<ul class="sectlevel3">
+<li><a href="#_maquette_du_front">Maquette du front</a></li>
+<li><a href="#_maquette_du_front_2">Maquette du front</a></li>
+<li><a href="#_diagramme_de_séquence">Diagramme de séquence</a></li>
 </ul>
 </li>
-<li><a href="#_fonctionnalité_de_planification_des_heures_de_repas_et_envoi_de_mails">Fonctionnalité de Planification des Heures de Repas et Envoi de Mails</a>
-<ul class="sectlevel1">
-<li><a href="#_introduction">Introduction</a></li>
-<li><a href="#_contenu_de_la_page_html">Contenu de la Page HTML</a>
+</ul>
+</li>
+<li><a href="#_fonctionnalité_de_planification_des_heures_de_repas_et_envoi_de_mails_et_confirmation_du_mail">Fonctionnalité de Planification des Heures de Repas et Envoi de Mails et confirmation du mail</a>
 <ul class="sectlevel2">
-<li><a href="#_structure_html">Structure HTML</a></li>
-<li><a href="#_scripts_javascript">Scripts JavaScript</a></li>
-<li><a href="#_fonctionnalités_principales">Fonctionnalités Principales</a></li>
-<li><a href="#_1_affichage_des_horaires_de_repas">1. Affichage des Horaires de Repas</a></li>
-<li><a href="#_2_ajout_dune_alerte_dalimentation">2. Ajout d&#8217;une Alerte d&#8217;Alimentation</a></li>
-<li><a href="#_3_suppression_dune_alerte_dalimentation">3. Suppression d&#8217;une Alerte d&#8217;Alimentation</a></li>
-<li><a href="#_4_modification_dune_alerte_dalimentation">4. Modification d&#8217;une Alerte d&#8217;Alimentation</a></li>
-<li><a href="#_5_envoi_de_mails_de_rappel">5. Envoi de Mails de Rappel</a></li>
-<li><a href="#_utilisation_de_la_page">Utilisation de la Page</a></li>
+<li><a href="#_planification_des_heures_de_repas_et_envoi_de_mails">Planification des Heures de Repas et Envoi de Mails</a></li>
+<li><a href="#_envoi_de_mails_de_rappel">Envoi de Mails de Rappel</a></li>
 <li><a href="#_confirmation_de_le_mail">Confirmation de l&#8217;E-mail</a></li>
 <li><a href="#_api_de_la_fonctionnalité">API de la fonctionnalité</a></li>
 </ul>
 </li>
-<li><a href="#_partie_3_modélisation">Partie 3 : Modélisation</a></li>
-<li><a href="#_base_de_données">Base de données</a>
-<ul class="sectlevel2">
-<li><a href="#_modèle_lovemypet">Modèle LoveMyPet</a></li>
+<li><a href="#_fonctionnalité_de_donnation_dobjets">Fonctionnalité de donnation d&#8217;objets</a>
+<ul class="sectlevel3">
+<li><a href="#_description_de_la_fonctionnalité">Description de la fonctionnalité</a></li>
+<li><a href="#_ajout_dobjets_à_donner">Ajout d&#8217;objets à donner</a></li>
+<li><a href="#_consultation_des_objets_disponibles">Consultation des objets disponibles</a></li>
+<li><a href="#_contacter_le_posteur_pour_récupérer_lobjet">Contacter le posteur pour récupérer l&#8217;objet</a></li>
+<li><a href="#_objectifs_de_la_fonctionnalité">Objectifs de la fonctionnalité</a></li>
 </ul>
 </li>
+<li><a href="#_api_de_la_fonctionnalité_de_donation_dobjets">API de la fonctionnalité de donation d&#8217;objets</a>
+<ul class="sectlevel3">
+<li><a href="#_ajout_dobjets_à_donner_2">Ajout d&#8217;objets à donner</a></li>
+<li><a href="#_consultation_des_objets_disponibles_2">Consultation des objets disponibles</a></li>
+<li><a href="#_détails_dun_objet_à_donner">Détails d&#8217;un objet à donner</a></li>
+<li><a href="#_récupération_des_objets_dune_personne">Récupération des objets d&#8217;une personne</a></li>
+<li><a href="#_suppression_dun_objet_à_donner">Suppression d&#8217;un objet à donner</a></li>
+<li><a href="#_diagramme_de_séquence_3">Diagramme de séquence</a></li>
+</ul>
+</li>
+<li><a href="#_fonctionnalité_de_création_et_inscription_aux_événements_sur_lovemypet">Fonctionnalité de Création et Inscription aux Événements sur LoveMyPet</a>
+<ul class="sectlevel1">
+<li><a href="#_présentation_2">Présentation</a></li>
+<li><a href="#_utilisation_depuis_la_page_mes_services">Utilisation depuis la Page "Mes Services"</a>
+<ul class="sectlevel2">
+<li><a href="#_ajout_dun_événement">Ajout d&#8217;un Événement</a></li>
+<li><a href="#_affichage_des_événements_non_expirés">Affichage des Événements Non Expirés</a></li>
+<li><a href="#_inscription_à_un_événement">Inscription à un Événement</a></li>
+<li><a href="#_affichage_des_événements_créés_par_un_utilisateur">Affichage des Événements Créés par un Utilisateur</a></li>
+<li><a href="#_suppression_dun_événement_créé">Suppression d&#8217;un Événement Créé</a></li>
+</ul>
+</li>
+<li><a href="#_diagramme_de_classe">Diagramme de Classe</a></li>
+<li><a href="#_api">API</a>
+<ul class="sectlevel2">
+<li><a href="#_ajout_dévénement">Ajout d&#8217;Événement</a></li>
+<li><a href="#_affichage_des_événements_non_expirés_2">Affichage des Événements Non Expirés</a></li>
+<li><a href="#_détails_dun_événement_non_expiré">Détails d&#8217;un Événement Non Expiré</a></li>
+<li><a href="#_liste_des_événements_créés_par_un_utilisateur">Liste des Événements Créés par un Utilisateur</a></li>
+<li><a href="#_inscription_à_un_événement_2">Inscription à un Événement</a></li>
+</ul>
+</li>
+<li><a href="#_diagramme_de_séquence_ajout_dévénement">Diagramme de Séquence - Ajout d&#8217;Événement</a></li>
+<li><a href="#_diagramme_de_séquence_affichage_des_événements_non_expirés">Diagramme de Séquence - Affichage des Événements Non Expirés</a></li>
+<li><a href="#_diagramme_de_séquence_inscription_à_un_événement">Diagramme de Séquence - Inscription à un Événement</a></li>
 </ul>
 </li>
 </ul>
@@ -1045,20 +1081,6 @@ Frontend -- Backend : communique
 </div>
 </div>
 <div class="sect4">
-<h5 id="_lostanimalcontroller">LostAnimalController</h5>
-<div class="paragraph">
-<p>Point de départ de l&#8217;API : <code>/lost-animal</code></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>POST /add</code> : Ajouter un animal perdu dans la table LotAnimal.
-*<code>GET /list</code> : Récupérer la liste des animaux perdus.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
 <h5 id="_mescandidaturecontroller_2">MesCandidatureController</h5>
 <div class="paragraph">
 <p>Point de départ de l&#8217;API : <code>/mescandidature</code></p>
@@ -1121,13 +1143,6 @@ Frontend -- Backend : communique
 <div class="sect1">
 <h2 id="_partie_1_modélisation">Partie 1 : Modélisation</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_fonctionnalité_dadoption_des_animaux">Fonctionnalité d&#8217;Adoption des Animaux</h3>
-<div class="paragraph">
-<p>Une fonctionnalité essentielle de notre application est l&#8217;adoption d&#8217;animaux, offrant une expérience conviviale pour faciliter le processus.</p>
-</div>
-<div class="sect3">
-<h4 id="_ajout_danimaux_dans_mes_animaux">Ajout d&#8217;Animaux dans "Mes Animaux"</h4>
 <div class="paragraph">
 <p>Après avoir ajouté des compagnons dans la section "Mes Animaux", chaque animal est associé au bouton unique "Donner". Cela déclenche un pop-up interactif pour faciliter l&#8217;adoption.</p>
 </div>
@@ -1136,7 +1151,7 @@ Frontend -- Backend : communique
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="enregistrement.png" alt="etape 1">
+<img src="AddAnimal.png" alt="etape 1">
 </div>
 </div>
 <div class="paragraph">
@@ -1144,7 +1159,7 @@ Frontend -- Backend : communique
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="donner.png" alt="etape 2">
+<img src="Animals/animals.png" alt="etape 2">
 </div>
 </div>
 <div class="paragraph">
@@ -1152,8 +1167,7 @@ Frontend -- Backend : communique
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="popup.png" alt="etape 3">
-</div>
+<img src="Animals/popup.png" alt="etape 3">
 </div>
 </div>
 <div class="sect3">
@@ -1172,7 +1186,7 @@ Frontend -- Backend : communique
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="adoption.png" alt="etape 4">
+<img src="Animals/adoption.png" alt="etape 4">
 </div>
 </div>
 <div class="paragraph">
@@ -1188,8 +1202,10 @@ Frontend -- Backend : communique
 <p><strong>étape 5</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>étape 6</strong></p>
+<p>Le propriétaire peut ensuite examiner chaque candidature individuellement et décider d&#8217;accepter ou de refuser.</p>
 </div>
+<div class="paragraph">
+<p><strong>étape 6</strong></p>
 </div>
 </div>
 <div class="sect2">
@@ -1268,7 +1284,7 @@ image::mes_animaux.png[etape 2]</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="map.png" alt="Map">
+<img src="Map/map.png" alt="Map">
 </div>
 </div>
 </div>
@@ -1284,34 +1300,6 @@ image::mes_animaux.png[etape 2]</p>
 </div>
 <div class="paragraph">
 <p>En outre, l&#8217;application utilise l&#8217;API Nominatim pour convertir le nom de la ville saisi par l&#8217;utilisateur en coordonnées géographiques.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>class VeterinairesController {
-    +getVeterinaires(double latitude, double longitude, String city, int radius): String
-    -Veterinary
-}
-
-class Veterinary {
-    -lat: double
-    -lon: double
-    -name: String
-
-    +Veterinary(double lat, double lon, String name)
-    +getLat(): double
-    +getLon(): double
-    +getName(): String
-}
-
-class RestTemplate {
-    +getForObject(url: String, responseType: Class&lt;T&gt;): T
-}
-
-VeterinairesController --&gt; Veterinary: "1..*"
-VeterinairesController --&gt; RestTemplate: makeApiCall()
-RestTemplate --&gt; API: Overpass API
-RestTemplate --&gt; API: Nominatim API</pre>
-</div>
 </div>
 <div class="ulist">
 <ul>
@@ -1341,14 +1329,14 @@ RestTemplate --&gt; API: Nominatim API</pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="veterinaire.png" alt="Vétérinaire">
+<img src="Map/veterinaire.png" alt="Vétérinaire">
 </div>
 </div>
 <div class="sect2">
 <h3 id="_recherche_par_ville_geneve">Recherche par ville "Geneve":</h3>
 <div class="imageblock">
 <div class="content">
-<img src="veterinairegeneve.png" alt="veterinairegeneve">
+<img src="Map/veterinairegeneve.png" alt="veterinairegeneve">
 </div>
 </div>
 <div class="ulist">
@@ -1373,162 +1361,216 @@ RestTemplate --&gt; API: Nominatim API</pre>
 <p>L&#8217;API Overpass est un service d&#8217;interrogation et d&#8217;analyse de données OpenStreetMap. Elle permet de récupérer des données géographiques en utilisant un langage de requête spécifique. Dans le contexte de cette application, elle est utilisée pour obtenir des informations sur les vétérinaires et les jardins à proximité en fonction de la position de l&#8217;utilisateur. Les requêtes sont construites dynamiquement pour cibler les catégories spécifiques (amenity=veterinary, leisure=garden) et les résultats sont intégrés à la carte de l&#8217;application.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_diagramme_de_class">Diagramme de class</h3>
+<div class="listingblock">
+<div class="content">
+<pre>class VeterinairesController {
+    +getVeterinaires(double latitude, double longitude, String city, int radius): String
+    -Veterinary
+}
+
+class Veterinary {
+    -lat: double
+    -lon: double
+    -name: String
+
+    +Veterinary(double lat, double lon, String name)
+    +getLat(): double
+    +getLon(): double
+    +getName(): String
+}
+
+class RestTemplate {
+    +getForObject(url: String, responseType: Class&lt;T&gt;): T
+}
+
+VeterinairesController --&gt; Veterinary: "1..*"
+VeterinairesController --&gt; RestTemplate: makeApiCall()
+RestTemplate --&gt; API: Overpass API
+RestTemplate --&gt; API: Nominatim API</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>===API Contrôleur des Vétérinaires</p>
+</div>
+<div class="paragraph">
+<p>Ce contrôleur utilise l&#8217;API Overpass pour récupérer la liste des vétérinaires dans une ville donnée.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_interaction_avec_les_avis">Interaction avec les Avis</h2>
+<h2 id="_paramètres_de_requête">Paramètres de Requête</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Ce contrôleur accepte les paramètres de requête suivants :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>city</code> (String): Nom de la ville.</p>
+</li>
+<li>
+<p><code>latitude</code> (double): Latitude du point central.</p>
+</li>
+<li>
+<p><code>longitude</code> (double): Longitude du point central.</p>
+</li>
+<li>
+<p><code>radius</code> (double, facultatif, valeur par défaut: 3000): Rayon de recherche en mètres.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Exemple de requête:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="asciidoc">[Exemple]
+/api/veterinaires?city=Paris&amp;latitude=48.8566&amp;longitude=2.3522&amp;radius=5000</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exemple_de_réponse">Exemple de Réponse</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La réponse du contrôleur est une liste d&#8217;objets <code>Veterinary</code> avec les coordonnées géographiques et le nom du vétérinaire.</p>
+</div>
+<div class="paragraph">
+<p>Exemple de réponse:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="Parc.png" alt="Parc">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_explication_de_lapi_overpass_et_nominatim_2">Explication de l&#8217;API Overpass et Nominatim</h3>
+<div class="paragraph">
+<p>L&#8217;API Overpass est un service d&#8217;interrogation et d&#8217;analyse de données OpenStreetMap. Elle permet de récupérer des données géographiques en utilisant un langage de requête spécifique. Dans le contexte de cette application, elle est utilisée pour obtenir des informations sur les vétérinaires et les jardins à proximité en fonction de la position de l&#8217;utilisateur. Les requêtes sont construites dynamiquement pour cibler les catégories spécifiques (amenity=veterinary, leisure=garden) et les résultats sont intégrés à la carte de l&#8217;application.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_fonctionnalité_interaction_avec_les_avis_petite">Fonctionnalité Interaction avec les Avis (Petite)</h2>
+<div class="sectionbody">
+<div class="sect3">
+<h4 id="_maquette_du_front">Maquette du front</h4>
+<div class="paragraph">
+<p>Les utilisateurs ont la possibilité d&#8217;interagir avec les avis en les consultant, en les likant, ou en les dislikant. Cette fonctionnalité permet d&#8217;exprimer des réactions vis-à-vis des conseils postés par d&#8217;autres utilisateurs.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_maquette_du_front_2">Maquette du front</h4>
 <div class="imageblock">
 <div class="content">
 <img src="images_planification_food/7.png" alt="advice">
 </div>
 </div>
-<div class="paragraph">
-<p>Dans cette sous-branche, les utilisateurs ont la possibilité d&#8217;interagir avec les avis en les consultant, en les likant, ou en les dislikant. Cette fonctionnalité permet d&#8217;exprimer des réactions vis-à-vis des conseils postés par d&#8217;autres utilisateurs.</p>
-</div>
-<div class="sect2">
-<h3 id="_consulter_les_avis">Consulter les Avis</h3>
-<div class="paragraph">
-<p>Les utilisateurs peuvent parcourir les avis postés par d&#8217;autres membres de la communauté LoveMyPet. Ces avis peuvent contenir des conseils utiles, des expériences personnelles, ou des informations pertinentes sur les animaux de compagnie.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_liker_un_avis">Liker un Avis</h3>
-<div class="paragraph">
-<p>Chaque utilisateur a la possibilité de manifester son appréciation envers un avis en utilisant la fonction "Like". Lorsqu&#8217;un utilisateur clique sur le bouton "Like" d&#8217;un avis, cela indique une réaction positive envers le contenu de cet avis.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_disliker_un_avis">Disliker un Avis</h3>
-<div class="paragraph">
-<p>De même, les utilisateurs peuvent exprimer leur désaccord ou leur mécontentement envers un avis en utilisant la fonction "Dislike". Cliquer sur le bouton "Dislike" signifie que l&#8217;utilisateur n&#8217;est pas en accord avec le contenu de l&#8217;avis.</p>
-</div>
-<div class="paragraph">
-<p>Ces interactions permettent de créer une dynamique communautaire où les utilisateurs peuvent partager leurs opinions et réagir aux conseils des autres membres.</p>
-</div>
-<div class="paragraph">
-<p>Les actions de "Like" et "Dislike" sont enregistrées dans la base de données, fournissant ainsi des informations sur la popularité et la réception des avis au sein de la communauté LoveMyPet.</p>
-</div>
-<div class="paragraph">
-<p>Ces fonctionnalités contribuent à renforcer l&#8217;engagement des utilisateurs et favorisent une communauté active et collaborative.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_fonctionnalité_de_gestion_des_animaux_perdus">Fonctionnalité de Gestion des Animaux Perdus</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>La section "Animaux Perdus" de LoveMyPet propose une fonctionnalité permettant aux utilisateurs de déclarer et de retrouver leurs compagnons perdus. Lorsque vous accédez à cette section depuis la page "Nos Services", vous trouverez deux boutons distincts : "Déclarer un Animal Perdu" et "Liste des Animaux Perdus".</p>
-</div>
-<div class="literalblock">
+<div class="sect4">
+<h5 id="_consulter_les_avis">Consulter les Avis</h5>
+<div class="listingblock">
 <div class="content">
-<pre>Déclarer un Animal Perdu :
-En cliquant sur ce bouton, les utilisateurs peuvent remplir un formulaire pour déclarer un animal perdu. Ils peuvent fournir des détails tels que le nom de l'animal, une description, une photo, et d'autres informations pertinentes.</pre>
+<pre class="CodeRay highlight"><code data-lang="asciidoc">[
+  {
+    &quot;lat&quot;: 45.8534,
+    &quot;lon&quot;: 3.3488,
+    &quot;name&quot;: &quot;Vétérinaire A&quot;
+  },
+  {
+    &quot;lat&quot;: 48.8591,
+    &quot;lon&quot;: 2.3637,
+    &quot;name&quot;: &quot;Vétérinaire B&quot;
+  },
+  // ...
+]</code></pre>
 </div>
 </div>
-<div class="literalblock">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_diagramme_de_séquence">Diagramme de séquence</h3>
+<div class="listingblock">
 <div class="content">
-<pre>    Liste des Animaux Perdus :
-    Ce bouton affiche une liste des animaux perdus déclarés par la communauté LoveMyPet. Les utilisateurs peuvent parcourir cette liste pour retrouver des animaux perdus et faciliter des réunions chaleureuses entre les amis à fourrure égarés et leurs propriétaires.
-L'API Nominatim est utilisée pour convertir le nom de la ville saisi par l'utilisateur en coordonnées géographiques, ce qui permet d'étendre la fonctionnalité de recherche par ville et périmètre.</pre>
-</div>
-</div>
-</div>
-</div>
-<h1 id="_fonctionnalité_de_planification_des_heures_de_repas_et_envoi_de_mails" class="sect0">Fonctionnalité de Planification des Heures de Repas et Envoi de Mails</h1>
-<div class="sect1">
-<h2 id="_introduction">Introduction</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>La fonctionnalité de planification des heures de repas et d&#8217;envoi de mails de LoveMyPet permet aux utilisateurs de définir des horaires de repas pour leurs animaux de compagnie et de recevoir des rappels par e-mail à ces heures programmées. Cette documentation explique comment utiliser la page dédiée à cette fonctionnalité, basée sur le code HTML fourni.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images_planification_food/3.png" alt="Planification de repas">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_contenu_de_la_page_html">Contenu de la Page HTML</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>La page HTML fournie contient un formulaire pour ajouter des alertes d&#8217;alimentation, une liste d&#8217;alertes existantes avec des options pour les supprimer ou les modifier, et des scripts JavaScript pour interagir avec l&#8217;API et gérer les fonctionnalités associées.</p>
-</div>
-<div class="sect2">
-<h3 id="_structure_html">Structure HTML</h3>
-<div class="paragraph">
-<p>La structure de la page HTML est composée des éléments suivants :
-- Bouton de redirection vers la page "Mes animaux."
-- Titre "Mes alertes."
-- Message indiquant la réception de mails.
-- Formulaire pour ajouter une alerte avec champ d&#8217;heure et bouton "Créer une alerte."
-- Tableau affichant les heures de repas programmées avec options pour les supprimer ou les éditer.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_scripts_javascript">Scripts JavaScript</h3>
-<div class="paragraph">
-<p>Plusieurs scripts JavaScript sont inclus pour gérer la récupération, l&#8217;affichage, la suppression et la modification des horaires de repas à partir de l&#8217;API.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_fonctionnalités_principales">Fonctionnalités Principales</h3>
+<pre>@startuml
+actor Utilisateur
+participant VeterinairesController
+participant "Overpass API" as OverpassAPI
 
+Utilisateur -&gt; VeterinairesController: Requête: /api/veterinaires
+activate VeterinairesController
+
+VeterinairesController -&gt; OverpassAPI: Appel à l'Overpass API
+activate OverpassAPI
+
+OverpassAPI --&gt; VeterinairesController: Résultat de l'Overpass API
+deactivate OverpassAPI
+
+VeterinairesController --&gt; Utilisateur: Réponse au client
+deactivate VeterinairesController
+
+@enduml</pre>
 </div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>@startuml
+actor Utilisateur
+participant ParcsController
+participant "Overpass API" as OverpassAPI
+
+Utilisateur -&gt; ParcsController: Requête: /api/parcs
+activate ParcsController
+
+ParcsController -&gt; OverpassAPI: Appel à l'Overpass API
+activate OverpassAPI
+
+OverpassAPI --&gt; ParcsController: Résultat de l'Overpass API
+deactivate OverpassAPI
+
+ParcsController --&gt; Utilisateur: Réponse au client
+deactivate ParcsController
+
+@enduml</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<h1 id="_fonctionnalité_de_planification_des_heures_de_repas_et_envoi_de_mails_et_confirmation_du_mail" class="sect0">Fonctionnalité de Planification des Heures de Repas et Envoi de Mails et confirmation du mail</h1>
 <div class="sect2">
-<h3 id="_1_affichage_des_horaires_de_repas">1. Affichage des Horaires de Repas</h3>
+<h3 id="_planification_des_heures_de_repas_et_envoi_de_mails">Planification des Heures de Repas et Envoi de Mails</h3>
 <div class="paragraph">
-<p>La fonction <code>fetchFeedingTimes(animalId)</code> récupère les horaires de repas depuis l&#8217;API et les affiche dans le tableau sur la page.</p>
+<p>Cette fonctionnalité permet à un utilisateur de programmer les heures auxquelles il souhaite nourrir son animal</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_2_ajout_dune_alerte_dalimentation">2. Ajout d&#8217;une Alerte d&#8217;Alimentation</h3>
+<div class="sect3">
+<h4 id="_maquette_du_front_3">Maquette du front</h4>
 <div class="paragraph">
-<p>La fonction <code>submitForm()</code> récupère l&#8217;heure saisie par l&#8217;utilisateur, envoie une requête POST à l&#8217;API pour créer une nouvelle alerte, puis met à jour l&#8217;affichage.</p>
+<p>Etape 1: Rentrer une heure puis cliquer sur le boutton  "Creer une alerte" Puis l&#8217;alerte sera ajouter au tableau</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_3_suppression_dune_alerte_dalimentation">3. Suppression d&#8217;une Alerte d&#8217;Alimentation</h3>
 <div class="paragraph">
-<p>La fonction <code>deleteFeedingTime(id)</code> envoie une requête DELETE à l&#8217;API pour supprimer l&#8217;alerte d&#8217;alimentation spécifiée par l&#8217;ID.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_4_modification_dune_alerte_dalimentation">4. Modification d&#8217;une Alerte d&#8217;Alimentation</h3>
-<div class="paragraph">
-<p>La fonction <code>updateFeedingTime(id)</code> permet à l&#8217;utilisateur de mettre à jour l&#8217;heure d&#8217;une alerte existante en envoyant une requête PUT à l&#8217;API.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_5_envoi_de_mails_de_rappel">5. Envoi de Mails de Rappel</h3>
-<div class="paragraph">
-<p>Chaque heure planifiée, un e-mail de rappel est automatiquement envoyé à l&#8217;utilisateur, l&#8217;informant de l&#8217;heure de repas prévue pour son animal.</p>
+<p>Aussi on peut modifier les alertes créer en cliqquand sur "Edith" , et supprimer ses alerte en "cliquand" sur Delete</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images_planification_food/4.png" alt="Exemple d&#8217;email envoyé a l&#8217;utilisateur">
+<img src="images_planification_food/1.png" alt="Planification de repas">
+</div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_utilisation_de_la_page">Utilisation de la Page</h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Accédez à la page via le bouton "Mes animaux."</p>
-</li>
-<li>
-<p>Ajoutez de nouvelles alertes d&#8217;alimentation en spécifiant l&#8217;heure et en cliquant sur "Créer une alerte."</p>
-</li>
-<li>
-<p>Consultez et gérez les alertes existantes dans le tableau.</p>
-</li>
-<li>
-<p>Recevez des rappels par e-mail à chaque heure programmée.</p>
-</li>
-</ol>
+<h3 id="_envoi_de_mails_de_rappel">Envoi de Mails de Rappel</h3>
+<div class="paragraph">
+<p>En suite lutilisateur n&#8217;a plus rien a faire , il recevra un email pour chaque heure rentrer  l&#8217;informant de l&#8217;heure de repas prévue pour son animal.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images_planification_food/2.png" alt="Exemple d&#8217;email envoyé a l&#8217;utilisateur">
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1544,478 +1586,997 @@ L'API Nominatim est utilisée pour convertir le nom de la ville saisi par l'util
 <pre class="CodeRay highlight"><code data-lang="html"><span class="tag">&lt;a</span> <span class="attribute-name">href</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">/feeding-confirmation/confirm?personId=1</span><span class="entity">&amp;amp;</span><span class="content">animalId=1</span><span class="entity">&amp;amp;</span><span class="content">feedingTimeId=39</span><span class="entity">&amp;amp;</span><span class="content">confirmationCode=ad97faf5</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>Confirmer<span class="tag">&lt;/a&gt;</span></code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Lorsque l&#8217;utilisateur clique sur ce lien, une requête est envoyée à l&#8217;API pour confirmer la réception de l&#8217;e-mail. Cette requête déclenche l&#8217;insertion d&#8217;une nouvelle ligne dans la base de données avec les informations associées à la confirmation.</p>
-</div>
-<div class="paragraph">
-<p>Voici un exemple de structure de la table dans la base de données :</p>
-</div>
+<div class="sect3">
+<h4 id="_diagramme_de_classes_global_partie_métier">Diagramme de classes global (partie métier)</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="sql"><span class="class">CREATE</span> <span class="type">TABLE</span> confirmation_table (
-    id SERIAL <span class="directive">PRIMARY</span> <span class="type">KEY</span>,
-    animal_id <span class="predefined-type">INTEGER</span>,
-    confirmation_code <span class="predefined-type">VARCHAR</span>(<span class="integer">255</span>),
-    confirmation_date <span class="predefined-type">TIMESTAMP</span>,
-    feeding_time_id <span class="predefined-type">INTEGER</span>,
-    person_id <span class="predefined-type">INTEGER</span>
-);</code></pre>
+<pre>@startuml
+class Person {
+idPerson: Integer
+LastName: String
+FirstName: String
+Email: String
+PhoneNumber: String
+Address: String
+Password: String
+ImageUrl: String
+}
+
+class Animal {
+id: Integer
+idPerson: Integer
+name: String
+category: String
+race: String
+weight: Double
+gender: Integer
+dateOfBirth: Date
+imageUrl: String
+adoptedByPerson: Person
+}
+
+class FeedingTime {
+id: Integer
+animal: Animal
+feedingTime: LocalTime
+}
+
+class FeedingConfirmation {
+id: Integer
+personId: Integer
+animalId: Integer
+feedingTimeId: Integer
+confirmationDate: Date
+confirmationCode: String
+}
+
+Person "1" -- "*" Animal : owns
+Animal "*" -- "1" FeedingTime : has feeding times
+Animal "*" -- "*" FeedingConfirmation : may have confirmations
+
+@enduml</pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Chaque confirmation est enregistrée avec les informations suivantes :
-- <code>id</code>: Identifiant unique de la confirmation (auto-incrémenté).
-- <code>animal_id</code>: Identifiant de l&#8217;animal concerné.
-- <code>confirmation_code</code>: Code de confirmation associé à l&#8217;e-mail.
-- <code>confirmation_date</code>: Date et heure de la confirmation.
-- <code>feeding_time_id</code>: Identifiant de l&#8217;horaire d&#8217;alimentation associé.
-- <code>person_id</code>: Identifiant de la personne effectuant la confirmation.</p>
-</div>
-<div class="paragraph">
-<p>Lorsqu&#8217;un utilisateur confirme l&#8217;e-mail, une nouvelle ligne est ajoutée à la table avec les données appropriées. Cette approche permet de suivre les confirmations pour chaque animal, chaque horaire d&#8217;alimentation, et chaque personne.</p>
-</div>
-<div class="paragraph">
-<p>Cette fonctionnalité offre une trace complète des confirmations et permet de garantir que les utilisateurs ont bien alimenté leurs animaux selon les horaires programmés.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images_planification_food/5.png" alt="Message">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images_planification_food/6.png" alt="Ligne dans la table feeding confirmation">
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_api_de_la_fonctionnalité">API de la fonctionnalité</h3>
 <div class="sect3">
-<h4 id="_ajout_dun_horaire_dalimentation">Ajout d&#8217;un Horaire d&#8217;Alimentation</h4>
+<h4 id="_1_ajout_dun_horaire_dalimentation">1) Ajout d&#8217;un Horaire d&#8217;Alimentation</h4>
 <div class="paragraph">
-<p>Endpoint : <code>POST /api/feeding-times/add</code>
-Cette API permet d&#8217;ajouter un nouvel horaire d&#8217;alimentation. Elle accepte une requête POST avec les détails de l&#8217;horaire dans le corps de la requête. En cas de succès, elle renvoie un message indiquant que l&#8217;horaire a été ajouté avec succès. En cas d&#8217;erreur, elle peut retourner des messages spécifiques, tels que la détection d&#8217;un conflit si l&#8217;horaire existe déjà.</p>
+<p>Endpoint : <code>POST /api/feeding-times/add</code></p>
+</div>
+<div class="paragraph">
+<p>Voici le body de la requête :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">animal</span><span class="delimiter">&quot;</span></span>: {
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>: <span class="integer">1</span>
+  },
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">feedingTime</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">20:45</span><span class="delimiter">&quot;</span></span>
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>et le output :</p>
+</div>
+<div class="paragraph">
+<p><code>Message : Horaires d&#8217;alimentation ajouté avec succès.</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_liste_des_horaire_dalimentation_pour_un_animal">Liste des Horaire d&#8217;Alimentation pour un Animal</h4>
+<h4 id="_2_liste_des_horaires_dalimentation_pour_un_animal">2) Liste des Horaires d&#8217;Alimentation pour un Animal</h4>
 <div class="paragraph">
-<p>Endpoint : <code>GET /api/feeding-times/{idAnimal}</code>
-Cette API renvoie la liste des horaires de repas associés à un animal spécifié par son ID. Les horaires sont renvoyés sous forme de liste de chaînes.</p>
+<p>Endpoint : <code>GET /api/feeding-times/{idAnimal}</code></p>
+</div>
+<div class="paragraph">
+<p>et le output :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">[<span class="string"><span class="delimiter">&quot;</span><span class="content">time/1</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">time/2</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">time/3</span><span class="delimiter">&quot;</span></span>]</code></pre>
+</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_détail_dun_horaire_dalimentation">Détail d&#8217;un Horaire d&#8217;Alimentation</h4>
+<h4 id="_3_détail_dun_horaire_dalimentation">3) Détail d&#8217;un Horaire d&#8217;Alimentation</h4>
 <div class="paragraph">
-<p>Endpoint : <code>GET /api/feeding-times/time/{id}</code>
-Cette API renvoie les détails d&#8217;un horaire d&#8217;alimentation spécifié par son ID. Si l&#8217;horaire existe, elle renvoie les détails de l&#8217;horaire sous forme d&#8217;objet. Sinon, elle retourne une réponse "Not Found."</p>
+<p>Endpoint : <code>GET /api/feeding-times/time/{id}</code></p>
+</div>
+<div class="paragraph">
+<p>et le output :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+<span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>: <span class="integer">1</span>,
+<span class="key"><span class="delimiter">&quot;</span><span class="content">animal</span><span class="delimiter">&quot;</span></span>: {
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>: <span class="integer">1</span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">idPerson</span><span class="delimiter">&quot;</span></span>: <span class="integer">1</span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">name</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">xgecfie</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">category</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">cat</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">race</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">dde</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">weight</span><span class="delimiter">&quot;</span></span>: <span class="float">20.0</span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">gender</span><span class="delimiter">&quot;</span></span>: <span class="integer">1</span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">dateOfBirth</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">2024-01-25</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">imageUrl</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">selenium_true_vrai.jpg</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">adoptedByPerson</span><span class="delimiter">&quot;</span></span>: {
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">idPerson</span><span class="delimiter">&quot;</span></span>: <span class="integer">1</span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">password</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">f</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">address</span><span class="delimiter">&quot;</span></span>: <span class="value">null</span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">email</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">f@gmail.com</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">imageUrl</span><span class="delimiter">&quot;</span></span>: <span class="value">null</span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">lastName</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">ichola</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">firstName</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">sadikou</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">phoneNumber</span><span class="delimiter">&quot;</span></span>: <span class="value">null</span>
+    }
+},
+<span class="key"><span class="delimiter">&quot;</span><span class="content">feedingTime</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">15:42</span><span class="delimiter">&quot;</span></span>
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_suppression_dun_horaire_dalimentation">Suppression d&#8217;un Horaire d&#8217;Alimentation</h4>
+<h4 id="_4_suppression_dun_horaire_dalimentation">4) Suppression d&#8217;un Horaire d&#8217;Alimentation</h4>
 <div class="paragraph">
-<p>Endpoint : <code>DELETE /api/feeding-times/delete/{id}</code>
-Cette API permet de supprimer un horaire d&#8217;alimentation en spécifiant son ID. En cas de succès, elle renvoie un message indiquant que l&#8217;horaire a été supprimé avec succès. En cas d&#8217;erreur, elle peut retourner un message générique d&#8217;erreur interne du serveur.</p>
+<p>Endpoint : <code>DELETE /api/feeding-times/delete/{id}</code></p>
+</div>
+<div class="paragraph">
+<p>Et output :</p>
+</div>
+<div class="paragraph">
+<p><code>L&#8217;heure a étét supprimer</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_mise_à_jour_dun_horaire_dalimentation">Mise à Jour d&#8217;un Horaire d&#8217;Alimentation</h4>
+<h4 id="_4_mise_à_jour_dun_horaire_dalimentation">4)  Mise à Jour d&#8217;un Horaire d&#8217;Alimentation</h4>
 <div class="paragraph">
-<p>Endpoint : <code>PUT /api/feeding-times/update/{id}</code>
-Cette API permet de mettre à jour un horaire d&#8217;alimentation en spécifiant son ID. Elle accepte une requête PUT avec les détails mis à jour dans le corps de la requête. En cas de succès, elle renvoie un message de mise à jour réussie. En cas d&#8217;erreur, elle peut retourner un message d&#8217;erreur spécifique.</p>
+<p>Endpoint : <code>PUT /api/feeding-times/update/{id}</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+<span class="key"><span class="delimiter">&quot;</span><span class="content">animal</span><span class="delimiter">&quot;</span></span>: {
+<span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>: <span class="integer">1</span>
+},
+<span class="key"><span class="delimiter">&quot;</span><span class="content">feedingTime</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">15:45</span><span class="delimiter">&quot;</span></span>
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Output : <code>Mise à jour réussie.</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_récupération_des_horaire_dalimentation_actuels_pour_les_e_mails">Récupération des Horaire d&#8217;Alimentation Actuels pour les E-mails</h4>
+<h4 id="_5_récupération_des_horaire_dalimentation_actuels_pour_les_e_mails">5) Récupération des Horaire d&#8217;Alimentation Actuels pour les E-mails</h4>
 <div class="paragraph">
-<p>Endpoint : <code>GET /api/feeding-times/email-animal-current-feeding-times</code>
-Cette API renvoie une liste d&#8217;informations sur les horaires de repas actuels pour lesquels des e-mails de rappel doivent être envoyés. Les informations sont renvoyées sous forme de liste d&#8217;objets. En cas de succès, elle renvoie la liste des horaires. En cas d&#8217;absence de données, elle renvoie une réponse "No Content." En cas d&#8217;erreur, elle peut retourner une réponse générique d&#8217;erreur interne du serveur.</p>
+<p>Endpoint : <code>GET /api/feeding-times/email-animal-current-feeding-times</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">[
+    [
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">f@gmail.com</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">Fanuel</span><span class="delimiter">&quot;</span></span>,
+        <span class="integer">1</span>,
+        <span class="integer">1</span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">loulou</span><span class="delimiter">&quot;</span></span>,
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">image_animal.jpg</span><span class="delimiter">&quot;</span></span>,
+        <span class="integer">4</span>
+    ]
+]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_6_confirmer_lemail">6) Confirmer l&#8217;email</h4>
+<div class="paragraph">
+<p>Endpoint : <code>GET /feeding-confirmation/confirm?personId=1&amp;animalId=2&amp;feedingTimeId=3&amp;confirmationCode=ABC123</code></p>
+</div>
+<div class="paragraph">
+<p>Output :</p>
+</div>
+<div class="paragraph">
+<p><code>Comfirmation réussie Failed to confirm feeding.</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_diagramme_de_séquence_2">Diagramme de séquence</h4>
+<div class="listingblock">
+<div class="content">
+<pre>@startuml
+participant Client
+participant FeedingTimeController
+participant FeedingTimeService
+participant FeedingTimeServiceImpl
+participant FeedingTimeRepository
+participant ScheduledEmailService
+participant EmailSenderService
+participant Person
+participant Animal
+
+Client-&gt;FeedingTimeController: POST /api/feeding-times/add
+FeedingTimeController-&gt;FeedingTimeService: addFeedingTime(FeedingTime)
+FeedingTimeService-&gt;FeedingTimeServiceImpl: addFeedingTime(FeedingTime)
+FeedingTimeServiceImpl-&gt;FeedingTimeRepository: save(FeedingTime)
+FeedingTimeRepository--&gt;FeedingTimeServiceImpl: Database save operation
+FeedingTimeServiceImpl--&gt;FeedingTimeService: Database save successful
+FeedingTimeService--&gt;FeedingTimeController: Operation successful response
+
+ScheduledEmailService--&gt;FeedingTimeServiceImpl: getInfosCurrentFeedingTimes()
+FeedingTimeServiceImpl-&gt;FeedingTimeRepository: findEmailsAndAnimalDetailsForUsersWithCurrentFeedingTime()
+FeedingTimeRepository--&gt;FeedingTimeServiceImpl: Database query result
+FeedingTimeServiceImpl-&gt;EmailSenderService: sendHtmlEmail(userEmail, subject, body)
+EmailSenderService--&gt;ScheduledEmailService: Email sent successfully
+
+Client-&gt;FeedingConfirmationController: GET /feeding-confirmation/confirm
+FeedingConfirmationController-&gt;FeedingConfirmationService: confirmFeeding(personId, animalId, feedingTimeId, confirmationCode)
+FeedingConfirmationService-&gt;FeedingConfirmationServiceImpl: confirmFeeding(personId, animalId, feedingTimeId, confirmationCode)
+FeedingConfirmationServiceImpl-&gt;FeedingConfirmationRepository: Database query to confirm feeding
+FeedingConfirmationRepository--&gt;FeedingConfirmationServiceImpl: Database query result
+FeedingConfirmationServiceImpl--&gt;FeedingConfirmationService: Feeding confirmation result
+FeedingConfirmationService--&gt;FeedingConfirmationController: Feeding confirmation response
+@enduml</pre>
+</div>
 </div>
 <hr>
 </div>
 </div>
+<h1 id="_fonctionnalité_de_donnation_dobjets" class="sect0">Fonctionnalité de donnation d&#8217;objets</h1>
+<div class="openblock partintro">
+<div class="content">
+<div class="imageblock">
+<div class="content">
+<img src="Donation/Objetgratuit.png" alt="Obtenez des objets gratuitements">
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_description_de_la_fonctionnalité">Description de la fonctionnalité</h4>
+<div class="paragraph">
+<p>La fonctionnalité de donation d&#8217;objets permet aux utilisateurs de proposer des objets qu&#8217;ils souhaitent donner à d&#8217;autres personnes. Voici comment fonctionne cette fonctionnalité :</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ajout_dobjets_à_donner">Ajout d&#8217;objets à donner</h4>
+<div class="imageblock">
+<div class="content">
+<img src="Donation/Poster_des_objets.png" alt="Postez des Objets">
+</div>
+</div>
+<div class="paragraph">
+<p>Les utilisateurs peuvent ajouter des informations sur les objets qu&#8217;ils souhaitent donner, telles que le nom de l&#8217;objet, une description et éventuellement une photo. En utilisant une interface conviviale, ils remplissent un formulaire avec les détails de l&#8217;objet, y compris le nom, la description et la photo facultative. Une fois le formulaire soumis, les informations sur l&#8217;objet sont enregistrées dans la base de données.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_consultation_des_objets_disponibles">Consultation des objets disponibles</h4>
+<div class="paragraph">
+<p>Les autres utilisateurs peuvent consulter la liste des objets disponibles à donner. Ils peuvent parcourir les objets ajoutés par d&#8217;autres utilisateurs et voir leurs détails, tels que le nom, la description et la photo. Cette fonctionnalité leur permet de trouver des objets qui pourraient les intéresser.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_contacter_le_posteur_pour_récupérer_lobjet">Contacter le posteur pour récupérer l&#8217;objet</h4>
+<div class="paragraph">
+<p>Si un utilisateur est intéressé par un objet à donner, il peut contacter le posteur de l&#8217;objet pour organiser la récupération. Cela peut se faire par le biais de coordonnées fournies par l&#8217;utilisateur qui donne l&#8217;objet, telles qu&#8217;une adresse e-mail ou un numéro de téléphone. Les deux parties peuvent ensuite convenir d&#8217;un moment et d&#8217;un lieu pour que l&#8217;utilisateur récupère l&#8217;objet donné.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_objectifs_de_la_fonctionnalité">Objectifs de la fonctionnalité</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Faciliter le processus de donation d&#8217;objets en permettant aux utilisateurs de proposer des objets à donner.</p>
+</li>
+<li>
+<p>Fournir aux utilisateurs une plateforme où ils peuvent trouver des objets disponibles à donner qui correspondent à leurs besoins.</p>
+</li>
+<li>
+<p>Encourager le partage et la réutilisation des objets pour réduire le gaspillage et favoriser le développement durable.</p>
+</li>
+<li>
+<p>Créer une communauté où les utilisateurs peuvent se soutenir mutuellement en donnant et en recevant des objets de manière désintéressée</p>
+</li>
+</ul>
+</div>
+</div>
+<h1 id="_api_de_la_fonctionnalité_de_donation_dobjets" class="sect0">API de la fonctionnalité de donation d&#8217;objets</h1>
+<div class="openblock partintro">
+<div class="content">
+<div class="paragraph">
+<p>-</p>
+</div>
+<div class="paragraph">
+<p>L&#8217;API de la fonctionnalité de donation d&#8217;objets permet aux utilisateurs d&#8217;effectuer différentes opérations liées à la gestion des objets à donner.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ajout_dobjets_à_donner_2">Ajout d&#8217;objets à donner</h4>
+<div class="paragraph">
+<p>Endpoint : <code>POST /api/items-to-donate/add</code></p>
+</div>
+<div class="paragraph">
+<p>Ce point de terminaison permet aux utilisateurs d&#8217;ajouter des informations sur les objets qu&#8217;ils souhaitent donner. Les informations nécessaires comprennent le nom de l&#8217;objet, une description et éventuellement une photo. Les paramètres de la requête sont les suivants :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>itemName</code> : Le nom de l&#8217;objet à donner.</p>
+</li>
+<li>
+<p><code>description</code> : La description de l&#8217;objet à donner.</p>
+</li>
+<li>
+<p><code>photo</code> : La photo de l&#8217;objet à donner (facultatif).</p>
+</li>
+<li>
+<p><code>idPerson</code> : L&#8217;identifiant de la personne qui donne l&#8217;objet.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Exemple de corps de requête JSON :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">itemName</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Chaise</span><span class="delimiter">&quot;</span></span>,
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">description</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Chaise en bois</span><span class="delimiter">&quot;</span></span>,
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">photo</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">photo_chaise.jpg</span><span class="delimiter">&quot;</span></span>,
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">idPerson</span><span class="delimiter">&quot;</span></span>: <span class="integer">123</span>
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Réponse : En cas de succès, une réponse avec le message "Objet à donner ajouté avec succès" est renvoyée avec le code d&#8217;état HTTP 200 (OK). En cas d&#8217;erreur, une réponse avec le message "Erreur lors de l&#8217;ajout de l&#8217;objet à donner" est renvoyée avec le code d&#8217;état HTTP 500 (Internal Server Error).</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_consultation_des_objets_disponibles_2">Consultation des objets disponibles</h4>
+<div class="paragraph">
+<p>Endpoint : <code>GET /api/items-to-donate/</code></p>
+</div>
+<div class="paragraph">
+<p>Ce point de terminaison permet aux utilisateurs de consulter la liste des objets disponibles à donner. Il renvoie une liste d&#8217;URLs vers les détails de chaque objet disponible.</p>
+</div>
+<div class="paragraph">
+<p>Exemple de réponse JSON :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">[
+  <span class="string"><span class="delimiter">&quot;</span><span class="content">/api/items-to-donate/item/1</span><span class="delimiter">&quot;</span></span>,
+  <span class="string"><span class="delimiter">&quot;</span><span class="content">/api/items-to-donate/item/2</span><span class="delimiter">&quot;</span></span>,
+  <span class="string"><span class="delimiter">&quot;</span><span class="content">/api/items-to-donate/item/3</span><span class="delimiter">&quot;</span></span>
+]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_détails_dun_objet_à_donner">Détails d&#8217;un objet à donner</h4>
+<div class="paragraph">
+<p>Endpoint : <code>GET /api/items-to-donate/item/{id}</code></p>
+</div>
+<div class="paragraph">
+<p>Ce point de terminaison permet aux utilisateurs de récupérer les détails d&#8217;un objet à donner spécifique en fournissant son identifiant (<code>id</code>).</p>
+</div>
+<div class="paragraph">
+<p>Exemple de réponse JSON pour un objet avec l&#8217;identifiant 1 :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">id</span><span class="delimiter">&quot;</span></span>: <span class="integer">1</span>,
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">itemName</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Chaise</span><span class="delimiter">&quot;</span></span>,
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">description</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Chaise en bois</span><span class="delimiter">&quot;</span></span>,
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">imageUrl</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">photo_chaise.jpg</span><span class="delimiter">&quot;</span></span>,
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">donatingPerson</span><span class="delimiter">&quot;</span></span>: {
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">idPerson</span><span class="delimiter">&quot;</span></span>: <span class="integer">123</span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">firstName</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">John</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">lastName</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Doe</span><span class="delimiter">&quot;</span></span>
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_récupération_des_objets_dune_personne">Récupération des objets d&#8217;une personne</h4>
+<div class="paragraph">
+<p>Endpoint : <code>GET /api/items-to-donate/person/{personId}</code></p>
+</div>
+<div class="paragraph">
+<p>Ce point de terminaison permet aux utilisateurs de récupérer les objets qu&#8217;une personne spécifique a l&#8217;intention de donner. Il prend en paramètre l&#8217;identifiant de la personne (<code>personId</code>) et renvoie une liste d&#8217;URLs vers les détails de chaque objet.</p>
+</div>
+<div class="paragraph">
+<p>Exemple de réponse JSON pour les objets d&#8217;une personne avec l&#8217;identifiant 123 :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">[
+  <span class="string"><span class="delimiter">&quot;</span><span class="content">/api/items-to-donate/item/1</span><span class="delimiter">&quot;</span></span>,
+  <span class="string"><span class="delimiter">&quot;</span><span class="content">/api/items-to-donate/item/2</span><span class="delimiter">&quot;</span></span>
+]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_suppression_dun_objet_à_donner">Suppression d&#8217;un objet à donner</h4>
+<div class="paragraph">
+<p>Endpoint : <code>DELETE /api/items-to-donate/item/{id}</code></p>
+</div>
+<div class="paragraph">
+<p>Ce point de terminaison permet aux utilisateurs de supprimer un objet à donner spécifique en fournissant son identifiant (<code>id</code>). En cas de succès, une réponse avec le message "Objet à donner supprimé avec succès" est renvoyée avec le code d&#8217;état HTTP 200 (OK).</p>
+</div>
+<div class="paragraph">
+<p>Exemple de réponse JSON pour la suppression d&#8217;un objet avec l&#8217;identifiant 1 :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">message</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Objet à donner supprimé avec succès</span><span class="delimiter">&quot;</span></span>
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_partie_3_modélisation">Partie 3 : Modélisation</h2>
+<h2 id="_diagramme_de_séquence_3">Diagramme de séquence</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre>@startuml
 
-package com.nanterre.LoveMyPet.controller {
-  class AdoptionController {
-    + getAllAdoptionUrls(): List&lt;String&gt;
-    + getAdoptionDetails(idAdoption: Integer): Map&lt;String, Object&gt;
-    + addAdoption(adoption: Adoption): ResponseEntity&lt;Map&lt;String, String&gt;&gt;
-  }
-  class AnimalController {
-    + addAnimal(imageFile: MultipartFile, animal: Animal): ResponseEntity&lt;String&gt;
-    + getAnimalsReferenceByPersonId(idPerson: Integer): List&lt;String&gt;
-    + getAnimalDetailsById(id: Integer): Animal
-    + getCandidaturesByAnimalId(animalId: Integer): List&lt;String&gt;
-    + addAdoption(adoption: Adoption): ResponseEntity&lt;Map&lt;String, String&gt;&gt;
-  }
-  class CandidatureController {
-    + getCandidatureDetailsByAnimalIdAndCandidatureId(animalId: Integer, candidatureId: Integer): Candidature
-  }
-  class Controller {
-    + showAdoptionPage(model: Model): String
-    + showAnimals(model: Model): String
-    + showCandidatureByAnimalId(model: Model): String
-    + showVaccinations(model: Model): String
-    + showCandidatures(model: Model): String
-    + showpage(): String
-    + showpageaddAnimal(): String
-    + showpagelogin(): String
-    + homePage(): String
-    + profile(): String
-  }
-  class MesCandidatureController {
-    + getCandidatureReferenceByPersonId(idPerson: Integer): List&lt;String&gt;
-    + getCandidatureDetailsById(idCandidature: Integer): Candidature
-  }
-  class PersonController {
-    + getPersonDetailsById(id: Integer): Person
-    + add(imageFile: MultipartFile, person: Person): ResponseEntity&lt;String&gt;
-    + login(email: String, password: String, session: HttpSession): ResponseEntity&lt;?&gt;
-    + userProfile(session: HttpSession): ResponseEntity&lt;?&gt;
-    + addCandidature(idPerson: Integer, idAdoption: Integer, dateCandidature: String): ResponseEntity&lt;String&gt;
-  }
+package "Controller" {
+    class ItemToDonateController {
+        - itemToDonateService: ItemToDonateServiceImpl
+        + addItemToDonate(itemName: String, description: String, photo: MultipartFile, idPerson: Integer): ResponseEntity&lt;String&gt;
+        - saveImage(imageFile: MultipartFile): String
+        + getAllItemReferences(): List&lt;String&gt;
+        + getItemDetailsById(id: Integer): ItemToDonate
+        + getItemReferencesByPersonId(personId: Integer): ResponseEntity&lt;List&lt;String&gt;&gt;
+        + deleteItemToDonate(id: Integer): ResponseEntity&lt;String&gt;
+    }
 }
 
-package com.nanterre.LoveMyPet.service {
-  interface AdoptionService {
-    + getAllAdoptionUrls(): List&lt;String&gt;
-    + getAdoptionDetails(idAdoption: Integer): Map&lt;String, Object&gt;
-    + saveAdoption(adoption: Adoption)
-  }
-  interface AnimalService {
-    + getAnimalLinksByPersonId(idPerson: Integer): List&lt;String&gt;
-    + getAnimalDetailsById(id: Integer): Animal
-    + getAdoptionUrlsForAnimals(): List&lt;String&gt;
-    + saveAnimal(animal: Animal): Animal
-    + findAnimalById(id: Integer): Animal
-  }
-  interface CandidatureService {
-    + getCandidatureLinksByAnimalId(animalId: Integer): List&lt;String&gt;
-    + getCandidatureDetailsByAnimalIdAndCandidatureId(animalId: Integer, candidatureId: Integer): Candidature
-    + saveCandidature(candidature: Candidature)
-  }
-  interface MesCandidatureService {
-    + getCandidatureLinksByPersonId(idPerson: Integer): List&lt;String&gt;
-    + getCandidatureDetailsById(idCandidature: Integer): Candidature
-  }
-  interface PersonService {
-    + getPersonDetailsById(id: Integer): Person
-    + savePerson(person: Person): Person
-    + findPersonByEmail(email: String): Person
-  }
+package "Model" {
+    class ItemToDonate {
+        - id: Integer
+        - itemName: String
+        - description: String
+        - imageUrl: String
+        - donatingPerson: Person
+        + ItemToDonate()
+        + ItemToDonate(itemName: String, description: String, imageUrl: String, person: Person)
+        + getId(): Integer
+        + setId(id: Integer): void
+        + getItemName(): String
+        + setItemName(itemName: String): void
+        + getDescription(): String
+        + setDescription(description: String): void
+        + getImageUrl(): String
+        + setImageUrl(imageUrl: String): void
+        + getDonatingPerson(): Person
+        + setDonatingPerson(donatingPerson: Person): void
+    }
+
+    class Person {
+        - idPerson: Integer
+        - address: String
+        - password: String
+        - email: String
+        - imageUrl: String
+        - firstName: String
+        - lastName: String
+        - phoneNumber: String
+        + Person()
+        + getIdPerson(): Integer
+        + setIdPerson(idPerson: Integer): void
+        + getAddress(): String
+        + setAddress(address: String): void
+        + getPassword(): String
+        + setPassword(password: String): void
+        + getEmail(): String
+        + setEmail(email: String): void
+        + getImageUrl(): String
+        + setImageUrl(imageUrl: String): void
+        + getFirstName(): String
+        + setFirstName(firstName: String): void
+        + getLastName(): String
+        + setLastName(lastName: String): void
+        + getPhoneNumber(): String
+        + setPhoneNumber(phoneNumber: String): void
+    }
 }
 
-package com.nanterre.LoveMyPet.repository {
-  interface AdoptionRepository {
-    + findAll(): List&lt;Adoption&gt;
-    + findById(id: Integer): Optional&lt;Adoption&gt;
-    + save(adoption: Adoption): Adoption
-  }
-  interface AnimalRepository {
-    + findByIdPerson(idPerson: Integer): List&lt;Animal&gt;
-    + findById(id: Integer): Optional&lt;Animal&gt;
-    + save(animal: Animal): Animal
-  }
-  interface CandidatureRepository {
-    + getCandidaturesByAnimalId(animalId: Integer): List&lt;Candidature&gt;
-    + findById(id: Integer): Optional&lt;Candidature&gt;
-    + save(candidature: Candidature): Candidature
-  }
-  interface MesCandidatureRepository {
-    + findByPersonIdPerson(idPerson: Integer): List&lt;Candidature&gt;
-    + findById(id: Integer): Optional&lt;Candidature&gt;
-    + save(candidature: Candidature): Candidature
-  }
-  interface PersonRepository {
-    + findById(id: Integer): Optional&lt;Person&gt;
-    + save(person: Person): Person
-    + findPersonByEmail(email: String): Person
-  }
+package "Repository" {
+    interface ItemToDonateRepository {
+        + findByDonatingPerson_IdPerson(personId: Integer): List&lt;ItemToDonate&gt;
+    }
 }
 
-Controller --|&gt; AdoptionController
-Controller --|&gt; AnimalController
-Controller --|&gt; CandidatureController
-Controller --|&gt; MesCandidatureController
-Controller --|&gt; PersonController
+package "Service" {
+    interface ItemToDonateService {
+        + saveItemToDonate(itemToDonate: ItemToDonate): void
+        + getAllItems(): List&lt;ItemToDonate&gt;
+        + getItemById(id: Integer): ItemToDonate
+        + getItemsByPersonId(personId: Integer): List&lt;ItemToDonate&gt;
+        + deleteItemToDonate(id: Integer): void
+    }
 
-AdoptionController --|&gt; AdoptionService
-AdoptionController --|&gt; AnimalService
+    class ItemToDonateServiceImpl {
+        - itemToDonateRepository: ItemToDonateRepository
+        + saveItemToDonate(itemToDonate: ItemToDonate): void
+        + getAllItems(): List&lt;ItemToDonate&gt;
+        + getItemById(id: Integer): ItemToDonate
+        + getItemsByPersonId(personId: Integer): List&lt;ItemToDonate&gt;
+        + deleteItemToDonate(id: Integer): void
+    }
+}
 
-AnimalController --|&gt; AnimalService
-AnimalController --|&gt; AdoptionService
-AnimalController --|&gt; CandidatureService
-
-CandidatureController --|&gt; CandidatureService
-
-MesCandidatureController --|&gt; MesCandidatureService
-
-PersonController --|&gt; PersonService
-PersonController --|&gt; CandidatureService
-
-AdoptionService --|&gt; AdoptionRepository
-AnimalService --|&gt; AnimalRepository
-CandidatureService --|&gt; CandidatureRepository
-MesCandidatureService --|&gt; MesCandidatureRepository
-PersonService --|&gt; PersonRepository
-
-
+ItemToDonateController --&gt; ItemToDonateServiceImpl : uses
+ItemToDonateController --&gt; ItemToDonate : uses
+ItemToDonate --&gt; Person : has
+ItemToDonateServiceImpl --&gt; ItemToDonateRepository : uses
+ItemToDonateServiceImpl --&gt; ItemToDonate : uses
+ItemToDonateService &lt;|.. ItemToDonateServiceImpl : implements
+ItemToDonateRepository &lt;|.. ItemToDonateRepositoryImpl : implements
 
 @enduml</pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre>@startuml
-
-package com.nanterre.LoveMyPet.controller {
-  class AnimalController {
-    + addAnimal(imageFile: MultipartFile, animal: Animal): ResponseEntity&lt;String&gt;
-    + getAnimalsReferenceByPersonId(idPerson: Integer): List&lt;String&gt;
-    + getAnimalDetailsById(id: Integer): Animal
-    + getCandidaturesByAnimalId(animalId: Integer): List&lt;String&gt;
-    + addAdoption(adoption: Adoption): ResponseEntity&lt;Map&lt;String, String&gt;&gt;
-  }
-  class Controller {
-    + showAdoptionPage(model: Model): String
-    + showAnimals(model: Model): String
-    + showCandidatureByAnimalId(model: Model): String
-    + showVaccinations(model: Model): String
-    + showCandidatures(model: Model): String
-    + showpage(): String
-    + showpageaddAnimal(): String
-    + showpagelogin(): String
-    + homePage(): String
-    + profile(): String
-  }
-  class PersonController {
-    + getPersonDetailsById(id: Integer): Person
-    + add(imageFile: MultipartFile, person: Person): ResponseEntity&lt;String&gt;
-    + login(email: String, password: String, session: HttpSession): ResponseEntity&lt;?&gt;
-    + userProfile(session: HttpSession): ResponseEntity&lt;?&gt;
-    + addCandidature(idPerson: Integer, idAdoption: Integer, dateCandidature: String): ResponseEntity&lt;String&gt;
-  }
-  class VaccinationController {
-    + getVaccinationReferenceByAnimalId(idAnimal: Integer): List&lt;String&gt;
-    + getVaccinationDetailsById(idVaccination: Integer): Vaccination
-    + add(vaccination: Vaccination, animalId: Integer): String
-  }
-
-  class VaccinController {
-    - vaccinService: VaccinService
-    + VaccinController(vaccinService: VaccinService)
-    + getAllVaccins(): Iterable&lt;Vaccin&gt;
-  }
-}
-
-package com.nanterre.LoveMyPet.service {
-  interface AnimalService {
-    + getAnimalLinksByPersonId(idPerson: Integer): List&lt;String&gt;
-    + getAnimalDetailsById(id: Integer): Animal
-    + getAdoptionUrlsForAnimals(): List&lt;String&gt;
-    + saveAnimal(animal: Animal): Animal
-    + findAnimalById(id: Integer): Animal
-  }
-  interface PersonService {
-    + getPersonDetailsById(id: Integer): Person
-    + savePerson(person: Person): Person
-    + findPersonByEmail(email: String): Person
-  }
-  interface VaccinationService {
-    + saveVaccination(vaccination: Vaccination): Vaccination
-    + getVaccinationLinksByAnimalId(idAnimal: Integer): List&lt;String&gt;
-    + getVaccinationDetailsById(idVaccination: Integer): Vaccination
-  }
-
-  interface VaccinService {
-  + getAllVaccins(): Iterable&lt;Vaccin&gt;
-  + getVaccinById(id: Integer): Vaccin
-  }
-
-}
-
-package com.nanterre.LoveMyPet.repository {
-  interface AnimalRepository {
-    + findByIdPerson(idPerson: Integer): List&lt;Animal&gt;
-    + findById(id: Integer): Optional&lt;Animal&gt;
-    + save(animal: Animal): Animal
-  }
-  interface PersonRepository {
-    + findById(id: Integer): Optional&lt;Person&gt;
-    + save(person: Person): Person
-    + findPersonByEmail(email: String): Person
-  }
-  interface VaccinRepository {
-    + findAll(): Iterable&lt;Vaccin&gt;
-    + findById(id: Integer): Optional&lt;Vaccin&gt;
-    + save(vaccin: Vaccin): Vaccin
-    + deleteById(id: Integer): void
-  }
-  interface VaccinationRepository {
-    + findAll(): List&lt;Vaccination&gt;
-    + findById(id: Integer): Optional&lt;Vaccination&gt;
-    + save(vaccination: Vaccination): Vaccination
-    + deleteById(id: Integer): void
-    + findByAnimalId(animalId: Integer): List&lt;Vaccination&gt;
-  }
-}
-
-Controller --|&gt; VaccinationController
-Controller --|&gt; AnimalController
-Controller --|&gt; VaccinController
-Controller --|&gt; PersonController
-
-VaccinationController --|&gt; VaccinationService
-AnimalController --|&gt; AnimalService
-VaccinController --|&gt; VaccinService
-PersonController --|&gt; PersonService
-
-AnimalService --|&gt; AnimalRepository
-VaccinationService --|&gt; VaccinationRepository
-VaccinService --|&gt; VaccinRepository
-PersonService --|&gt; PersonRepository
-
-@enduml</pre>
+<hr>
 </div>
 </div>
-</div>
-</div>
+<h1 id="_fonctionnalité_de_création_et_inscription_aux_événements_sur_lovemypet" class="sect0">Fonctionnalité de Création et Inscription aux Événements sur LoveMyPet</h1>
 <div class="sect1">
-<h2 id="_base_de_données">Base de données</h2>
+<h2 id="_présentation_2">Présentation</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Le diagramme entité-relation ci-dessous offre une représentation visuelle des relations essentielles. En mettant en lumière les liens entre les différentes entités.</p>
+<p>Cette fonctionnalité sur l&#8217;application LoveMyPet permet aux utilisateurs de créer et partager des événements, tels que des sorties en groupe, et de s&#8217;inscrire à des événements créés par d&#8217;autres utilisateurs.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_utilisation_depuis_la_page_mes_services">Utilisation depuis la Page "Mes Services"</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sur la page "Mes Services", deux boutons sont disponibles :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Un bouton permettant à l&#8217;utilisateur de visualiser tous les événements créés par d&#8217;autres utilisateurs qui ne sont pas encore expirés.</p>
+</li>
+<li>
+<p>Un bouton permettant à l&#8217;utilisateur de créer un nouvel événement et de le partager avec la communauté. De plus, l&#8217;utilisateur peut visualiser tous les événements qu&#8217;il a créés.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="service_event.png" alt="service_evenemtn">
+</div>
 </div>
 <div class="sect2">
-<h3 id="_modèle_lovemypet">Modèle LoveMyPet</h3>
+<h3 id="_ajout_dun_événement">Ajout d&#8217;un Événement</h3>
+<div class="paragraph">
+<p>Lorsque l&#8217;utilisateur clique sur le bouton "Ajouter un Événement", il est redirigé vers une page où il peut remplir un formulaire avec des informations telles que le titre, la date, l&#8217;adresse de l&#8217;événement, et même ajouter une image pour l&#8217;événement.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="Evenement/AddEvent.png" alt="ajouter_event">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_affichage_des_événements_non_expirés">Affichage des Événements Non Expirés</h3>
+<div class="paragraph">
+<p>En cliquant sur le bouton "Afficher les Événements Non Expirés", l&#8217;utilisateur est dirigé vers une page présentant tous les événements non expirés. Il peut facilement s&#8217;inscrire à un événement en cliquant sur le bouton d&#8217;inscription associé à l&#8217;événement choisi.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="Evenement/ShowEvent.png" alt="afficher_evenet">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inscription_à_un_événement">Inscription à un Événement</h3>
+<div class="paragraph">
+<p>L&#8217;inscription à un événement est simple. L&#8217;utilisateur clique sur le bouton "Inscription" associé à l&#8217;événement de son choix. Une fois inscrit, une entrée est ajoutée à la table des inscriptions avec l&#8217;ID de l&#8217;événement et l&#8217;ID de l&#8217;utilisateur.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_affichage_des_événements_créés_par_un_utilisateur">Affichage des Événements Créés par un Utilisateur</h3>
+<div class="paragraph">
+<p>Si un utilisateur souhaite voir les événements qu&#8217;il a créés, il lui suffit de se rendre dans le menu dédié. Il sera alors redirigé vers une page listant tous les événements qu&#8217;il a créés.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="Evenement/MyEvent.png" alt="my_event">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_suppression_dun_événement_créé">Suppression d&#8217;un Événement Créé</h3>
+<div class="paragraph">
+<p>L&#8217;utilisateur peut supprimer un événement qu&#8217;il a créé en accédant à la page "Mes Événements". Sur cette page, il voit la liste de tous les événements qu&#8217;il a créés et peut sélectionner l&#8217;événement à supprimer en cliquant sur le bouton "Supprimer".</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="Evenement/MyEventsup.png" alt="mes_evenements">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_diagramme_de_classe">Diagramme de Classe</h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre>@startuml
-
-package "com.nanterre.LoveMyPet.model" {
-  class Person {
-    +idPerson: Integer
-    LastName: String
-    FirstName: String
-    Email: String
-    PhoneNumber: String
-    Address: String
-    Password: String
-    ImageUrl: String
-  }
-
-  class Animal {
-    +id: Integer
-    +idPerson: Integer
-    name: String
-    category: String
-    race: String
-    weight: Double
-    gender: Integer
-    dateOfBirth: Date
-    imageUrl: String
-  }
-
-  class Adoption {
-    +idAdoption: Integer
-    startDate: Date
-    endDate: Date
-    +idAnimal: Integer
-  }
-
-  class Candidature {
-    +idCandidature: Integer
-    dateCandidature: Date
-    +person: Person
-    +adoption: Adoption
-  }
-
-  class Vaccin {
-    +idVaccin: Integer
-    vaccinName: String
-  }
-
-  class Vaccination {
-    +idVaccination: Integer
-    +vaccin: Vaccin
-    +animal: Animal
-    date: Date
-  }
-
-  class Advice {
-    +idAdvice: Integer
-    description: String
-    +person: Person
-    +animal: Animal
-  }
-  class LikeDislike {
-    +id: Integer
-    +advice: Advice
-    +person: Person
-    isLike: boolean
-  }
-
-  class FeedingConfirmation {
-    +id: Integer
-    +personId: Integer
-    +animalId: Integer
-    +feedingTimeId: Integer
-    confirmationDate: Date
-    confirmationCode: String
-  }
-
-  class FeedingTime {
-    +id: Integer
-    +feedingTime: LocalTime
-  }
-  class HistoriqueAdoption {
-    +id: Integer
-    +idAnimal: Integer
-    +idPerson: Integer
-    endDate: Date
-    adoptedAnimal: Animal
-    adoptedByPerson: Person
-  }
-  class LostAnimal {
-  +id: Integer
-  category: String
-  person: Person
-  name: String
-  age: Integer
-  race: String
-  comment: String
-  gender: String
+class Evenement {
+  idEvenement: Integer
+  titre: String
+  date: LocalDate
   imageUrl: String
-  lostDate: Date
-}
+  place: String
+  createur: Person
 }
 
-Person   --  Animal : "1,1" Adopte "0,N"
-Person -- Candidature : "0,N" Candidate à "1,1"
-Animal -- Adoption : "1,1" Est concerné par "1,1"
-Candidature -- Adoption : "1,1" Correspond à "0,N"
-Vaccin -- Vaccination : "0,N" Est utilisé dans "1,N"
-Vaccination -- Animal : "1,1" prend "1,N"
-Person -- Advice : "0,N" Partage "1,N"
-LikeDislike -- Person : "1,1" Est exprimé par "0,N"
-Animal -- FeedingConfirmation : "1,1" Est concerné par "0,N"
-FeedingTime -- FeedingConfirmation : "1,1" Planifie "0,N"
-FeedingTime -- Animal : "1,1" Est associé à "0,N"
-LikeDislike -- Advice : "0,N" Est associé à "1,N"
-Person -- HistoriqueAdoption : "0,N" Enregistré "1,1"
-HistoriqueAdoption -- Animal : "1,1" Concerne "0,N"
-Person -- LostAnimal : "1,N" Perd "1,N"
+class Inscription {
+  idInscription: Integer
+  personne: Person
+  evenement: Evenement
+}
 
+class EvenementController {
+  evenementService: EvenementService
+  + addEvenement(imageFile: MultipartFile, evenement: Evenement): ResponseEntity&lt;String&gt;
+  + getNonExpiredEventLinks(): ResponseEntity&lt;List&lt;String&gt;&gt;
+  + getNonExpiredEventById(eventId: Integer): ResponseEntity&lt;Map&lt;String, Object&gt;&gt;
+  + getUserEvents(userId: Integer): ResponseEntity&lt;List&lt;Map&lt;String, Object&gt;&gt;&gt;
+}
+
+class EvenementService {
+  evenementRepository: EvenementRepository
+  + getAllEvenements(): List&lt;Evenement&gt;
+  + getEvenementById(id: Integer): Evenement
+  + createEvenement(evenement: Evenement): Evenement
+  + findNonExpiredEvents(date: LocalDate): List&lt;Evenement&gt;
+  + getUserEvents(idPerson: Integer): List&lt;Evenement&gt;
+}
+
+class EvenementServiceImpl {
+  evenementRepository: EvenementRepository
+  + getAllEvenements(): List&lt;Evenement&gt;
+  + getEvenementById(id: Integer): Evenement
+  + createEvenement(evenement: Evenement): Evenement
+  + findNonExpiredEvents(date: LocalDate): List&lt;Evenement&gt;
+  + getUserEvents(idPerson: Integer): List&lt;Evenement&gt;
+}
+
+class EvenementRepository {
+  + findByTitre(titre: String): List&lt;Evenement&gt;
+  + findByDateAfter(date: LocalDate): List&lt;Evenement&gt;
+  + findByCreateur(createur: Person): List&lt;Evenement&gt;
+}
+
+class Evenement {
+  idEvenement: Integer
+  titre: String
+  date: LocalDate
+  imageUrl: String
+  place: String
+  createur: Person
+}
+
+class InscriptionController {
+  inscriptionService: InscriptionService
+  + addInscription(idEvenement: Integer, idPerson: Integer): String
+}
+
+class InscriptionService {
+  + addInscription(idEvenement: Integer, idPerson: Integer): void
+}
+
+class InscriptionServiceImpl {
+  inscriptionRepository: InscriptionRepository
+  personRepository: PersonRepository
+  evenementRepository: EvenementRepository
+  + addInscription(idEvenement: Integer, idPerson: Integer): void
+}
+
+class InscriptionRepository {
+  + existsByPersonneAndEvenement(personne: Person, evenement: Evenement): boolean
+}
+
+
+
+Evenement "1" --&gt; "0..n" Inscription : inscriptions
+EvenementController "1" --&gt; "1" EvenementService : evenementService
+EvenementService "1" --&gt; "1" EvenementRepository : evenementRepository
+EvenementServiceImpl "1" --&gt; "1" EvenementRepository : evenementRepository
+Inscription "0..n" --&gt; "1" Evenement : evenement
+InscriptionController "1" --&gt; "1" InscriptionService : inscriptionService
+InscriptionService "1" --&gt; "1" InscriptionRepository : inscriptionRepository
+InscriptionServiceImpl "1" --&gt; "1" InscriptionRepository : inscriptionRepository
 @enduml</pre>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_api">API</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_ajout_dévénement">Ajout d&#8217;Événement</h3>
+<div class="ulist Method">
+<div class="title">Inscription d&#8217;un nouvel événement dans l&#8217;application.</div>
+<ul class="Method">
+<li>
+<p>Type: <code>POST</code></p>
+</li>
+<li>
+<p>Endpoint: <code>/api/evenements/add</code></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="json">{
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">imageFile</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Contenu de l'image en format MultipartFile</span><span class="delimiter">&quot;</span></span>,
+  <span class="key"><span class="delimiter">&quot;</span><span class="content">evenement</span><span class="delimiter">&quot;</span></span>: {
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">titre</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Sortie au Parc</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">date</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">2024-02-01</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">place</span><span class="delimiter">&quot;</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Parc XYZ</span><span class="delimiter">&quot;</span></span>,
+    <span class="key"><span class="delimiter">&quot;</span><span class="content">createur</span><span class="delimiter">&quot;</span></span>: {
+      <span class="key"><span class="delimiter">&quot;</span><span class="content">idPerson</span><span class="delimiter">&quot;</span></span>: <span class="integer">123</span>
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="ulist Résultat Attendu">
+<ul class="Résultat Attendu">
+<li>
+<p>Succès (Status Code 200 OK): "Nouvel événement ajouté"</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_affichage_des_événements_non_expirés_2">Affichage des Événements Non Expirés</h3>
+<div class="ulist Method">
+<div class="title">Obtention de la liste des liens vers les événements non expirés.</div>
+<ul class="Method">
+<li>
+<p>Type: <code>GET</code></p>
+</li>
+<li>
+<p>Endpoint: <code>/api/evenements/non-expired</code></p>
+</li>
+</ul>
+</div>
+<div class="ulist Résultat Attendu">
+<ul class="Résultat Attendu">
+<li>
+<p>Succès (Status Code 200 OK): Liste des liens vers les événements non expirés</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_détails_dun_événement_non_expiré">Détails d&#8217;un Événement Non Expiré</h3>
+<div class="ulist Method">
+<div class="title">Obtention des détails d&#8217;un événement non expiré.</div>
+<ul class="Method">
+<li>
+<p>Type: <code>GET</code></p>
+</li>
+<li>
+<p>Endpoint: <code>/api/evenements/non-expired/1</code></p>
+</li>
+</ul>
+</div>
+<div class="ulist Résultat Attendu">
+<ul class="Résultat Attendu">
+<li>
+<p>Succès (Status Code 200 OK):</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[
+    "/api/evenements/non-expired/4",
+    "/api/evenements/non-expired/5",
+    "/api/evenements/non-expired/7",
+    "/api/evenements/non-expired/8",
+    "/api/evenements/non-expired/14"
+]</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Échec (Status Code 404 Not Found): Événement non trouvé</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_liste_des_événements_créés_par_un_utilisateur">Liste des Événements Créés par un Utilisateur</h3>
+<div class="ulist Method">
+<div class="title">Obtention de la liste des événements créés par un utilisateur.</div>
+<ul class="Method">
+<li>
+<p>Type: <code>GET</code></p>
+</li>
+<li>
+<p>Endpoint: <code>/api/evenements/user-events?userId=123</code></p>
+</li>
+</ul>
+</div>
+<div class="ulist Résultat Attendu">
+<ul class="Résultat Attendu">
+<li>
+<p>Succès (Status Code 200 OK):</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[
+  {
+    "idEvenement": 1,
+    "titre": "Sortie au Parc",
+    "date": "2024-02-01",
+    "place": "Parc XYZ",
+    "imageName": "sortie_parc.jpg",
+    "details": "/api/evenements/non-expired/1"
+  },
+  {
+    "idEvenement": 2,
+    "titre": "Promenade en Ville",
+    "date": "2024-02-15",
+    "place": "Centre-ville",
+    "imageName": "promenade_ville.jpg",
+    "details": "/api/evenements/non-expired/2"
+  }
+]</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Échec (Status Code 400 Bad Request): Paramètre manquant</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inscription_à_un_événement_2">Inscription à un Événement</h3>
+<div class="ulist Method">
+<div class="title">Inscription à un événement spécifique.</div>
+<ul class="Method">
+<li>
+<p>Type: <code>POST</code></p>
+</li>
+<li>
+<p>Endpoint: <code>/api/inscription/add?idEvenement=1&amp;idPerson=456</code></p>
+</li>
+</ul>
+</div>
+<div class="ulist Résultat Attendu">
+<ul class="Résultat Attendu">
+<li>
+<p>Succès (Status Code 200 OK): "Inscription ajoutée avec succès!"</p>
+</li>
+<li>
+<p>Échec (Status Code 404 Not Found): "Personne ou événement non trouvé!"</p>
+</li>
+<li>
+<p>Échec (Status Code 400 Bad Request): "Personne est déjà inscrite à cet événement!"</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_diagramme_de_séquence_ajout_dévénement">Diagramme de Séquence - Ajout d&#8217;Événement</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>@startuml
+actor Utilisateur
+participant EvenementController
+participant EvenementService
+participant EvenementRepository
+participant MultipartFile
+database Database
+
+Utilisateur -&gt; EvenementController: addEvenement(imageFile, evenement)
+activate EvenementController
+EvenementController -&gt; EvenementService: createEvenement(evenement)
+activate EvenementService
+EvenementService -&gt; EvenementRepository: save(evenement)
+activate EvenementRepository
+EvenementRepository -&gt; Database: Enregistrement en base de données
+activate Database
+Database --&gt; EvenementRepository: Confirmation d'enregistrement
+deactivate Database
+EvenementRepository --&gt; EvenementService: Retourne l'événement créé
+deactivate EvenementRepository
+EvenementService --&gt; EvenementController: Retourne une réponse HTTP
+deactivate EvenementService
+EvenementController --&gt; Utilisateur: Retourne une réponse HTTP
+deactivate EvenementController
+@enduml</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_diagramme_de_séquence_affichage_des_événements_non_expirés">Diagramme de Séquence - Affichage des Événements Non Expirés</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>@startuml
+actor Utilisateur
+participant EvenementController
+participant EvenementService
+participant EvenementRepository
+database Database
+
+Utilisateur -&gt; EvenementController: getNonExpiredEventLinks()
+activate EvenementController
+EvenementController -&gt; EvenementService: findNonExpiredEvents(today)
+activate EvenementService
+EvenementService -&gt; EvenementRepository: findByDateAfter(today)
+activate EvenementRepository
+EvenementRepository -&gt; Database: Recherche des événements non expirés
+activate Database
+Database --&gt; EvenementRepository: Résultat de la recherche
+deactivate Database
+EvenementRepository --&gt; EvenementService: Liste des événements non expirés
+deactivate EvenementRepository
+EvenementService --&gt; EvenementController: Liste des liens vers les événements
+deactivate EvenementService
+EvenementController --&gt; Utilisateur: Liste des liens vers les événements
+deactivate EvenementController
+@enduml</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_diagramme_de_séquence_inscription_à_un_événement">Diagramme de Séquence - Inscription à un Événement</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>@startuml
+actor Utilisateur
+participant InscriptionController
+participant InscriptionService
+participant InscriptionRepository
+
+Utilisateur -&gt; InscriptionController: addInscription(idEvenement, idPerson)
+activate InscriptionController
+InscriptionController -&gt; InscriptionService: addInscription(idEvenement, idPerson)
+activate InscriptionService
+InscriptionService -&gt; InscriptionRepository: save(inscription)
+activate InscriptionRepository
+InscriptionRepository --&gt; InscriptionService: Confirmation d'enregistrement
+deactivate InscriptionRepository
+InscriptionService --&gt; InscriptionController: Confirmation d'inscription
+deactivate InscriptionService
+InscriptionController --&gt; Utilisateur: Confirmation d'inscription
+deactivate InscriptionController
+@enduml</pre>
 </div>
 </div>
 </div>
@@ -2023,7 +2584,7 @@ Person -- LostAnimal : "1,N" Perd "1,N"
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-12-26 12:23:43 +0100
+Last updated 2024-02-13 21:29:32 +0100
 </div>
 </div>
 </body>

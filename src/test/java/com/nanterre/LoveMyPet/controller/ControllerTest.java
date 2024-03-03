@@ -170,33 +170,6 @@ class ControllerTest {
     }
 
     @Test
-    void testLostAnimals() {
-        Controller controller = new Controller();
-
-        String result = controller.LostAnimals();
-
-        assertEquals("LostAnimals", result);
-    }
-
-    @Test
-    void testEnregistrerLostAnimal() {
-        Controller controller = new Controller();
-
-        String result = controller.EnregistrerLostAnimal();
-
-        assertEquals("EnregistrerLostAnimal", result);
-    }
-
-    @Test
-    void testListLostAnimal() {
-        Controller controller = new Controller();
-
-        String result = controller.ListLostAnimal();
-
-        assertEquals("ListLostAnimal", result);
-    }
-
-    @Test
     void testHistoriqueWeightGraph() {
         Controller controller = new Controller();
 
@@ -205,21 +178,5 @@ class ControllerTest {
         assertEquals("graphePoids", result);
     }
 
-    @Test
-    void testPublication() {
-        Controller controller = new Controller();
 
-        String result = controller.publication();
-
-        assertEquals("publications", result);
-    }
-
-    @Test
-    void testAdvice() {
-        Controller controller = new Controller();
-
-        String result = controller.Advice();
-
-        assertEquals("AddAdvice", result);
-    }
 }

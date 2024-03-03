@@ -2,48 +2,48 @@ package com.nanterre.LoveMyPet.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
+
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.nanterre.LoveMyPet.model.Animal;
-import com.nanterre.LoveMyPet.model.Vaccin;
 import com.nanterre.LoveMyPet.model.Vaccination;
 import com.nanterre.LoveMyPet.service.VaccinationService;
-import com.nanterre.LoveMyPet.service.VaccinationServiceImpl;
 
-import jakarta.servlet.http.HttpSession;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/vaccination")
+@RequestMapping("/api")
 public class VaccinationController {
+
     @Autowired
-    private VaccinationServiceImpl vaccinationService;
-    
-    @GetMapping("animal/{idAnimal}")
-    public List<String> getVaccinationReferenceByAnimalId(@PathVariable Integer idAnimal) {
-    	return vaccinationService.getVaccinationLinksByAnimalId(idAnimal);
+    private VaccinationService vaccinationService;
+
+    // les références des vaccination de l'animal 1 par ex
+    @GetMapping("/vaccinations/{idAnimal}")
+    public ResponseEntity<List<String>> getVaccinationsByAnimalId(@PathVariable("idAnimal") Integer idAnimal) {
+        List<String> vaccinations = vaccinationService.getVaccinationsByAnimalId(idAnimal);
+        if (vaccinations.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(vaccinations, HttpStatus.OK);
     }
-    @GetMapping("/{idVaccination}")
-    public Vaccination getVaccinationDetailsById(@PathVariable Integer idVaccination) {
-        return vaccinationService.getVaccinationDetailsById(idVaccination);
+
+    // details d'une vaccination
+    @GetMapping("/vaccination/{idVaccination}")
+    public ResponseEntity<Vaccination> getVaccinationDetails(@PathVariable("idVaccination") Integer idVaccination) {
+        Optional<Vaccination> vaccinationOptional = vaccinationService.getVaccinationById(idVaccination);
+        if (vaccinationOptional.isPresent()) {
+            return new ResponseEntity<>(vaccinationOptional.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
-    
-    @PostMapping("/add")
-    public String add( Vaccination vaccination,
-    		@RequestParam(name = "animal") Integer animalId) {
-        vaccinationService.saveVaccination(vaccination);
-        return "Nouvelle vaccination ajoutée";
-    }
+
+
 }

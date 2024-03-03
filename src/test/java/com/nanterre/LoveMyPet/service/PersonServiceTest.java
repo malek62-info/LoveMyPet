@@ -1,7 +1,7 @@
 package com.nanterre.LoveMyPet.service;
 import com.nanterre.LoveMyPet.model.Person;
 import com.nanterre.LoveMyPet.repository.PersonRepository;
-import com.nanterre.LoveMyPet.service.PersonServiceImpl;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,9 +11,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;

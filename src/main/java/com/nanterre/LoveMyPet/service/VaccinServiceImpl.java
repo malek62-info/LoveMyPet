@@ -1,9 +1,20 @@
 package com.nanterre.LoveMyPet.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nanterre.LoveMyPet.model.Vaccin;
 import com.nanterre.LoveMyPet.repository.VaccinRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 
 @Service
 public class VaccinServiceImpl implements VaccinService {
@@ -11,15 +22,8 @@ public class VaccinServiceImpl implements VaccinService {
     @Autowired
     private VaccinRepository vaccinRepository;
 
-    @Override
-    public Iterable<Vaccin> getAllVaccins() {
-        return vaccinRepository.findAll();
-    }
-
-    @Override
     public Vaccin getVaccinById(Integer id) {
-        // Ajoutez la logique pour récupérer un vaccin par son ID depuis le repository
-        // par exemple : return vaccinRepository.findById(id).orElse(null);
-        return null;
+        Optional<Vaccin> vaccinOptional = vaccinRepository.findById(id);
+        return vaccinOptional.orElse(null);
     }
 }

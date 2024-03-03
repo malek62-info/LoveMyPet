@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='utf-8' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <script src="https://unpkg.com/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6.3.3/dist/tippy-bundle.umd.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+        crossorigin="anonymous"></script>
+
+    <!-- <link rel="stylesheet" href="https://unpkg.com/@popperjs/core@2.11.6/dist/umd/popper.min.css"> -->
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6.3.3/dist/tippy.css">
+
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            font-family: 'Poppins', sans-serif;
+            background-image: url('https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg');
+
+        }
+
+        .top-right {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #000;
+            border-radius: 50%;
+            background-color: #000;
+            padding: 20px;
+            font-weight: bold;
+            color: #fff;
+            border: 0;
+            outline: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        /* sitde bar */
+
+        .w3-sidebar {
+            position: fixed;
+            z-index: 100;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .w3-button {
+            color: #fff;
+            outline: none;
+            outline: none;
+            padding: 10px;
+            text-decoration: none;
+            transition: 0.5s;
+        }
+
+
+        .w3-button:hover {
+            background-color: #fff;
+            text-decoration: none;
+            color: #81774E;
+            border-radius: 6px;
+        }
+
+        .w3-button:hover a {
+            color: #000;
+        }
+
+        .logo-img {
+            text-align: CENTER;
+            margin: 20PX AUTO;
+            width: 100PX;
+        }
+
+        .side_bar_bar {
+            background-color: #81774E;
+            border: 0;
+            height: 1px;
+            width: 100%;
+            border-radius: 2px;
+            margin: 10px 0;
+        }
+
+        .big-container {
+            margin-left: 250px;
+
+            padding: 20px 90px;
+
+            width: 100%;
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+
+        #calendar {
+            height: 100%;
+            width: 100%;
+            background-color: #fff;
+
+        }
+
+        #animalForm select,
+        #animalForm button {
+            padding: 10px 10px;
+            border-radius: 6px;
+        }
+
+        #animalForm button {
+            border: 1px solid #fff;
+            background-color: #000;
+            color: #fff;
+        }
+
+        #animalName {
+            margin: 20px 0;
+            text-align: center;
+            font-size: 25px;
+        }
+    </style>
+
+    <script>
+        function fetchAnimalNameFromId() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const animalId = urlParams.get('id');
+
+            if (animalId) {
+                fetch(`/animal/${animalId}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(animal => {
+                        const animalNameElement = document.getElementById('animalName');
+                        animalNameElement.innerHTML = `Calendrier de : <strong>${animal.name}</strong>`;
+
+                    })
+                    .catch(error => {
+                        console.error('Error fetching animal details:', error);
+                    });
+            }
+        }
+
+        fetchAnimalNameFromId();
+    </script>
+
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Extraire l'ID de l'animal à partir de l'URL de la page
+            var queryParams = new URLSearchParams(window.location.search);
+            var animalId = queryParams.get('id');
+
+            // Si l'ID de l'animal est valide
+            if (animalId) {
+                // Définir une fonction pour récupérer les événements en fonction de l'ID de l'animal
+                function getAnimalEvents(animalId) {
+                    var calendarEl = document.getElementById('calendar');
+                    calendarEl.innerHTML = "";
+                    var calendar = new FullCalendar.Calendar(calendarEl, {
+                        locale: 'fr',
+                        initialView: 'timeGridWeek',
+                        slotMinTime: '08:00:00',
+                        slotMaxTime: '23:00:00',
+                        allDaySlot: false,
+                        events: function (fetchInfo, successCallback, failureCallback) {
+                            // Promesse pour récupérer les détails des vaccinations de l'animal
+                            var fetchVaccinations = fetch(`/api/vaccinations/${animalId}`)
+                                .then(response => response.json())
+                                .then(data => data.map(vaccinationId => `/api${vaccinationId}`))
+                                .then(urls => Promise.all(urls.map(url => fetch(url).then(response => response.json()))));
+
+                            // Promesse pour récupérer les détails des traitements de l'animal
+                            var fetchTraitements = fetch(`/api/traitements/${animalId}`)
+                                .then(response => response.json())
+                                .then(data => data.map(traitementId => `/api/${traitementId}`))
+                                .then(urls => Promise.all(urls.map(url => fetch(url).then(response => response.json()))));
+
+                            // Attendre que les deux promesses se terminent
+                            Promise.all([fetchVaccinations, fetchTraitements])
+                                .then(responses => {
+                                    var vaccinations = responses[0];
+                                    var traitements = responses[1];
+
+                                    var vaccinationEvents = [];
+                                    var fetchVaccinNamePromises = [];
+
+                                    // Définir une fonction pour récupérer le nom du vaccin
+                                    // Définir une fonction pour récupérer le nom du vaccin
+                                    vaccinations.forEach(vaccination => {
+                                        var startTime = new Date(vaccination.date + 'T' + vaccination.vaccinationTime);
+                                        var endTime = new Date(startTime);
+                                        endTime.setMinutes(endTime.getMinutes() + 30);
+
+                                        fetchVaccinNamePromises.push(
+                                            fetch(`/vaccin/vaccins/${vaccination.idVaccin}`)
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    console.log("Nom du vaccin pour ID " + vaccination.idVaccin + ":", data.vaccinName);
+                                                    return {
+                                                        id :vaccination.idVaccin,
+                                                        title: "Vaccination" + data.vaccinName,
+                                                        start: startTime,
+                                                        end: endTime,
+                                                        description: vaccination.comment,
+                                                        vetName: vaccination.vetName,
+                                                        vetAddress: vaccination.vetAddress,
+                                                        color: 'blue'
+                                                    };
+                                                })
+                                                .catch(error => {
+                                                    console.error('Une erreur s\'est produite lors de la récupération du nom du vaccin pour ID ' + vaccination.idVaccin + ':', error);
+                                                    return null; // Retourner null en cas d'erreur
+                                                })
+                                        );
+                                    });
+
+                                    // Afficher la liste des promesses
+                                    console.log("Liste des promesses pour la récupération des noms de vaccin :", fetchVaccinNamePromises);
+
+
+
+
+                                    var traitementEvents = [];
+                                    var counter = 0;
+                                    traitements.forEach(traitement => {
+                                        var startDate = new Date(traitement.dateDebut);
+                                        var endDate = new Date(traitement.dateFin);
+                                        var diffDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+                                        traitement.heures.forEach(heure => {
+                                            for (var i = 0; i <= diffDays; i++) {
+                                                var eventDate = new Date(startDate);
+                                                eventDate.setDate(eventDate.getDate() + i);
+                                                eventDate.setHours(heure.heure.split(':')[0]);
+                                                eventDate.setMinutes(heure.heure.split(':')[1]);
+                                                console.log("traitement" +  traitement)
+                                                console.log("ID du traitement :", traitement.id);
+                                                traitementEvents.push({
+                                                    id: traitement.idTraitement, 
+                                                    title: `Traitement : ${traitement.medicament.medicamentName}`,
+                                                    start: eventDate,
+                                                    allDay: false,
+                                                    description: traitement.commentaire,
+                                                    color: 'green'
+                                                });
+                                                counter++;
+                                            }
+                                        });
+                                    });
+
+                                    // Attendre que toutes les promesses pour récupérer les noms de vaccins soient terminées
+                                    return Promise.all(fetchVaccinNamePromises)
+                                        .then(results => {
+
+                                            console.log("Tous les noms de vaccin récupérés :", results);
+                                            // Créer les événements de vaccination avec les noms récupérés
+                                            // console.log("voici un événement vaccin", JSON.stringify(vaccinEvenement));
+
+                                            results.forEach(vaccinEvenement => {
+                                                vaccinationEvents.push(vaccinEvenement);
+                                            });
+                                            console.log(vaccinationEvents)
+                                            console.log(traitementEvents)
+                                            // Concaténer les événements de vaccination et de traitement
+                                            var allEvents = vaccinationEvents.concat(traitementEvents);
+
+                                            // Appeler successCallback avec les événements
+                                            console.log("Tous les événements", JSON.stringify(allEvents, null, 2));
+
+                                            successCallback(allEvents);
+                                        });
+                                })
+                                .catch(error => {
+                                    console.error(`Erreur lors de la récupération des données :`, error);
+                                    failureCallback(error);
+                                });
+                        },
+                        eventDidMount: function (info) {
+                            const event = info.event;
+                            let content = `
+                            <div style="padding: 5px 0; position: relative; z-index: 20;">
+                                    <strong style="margin-bottom: 2px;">Titre:</strong> ${event.title}<br>
+                            `;
+                            if (event.title.includes('Traitement')) {
+                                // C'est un événement de traitement
+                                content += `
+                                    <strong style="margin-bottom: 5px;;">Commentaire:</strong> ${event.extendedProps.description}<br><br>
+                                    <button style="background-color: green; color: white; border-radius: 2px; padding: 10px 30px;border:0px solid #fff;">
+                                        <a href="/modifier?id=${event.id}" style="text-decoration: none; color: white;">Modifier</a>
+                                    </button>
+                                `;
+                            } else if (event.title.includes('Vaccination')) {
+                                // C'est un événement de vaccination
+                                content += `
+                                    <strong style="margin-bottom: 2px;">Vétérinaire:</strong> ${event.extendedProps.vetName}<br>
+                                    <strong style="margin-bottom: 2px;">Adresse du vétérinaire:</strong> ${event.extendedProps.vetAddress}<br>
+                                    <strong style="margin-bottom: 2px;">Commentaire:</strong> ${event.extendedProps.description}<br><br>
+                                    <button style="background-color: blue; color: white; border-radius: 2px; padding: 10px 30px;border:0px solid #fff;">
+                                        <a href="/modifier?id=${event.id}" style="text-decoration: none; color: white;">Modifier</a>
+                                    </button>
+                                `;
+                            }
+                            content += `</div>`;
+                            tippy(info.el, {
+                                content: content,
+                                allowHTML: true,
+                                placement: 'top',
+                                trigger: 'mouseenter focus',
+                                interactive: true
+                            });
+                        }
+                    });
+                    calendar.render();
+                }
+
+                // Appeler la fonction avec l'ID de l'animal extrait de l'URL
+                getAnimalEvents(animalId);
+            }
+        });
+
+    </script>
+
+
+</head>
+
+<body>
+
+
+    <div class="w3-sidebar ">
+        <img src="images/logo.png" alt="Logo" class="logo-img">
+        <a href="/profile" class="w3-button">Mon compte</a>
+        <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+
+        <a href="/adoption" class="w3-button">Adoption</a>
+        <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/donate" class="w3-button">Donner des objets</a>
+        <a href="/showdonations" class="w3-button">Trouver des objets</a>
+        <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
+
+        <hr class="side_bar_bar">
+        <a href="/Map" class="w3-button">Map</a>
+
+        <hr class="side_bar_bar">
+        <a href="/AddEvent" class="w3-button">Ajouter un évenement</a>
+        <a href="/ShowEvent" class="w3-button">Participé a un evenement</a>
+        <a href="/MyEvent" class="w3-button">Mes évenement crée </a>
+
+
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="#" class="w3-button">Se Déconnecter</a>
+
+    </div>
+
+    <div class="big-container">
+        <form id="animalForm" onsubmit="handleFormSubmit(event)" target="_self">
+            <select id="animalSelect"></select>
+            <button type="submit">consulter le calendrier</button>
+        </form>
+
+        <p id="animalName"></p>
+        <div id='calendar'>Choisisez un animal !</div>
+    </div>
+
+
+
+    <script>
+        function fetchAnimalListByPersonId(personId) {
+            fetch(`/animal/person/${personId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(animalUriList => {
+                    const select = document.getElementById('animalSelect');
+                    animalUriList.forEach(animalUri => {
+                        const animalId = animalUri.split('/').pop(); // Récupérer l'ID de l'URL de l'animal
+                        fetchAnimalDetails(animalUri, select); // Récupérer les détails de chaque animal
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching animal list:', error);
+                });
+        }
+
+
+        function fetchAnimalDetails(animalUri, select) {
+            fetch(animalUri)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(animal => {
+                    const option = document.createElement('option');
+                    option.value = animal.id;
+                    option.textContent = animal.name;
+                    select.appendChild(option);
+                })
+                .catch(error => {
+                    console.error('Error fetching animal details:', error);
+                });
+        }
+
+        // Appel de la fonction pour récupérer la liste des animaux d'une personne avec son ID spécifique
+        function fetchData() {
+            var personId;
+
+            $.ajax({
+                url: "/person/profile",
+                type: "GET",
+                success: function (data) {
+                    personId = data.id;
+                    console.log("voici la personne connectée" + personId);
+                    fetchAnimalListByPersonId(personId);
+                },
+                error: function (xhr, status, error) {
+                    // Gérer les erreurs
+                }
+            });
+        }
+
+        fetchData();
+
+        // Fonction appelée lors de la soumission du formulaire
+        function handleFormSubmit(event) {
+            event.preventDefault(); // Empêcher le comportement par défaut du formulaire
+
+            // Récupérer l'ID de l'animal sélectionné dans le sélecteur
+            const select = document.getElementById('animalSelect');
+            const animalId = select.value;
+
+            if (!animalId) {
+                console.error('No animal selected');
+                return;
+            }
+
+            // Redirection vers la page /calendar avec l'ID de l'animal dans le lien
+            window.location.href = `/calendar?id=${animalId}`;
+        }
+    </script>
+
+</body>
+
+</html>

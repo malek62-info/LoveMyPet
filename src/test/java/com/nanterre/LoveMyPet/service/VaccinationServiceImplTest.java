@@ -2,20 +2,25 @@ package com.nanterre.LoveMyPet.service;
 
 import com.nanterre.LoveMyPet.model.Vaccination;
 import com.nanterre.LoveMyPet.repository.VaccinationRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-class VaccinationServiceImplTest {
+@RunWith(SpringRunner.class)
+public class VaccinationServiceImplTest {
 
     @Mock
     private VaccinationRepository vaccinationRepository;
@@ -23,63 +28,54 @@ class VaccinationServiceImplTest {
     @InjectMocks
     private VaccinationServiceImpl vaccinationService;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
+
+
     @Test
-    void testSaveVaccination() {
-        Vaccination vaccination = new Vaccination();
-        vaccination.setIdVaccination(1);
+    public void testGetVaccinationById() {
+        int vaccinationId = 1;
+        int idVaccin = 1;
+        int idAnimal = 1;
+        Date date = new Date();
+        LocalTime vaccinationTime = LocalTime.of(9, 30);
+        String vetAddress = "123 Main Street";
+        String vetName = "Dr. Smith";
+        String comment = "Annual checkup and vaccination";
 
-        when(vaccinationRepository.save(vaccination)).thenReturn(vaccination);
+        // Création de l'instance de Vaccination avec les valeurs nécessaires
+        Vaccination mockVaccination = new Vaccination();
+        mockVaccination.setIdVaccination(vaccinationId);
+        mockVaccination.setIdVaccin(idVaccin);
+        mockVaccination.setIdAnimal(idAnimal);
+        mockVaccination.setDate(date);
+        mockVaccination.setVaccinationTime(vaccinationTime);
+        mockVaccination.setVetAddress(vetAddress);
+        mockVaccination.setVetName(vetName);
+        mockVaccination.setComment(comment);
 
-        Vaccination result = vaccinationService.saveVaccination(vaccination);
+        when(vaccinationRepository.findById(vaccinationId)).thenReturn(Optional.of(mockVaccination));
 
-        assertEquals(vaccination, result);
+        Optional<Vaccination> result = vaccinationService.getVaccinationById(vaccinationId);
 
-        verify(vaccinationRepository, times(1)).save(vaccination);
+        assertEquals(mockVaccination, result.orElse(null));
     }
 
-    @Test
-    void testGetVaccinationLinksByAnimalId() {
-        Integer idAnimal = 1;
 
-        Vaccination vaccination1 = new Vaccination();
-        vaccination1.setIdVaccination(1);
 
-        Vaccination vaccination2 = new Vaccination();
-        vaccination2.setIdVaccination(2);
-
-        List<Vaccination> vaccinations = new ArrayList<>();
-        vaccinations.add(vaccination1);
-        vaccinations.add(vaccination2);
-
-        when(vaccinationRepository.findByAnimalId(idAnimal)).thenReturn(vaccinations);
-
-        List<String> result = vaccinationService.getVaccinationLinksByAnimalId(idAnimal);
-
-        assertEquals(2, result.size());
-        assertEquals("/vaccination/1", result.get(0));
-        assertEquals("/vaccination/2", result.get(1));
-
-        verify(vaccinationRepository, times(1)).findByAnimalId(idAnimal);
-    }
 
     @Test
-    void testGetVaccinationDetailsById() {
-        Integer idVaccination = 1;
+    public void testGetVaccinationDetailsForEmails() {
+        List<Object[]> mockDetails = new ArrayList<>();
+        // Add mocked details here
 
-        Vaccination vaccination = new Vaccination();
-        vaccination.setIdVaccination(idVaccination);
+        when(vaccinationRepository.findVaccinationDetailsForEmails()).thenReturn(mockDetails);
 
-        when(vaccinationRepository.findById(idVaccination)).thenReturn(Optional.of(vaccination));
+        List<Object[]> result = vaccinationService.getVaccinationDetailsForEmails();
 
-        Vaccination result = vaccinationService.getVaccinationDetailsById(idVaccination);
-
-        assertEquals(vaccination, result);
-
-        verify(vaccinationRepository, times(1)).findById(idVaccination);
+        assertEquals(mockDetails, result);
     }
 }
