@@ -303,13 +303,13 @@
                         eventDidMount: function (info) {
                             const event = info.event;
                             let content = `
-                                <div style="padding: 5px 0;">
-                                    <strong style="margin-bottom: 5px;">Titre:</strong> ${event.title}<br><br>
+                            <div style="padding: 5px 0; position: relative; z-index: 20;">
+                                    <strong style="margin-bottom: 2px;">Titre:</strong> ${event.title}<br>
                             `;
                             if (event.title.includes('Traitement')) {
                                 // C'est un événement de traitement
                                 content += `
-                                    <strong style="margin-bottom: 5px;">Commentaire:</strong> ${event.extendedProps.description}<br><br>
+                                    <strong style="margin-bottom: 5px;;">Commentaire:</strong> ${event.extendedProps.description}<br><br>
                                     <button style="background-color: green; color: white; border-radius: 2px; padding: 10px 30px;border:0px solid #fff;">
                                         <a href="/modifier?id=${event.id}" style="text-decoration: none; color: white;">Modifier</a>
                                     </button>
@@ -317,9 +317,9 @@
                             } else if (event.title.includes('Vaccination')) {
                                 // C'est un événement de vaccination
                                 content += `
-                                    <strong style="margin-bottom: 5px;">Vétérinaire:</strong> ${event.extendedProps.vetName}<br><br>
-                                    <strong style="margin-bottom: 5px;">Adresse du vétérinaire:</strong> ${event.extendedProps.vetAddress}<br><br>
-                                    <strong style="margin-bottom: 5px;">Commentaire:</strong> ${event.extendedProps.description}<br><br>
+                                    <strong style="margin-bottom: 2px;">Vétérinaire:</strong> ${event.extendedProps.vetName}<br>
+                                    <strong style="margin-bottom: 2px;">Adresse du vétérinaire:</strong> ${event.extendedProps.vetAddress}<br>
+                                    <strong style="margin-bottom: 2px;">Commentaire:</strong> ${event.extendedProps.description}<br><br>
                                     <button style="background-color: blue; color: white; border-radius: 2px; padding: 10px 30px;border:0px solid #fff;">
                                         <a href="/modifier?id=${event.id}" style="text-decoration: none; color: white;">Modifier</a>
                                     </button>
