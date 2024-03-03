@@ -136,14 +136,23 @@ public class Controller {
         return "ListEvents";
     }
 
-    @GetMapping("/MyEvent")
-    public String Listeventconnecter() {
-        return "EventConnecter";
+
+
+    @GetMapping("/Addvaccin")
+    public String Addvaccin() {
+        return "Addvaccin";
     }
+
 
     @GetMapping("/calendar")
     public String showCalendar() {
         return "calendar";
+    }
+
+
+    @GetMapping("/updatevaccination")
+    public String updatevaccination() {
+        return "Updatevaccination";
     }
 
 }
