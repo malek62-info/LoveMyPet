@@ -314,7 +314,7 @@
                             } else if (event.title.includes('Vaccination')) {
                                 // C'est un événement de vaccination
                                 content += `
-                                chez <strong>${event.extendedProps.vetName}</strong>, situé à <strong>${event.extendedProps.vetAddress}</strong>. <br><br> <button style="background-color: blue; color: white; border-radius: 2px; padding: 10px 30px;border:0px solid #fff;"><a href="/modifier?id=${event.id}" style="text-decoration: none; color: white;">Modifier</a></button>
+                                chez <strong>${event.extendedProps.vetName}</strong>, situé à <strong>${event.extendedProps.vetAddress}</strong>. <br><br> <button style="background-color: blue; color: white; border-radius: 2px; padding: 10px 30px;border:0px solid #fff;"><a href="/updatevaccination?id=${event.id}" style="text-decoration: none; color: white;">Modifier</a></button>
                                 `;
                             }
                             content += `</div>`;

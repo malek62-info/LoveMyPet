@@ -13,7 +13,10 @@ import com.nanterre.LoveMyPet.model.Vaccination;
 
 @Repository
 public interface VaccinationRepository extends JpaRepository<Vaccination, Integer> {
-	List<Vaccination> findByIdAnimal(Integer idAnimal);
+
+
+	List<Vaccination> findByIdAnimal(Integer animalId);
+
 	Optional<Vaccination> findById(Integer idVaccination);
 
 	//liste des email des personnes ayant un animal qui se vaccine aujourdh'ui dans 1 heure
@@ -32,5 +35,5 @@ public interface VaccinationRepository extends JpaRepository<Vaccination, Intege
 
 
 
-}
-	
+
+	}

@@ -555,7 +555,7 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#_affichage_dans_la_section_adoption">Affichage dans la Section "Adoption"</a></li>
 <li><a href="#_gestion_des_candidatures">Gestion des Candidatures</a></li>
 <li><a href="#_petite_feature_pour_laffichage_et_la_modification_des_informations_des_animaux">Petite feature pour l&#8217;affichage et la modification des informations des Animaux</a></li>
-<li><a href="#_fonctionnalité_de_suivi_des_vaccins_carnet_de_vaccination_en_ligne">Fonctionnalité de Suivi des Vaccins - Carnet de Vaccination en Ligne</a></li>
+<li><a href="#_fonctionnalité_de_suivi_des_médicaments_journal_de_medicaments_en_ligne">Fonctionnalité de Suivi des Médicaments - Journal de Medicaments en Ligne</a></li>
 <li><a href="#_fonctionnalité_de_recherche_des_vétérinaires_et_jardins_à_proximité">Fonctionnalité de recherche des Vétérinaires et Jardins à Proximité</a></li>
 </ul>
 </li>
@@ -586,8 +586,8 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 </li>
 <li><a href="#_fonctionnalité_interaction_avec_les_avis_petite">Fonctionnalité Interaction avec les Avis (Petite)</a>
 <ul class="sectlevel3">
-<li><a href="#_maquette_du_front">Maquette du front</a></li>
 <li><a href="#_maquette_du_front_2">Maquette du front</a></li>
+<li><a href="#_maquette_du_front_3">Maquette du front</a></li>
 <li><a href="#_diagramme_de_séquence">Diagramme de séquence</a></li>
 </ul>
 </li>
@@ -1211,35 +1211,420 @@ Frontend -- Backend : communique
 <div class="sect2">
 <h3 id="_petite_feature_pour_laffichage_et_la_modification_des_informations_des_animaux">Petite feature pour l&#8217;affichage et la modification des informations des Animaux</h3>
 <div class="paragraph">
-<p>Chaque animal dans la section "Mes Animaux" est doté d&#8217;un bouton en haut à droite avec le signe plus (+). En cliquant sur ce bouton, les informations détaillées de l&#8217;animal sont affichées, offrant la possibilité de modifier le nom, le poids et la photo de l&#8217;animal.</p>
+<p>Cette feature permet de viualiser et modifer les détails d&#8217;un animal sur le site.</p>
+</div>
+<div class="sect3">
+<h4 id="_maquette_du_front">Maquette du front</h4>
+<div class="paragraph">
+<p>Dans notre page des services, il faut cliquer sur Mes animaux</p>
+</div>
+<div class="paragraph">
+<p>Dans la page Mes animaux, il figure un signe (+) pour chaque animal, cliquez dessus pour accéder aux détails de votre animal</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="info/1.png" alt="alt">
+</div>
+</div>
+<div class="paragraph">
+<p>Voici une vision des informations de votre animal, modifiables avec les trois boutons verts</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="info/2.png" alt="alt">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_diagramme_de_classes_partie_métier">Diagramme de classes (partie métier)</h4>
+<div class="paragraph">
+<p>Voici un diagramme des classes qui explique la partie métier de cette petite feature</p>
+</div>
+<div class="paragraph">
+<p>@startuml
+package com.nanterre.LoveMyPet.controller {
+    class InfoAnimalController {
+        - infoAnimalService: InfoAnimalServiceImpl
+        + getCandidatureDetailsById(idAnimal: Integer): Animal
+        + updateAnimalName(idAnimal: Integer, requestBody: Map&lt;String, String&gt;): ResponseEntity&lt;String&gt;
+        + updateAnimalWeight(idAnimal: Integer, requestBody: Map&lt;String, Double&gt;): ResponseEntity&lt;String&gt;
+        + updateAnimalImage(idAnimal: Integer, imageFile: MultipartFile): ResponseEntity&lt;String&gt;
+    }
+}</p>
+</div>
+<div class="paragraph">
+<p>package com.nanterre.LoveMyPet.model {
+    class Animal {
+        - id: Integer
+        - idPerson: Integer
+        - name: String
+        - category: String
+        - race: String
+        - weight: Double
+        - gender: Integer
+        - dateOfBirth: Date
+        - imageUrl: String
+        - adoptedByPerson: Person
+    }</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>class Person {
+    - idperson: Integer
+    // Add other attributes if needed
+}</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>    class HistoriqueWeight {
+        // Add attributes for HistoriqueWeight
+    }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>package com.nanterre.LoveMyPet.repository {
+    interface InfoAnimalRepository {
+        // Methods from JpaRepository
+    }
+}</p>
+</div>
+<div class="paragraph">
+<p>package com.nanterre.LoveMyPet.service {
+    interface InfoAnimalService {
+        + getInfoAnimalDetailsById(idAnimal: Integer): Animal
+        + updateAnimalName(idAnimal: Integer, newName: String): void
+        + updateAnimalWeight(idAnimal: Integer, newWeight: Double): void
+        + updateAnimalImage(idAnimal: Integer, imageUrl: String): void
+    }</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>    class InfoAnimalServiceImpl {
+        - entityManager: EntityManager
+        - animalInfoRepository: InfoAnimalRepository
+        + getInfoAnimalDetailsById(idAnimal: Integer): Animal
+        + updateAnimalName(idAnimal: Integer, newName: String): void
+        + updateAnimalWeight(idAnimal: Integer, newWeight: Double): void
+        + updateAnimalImage(idAnimal: Integer, imageUrl: String): void
+    }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>InfoAnimalController -&#8594; InfoAnimalServiceImpl: infoAnimalService
+InfoAnimalServiceImpl -&#8594; InfoAnimalRepository: animalInfoRepository
+InfoAnimalServiceImpl -&#8594; EntityManager: entityManager
+InfoAnimalServiceImpl -&#8594; Animal
+InfoAnimalServiceImpl -&#8594; HistoriqueWeight</p>
+</div>
+<div class="paragraph">
+<p>@enduml</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_description_api_rest">Description API REST</h4>
+<div class="paragraph">
+<p>Point de départ de l&#8217;API : <code>/infoanimal</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GET /{idAnimal}</code> : Récupérer les informations concernant un animal à partir de son id
+*<code>POST /updateName/{idAnimal}</code> : modifier le nom de l&#8217;animal dont l&#8217;identifiant est idAnimal.
+*<code>POST /updateWeight/{idAnimal}</code> : modifier le poids de l&#8217;animal dont l&#8217;identifiant est idAnimal.
+*<code>POST /updateImage/{idAnimal}</code> : modifier l&#8217;image de l&#8217;animal dont l&#8217;identifiant est idAnimal.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_diagrammes_de_séquence_des_interactions_frontback">Diagrammes de séquence des interactions front/back</h4>
+<div class="paragraph">
+<p>@startuml
+actor Utilisateur
+participant JavaScript
+participant BackEnd
+database BaseDeDonnees</p>
+</div>
+<div class="paragraph">
+<p>Utilisateur &#8594; JavaScript: Clique sur le bouton de modification
+JavaScript &#8594; Utilisateur: Affiche une boîte de dialogue pour entrer les nouvelles informations
+Utilisateur -&#8594; JavaScript: Entrez les nouvelles informations</p>
+</div>
+<div class="paragraph">
+<p>JavaScript &#8594; BackEnd: Requête POST vers /infoanimal/updateName/{idAnimal} avec le nouveau nom
+BackEnd -&#8594; JavaScript: Réponse HTTP (succès ou échec)
+JavaScript &#8594; BaseDeDonnees: Mise à jour du nom dans la base de données</p>
+</div>
+<div class="paragraph">
+<p>JavaScript &#8594; BackEnd: Requête POST vers /infoanimal/updateWeight/{idAnimal} avec le nouveau poids
+BackEnd -&#8594; JavaScript: Réponse HTTP (succès ou échec)
+JavaScript &#8594; BaseDeDonnees: Mise à jour du poids dans la base de données</p>
+</div>
+<div class="paragraph">
+<p>JavaScript &#8594; BackEnd: Requête POST vers /infoanimal/updateImage/{idAnimal} avec le nouveau fichier image
+BackEnd -&#8594; JavaScript: Réponse HTTP (succès ou échec)
+JavaScript &#8594; BaseDeDonnees: Mise à jour de l&#8217;URL de l&#8217;image dans la base de données</p>
+</div>
+<div class="paragraph">
+<p>Utilisateur &#8594; JavaScript: Recharge la page pour refléter les modifications
+@enduml</p>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_fonctionnalité_de_suivi_des_vaccins_carnet_de_vaccination_en_ligne">Fonctionnalité de Suivi des Vaccins - Carnet de Vaccination en Ligne</h3>
+<h3 id="_fonctionnalité_de_suivi_des_médicaments_journal_de_medicaments_en_ligne">Fonctionnalité de Suivi des Médicaments - Journal de Medicaments en Ligne</h3>
 <div class="paragraph">
-<p>La fonction de suivi des vaccins offre une gestion centralisée des vaccinations des animaux. Accessible depuis "Mes Animaux", elle permet aux propriétaires de maintenir un carnet de vaccination en ligne.</p>
+<p>La fonction de suivi des medicaments. Cette fonctionnalité permet aux propriétaires d&#8217;animaux de garder facilement une trace des traitements administrés, assurant ainsi un suivi efficace de la santé de leur animal de compagnie</p>
 </div>
 <div class="sect3">
 <h4 id="_accès_simple">Accès Simple</h4>
 <div class="paragraph">
-<p><strong>étape 1</strong>
-image::suivi_vaccins.png[etape 1]</p>
+<p><strong>étape 1</strong></p>
 </div>
 <div class="paragraph">
-<p><strong>étape 2</strong>
-image::mes_animaux.png[etape 2]</p>
+<p>Cliquez sur Medicaments dans la page suivi complet</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="medocs/1.png" alt="etape 1">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>étape 2</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="medocs/2.png" alt="etape 2">
+</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_vue_densemble_des_vaccinations">Vue d&#8217;Ensemble des Vaccinations</h4>
+<h4 id="_vue_densemble_des_medicaments_pris_par_lanimal">Vue d&#8217;Ensemble des Medicaments pris par l&#8217;animal</h4>
 <div class="paragraph">
-<p>L&#8217;interface propose une vue d&#8217;ensemble détaillée des vaccinations, incluant le nom et la date de chaque vaccin.</p>
+<p>L&#8217;interface propose une vue d&#8217;ensemble détaillée des medicaments, incluant le nom et la date de chaque médicaments.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_ajout_de_vaccinations">Ajout de Vaccinations</h4>
+<h4 id="_ajout_de_medicaments">Ajout de Medicaments</h4>
 <div class="paragraph">
-<p>Les propriétaires peuvent ajouter de nouvelles vaccinations à tout moment, garantissant un historique complet et à jour.</p>
+<p>Les propriétaires peuvent ajouter des Medicaments à tout moment, garantissant un historique complet et à jour.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_diagramme_de_classes_partie_métier_2">Diagramme de classes (partie métier)</h4>
+<div class="paragraph">
+<p>Voici un diagramme des classes qui explique la partie métier de cette  feature</p>
+</div>
+<div class="paragraph">
+<p>@startuml</p>
+</div>
+<div class="paragraph">
+<p>package "com.nanterre.LoveMyPet.controller" {
+    class VaccinationController {
+        +getVaccinationReferenceByAnimalId(idAnimal: Integer): List&lt;String&gt;
+        +getVaccinationDetailsById(idVaccination: Integer): Vaccination
+        +add(vaccination: Vaccination, animalId: Integer): String
+    }</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>    class VaccinController {
+        -vaccinService: VaccinService
+        +getAllVaccins(): Iterable&lt;Vaccin&gt;
+    }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>package "com.nanterre.LoveMyPet.model" {
+    class Vaccin {
+        -idVaccin: Integer
+        -vaccinName: String
+        +getIdVaccin(): Integer
+        +getVaccinName(): String
+    }</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>class Vaccination {
+    -idVaccination: Integer
+    -vaccin: Vaccin
+    -animal: Animal
+    -date: Date
+    +getIdVaccination(): Integer
+    +getVaccin(): Vaccin
+    +getAnimal(): Animal
+    +getDate(): Date
+}</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>    class Animal {
+        -idAnimal: Integer
+        // ... (other attributes and methods)
+    }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>package "com.nanterre.LoveMyPet.repository" {
+    interface VaccinationRepository {
+        +findByAnimalId(animalId: Integer): List&lt;Vaccination&gt;
+    }</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>    interface VaccinRepository {
+        +findAll(): Iterable&lt;Vaccin&gt;
+    }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>package "com.nanterre.LoveMyPet.service" {
+    interface VaccinationService {
+        +saveVaccination(vaccination: Vaccination): Vaccination
+        +getVaccinationLinksByAnimalId(idAnimal: Integer): List&lt;String&gt;
+        +getVaccinationDetailsById(idVaccination: Integer): Vaccination
+    }</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>class VaccinationServiceImpl {
+    -entityManager: EntityManager
+    -vaccinationRepository: VaccinationRepository
+    +saveVaccination(vaccination: Vaccination): Vaccination
+    +getVaccinationLinksByAnimalId(idAnimal: Integer): List&lt;String&gt;
+    +getVaccinationDetailsById(idVaccination: Integer): Vaccination
+}</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>interface VaccinService {
+    +getAllVaccins(): Iterable&lt;Vaccin&gt;
+    +getVaccinById(id: Integer): Vaccin
+}</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>    class VaccinServiceImpl {
+        -vaccinRepository: VaccinRepository
+        +getAllVaccins(): Iterable&lt;Vaccin&gt;
+        +getVaccinById(id: Integer): Vaccin
+    }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>VaccinationController -&#8594; VaccinationServiceImpl
+VaccinationServiceImpl -&#8594; VaccinationRepository
+VaccinController -&#8594; VaccinService
+VaccinService -&#8594; VaccinRepository
+VaccinationRepository -&#8594; Vaccination
+VaccinRepository -&#8594; Vaccin</p>
+</div>
+<div class="paragraph">
+<p>Vaccination -&#8594; Vaccin
+Vaccination -&#8594; Animal</p>
+</div>
+<div class="paragraph">
+<p>@enduml</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_description_api_rest_2">Description API REST</h4>
+<div class="paragraph">
+<p>VaccinationController</p>
+</div>
+<div class="paragraph">
+<p>Point de départ de l&#8217;API : <code>/vaccination</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GET /animal/{idAnimal}</code> : Obtenir les références de vaccination par ID d&#8217;animal.</p>
+</li>
+<li>
+<p><code>GET /{idVaccination}</code> : Obtenir les détails d&#8217;une vaccination spécifique par ID.</p>
+</li>
+<li>
+<p><code>POST /add</code> : Ajouter une nouvelle vaccination.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>VaccinController</p>
+</div>
+<div class="paragraph">
+<p>Point de départ de l&#8217;API : <code>/vaccin</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>GET /all</code> : Obtenir toutes les vaccinations.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_diagrammes_de_séquence_des_interactions_frontback_2">Diagrammes de séquence des interactions front/back</h4>
+<div class="paragraph">
+<p>@startuml</p>
+</div>
+<div class="paragraph">
+<p>actor Utilisateur as User
+participant Frontend as FrontendHTML
+participant BackendController as VaccinationController
+participant VaccinationService as VaccinationServiceImpl
+participant VaccinationRepository as VaccinationRepository
+database VaccinationDB as VaccinationDB
+database VaccinDB as VaccinDB</p>
+</div>
+<div class="paragraph">
+<p>activate FrontendHTML</p>
+</div>
+<div class="paragraph">
+<p>User &#8594; FrontendHTML: Accéder à la page de suivi
+activate BackendController
+FrontendHTML &#8594; BackendController: Effectuer une requête pour obtenir les données des vaccinations
+activate VaccinationService
+BackendController &#8594; VaccinationService: Appeler getVaccinationLinksByAnimalId
+activate VaccinationRepository
+VaccinationService &#8594; VaccinationRepository: Appeler findByAnimalId
+VaccinationRepository &#8594; VaccinationDB: Requête pour obtenir les vaccinations
+VaccinationDB -&#8594; VaccinationRepository: Renvoyer les données
+VaccinationRepository -&#8594; VaccinationService: Renvoyer les données
+deactivate VaccinationDB
+deactivate VaccinationRepository
+deactivate VaccinationService
+BackendController -&#8594; FrontendHTML: Renvoyer les données au frontend
+deactivate BackendController</p>
+</div>
+<div class="paragraph">
+<p>User &#8594; FrontendHTML: Ajouter un nouveau vaccin
+activate FrontendHTML
+FrontendHTML &#8594; BackendController: Envoyer les données du formulaire
+activate VaccinationService
+BackendController &#8594; VaccinationService: Appeler saveVaccination
+activate VaccinationRepository
+VaccinationService &#8594; VaccinationRepository: Appeler save
+VaccinationRepository &#8594; VaccinationDB: Enregistrer le nouveau vaccin
+VaccinationDB -&#8594; VaccinationRepository: Confirmation de l&#8217;enregistrement
+VaccinationRepository -&#8594; VaccinationService: Renvoyer la confirmation
+deactivate VaccinationDB
+deactivate VaccinationRepository
+deactivate VaccinationService
+BackendController -&#8594; FrontendHTML: Renvoyer la confirmation au frontend
+deactivate BackendController</p>
+</div>
+<div class="paragraph">
+<p>@enduml</p>
 </div>
 </div>
 </div>
@@ -1459,13 +1844,13 @@ RestTemplate --&gt; API: Nominatim API</pre>
 <h2 id="_fonctionnalité_interaction_avec_les_avis_petite">Fonctionnalité Interaction avec les Avis (Petite)</h2>
 <div class="sectionbody">
 <div class="sect3">
-<h4 id="_maquette_du_front">Maquette du front</h4>
+<h4 id="_maquette_du_front_2">Maquette du front</h4>
 <div class="paragraph">
 <p>Les utilisateurs ont la possibilité d&#8217;interagir avec les avis en les consultant, en les likant, ou en les dislikant. Cette fonctionnalité permet d&#8217;exprimer des réactions vis-à-vis des conseils postés par d&#8217;autres utilisateurs.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_maquette_du_front_2">Maquette du front</h4>
+<h4 id="_maquette_du_front_3">Maquette du front</h4>
 <div class="imageblock">
 <div class="content">
 <img src="images_planification_food/7.png" alt="advice">
@@ -1548,7 +1933,7 @@ deactivate ParcsController
 <p>Cette fonctionnalité permet à un utilisateur de programmer les heures auxquelles il souhaite nourrir son animal</p>
 </div>
 <div class="sect3">
-<h4 id="_maquette_du_front_3">Maquette du front</h4>
+<h4 id="_maquette_du_front_4">Maquette du front</h4>
 <div class="paragraph">
 <p>Etape 1: Rentrer une heure puis cliquer sur le boutton  "Creer une alerte" Puis l&#8217;alerte sera ajouter au tableau</p>
 </div>
@@ -2584,7 +2969,7 @@ deactivate InscriptionController
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-02-13 21:29:32 +0100
+Last updated 2024-03-03 19:47:02 +0100
 </div>
 </div>
 </body>

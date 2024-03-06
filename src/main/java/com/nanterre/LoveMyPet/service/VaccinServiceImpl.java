@@ -22,6 +22,10 @@ public class VaccinServiceImpl implements VaccinService {
     @Autowired
     private VaccinRepository vaccinRepository;
 
+    public List<String> getAllVaccinReferences() {
+        List<Vaccin> vaccins = vaccinRepository.findAll();
+        return vaccins.stream().map(vaccin -> "vaccin/" + vaccin.getIdVaccin()).collect(Collectors.toList());
+    }
     public Vaccin getVaccinById(Integer id) {
         Optional<Vaccin> vaccinOptional = vaccinRepository.findById(id);
         return vaccinOptional.orElse(null);
