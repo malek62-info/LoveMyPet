@@ -2,6 +2,10 @@ package com.nanterre.LoveMyPet.model;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -13,10 +17,12 @@ public class Heure {
 
     @ManyToOne
     @JoinColumn(name = "idtraitement", referencedColumnName = "idtraitement")
+    @JsonBackReference
     private Traitement traitement; // Identifiant traitement pour associer un traitement à une heure
     
     @Temporal(TemporalType.TIME)
     @Column(name = "heure")
+    @DateTimeFormat(pattern = "HH:mm")
     private Date heure;
 
     

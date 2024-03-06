@@ -38,14 +38,18 @@ public class TraitementServiceImpl implements TraitementService {
     }
     
     @Override
-    public void ajouterHeure(Integer idTraitement, Heure heure) {
+    public void ajouterHeure(Integer idTraitement, List<Heure> heures) {
         Traitement traitement = traitementRepository.findById(idTraitement).orElse(null);
         if (traitement != null) {
-            heure.setTraitement(traitement);
-            traitement.getHeures().add(heure);
+            // Associer chaque heure au traitement et les enregistrer
+            heures.forEach(heure -> {
+                heure.setTraitement(traitement);
+                traitement.getHeures().add(heure);
+            });
             traitementRepository.save(traitement);
         }
     }
+
     @Override
     public List<Heure> getHeuresByTraitementId(Integer idTraitement) {
         Traitement traitement = traitementRepository.findById(idTraitement).orElse(null);
@@ -55,23 +59,5 @@ public class TraitementServiceImpl implements TraitementService {
         return Collections.emptyList();
     }
     
-    @Override
-    public void updateHeure(Integer idHeure, Heure newHeure) {
-        // Récupérer l'heure existante à partir de la base de données en utilisant son ID
-        Optional<Heure> existingHeureOptional = heureRepository.findById(idHeure);
-
-        if (existingHeureOptional.isPresent()) {
-            Heure existingHeure = existingHeureOptional.get();
-
-            // Mettre à jour les champs de l'heure existante avec les nouvelles valeurs
-            existingHeure.setHeure(newHeure.getHeure()); // Mettez à jour l'heure (ou tout autre champ que vous souhaitez mettre à jour)
-
-            // Enregistrer les modifications dans la base de données
-            heureRepository.save(existingHeure);
-        } else {
-            // Gérer le cas où l'heure avec l'ID spécifié n'existe pas
-            throw new RuntimeException("Heure avec l'ID " + idHeure + " non trouvée");
-        }
-    }
-
+    
 }

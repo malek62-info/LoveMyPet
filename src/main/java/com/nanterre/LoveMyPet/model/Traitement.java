@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Traitement {
 	@Id
@@ -37,14 +39,11 @@ public class Traitement {
 	@Column(name = "commentaire", length = 1000) // longueur maximale du commentaire
 	private String commentaire; // Commentaire sur le traitement
 
-	// Champ pour stocker le fichier de type image ou PDF
-	@Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(name = "fichier", length = 1048576) // 1 Mo
-    private byte[] fichier;
-
+	
+	
 	// Relation One-to-Many avec la classe Heure
     @OneToMany(mappedBy = "traitement", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Heure> heures;
     
 	// Getters and setters
@@ -104,14 +103,6 @@ public class Traitement {
 	public void setCommentaire(String commentaire) {
 		this.commentaire = commentaire;
 	}
-
-	public byte[] getFichier() {
-		return fichier;
-	}
-
-	public void setFichier(byte[] fichier) {
-		this.fichier = fichier;
-	}
 	
 	public List<Heure> getHeures() {
         return heures;
@@ -120,5 +111,15 @@ public class Traitement {
     public void setHeures(List<Heure> heures) {
         this.heures = heures;
     }
+    public String getFichierUrl() {
+		return fichierUrl;
+	}
+
+	public void setFichierUrl(String fichierUrl) {
+		this.fichierUrl = fichierUrl;
+	}
+
+	@Column(name = "fichierurl")
+    private String fichierUrl;
 
 }
