@@ -224,7 +224,7 @@
                                                     console.log("Nom du vaccin pour ID " + vaccination.idVaccin + ":", data.vaccinName);
                                                     return {
                                                         id :vaccination.idVaccin,
-                                                        title: "Vaccination" + data.vaccinName,
+                                                        title: "Vaccination " + data.vaccinName,
                                                         start: startTime,
                                                         end: endTime,
                                                         description: vaccination.comment,
@@ -259,10 +259,10 @@
                                                 eventDate.setHours(heure.heure.split(':')[0]);
                                                 eventDate.setMinutes(heure.heure.split(':')[1]);
                                                 console.log("traitement" +  traitement)
-                                                console.log("ID du traitement :", traitement.id);
+                                                console.log("ID du traitement", traitement.id);
                                                 traitementEvents.push({
                                                     id: traitement.idTraitement, 
-                                                    title: `Traitement : ${traitement.medicament.medicamentName}`,
+                                                    title: `Traitement ${traitement.medicament.medicamentName}`,
                                                     start: eventDate,
                                                     allDay: false,
                                                     description: traitement.commentaire,
@@ -303,29 +303,22 @@
                         eventDidMount: function (info) {
                             const event = info.event;
                             let content = `
-                            <div style="padding: 5px 0; position: relative; z-index: 20;">
-                                    <strong style="margin-bottom: 2px;">Titre:</strong> ${event.title}<br>
+                            <div style="padding: 5px 0; position: relative; z-index: 20; text-align: center;">
+                                <strong>${event.title}</strong>
                             `;
                             if (event.title.includes('Traitement')) {
                                 // C'est un événement de traitement
                                 content += `
-                                    <strong style="margin-bottom: 5px;;">Commentaire:</strong> ${event.extendedProps.description}<br><br>
-                                    <button style="background-color: green; color: white; border-radius: 2px; padding: 10px 30px;border:0px solid #fff;">
-                                        <a href="/modifier?id=${event.id}" style="text-decoration: none; color: white;">Modifier</a>
-                                    </button>
+                                <br><br><button style="background-color: green; color: white; border-radius: 2px; padding: 10px 30px;border:0px solid #fff;"><a href="/modifier?id=${event.id}" style="text-decoration: none; color: white;">Modifier</a></button>
                                 `;
                             } else if (event.title.includes('Vaccination')) {
                                 // C'est un événement de vaccination
                                 content += `
-                                    <strong style="margin-bottom: 2px;">Vétérinaire:</strong> ${event.extendedProps.vetName}<br>
-                                    <strong style="margin-bottom: 2px;">Adresse du vétérinaire:</strong> ${event.extendedProps.vetAddress}<br>
-                                    <strong style="margin-bottom: 2px;">Commentaire:</strong> ${event.extendedProps.description}<br><br>
-                                    <button style="background-color: blue; color: white; border-radius: 2px; padding: 10px 30px;border:0px solid #fff;">
-                                        <a href="/modifier?id=${event.id}" style="text-decoration: none; color: white;">Modifier</a>
-                                    </button>
+                                chez <strong>${event.extendedProps.vetName}</strong>, situé à <strong>${event.extendedProps.vetAddress}</strong>. <br><br> <button style="background-color: blue; color: white; border-radius: 2px; padding: 10px 30px;border:0px solid #fff;"><a href="/modifier?id=${event.id}" style="text-decoration: none; color: white;">Modifier</a></button>
                                 `;
                             }
                             content += `</div>`;
+
                             tippy(info.el, {
                                 content: content,
                                 allowHTML: true,
