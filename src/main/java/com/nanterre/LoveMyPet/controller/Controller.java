@@ -154,5 +154,18 @@ public class Controller {
     public String updatevaccination() {
         return "Updatevaccination";
     }
+    
+    @GetMapping("/Medicaments")
+    public String Medicaments() {
+        return "Medicaments";
+    }
+    @GetMapping("/FormulaireMedicaments")
+    public String FormulaireMedicaments() {
+        return "FormMedicaments";
+    }
+    @GetMapping("/FormulaireHeure")
+    public String FormulaireHeure() {
+        return "FormulaireHeure";
+    }
 
 }

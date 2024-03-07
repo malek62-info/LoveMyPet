@@ -7,237 +7,353 @@
     <title>Details de la Personne</title>
 </head>
 
-<body>
+<div>
 
-    <!-- Div pour afficher les détails de la personne -->
-    <a href="/mesanimaux"> ⬅️ Mes Animaux</a>
-    <div id="personDetails"></div>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url(https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg);
+        }
 
 
 
-    <script>
-        let data;
-        // Fonction pour récupérer les détails de la personne à partir de l'URI de la candidature
-        async function getPersonDetails(candidatureUri) {
-            try {
-                const response = await fetch(candidatureUri);
-                data = await response.json();
+        /* sitde bar */
 
-                // Créer une chaîne HTML avec les informations de la personne
-                const personDetailsHtml = `
+        .w3-sidebar {
+            position: fixed;
+            z-index: 100;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .w3-button {
+            color: #fff;
+            outline: none;
+            outline: none;
+            padding: 10px;
+            text-decoration: none;
+            transition: 0.5s;
+        }
+
+
+        .w3-button:hover {
+            background-color: #fff;
+            text-decoration: none;
+            color: #81774E;
+            border-radius: 6px;
+        }
+
+        .w3-button:hover a {
+            color: #000;
+        }
+
+        .logo-img {
+            text-align: CENTER;
+            margin: 20PX AUTO;
+            width: 100PX;
+        }
+
+        .side_bar_bar {
+            background-color: #81774E;
+            border: 0;
+            height: 1px;
+            width: 100%;
+            border-radius: 2px;
+            margin: 10px 0;
+        }
+
+        .top-right:hover {
+            background-color: #000;
+        }
+
+        #personDetails {
+            padding-top: 90px;
+            min-height: 100vh;
+            margin-left: 250px;
+
+            padding: 50px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+
+    <!-- Sidebar -->
+    <div class="w3-sidebar ">
+        <img src="images/logo.png" alt="Logo" class="logo-img">
+        <a href="/profile" class="w3-button">Mon compte</a>
+        <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+
+        <a href="/adoption" class="w3-button">Adoption</a>
+        <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="#" class="w3-button">Se Déconnecter</a>
+
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/donate" class="w3-button">Donner des objets</a>
+        <a href="/showdonations" class="w3-button">Trouver des objets</a>
+        <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
+
+
+
+
+
+    </div>
+
+    <div class="big-container"></div>
+    <div id="personDetails">
+        <!-- La liste des candidatures -->
+    </div>
+</div>
+
+
+
+<script>
+    let data;
+    // Fonction pour récupérer les détails de la personne à partir de l'URI de la candidature
+    async function getPersonDetails(candidatureUri) {
+        try {
+            const response = await fetch(candidatureUri);
+            data = await response.json();
+
+            // Créer une chaîne HTML avec les informations de la personne
+            const personDetailsHtml = `<div class="details">
             <p> 😊 <strong>Nom de la personne:</strong> <em>${data.person.firstName} ${data.person.lastName}</em></p>
             <p> ☎️ <strong>Numéro de téléphone:</strong> <em>${data.person.phoneNumber}</em></p>
             <p> 📧 <strong>Email de la personne:</strong> <em>${data.person.email}</em></p>
             <p> 🏠 <strong>Adresse de la personne:</strong> <em>${data.person.address}</em></p>
             <p> 📅 <strong>Date de candidature :</strong> <em>${data.dateCandidature}</em></p>
-            <hr>
             <!-- Boutons Accepter et Refuser -->
             <div id="buttons">
                 <button id="acceptButton" onclick="acceptCandidature()" disabled>Accepter</button>
                 <button id="rejectButton" onclick="rejectCandidature()" disabled style="margin-left: 10px;">Refuser</button>
             </div>
+            </div>
         `;
 
-                // Ajouter les détails de la personne à la div
-                document.getElementById('personDetails').innerHTML += personDetailsHtml;
-                document.getElementById('acceptButton').disabled = false;
-                document.getElementById('rejectButton').disabled = false;
+            // Ajouter les détails de la personne à la div
+            document.getElementById('personDetails').innerHTML += personDetailsHtml;
+            document.getElementById('acceptButton').disabled = false;
+            document.getElementById('rejectButton').disabled = false;
 
 
-            } catch (error) {
-                console.error('Erreur lors de la récupération des détails de la personne:', error);
-            }
+        } catch (error) {
+            console.error('Erreur lors de la récupération des détails de la personne:', error);
         }
-        
+    }
 
-        // Fonction pour supprimer toutes les candidatures de l'animal
-        async function deleteAllCandidatures() {
-            try {
-                const animalId = getAnimalIdFromUrl();
-                const candidatureUrisResponse = await fetch(`/animal/${animalId}/candidatures`);
-                const candidatureUris = await candidatureUrisResponse.json();
 
-                if (candidatureUris.length > 0) {
-                    // Appeler la fonction pour supprimer chaque candidature
-                    await Promise.all(candidatureUris.map(async candidatureUri => {
-                        const candidatureId = candidatureUri.split('/').pop();
-                        await fetch(`/animal/${animalId}/candidature/${candidatureId}`, {
-                            method: 'DELETE',
-                        });
-                    }));
+    // Fonction pour supprimer toutes les candidatures de l'animal
+    async function deleteAllCandidatures() {
+        try {
+            const animalId = getAnimalIdFromUrl();
+            const candidatureUrisResponse = await fetch(`/animal/${animalId}/candidatures`);
+            const candidatureUris = await candidatureUrisResponse.json();
 
-                    console.log('Toutes les candidatures supprimées avec succès'); // Ajout d'un message de débogage
-                    document.getElementById('personDetails').innerHTML = " 😊 Toutes les candidatures supprimées";
+            if (candidatureUris.length > 0) {
+                // Appeler la fonction pour supprimer chaque candidature
+                await Promise.all(candidatureUris.map(async candidatureUri => {
+                    const candidatureId = candidatureUri.split('/').pop();
+                    await fetch(`/animal/${animalId}/candidature/${candidatureId}`, {
+                        method: 'DELETE',
+                    });
+                }));
 
-                } else {
-                    console.log('Pas de candidatures à supprimer'); // Ajout d'un message de débogage
-                    document.getElementById('personDetails').innerHTML = " 😥 Pas de candidature à supprimer";
-                }
+                console.log('Toutes les candidatures supprimées avec succès'); // Ajout d'un message de débogage
+                document.getElementById('personDetails').innerHTML = " 😊 Toutes les candidatures supprimées";
 
-            } catch (error) {
-                console.error('Erreur lors de la suppression des candidatures:', error);
+            } else {
+                console.log('Pas de candidatures à supprimer'); // Ajout d'un message de débogage
+                document.getElementById('personDetails').innerHTML = " 😥 Pas de candidature à supprimer";
             }
+
+        } catch (error) {
+            console.error('Erreur lors de la suppression des candidatures:', error);
         }
+    }
 
-        async function acceptCandidature() {
-            try {
-                const animalId = getAnimalIdFromUrl();
-                await deleteAllCandidatures(animalId);
-                const formatDate = (date) => new Date(date).toISOString().split('T')[0];
-                
-                if (data.adoption.endDate === '0001-01-01') {
-                    const deleteAdoptionResponse = await fetch(`/adoption/${data.adoption.idAdoption}`, { method: 'DELETE' });
+    async function acceptCandidature() {
+        try {
+            const animalId = getAnimalIdFromUrl();
+            await deleteAllCandidatures(animalId);
+            const formatDate = (date) => new Date(date).toISOString().split('T')[0];
 
-                    if (deleteAdoptionResponse.ok) {
-                        console.log(`ici`);
-                        
-                        // Ajoutez cet appel pour mettre à jour le propriétaire de l'animal
-                        const updateAnimalPersonResponse = await fetch(`/animal/${animalId}/updatePerson`, {
-                            method: 'PUT',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ newPersonId: data.person.idPerson }),
-                        });
+            if (data.adoption.endDate === '0001-01-01') {
+                const deleteAdoptionResponse = await fetch(`/adoption/${data.adoption.idAdoption}`, { method: 'DELETE' });
 
-                        if (updateAnimalPersonResponse.ok) {
-                            document.getElementById('personDetails').innerHTML = " 😊 Candidature acceptée";
-                        } else {
-                            console.error('Erreur lors de la mise à jour du idPerson de l\'animal');
-                        }
+                if (deleteAdoptionResponse.ok) {
+                    console.log(`ici`);
+
+                    // Ajoutez cet appel pour mettre à jour le propriétaire de l'animal
+                    const updateAnimalPersonResponse = await fetch(`/animal/${animalId}/updatePerson`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ newPersonId: data.person.idPerson }),
+                    });
+
+                    if (updateAnimalPersonResponse.ok) {
+                        document.getElementById('personDetails').innerHTML = " 😊 Candidature acceptée";
                     } else {
-                        console.error('Erreur lors de la suppression de l\'adoption');
+                        console.error('Erreur lors de la mise à jour du idPerson de l\'animal');
                     }
                 } else {
-                    const deleteAdoptionResponse = await fetch(`/adoption/${data.adoption.idAdoption}`, { method: 'DELETE' });
+                    console.error('Erreur lors de la suppression de l\'adoption');
+                }
+            } else {
+                const deleteAdoptionResponse = await fetch(`/adoption/${data.adoption.idAdoption}`, { method: 'DELETE' });
 
-                    if (deleteAdoptionResponse.ok) {
-                        console.log('Date formatée à envoyer :', formatDate(data.adoption.endDate));
-                        // Ajoutez cet appel pour mettre à jour le propriétaire de l'animal
-                        const addHistoriqueAdoptionResponse = await fetch('/historiqueadoption/ajouteradoption', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                idAnimal: data.adoption.idAnimal,
-                                idPerson: data.person.idPerson,
-                                endDate: formatDate(data.adoption.endDate),
-                            }),
-                        });
+                if (deleteAdoptionResponse.ok) {
+                    console.log('Date formatée à envoyer :', formatDate(data.adoption.endDate));
+                    // Ajoutez cet appel pour mettre à jour le propriétaire de l'animal
+                    const addHistoriqueAdoptionResponse = await fetch('/historiqueadoption/ajouteradoption', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            idAnimal: data.adoption.idAnimal,
+                            idPerson: data.person.idPerson,
+                            endDate: formatDate(data.adoption.endDate),
+                        }),
+                    });
 
-                        if (addHistoriqueAdoptionResponse.ok) {
-                            console.error('L\'ajout de l\'historique d\'adoption est fait');
-                        } else {
-                            console.error('Erreur lors de l\'ajout de l\'historique d\'adoption');
-                        }
+                    if (addHistoriqueAdoptionResponse.ok) {
+                        console.error('L\'ajout de l\'historique d\'adoption est fait');
                     } else {
-                        console.error('Erreur lors de la suppression de l\'adoption');
+                        console.error('Erreur lors de l\'ajout de l\'historique d\'adoption');
                     }
-                }
-            } catch (error) {
-                console.error('Erreur lors de l\'acceptation de la candidature:', error);
-            }
-        }
-
-        // Fonction pour refuser la candidature
-        async function rejectCandidature() {
-            try {
-                console.log('Bouton Refuser cliqué'); // Ajout d'un message de débogage
-                const animalId = getAnimalIdFromUrl();
-
-                console.log('ID de la candidature à refuser:', data.idCandidature); // Ajout d'un message de débogage
-
-                const response = await fetch(`/animal/${animalId}/candidature/${data.idCandidature}`, {
-                    method: 'DELETE',
-                });
-
-                if (response.ok) {
-                    // Supprimez la ligne de la page si la suppression réussit
-                    console.log('Candidature refusée avec succès'); // Ajout d'un message de débogage
-                    document.getElementById('personDetails').innerHTML = " 😥 Candidature refusée";
-                    window.location.reload();
-
                 } else {
-                    console.error('Erreur lors de la suppression de la candidature');
+                    console.error('Erreur lors de la suppression de l\'adoption');
                 }
-            } catch (error) {
-                console.error('Erreur lors de la suppression de la candidature:', error);
             }
+        } catch (error) {
+            console.error('Erreur lors de l\'acceptation de la candidature:', error);
         }
+    }
 
-        // Fonction pour récupérer les candidatures de l'animal
-
-        function getAnimalIdFromUrl() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const animalId = urlParams.get('id');
-            return animalId;
-        }
-
-        async function getCandidatures() {
-
+    // Fonction pour refuser la candidature
+    async function rejectCandidature() {
+        try {
+            console.log('Bouton Refuser cliqué'); // Ajout d'un message de débogage
             const animalId = getAnimalIdFromUrl();
 
-            // Afficher l'ID de l'animal
-            console.log('ID de l\'animal:', animalId);
+            console.log('ID de la candidature à refuser:', data.idCandidature); // Ajout d'un message de débogage
 
-            try {
-                const response = await fetch(`/animal/${animalId}/candidatures`);
-                const candidatureUris = await response.json();
-                if (candidatureUris.length > 0) {
-                    // Appeler la fonction pour chaque URI de candidature
-                    candidatureUris.forEach(candidatureUri => {
-                        getPersonDetails(candidatureUri);
-                    });
-                } else {
-                    document.getElementById('personDetails').innerHTML = " 😥 Pas de candidature";
-                }
+            const response = await fetch(`/animal/${animalId}/candidature/${data.idCandidature}`, {
+                method: 'DELETE',
+            });
 
+            if (response.ok) {
+                // Supprimez la ligne de la page si la suppression réussit
+                console.log('Candidature refusée avec succès'); // Ajout d'un message de débogage
+                document.getElementById('personDetails').innerHTML = " 😥 Candidature refusée";
+                window.location.reload();
 
-            } catch (error) {
-                console.error('Erreur lors de la récupération des candidatures:', error);
+            } else {
+                console.error('Erreur lors de la suppression de la candidature');
             }
+        } catch (error) {
+            console.error('Erreur lors de la suppression de la candidature:', error);
         }
+    }
 
-        // Appeler la fonction pour récupérer les candidatures de l'animal
-        getCandidatures();
-    </script>
+    // Fonction pour récupérer les candidatures de l'animal
 
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            flex-direction: column;
+    function getAnimalIdFromUrl() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const animalId = urlParams.get('id');
+        return animalId;
+    }
+
+    async function getCandidatures() {
+
+        const animalId = getAnimalIdFromUrl();
+
+        // Afficher l'ID de l'animal
+        console.log('ID de l\'animal:', animalId);
+
+        try {
+            const response = await fetch(`/animal/${animalId}/candidatures`);
+            const candidatureUris = await response.json();
+            if (candidatureUris.length > 0) {
+                // Appeler la fonction pour chaque URI de candidature
+                candidatureUris.forEach(candidatureUri => {
+                    getPersonDetails(candidatureUri);
+                });
+            } else {
+                document.getElementById('personDetails').innerHTML = " 😥 Pas de candidature";
+            }
+
+
+        } catch (error) {
+            console.error('Erreur lors de la récupération des candidatures:', error);
         }
+    }
 
-        a {
-            text-decoration: none;
-            color: #3498db;
-            transition: color 0.3s ease;
-        }
+    // Appeler la fonction pour récupérer les candidatures de l'animal
+    getCandidatures();
+</script>
 
-        a:hover {
-            color: #207cca;
-        }
+<style>
+    a {
+        text-decoration: none;
+        color: #3498db;
+        transition: color 0.3s ease;
+    }
 
-        button {
-            background-color: #4caf50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+    a:hover {
+        color: #207cca;
+    }
 
-        button:hover {
-            background-color: #45a049;
-        }
+    button {
+        background-color: #000;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
 
-        /* Ajoutez des styles supplémentaires en fonction de vos besoins */
-    </style>
+    button:hover {
+        background-color: #000;
+    }
+
+    .details {
+        margin: 20px 0;
+        line-height: 30px;
+        background-color: #fff;
+        border-radius: 6px;
+        padding: 20px;
+        border: 1px solid #000;
+    }
+
+    .details button {
+        margin-top: 25px;
+    }
+
+    /* Ajoutez des styles supplémentaires en fonction de vos besoins */
+</style>
 
 </body>
 

@@ -1,121 +1,125 @@
 package com.nanterre.LoveMyPet.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Traitement {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idtraitement")
-    private Integer idTraitement;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idtraitement")
+	private Integer idTraitement;
 
-    @ManyToOne
-    @JoinColumn(name = "idmedicament", referencedColumnName = "idmedicament")
-    private Medicament medicament;
+	@ManyToOne
+	@JoinColumn(name = "idmedicament", referencedColumnName = "idmedicament")
+	private Medicament medicament;
 
-    @ManyToOne
-    @JoinColumn(name = "idanimal", referencedColumnName = "idAnimal")
-    private Animal animal;
+	@ManyToOne
+	@JoinColumn(name = "idanimal", referencedColumnName = "idAnimal")
+	private Animal animal;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "datedebut")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateDebut;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "datedebut")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date dateDebut;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "datefin")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateFin;
+	@Temporal(TemporalType.DATE)
+	@Column(name = "datefin")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date dateFin;
 
-    @Column(name = "nombre_prises")
-    private Integer nombrePrises; // Nombre de fois que le traitement se prend
+	@Column(name = "nombre_prises")
+	private Integer nombrePrises; // Nombre de fois que le traitement se prend
 
-    @Column(name = "commentaire", length = 1000) // longueur maximale du commentaire
-    private String commentaire; // Commentaire sur le traitement
+	@Column(name = "commentaire", length = 1000) // longueur maximale du commentaire
+	private String commentaire; // Commentaire sur le traitement
 
-
-    // Relation One-to-Many avec la classe Heure
+	
+	
+	// Relation One-to-Many avec la classe Heure
     @OneToMany(mappedBy = "traitement", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Heure> heures;
+    
+	// Getters and setters
 
-    public Traitement(int traitementId, int i, String traitement1) {
-    }
+	public Integer getIdTraitement() {
+		return idTraitement;
+	}
 
-    public Traitement() {
+	public void setIdTraitement(Integer idTraitement) {
+		this.idTraitement = idTraitement;
+	}
 
-    }
+	public Medicament getMedicament() {
+		return medicament;
+	}
 
-    // Getters and setters
+	public void setMedicament(Medicament medicament) {
+		this.medicament = medicament;
+	}
 
-    public Integer getIdTraitement() {
-        return idTraitement;
-    }
+	public Animal getAnimal() {
+		return animal;
+	}
 
-    public void setIdTraitement(Integer idTraitement) {
-        this.idTraitement = idTraitement;
-    }
+	public void setAnimal(Animal animal) {
+		this.animal = animal;
+	}
 
-    public Medicament getMedicament() {
-        return medicament;
-    }
+	public Date getDateDebut() {
+		return dateDebut;
+	}
 
-    public void setMedicament(Medicament medicament) {
-        this.medicament = medicament;
-    }
+	public void setDateDebut(Date dateDebut) {
+		this.dateDebut = dateDebut;
+	}
 
-    public Animal getAnimal() {
-        return animal;
-    }
+	public Date getDateFin() {
+		return dateFin;
+	}
 
-    public void setAnimal(Animal animal) {
-        this.animal = animal;
-    }
+	public void setDateFin(Date dateFin) {
+		this.dateFin = dateFin;
+	}
 
-    public Date getDateDebut() {
-        return dateDebut;
-    }
+	public Integer getNombrePrises() {
+		return nombrePrises;
+	}
 
-    public void setDateDebut(Date dateDebut) {
-        this.dateDebut = dateDebut;
-    }
+	public void setNombrePrises(Integer nombrePrises) {
+		this.nombrePrises = nombrePrises;
+	}
 
-    public Date getDateFin() {
-        return dateFin;
-    }
+	public String getCommentaire() {
+		return commentaire;
+	}
 
-    public void setDateFin(Date dateFin) {
-        this.dateFin = dateFin;
-    }
-
-    public Integer getNombrePrises() {
-        return nombrePrises;
-    }
-
-    public void setNombrePrises(Integer nombrePrises) {
-        this.nombrePrises = nombrePrises;
-    }
-
-    public String getCommentaire() {
-        return commentaire;
-    }
-
-    public void setCommentaire(String commentaire) {
-        this.commentaire = commentaire;
-    }
-
-
-    public List<Heure> getHeures() {
+	public void setCommentaire(String commentaire) {
+		this.commentaire = commentaire;
+	}
+	
+	public List<Heure> getHeures() {
         return heures;
     }
 
     public void setHeures(List<Heure> heures) {
         this.heures = heures;
     }
+    public String getFichierUrl() {
+		return fichierUrl;
+	}
+
+	public void setFichierUrl(String fichierUrl) {
+		this.fichierUrl = fichierUrl;
+	}
+
+	@Column(name = "fichierurl")
+    private String fichierUrl;
 
 }

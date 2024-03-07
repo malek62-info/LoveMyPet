@@ -1,28 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-
     <title>Enregistrement d'une personne</title>
     <style>
+        /* Styles de la deuxième page */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
         }
-
         body {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+            background-image: url('https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg');
+            margin: 0;
         }
-
         .container {
             max-width: 700px;
             width: 100%;
@@ -30,14 +22,21 @@
             padding: 25px 30px;
             border-radius: 5px;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
-
         .container .title {
             font-size: 25px;
             font-weight: 500;
             position: relative;
+            margin-bottom: 20px;
         }
-
         .container .title::before {
             content: "";
             position: absolute;
@@ -48,25 +47,22 @@
             border-radius: 5px;
             background: linear-gradient(135deg, #71b7e6, #9b59b6);
         }
-
         .content form .user-details {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             margin: 20px 0 12px 0;
+            width: 100%;
         }
-
         form .user-details .input-box {
             margin-bottom: 15px;
             width: calc(100% / 2 - 20px);
         }
-
         form .input-box span.details {
             display: block;
             font-weight: 500;
             margin-bottom: 5px;
         }
-
         .user-details .input-box input {
             height: 45px;
             width: 100%;
@@ -78,12 +74,10 @@
             border-bottom-width: 2px;
             transition: all 0.3s ease;
         }
-
         .user-details .input-box input:focus,
         .user-details .input-box input:valid {
             border-color: #9b59b6;
         }
-
         form .category select,
         form .input-box select {
             height: 45px;
@@ -96,12 +90,11 @@
             border-bottom-width: 2px;
             transition: all 0.3s ease;
         }
-
         .button {
             height: 45px;
             margin: 35px 0;
+            width: 100%;
         }
-
         .button input {
             height: 100%;
             width: 100%;
@@ -113,71 +106,50 @@
             letter-spacing: 1px;
             cursor: pointer;
             transition: all 0.3s ease;
-            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+            background-color: #343a40;
         }
-
         .button input:hover {
-            background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+            background-color: #495057;
         }
-
-        @media(max-width: 584px) {
-            .container {
-                max-width: 100%;
-            }
-
-            form .user-details .input-box {
-                margin-bottom: 15px;
-                width: 100%;
-            }
-
-            form .category {
-                width: 100%;
-            }
-
-            .content form .user-details {
-                max-height: 300px;
-                overflow-y: scroll;
-            }
-
-            .user-details::-webkit-scrollbar {
-                width: 5px;
-            }
-        }
-
-        @media(max-width: 459px) {
-            .container .content .category {
-                flex-direction: column;
-            }
-        }
-
-          .user-details .input-box input[type="file"] {
-            display: none;
-        }
-
-        .custom-file-upload {
-            background-color: #9b59b6; /* Couleur de fond du bouton */
-            color: #fff; /* Couleur du texte du bouton */
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
+        .content form .input-box a#openMapLink,
+        .content form .input-box label.custom-file-upload {
             display: inline-block;
-            margin-top: 5px; /* Espacement par rapport aux autres champs */
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #343a40;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s ease;
         }
-
+        .content form .input-box a#openMapLink:hover,
+        .content form .input-box label.custom-file-upload:hover {
+            background: #495057;
+        }
+        .content form .input-box a#openMapLink {
+            display: inline-block;
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #343a40;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .content form .input-box a#openMapLink:hover {
+            background: #495057;
+        }
     </style>
-
 </head>
-
 <body>
 <div class="container">
     <div class="title">Person Registration</div>
     <div class="content">
         <form id="personForm" action="/person/add" method="POST" enctype="multipart/form-data">
             <div class="user-details">
-                <!-- Ajouter un champ caché pour l'ID de la personne -->
                 <input type="hidden" id="idPerson" name="idPerson">
-
                 <div class="input-box">
                     <span class="details">First Name</span>
                     <input type="text" name="firstName" placeholder="Enter first name" required>
@@ -220,10 +192,11 @@
         </form>
     </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
-        $("#personneForm").submit(function (event) {
+        $("#personForm").submit(function (event) {
             event.preventDefault();
 
             var formData = new FormData(this);
@@ -235,20 +208,17 @@
                 processData: false,
                 contentType: false,
                 success: function (data) {
-                                   alert("bien jouer");
-                      window.location.href = "/login";
-                        $("#personneForm")[0].reset();
-
+                    // Affiche l'alerte stylée
+                    alert("Vous êtes bien enregistré !");
+                    window.location.href = "/login";
+                    $("#personForm")[0].reset();
                 },
                 error: function (xhr, status, error) {
                     alert("Erreur : " + error);
                 }
             });
-
-
         });
     });
 </script>
-
 </body>
 </html>

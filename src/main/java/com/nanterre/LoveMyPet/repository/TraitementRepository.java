@@ -10,7 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface TraitementRepository extends JpaRepository<Traitement, Integer> {
-    List<Traitement> findByAnimalId(Integer animalId);
     Optional<Traitement> findById(Integer id);
 
     //Liste des details traitement actuel
@@ -31,6 +30,8 @@ public interface TraitementRepository extends JpaRepository<Traitement, Integer>
             "AND HOUR(CURRENT_TIME()) = HOUR(heure.heure) " +
             "AND MINUTE(CURRENT_TIME()) = MINUTE(heure.heure)")
     List<Object[]> findEmailAndTreatmentDetails();
+
+    List<Traitement> findByAnimalId(Integer animalId);
 
 
 

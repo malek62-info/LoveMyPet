@@ -22,7 +22,7 @@ Pour le logo du projet, on a crée le logo suivant :
 
 image::logo.png[logo de lovemypet]
 
-==== Membres de l'équipe
+=== Membres de l'équipe
 
 Le projet LoveMyPet a été réalisé par les membres suivants : 
 
@@ -167,6 +167,10 @@ RECTANGLE Backend {
   GestionUtilisateurs
   LogiqueAdoption
   SuiviVaccination
+  LogiqueAlerts
+  LogiqueSuiviDuPoids
+  LogiqueAffichageDesparcs
+  LogiqueAffichageDesVeterinaires
 }
 
 RECTANGLE BaseDeDonnees {
@@ -175,6 +179,15 @@ RECTANGLE BaseDeDonnees {
   TablesAdoption
   TablesVaccination
   TablesVaccin
+  TableAdvice
+  TableCanidature
+  TableComment
+  TableFeedingConfirmation
+  TableFeedingTime
+  TableHistoriqueAdoption
+  TableHistoriqueWeight
+  TableLikeDislike
+  TableLostAnimal
 }
 
 Backend -- BaseDeDonnees : communique
@@ -240,6 +253,39 @@ Point de départ de l'API : `/vaccin`
 
 * `GET /all` : Obtenir toutes les vaccinations.
 
+===== HistoriqueAdoptionController
+
+Point de départ de l'API : `/historiqueadoption`
+
+* `POST /ajouteradoption` : ajouter une adoption temporaire dans la table.
+
+===== HistoriqueWeightController
+
+Point de départ de l'API : `/historiqueWeight`
+
+* `GET /animal/{idAnimal}` : Récupérer la liste des liens d'historique de poids pour un animal donné.
+*`GET /{id}` : Récupérer les détails d'un enregistrement d'historique de poids par son identifiant.
+*`GET /data/{idAnimal}` : Récupérer les données d'historique de poids pour un animal donné.
+
+===== InfoAnimalController
+
+Point de départ de l'API : `/infoanimal`
+
+* `GET /{idAnimal}` : Récupérer les informations concernant un animal à partir de son id
+*`POST /updateName/{idAnimal}` : modifier le nom de l'animal dont l'identifiant est idAnimal.
+*`POST /updateWeight/{idAnimal}` : modifier le poids de l'animal dont l'identifiant est idAnimal.
+*`POST /updateImage/{idAnimal}` : modifier l'image de l'animal dont l'identifiant est idAnimal.
+
+
+===== MesCandidatureController
+
+
+
+Point de départ de l'API : `/mescandidature`
+
+* `GET /person/{idPerson}` : Récupérer les liens des candidatures de la personne.
+*`GET /{idCandidature}` : Récupérer la candidature.
+
 ==== plateforme technologique
 
 **Langages utilisés**
@@ -273,25 +319,22 @@ Utilisation d'une architecture RESTful pour la communication entre le frontend e
 
 == Partie 1 : Modélisation
 
-=== Fonctionnalité d'Adoption des Animaux
 
-Une fonctionnalité essentielle de notre application est l'adoption d'animaux, offrant une expérience conviviale pour faciliter le processus.
 
-==== Ajout d'Animaux dans "Mes Animaux"
 
 Après avoir ajouté des compagnons dans la section "Mes Animaux", chaque animal est associé au bouton unique "Donner". Cela déclenche un pop-up interactif pour faciliter l'adoption.
 
 **étape 1**
 
-image::enregistrement.png[etape 1]
+image::AddAnimal.png[etape 1]
 
 **étape 2**
 
-image::donner.png[etape 2]
+image::Animals/animals.png[etape 2]
 
 **étape 3**
 
-image::popup.png[etape 3]
+image::Animals/popup.png[etape 3]
 
 ==== Configuration des Dates pour l'Adoption
 
@@ -303,7 +346,7 @@ Une fois configuré, l'animal est répertorié dans la section dédiée à l'ado
 
 **étape 4**
 
-image::adoption.png[etape 4]
+image::Animals/adoption.png[etape 4]
 
 Cette approche flexible simplifie l'adoption, laissant aux propriétaires le choix de la durée d'adoption.
 
@@ -370,7 +413,7 @@ Une fois sur la page "EXPLORATION FACILE", les utilisateurs ont deux choix :
 
 Les utilisateurs peuvent sélectionner l'option qui correspond à leur recherche.
 
-image::map.png[Map]
+image::Map/map.png[Map]
 
 == Requête vers l'API Overpass et Nominatim
 
@@ -380,6 +423,34 @@ Lorsque l'utilisateur choisit "Trouver un Vétérinaire", l'application utilise 
 
 En outre, l'application utilise l'API Nominatim pour convertir le nom de la ville saisi par l'utilisateur en coordonnées géographiques.
 
+
+
+- === Rechercher un Jardin pour se Balader :
+
+Si l'utilisateur opte pour "Rechercher un Jardin pour se Balader", l'application effectue une requête pour trouver les nœuds correspondant à la catégorie "leisure=garden" autour de la position actuelle de l'utilisateur. Cette requête est également générée dynamiquement pour récupérer les informations nécessaires.
+
+== Affichage des Résultats sur la Carte
+
+-  Trouver un Vétérinaire :
+
+Les résultats de la requête pour les vétérinaires sont affichés sur la carte sous forme de marqueurs. Chaque marqueur représente l'emplacement d'un vétérinaire trouvé.
+
+image::Map/veterinaire.png[Vétérinaire]
+=== Recherche par ville "Geneve":
+
+image::Map/veterinairegeneve.png[veterinairegeneve]
+
+- Rechercher un Jardin pour se Balader :
+
+Pour la recherche de jardins, les résultats correspondants aux nœuds "leisure=garden" sont affichés sur la carte.
+
+image::Parc.png[Parc]
+
+=== Explication de l'API Overpass et Nominatim
+
+L'API Overpass est un service d'interrogation et d'analyse de données OpenStreetMap. Elle permet de récupérer des données géographiques en utilisant un langage de requête spécifique. Dans le contexte de cette application, elle est utilisée pour obtenir des informations sur les vétérinaires et les jardins à proximité en fonction de la position de l'utilisateur. Les requêtes sont construites dynamiquement pour cibler les catégories spécifiques (amenity=veterinary, leisure=garden) et les résultats sont intégrés à la carte de l'application.
+
+=== Diagramme de class
 [plantuml]
 ----
 class VeterinairesController {
@@ -407,25 +478,32 @@ VeterinairesController --> RestTemplate: makeApiCall()
 RestTemplate --> API: Overpass API
 RestTemplate --> API: Nominatim API
 ----
+===API Contrôleur des Vétérinaires
 
-- === Rechercher un Jardin pour se Balader :
+Ce contrôleur utilise l'API Overpass pour récupérer la liste des vétérinaires dans une ville donnée.
 
-Si l'utilisateur opte pour "Rechercher un Jardin pour se Balader", l'application effectue une requête pour trouver les nœuds correspondant à la catégorie "leisure=garden" autour de la position actuelle de l'utilisateur. Cette requête est également générée dynamiquement pour récupérer les informations nécessaires.
+== Paramètres de Requête
 
-== Affichage des Résultats sur la Carte
+Ce contrôleur accepte les paramètres de requête suivants :
 
--  Trouver un Vétérinaire :
+- `city` (String): Nom de la ville.
+- `latitude` (double): Latitude du point central.
+- `longitude` (double): Longitude du point central.
+- `radius` (double, facultatif, valeur par défaut: 3000): Rayon de recherche en mètres.
 
-Les résultats de la requête pour les vétérinaires sont affichés sur la carte sous forme de marqueurs. Chaque marqueur représente l'emplacement d'un vétérinaire trouvé.
+Exemple de requête:
 
-image::veterinaire.png[Vétérinaire]
-=== Recherche par ville "Geneve":
+[source,asciidoc]
+----
+[Exemple]
+/api/veterinaires?city=Paris&latitude=48.8566&longitude=2.3522&radius=5000
+----
 
-image::veterinairegeneve.png[veterinairegeneve]
+== Exemple de Réponse
 
-- Rechercher un Jardin pour se Balader :
+La réponse du contrôleur est une liste d'objets `Veterinary` avec les coordonnées géographiques et le nom du vétérinaire.
 
-Pour la recherche de jardins, les résultats correspondants aux nœuds "leisure=garden" sont affichés sur la carte.
+Exemple de réponse:
 
 image::Parc.png[Parc]
 
@@ -433,90 +511,101 @@ image::Parc.png[Parc]
 
 L'API Overpass est un service d'interrogation et d'analyse de données OpenStreetMap. Elle permet de récupérer des données géographiques en utilisant un langage de requête spécifique. Dans le contexte de cette application, elle est utilisée pour obtenir des informations sur les vétérinaires et les jardins à proximité en fonction de la position de l'utilisateur. Les requêtes sont construites dynamiquement pour cibler les catégories spécifiques (amenity=veterinary, leisure=garden) et les résultats sont intégrés à la carte de l'application.
 
-== Interaction avec les Avis
+== Fonctionnalité Interaction avec les Avis (Petite)
+
+==== Maquette du front
+
+Les utilisateurs ont la possibilité d'interagir avec les avis en les consultant, en les likant, ou en les dislikant. Cette fonctionnalité permet d'exprimer des réactions vis-à-vis des conseils postés par d'autres utilisateurs.
+
+==== Maquette du front
 
 image::images_planification_food/7.png[advice]
 
-
-Dans cette sous-branche, les utilisateurs ont la possibilité d'interagir avec les avis en les consultant, en les likant, ou en les dislikant. Cette fonctionnalité permet d'exprimer des réactions vis-à-vis des conseils postés par d'autres utilisateurs.
-
-=== Consulter les Avis
-
-Les utilisateurs peuvent parcourir les avis postés par d'autres membres de la communauté LoveMyPet. Ces avis peuvent contenir des conseils utiles, des expériences personnelles, ou des informations pertinentes sur les animaux de compagnie.
-
-=== Liker un Avis
-
-Chaque utilisateur a la possibilité de manifester son appréciation envers un avis en utilisant la fonction "Like". Lorsqu'un utilisateur clique sur le bouton "Like" d'un avis, cela indique une réaction positive envers le contenu de cet avis.
-
-=== Disliker un Avis
-
-De même, les utilisateurs peuvent exprimer leur désaccord ou leur mécontentement envers un avis en utilisant la fonction "Dislike". Cliquer sur le bouton "Dislike" signifie que l'utilisateur n'est pas en accord avec le contenu de l'avis.
-
-Ces interactions permettent de créer une dynamique communautaire où les utilisateurs peuvent partager leurs opinions et réagir aux conseils des autres membres.
-
-Les actions de "Like" et "Dislike" sont enregistrées dans la base de données, fournissant ainsi des informations sur la popularité et la réception des avis au sein de la communauté LoveMyPet.
-
-Ces fonctionnalités contribuent à renforcer l'engagement des utilisateurs et favorisent une communauté active et collaborative.
+===== Consulter les Avis
+[source,asciidoc]
+----
+[
+  {
+    "lat": 45.8534,
+    "lon": 3.3488,
+    "name": "Vétérinaire A"
+  },
+  {
+    "lat": 48.8591,
+    "lon": 2.3637,
+    "name": "Vétérinaire B"
+  },
+  // ...
+]
+----
 
 
+=== Diagramme de séquence
+[plantuml]
+----
+@startuml
+actor Utilisateur
+participant VeterinairesController
+participant "Overpass API" as OverpassAPI
 
-== Fonctionnalité de Gestion des Animaux Perdus
+Utilisateur -> VeterinairesController: Requête: /api/veterinaires
+activate VeterinairesController
 
-La section "Animaux Perdus" de LoveMyPet propose une fonctionnalité permettant aux utilisateurs de déclarer et de retrouver leurs compagnons perdus. Lorsque vous accédez à cette section depuis la page "Nos Services", vous trouverez deux boutons distincts : "Déclarer un Animal Perdu" et "Liste des Animaux Perdus".
+VeterinairesController -> OverpassAPI: Appel à l'Overpass API
+activate OverpassAPI
 
-    Déclarer un Animal Perdu :
-    En cliquant sur ce bouton, les utilisateurs peuvent remplir un formulaire pour déclarer un animal perdu. Ils peuvent fournir des détails tels que le nom de l'animal, une description, une photo, et d'autres informations pertinentes.
+OverpassAPI --> VeterinairesController: Résultat de l'Overpass API
+deactivate OverpassAPI
 
-    Liste des Animaux Perdus :
-    Ce bouton affiche une liste des animaux perdus déclarés par la communauté LoveMyPet. Les utilisateurs peuvent parcourir cette liste pour retrouver des animaux perdus et faciliter des réunions chaleureuses entre les amis à fourrure égarés et leurs propriétaires.
-L'API Nominatim est utilisée pour convertir le nom de la ville saisi par l'utilisateur en coordonnées géographiques, ce qui permet d'étendre la fonctionnalité de recherche par ville et périmètre.
+VeterinairesController --> Utilisateur: Réponse au client
+deactivate VeterinairesController
+
+@enduml
+----
+
+[plantuml]
+----
+@startuml
+actor Utilisateur
+participant ParcsController
+participant "Overpass API" as OverpassAPI
+
+Utilisateur -> ParcsController: Requête: /api/parcs
+activate ParcsController
+
+ParcsController -> OverpassAPI: Appel à l'Overpass API
+activate OverpassAPI
+
+OverpassAPI --> ParcsController: Résultat de l'Overpass API
+deactivate OverpassAPI
+
+ParcsController --> Utilisateur: Réponse au client
+deactivate ParcsController
+
+@enduml
+----
 
 
-= Fonctionnalité de Planification des Heures de Repas et Envoi de Mails
 
-== Introduction
-La fonctionnalité de planification des heures de repas et d'envoi de mails de LoveMyPet permet aux utilisateurs de définir des horaires de repas pour leurs animaux de compagnie et de recevoir des rappels par e-mail à ces heures programmées. Cette documentation explique comment utiliser la page dédiée à cette fonctionnalité, basée sur le code HTML fourni.
+= Fonctionnalité de Planification des Heures de Repas et Envoi de Mails et confirmation du mail
 
-image::images_planification_food/3.png[Planification de repas]
+=== Planification des Heures de Repas et Envoi de Mails
 
-== Contenu de la Page HTML
-La page HTML fournie contient un formulaire pour ajouter des alertes d'alimentation, une liste d'alertes existantes avec des options pour les supprimer ou les modifier, et des scripts JavaScript pour interagir avec l'API et gérer les fonctionnalités associées.
+Cette fonctionnalité permet à un utilisateur de programmer les heures auxquelles il souhaite nourrir son animal
 
-=== Structure HTML
-La structure de la page HTML est composée des éléments suivants :
-- Bouton de redirection vers la page "Mes animaux."
-- Titre "Mes alertes."
-- Message indiquant la réception de mails.
-- Formulaire pour ajouter une alerte avec champ d'heure et bouton "Créer une alerte."
-- Tableau affichant les heures de repas programmées avec options pour les supprimer ou les éditer.
+==== Maquette du front
 
-=== Scripts JavaScript
-Plusieurs scripts JavaScript sont inclus pour gérer la récupération, l'affichage, la suppression et la modification des horaires de repas à partir de l'API.
+Etape 1: Rentrer une heure puis cliquer sur le boutton  "Creer une alerte" Puis l'alerte sera ajouter au tableau
 
-=== Fonctionnalités Principales
+Aussi on peut modifier les alertes créer en cliqquand sur "Edith" , et supprimer ses alerte en "cliquand" sur Delete
 
-=== 1. Affichage des Horaires de Repas
-La fonction `fetchFeedingTimes(animalId)` récupère les horaires de repas depuis l'API et les affiche dans le tableau sur la page.
+image::images_planification_food/1.png[Planification de repas]
 
-=== 2. Ajout d'une Alerte d'Alimentation
-La fonction `submitForm()` récupère l'heure saisie par l'utilisateur, envoie une requête POST à l'API pour créer une nouvelle alerte, puis met à jour l'affichage.
 
-=== 3. Suppression d'une Alerte d'Alimentation
-La fonction `deleteFeedingTime(id)` envoie une requête DELETE à l'API pour supprimer l'alerte d'alimentation spécifiée par l'ID.
+=== Envoi de Mails de Rappel
+En suite lutilisateur n'a plus rien a faire , il recevra un email pour chaque heure rentrer  l'informant de l'heure de repas prévue pour son animal.
 
-=== 4. Modification d'une Alerte d'Alimentation
-La fonction `updateFeedingTime(id)` permet à l'utilisateur de mettre à jour l'heure d'une alerte existante en envoyant une requête PUT à l'API.
-
-=== 5. Envoi de Mails de Rappel
-Chaque heure planifiée, un e-mail de rappel est automatiquement envoyé à l'utilisateur, l'informant de l'heure de repas prévue pour son animal.
-
-image::images_planification_food/4.png[Exemple d'email envoyé a l'utilisateur]
-
-=== Utilisation de la Page
-1. Accédez à la page via le bouton "Mes animaux."
-2. Ajoutez de nouvelles alertes d'alimentation en spécifiant l'heure et en cliquant sur "Créer une alerte."
-3. Consultez et gérez les alertes existantes dans le tableau.
-4. Recevez des rappels par e-mail à chaque heure programmée.
+image::images_planification_food/2.png[Exemple d'email envoyé a l'utilisateur]
 
 === Confirmation de l'E-mail
 
@@ -528,448 +617,777 @@ Le bouton de confirmation dans l'e-mail doit rediriger l'utilisateur vers une pa
 ----
 <a href="/feeding-confirmation/confirm?personId=1&amp;animalId=1&amp;feedingTimeId=39&amp;confirmationCode=ad97faf5">Confirmer</a>
 ----
+==== Diagramme de classes global (partie métier)
 
-Lorsque l'utilisateur clique sur ce lien, une requête est envoyée à l'API pour confirmer la réception de l'e-mail. Cette requête déclenche l'insertion d'une nouvelle ligne dans la base de données avec les informations associées à la confirmation.
-
-Voici un exemple de structure de la table dans la base de données :
-
-[source,sql]
-----
-CREATE TABLE confirmation_table (
-    id SERIAL PRIMARY KEY,
-    animal_id INTEGER,
-    confirmation_code VARCHAR(255),
-    confirmation_date TIMESTAMP,
-    feeding_time_id INTEGER,
-    person_id INTEGER
-);
+[plantuml]
 ----
 
-Chaque confirmation est enregistrée avec les informations suivantes :
-- `id`: Identifiant unique de la confirmation (auto-incrémenté).
-- `animal_id`: Identifiant de l'animal concerné.
-- `confirmation_code`: Code de confirmation associé à l'e-mail.
-- `confirmation_date`: Date et heure de la confirmation.
-- `feeding_time_id`: Identifiant de l'horaire d'alimentation associé.
-- `person_id`: Identifiant de la personne effectuant la confirmation.
+@startuml
+class Person {
+idPerson: Integer
+LastName: String
+FirstName: String
+Email: String
+PhoneNumber: String
+Address: String
+Password: String
+ImageUrl: String
+}
 
-Lorsqu'un utilisateur confirme l'e-mail, une nouvelle ligne est ajoutée à la table avec les données appropriées. Cette approche permet de suivre les confirmations pour chaque animal, chaque horaire d'alimentation, et chaque personne.
+class Animal {
+id: Integer
+idPerson: Integer
+name: String
+category: String
+race: String
+weight: Double
+gender: Integer
+dateOfBirth: Date
+imageUrl: String
+adoptedByPerson: Person
+}
 
-Cette fonctionnalité offre une trace complète des confirmations et permet de garantir que les utilisateurs ont bien alimenté leurs animaux selon les horaires programmés.
+class FeedingTime {
+id: Integer
+animal: Animal
+feedingTime: LocalTime
+}
 
-image::images_planification_food/5.png[Message]
+class FeedingConfirmation {
+id: Integer
+personId: Integer
+animalId: Integer
+feedingTimeId: Integer
+confirmationDate: Date
+confirmationCode: String
+}
 
-image::images_planification_food/6.png[Ligne dans la table feeding confirmation]
+Person "1" -- "*" Animal : owns
+Animal "*" -- "1" FeedingTime : has feeding times
+Animal "*" -- "*" FeedingConfirmation : may have confirmations
+
+@enduml
+----
+
+
 
 === API de la fonctionnalité
 
-==== Ajout d'un Horaire d'Alimentation
+==== 1) Ajout d'un Horaire d'Alimentation
 Endpoint : `POST /api/feeding-times/add`
-Cette API permet d'ajouter un nouvel horaire d'alimentation. Elle accepte une requête POST avec les détails de l'horaire dans le corps de la requête. En cas de succès, elle renvoie un message indiquant que l'horaire a été ajouté avec succès. En cas d'erreur, elle peut retourner des messages spécifiques, tels que la détection d'un conflit si l'horaire existe déjà.
 
-==== Liste des Horaire d'Alimentation pour un Animal
+Voici le body de la requête :
+
+[source,json]
+----
+{
+  "animal": {
+    "id": 1
+  },
+  "feedingTime": "20:45"
+}
+----
+
+et le output :
+
+`Message : Horaires d'alimentation ajouté avec succès.`
+
+
+==== 2) Liste des Horaires d'Alimentation pour un Animal
 Endpoint : `GET /api/feeding-times/{idAnimal}`
-Cette API renvoie la liste des horaires de repas associés à un animal spécifié par son ID. Les horaires sont renvoyés sous forme de liste de chaînes.
 
-==== Détail d'un Horaire d'Alimentation
+et le output :
+[source,json]
+----
+["time/1","time/2","time/3"]
+----
+
+
+==== 3) Détail d'un Horaire d'Alimentation
 Endpoint : `GET /api/feeding-times/time/{id}`
-Cette API renvoie les détails d'un horaire d'alimentation spécifié par son ID. Si l'horaire existe, elle renvoie les détails de l'horaire sous forme d'objet. Sinon, elle retourne une réponse "Not Found."
 
-==== Suppression d'un Horaire d'Alimentation
+et le output :
+[source,json]
+----
+
+{
+"id": 1,
+"animal": {
+    "id": 1,
+    "idPerson": 1,
+    "name": "xgecfie",
+    "category": "cat",
+    "race": "dde",
+    "weight": 20.0,
+    "gender": 1,
+    "dateOfBirth": "2024-01-25",
+    "imageUrl": "selenium_true_vrai.jpg",
+    "adoptedByPerson": {
+    "idPerson": 1,
+    "password": "f",
+    "address": null,
+    "email": "f@gmail.com",
+    "imageUrl": null,
+    "lastName": "ichola",
+    "firstName": "sadikou",
+    "phoneNumber": null
+    }
+},
+"feedingTime": "15:42"
+}
+----
+
+
+==== 4) Suppression d'un Horaire d'Alimentation
 Endpoint : `DELETE /api/feeding-times/delete/{id}`
-Cette API permet de supprimer un horaire d'alimentation en spécifiant son ID. En cas de succès, elle renvoie un message indiquant que l'horaire a été supprimé avec succès. En cas d'erreur, elle peut retourner un message générique d'erreur interne du serveur.
 
-==== Mise à Jour d'un Horaire d'Alimentation
+Et output :
+
+`L'heure a étét supprimer`
+
+
+==== 4)  Mise à Jour d'un Horaire d'Alimentation
 Endpoint : `PUT /api/feeding-times/update/{id}`
-Cette API permet de mettre à jour un horaire d'alimentation en spécifiant son ID. Elle accepte une requête PUT avec les détails mis à jour dans le corps de la requête. En cas de succès, elle renvoie un message de mise à jour réussie. En cas d'erreur, elle peut retourner un message d'erreur spécifique.
 
-==== Récupération des Horaire d'Alimentation Actuels pour les E-mails
+[source,json]
+----
+{
+"animal": {
+"id": 1
+},
+"feedingTime": "15:45"
+}
+----
+
+Output : `Mise à jour réussie.`
+
+==== 5) Récupération des Horaire d'Alimentation Actuels pour les E-mails
 Endpoint : `GET /api/feeding-times/email-animal-current-feeding-times`
-Cette API renvoie une liste d'informations sur les horaires de repas actuels pour lesquels des e-mails de rappel doivent être envoyés. Les informations sont renvoyées sous forme de liste d'objets. En cas de succès, elle renvoie la liste des horaires. En cas d'absence de données, elle renvoie une réponse "No Content." En cas d'erreur, elle peut retourner une réponse générique d'erreur interne du serveur.
+
+[source,json]
+----
+[
+    [
+        "f@gmail.com",
+        "Fanuel",
+        1,
+        1,
+        "loulou",
+        "image_animal.jpg",
+        4
+    ]
+]
+----
+
+==== 6) Confirmer l'email
+Endpoint : `GET /feeding-confirmation/confirm?personId=1&animalId=2&feedingTimeId=3&confirmationCode=ABC123`
+
+Output :
+
+`Comfirmation réussie Failed to confirm feeding.`
+
+
+==== Diagramme de séquence
+
+[plantuml]
+----
+@startuml
+participant Client
+participant FeedingTimeController
+participant FeedingTimeService
+participant FeedingTimeServiceImpl
+participant FeedingTimeRepository
+participant ScheduledEmailService
+participant EmailSenderService
+participant Person
+participant Animal
+
+Client->FeedingTimeController: POST /api/feeding-times/add
+FeedingTimeController->FeedingTimeService: addFeedingTime(FeedingTime)
+FeedingTimeService->FeedingTimeServiceImpl: addFeedingTime(FeedingTime)
+FeedingTimeServiceImpl->FeedingTimeRepository: save(FeedingTime)
+FeedingTimeRepository-->FeedingTimeServiceImpl: Database save operation
+FeedingTimeServiceImpl-->FeedingTimeService: Database save successful
+FeedingTimeService-->FeedingTimeController: Operation successful response
+
+ScheduledEmailService-->FeedingTimeServiceImpl: getInfosCurrentFeedingTimes()
+FeedingTimeServiceImpl->FeedingTimeRepository: findEmailsAndAnimalDetailsForUsersWithCurrentFeedingTime()
+FeedingTimeRepository-->FeedingTimeServiceImpl: Database query result
+FeedingTimeServiceImpl->EmailSenderService: sendHtmlEmail(userEmail, subject, body)
+EmailSenderService-->ScheduledEmailService: Email sent successfully
+
+Client->FeedingConfirmationController: GET /feeding-confirmation/confirm
+FeedingConfirmationController->FeedingConfirmationService: confirmFeeding(personId, animalId, feedingTimeId, confirmationCode)
+FeedingConfirmationService->FeedingConfirmationServiceImpl: confirmFeeding(personId, animalId, feedingTimeId, confirmationCode)
+FeedingConfirmationServiceImpl->FeedingConfirmationRepository: Database query to confirm feeding
+FeedingConfirmationRepository-->FeedingConfirmationServiceImpl: Database query result
+FeedingConfirmationServiceImpl-->FeedingConfirmationService: Feeding confirmation result
+FeedingConfirmationService-->FeedingConfirmationController: Feeding confirmation response
+@enduml
+----
+
+
+---
+= Fonctionnalité de donnation d'objets
+image::Donation/Objetgratuit.png[Obtenez des objets gratuitements]
+==== Description de la fonctionnalité
+
+La fonctionnalité de donation d'objets permet aux utilisateurs de proposer des objets qu'ils souhaitent donner à d'autres personnes. Voici comment fonctionne cette fonctionnalité :
+
+==== Ajout d'objets à donner
+image::Donation/Poster_des_objets.png[Postez des Objets]
+Les utilisateurs peuvent ajouter des informations sur les objets qu'ils souhaitent donner, telles que le nom de l'objet, une description et éventuellement une photo. En utilisant une interface conviviale, ils remplissent un formulaire avec les détails de l'objet, y compris le nom, la description et la photo facultative. Une fois le formulaire soumis, les informations sur l'objet sont enregistrées dans la base de données.
+
+==== Consultation des objets disponibles
+
+Les autres utilisateurs peuvent consulter la liste des objets disponibles à donner. Ils peuvent parcourir les objets ajoutés par d'autres utilisateurs et voir leurs détails, tels que le nom, la description et la photo. Cette fonctionnalité leur permet de trouver des objets qui pourraient les intéresser.
+
+==== Contacter le posteur pour récupérer l'objet
+
+Si un utilisateur est intéressé par un objet à donner, il peut contacter le posteur de l'objet pour organiser la récupération. Cela peut se faire par le biais de coordonnées fournies par l'utilisateur qui donne l'objet, telles qu'une adresse e-mail ou un numéro de téléphone. Les deux parties peuvent ensuite convenir d'un moment et d'un lieu pour que l'utilisateur récupère l'objet donné.
+
+==== Objectifs de la fonctionnalité
+
+- Faciliter le processus de donation d'objets en permettant aux utilisateurs de proposer des objets à donner.
+- Fournir aux utilisateurs une plateforme où ils peuvent trouver des objets disponibles à donner qui correspondent à leurs besoins.
+- Encourager le partage et la réutilisation des objets pour réduire le gaspillage et favoriser le développement durable.
+- Créer une communauté où les utilisateurs peuvent se soutenir mutuellement en donnant et en recevant des objets de manière désintéressée
+
+= API de la fonctionnalité de donation d'objets
+
+-
+
+L'API de la fonctionnalité de donation d'objets permet aux utilisateurs d'effectuer différentes opérations liées à la gestion des objets à donner.
+
+==== Ajout d'objets à donner
+
+Endpoint : `POST /api/items-to-donate/add`
+
+Ce point de terminaison permet aux utilisateurs d'ajouter des informations sur les objets qu'ils souhaitent donner. Les informations nécessaires comprennent le nom de l'objet, une description et éventuellement une photo. Les paramètres de la requête sont les suivants :
+
+- `itemName` : Le nom de l'objet à donner.
+- `description` : La description de l'objet à donner.
+- `photo` : La photo de l'objet à donner (facultatif).
+- `idPerson` : L'identifiant de la personne qui donne l'objet.
+
+Exemple de corps de requête JSON :
+[source,json]
+----
+{
+  "itemName": "Chaise",
+  "description": "Chaise en bois",
+  "photo": "photo_chaise.jpg",
+  "idPerson": 123
+}
+----
+
+Réponse : En cas de succès, une réponse avec le message "Objet à donner ajouté avec succès" est renvoyée avec le code d'état HTTP 200 (OK). En cas d'erreur, une réponse avec le message "Erreur lors de l'ajout de l'objet à donner" est renvoyée avec le code d'état HTTP 500 (Internal Server Error).
+
+==== Consultation des objets disponibles
+
+Endpoint : `GET /api/items-to-donate/`
+
+Ce point de terminaison permet aux utilisateurs de consulter la liste des objets disponibles à donner. Il renvoie une liste d'URLs vers les détails de chaque objet disponible.
+
+Exemple de réponse JSON :
+[source,json]
+----
+[
+  "/api/items-to-donate/item/1",
+  "/api/items-to-donate/item/2",
+  "/api/items-to-donate/item/3"
+]
+----
+
+==== Détails d'un objet à donner
+
+Endpoint : `GET /api/items-to-donate/item/{id}`
+
+Ce point de terminaison permet aux utilisateurs de récupérer les détails d'un objet à donner spécifique en fournissant son identifiant (`id`).
+
+Exemple de réponse JSON pour un objet avec l'identifiant 1 :
+[source,json]
+----
+{
+  "id": 1,
+  "itemName": "Chaise",
+  "description": "Chaise en bois",
+  "imageUrl": "photo_chaise.jpg",
+  "donatingPerson": {
+    "idPerson": 123,
+    "firstName": "John",
+    "lastName": "Doe"
+  }
+}
+----
+
+==== Récupération des objets d'une personne
+
+Endpoint : `GET /api/items-to-donate/person/{personId}`
+
+Ce point de terminaison permet aux utilisateurs de récupérer les objets qu'une personne spécifique a l'intention de donner. Il prend en paramètre l'identifiant de la personne (`personId`) et renvoie une liste d'URLs vers les détails de chaque objet.
+
+Exemple de réponse JSON pour les objets d'une personne avec l'identifiant 123 :
+[source,json]
+----
+[
+  "/api/items-to-donate/item/1",
+  "/api/items-to-donate/item/2"
+]
+----
+
+==== Suppression d'un objet à donner
+
+Endpoint : `DELETE /api/items-to-donate/item/{id}`
+
+Ce point de terminaison permet aux utilisateurs de supprimer un objet à donner spécifique en fournissant son identifiant (`id`). En cas de succès, une réponse avec le message "Objet à donner supprimé avec succès" est renvoyée avec le code d'état HTTP 200 (OK).
+
+Exemple de réponse JSON pour la suppression d'un objet avec l'identifiant 1 :
+[source,json]
+----
+{
+  "message": "Objet à donner supprimé avec succès"
+}
+----
+
+== Diagramme de séquence
+[plantuml]
+----
+@startuml
+
+package "Controller" {
+    class ItemToDonateController {
+        - itemToDonateService: ItemToDonateServiceImpl
+        + addItemToDonate(itemName: String, description: String, photo: MultipartFile, idPerson: Integer): ResponseEntity<String>
+        - saveImage(imageFile: MultipartFile): String
+        + getAllItemReferences(): List<String>
+        + getItemDetailsById(id: Integer): ItemToDonate
+        + getItemReferencesByPersonId(personId: Integer): ResponseEntity<List<String>>
+        + deleteItemToDonate(id: Integer): ResponseEntity<String>
+    }
+}
+
+package "Model" {
+    class ItemToDonate {
+        - id: Integer
+        - itemName: String
+        - description: String
+        - imageUrl: String
+        - donatingPerson: Person
+        + ItemToDonate()
+        + ItemToDonate(itemName: String, description: String, imageUrl: String, person: Person)
+        + getId(): Integer
+        + setId(id: Integer): void
+        + getItemName(): String
+        + setItemName(itemName: String): void
+        + getDescription(): String
+        + setDescription(description: String): void
+        + getImageUrl(): String
+        + setImageUrl(imageUrl: String): void
+        + getDonatingPerson(): Person
+        + setDonatingPerson(donatingPerson: Person): void
+    }
+
+    class Person {
+        - idPerson: Integer
+        - address: String
+        - password: String
+        - email: String
+        - imageUrl: String
+        - firstName: String
+        - lastName: String
+        - phoneNumber: String
+        + Person()
+        + getIdPerson(): Integer
+        + setIdPerson(idPerson: Integer): void
+        + getAddress(): String
+        + setAddress(address: String): void
+        + getPassword(): String
+        + setPassword(password: String): void
+        + getEmail(): String
+        + setEmail(email: String): void
+        + getImageUrl(): String
+        + setImageUrl(imageUrl: String): void
+        + getFirstName(): String
+        + setFirstName(firstName: String): void
+        + getLastName(): String
+        + setLastName(lastName: String): void
+        + getPhoneNumber(): String
+        + setPhoneNumber(phoneNumber: String): void
+    }
+}
+
+package "Repository" {
+    interface ItemToDonateRepository {
+        + findByDonatingPerson_IdPerson(personId: Integer): List<ItemToDonate>
+    }
+}
+
+package "Service" {
+    interface ItemToDonateService {
+        + saveItemToDonate(itemToDonate: ItemToDonate): void
+        + getAllItems(): List<ItemToDonate>
+        + getItemById(id: Integer): ItemToDonate
+        + getItemsByPersonId(personId: Integer): List<ItemToDonate>
+        + deleteItemToDonate(id: Integer): void
+    }
+
+    class ItemToDonateServiceImpl {
+        - itemToDonateRepository: ItemToDonateRepository
+        + saveItemToDonate(itemToDonate: ItemToDonate): void
+        + getAllItems(): List<ItemToDonate>
+        + getItemById(id: Integer): ItemToDonate
+        + getItemsByPersonId(personId: Integer): List<ItemToDonate>
+        + deleteItemToDonate(id: Integer): void
+    }
+}
+
+ItemToDonateController --> ItemToDonateServiceImpl : uses
+ItemToDonateController --> ItemToDonate : uses
+ItemToDonate --> Person : has
+ItemToDonateServiceImpl --> ItemToDonateRepository : uses
+ItemToDonateServiceImpl --> ItemToDonate : uses
+ItemToDonateService <|.. ItemToDonateServiceImpl : implements
+ItemToDonateRepository <|.. ItemToDonateRepositoryImpl : implements
+
+@enduml
+
+----
+
 
 ---
 
-== Partie 3 : Modélisation
+
+= Fonctionnalité de Création et Inscription aux Événements sur LoveMyPet
+
+== Présentation
+
+Cette fonctionnalité sur l'application LoveMyPet permet aux utilisateurs de créer et partager des événements, tels que des sorties en groupe, et de s'inscrire à des événements créés par d'autres utilisateurs.
+
+== Utilisation depuis la Page "Mes Services"
+
+Sur la page "Mes Services", deux boutons sont disponibles :
+
+- Un bouton permettant à l'utilisateur de visualiser tous les événements créés par d'autres utilisateurs qui ne sont pas encore expirés.
+- Un bouton permettant à l'utilisateur de créer un nouvel événement et de le partager avec la communauté. De plus, l'utilisateur peut visualiser tous les événements qu'il a créés.
+
+image::service_event.png[service_evenemtn]
+
+=== Ajout d'un Événement
+
+Lorsque l'utilisateur clique sur le bouton "Ajouter un Événement", il est redirigé vers une page où il peut remplir un formulaire avec des informations telles que le titre, la date, l'adresse de l'événement, et même ajouter une image pour l'événement.
+
+image::Evenement/AddEvent.png[ajouter_event]
+
+=== Affichage des Événements Non Expirés
+
+En cliquant sur le bouton "Afficher les Événements Non Expirés", l'utilisateur est dirigé vers une page présentant tous les événements non expirés. Il peut facilement s'inscrire à un événement en cliquant sur le bouton d'inscription associé à l'événement choisi.
+
+image::Evenement/ShowEvent.png[afficher_evenet]
+
+=== Inscription à un Événement
+
+L'inscription à un événement est simple. L'utilisateur clique sur le bouton "Inscription" associé à l'événement de son choix. Une fois inscrit, une entrée est ajoutée à la table des inscriptions avec l'ID de l'événement et l'ID de l'utilisateur.
 
 
+=== Affichage des Événements Créés par un Utilisateur
 
+Si un utilisateur souhaite voir les événements qu'il a créés, il lui suffit de se rendre dans le menu dédié. Il sera alors redirigé vers une page listant tous les événements qu'il a créés.
 
-[plantuml]
+image::Evenement/MyEvent.png[my_event]
+
+=== Suppression d'un Événement Créé
+
+L'utilisateur peut supprimer un événement qu'il a créé en accédant à la page "Mes Événements". Sur cette page, il voit la liste de tous les événements qu'il a créés et peut sélectionner l'événement à supprimer en cliquant sur le bouton "Supprimer".
+
+image::Evenement/MyEventsup.png[mes_evenements]
+
+== Diagramme de Classe
+
+[plantuml, diagramme-de-classe, svg]
 ----
 @startuml
-
-package com.nanterre.LoveMyPet.controller {
-  class AdoptionController {
-    + getAllAdoptionUrls(): List<String>
-    + getAdoptionDetails(idAdoption: Integer): Map<String, Object>
-    + addAdoption(adoption: Adoption): ResponseEntity<Map<String, String>>
-  }
-  class AnimalController {
-    + addAnimal(imageFile: MultipartFile, animal: Animal): ResponseEntity<String>
-    + getAnimalsReferenceByPersonId(idPerson: Integer): List<String>
-    + getAnimalDetailsById(id: Integer): Animal
-    + getCandidaturesByAnimalId(animalId: Integer): List<String>
-    + addAdoption(adoption: Adoption): ResponseEntity<Map<String, String>>
-  }
-  class CandidatureController {
-    + getCandidatureDetailsByAnimalIdAndCandidatureId(animalId: Integer, candidatureId: Integer): Candidature
-  }
-  class Controller {
-    + showAdoptionPage(model: Model): String
-    + showAnimals(model: Model): String
-    + showCandidatureByAnimalId(model: Model): String
-    + showVaccinations(model: Model): String
-    + showCandidatures(model: Model): String
-    + showpage(): String
-    + showpageaddAnimal(): String
-    + showpagelogin(): String
-    + homePage(): String
-    + profile(): String
-  }
-  class MesCandidatureController {
-    + getCandidatureReferenceByPersonId(idPerson: Integer): List<String>
-    + getCandidatureDetailsById(idCandidature: Integer): Candidature
-  }
-  class PersonController {
-    + getPersonDetailsById(id: Integer): Person
-    + add(imageFile: MultipartFile, person: Person): ResponseEntity<String>
-    + login(email: String, password: String, session: HttpSession): ResponseEntity<?>
-    + userProfile(session: HttpSession): ResponseEntity<?>
-    + addCandidature(idPerson: Integer, idAdoption: Integer, dateCandidature: String): ResponseEntity<String>
-  }
-}
-
-package com.nanterre.LoveMyPet.service {
-  interface AdoptionService {
-    + getAllAdoptionUrls(): List<String>
-    + getAdoptionDetails(idAdoption: Integer): Map<String, Object>
-    + saveAdoption(adoption: Adoption)
-  }
-  interface AnimalService {
-    + getAnimalLinksByPersonId(idPerson: Integer): List<String>
-    + getAnimalDetailsById(id: Integer): Animal
-    + getAdoptionUrlsForAnimals(): List<String>
-    + saveAnimal(animal: Animal): Animal
-    + findAnimalById(id: Integer): Animal
-  }
-  interface CandidatureService {
-    + getCandidatureLinksByAnimalId(animalId: Integer): List<String>
-    + getCandidatureDetailsByAnimalIdAndCandidatureId(animalId: Integer, candidatureId: Integer): Candidature
-    + saveCandidature(candidature: Candidature)
-  }
-  interface MesCandidatureService {
-    + getCandidatureLinksByPersonId(idPerson: Integer): List<String>
-    + getCandidatureDetailsById(idCandidature: Integer): Candidature
-  }
-  interface PersonService {
-    + getPersonDetailsById(id: Integer): Person
-    + savePerson(person: Person): Person
-    + findPersonByEmail(email: String): Person
-  }
-}
-
-package com.nanterre.LoveMyPet.repository {
-  interface AdoptionRepository {
-    + findAll(): List<Adoption>
-    + findById(id: Integer): Optional<Adoption>
-    + save(adoption: Adoption): Adoption
-  }
-  interface AnimalRepository {
-    + findByIdPerson(idPerson: Integer): List<Animal>
-    + findById(id: Integer): Optional<Animal>
-    + save(animal: Animal): Animal
-  }
-  interface CandidatureRepository {
-    + getCandidaturesByAnimalId(animalId: Integer): List<Candidature>
-    + findById(id: Integer): Optional<Candidature>
-    + save(candidature: Candidature): Candidature
-  }
-  interface MesCandidatureRepository {
-    + findByPersonIdPerson(idPerson: Integer): List<Candidature>
-    + findById(id: Integer): Optional<Candidature>
-    + save(candidature: Candidature): Candidature
-  }
-  interface PersonRepository {
-    + findById(id: Integer): Optional<Person>
-    + save(person: Person): Person
-    + findPersonByEmail(email: String): Person
-  }
-}
-
-Controller --|> AdoptionController
-Controller --|> AnimalController
-Controller --|> CandidatureController
-Controller --|> MesCandidatureController
-Controller --|> PersonController
-
-AdoptionController --|> AdoptionService
-AdoptionController --|> AnimalService
-
-AnimalController --|> AnimalService
-AnimalController --|> AdoptionService
-AnimalController --|> CandidatureService
-
-CandidatureController --|> CandidatureService
-
-MesCandidatureController --|> MesCandidatureService
-
-PersonController --|> PersonService
-PersonController --|> CandidatureService
-
-AdoptionService --|> AdoptionRepository
-AnimalService --|> AnimalRepository
-CandidatureService --|> CandidatureRepository
-MesCandidatureService --|> MesCandidatureRepository
-PersonService --|> PersonRepository
-
-
-
-@enduml
-----
-
-
-
-[plantuml]
-----
-@startuml
-
-package com.nanterre.LoveMyPet.controller {
-  class AnimalController {
-    + addAnimal(imageFile: MultipartFile, animal: Animal): ResponseEntity<String>
-    + getAnimalsReferenceByPersonId(idPerson: Integer): List<String>
-    + getAnimalDetailsById(id: Integer): Animal
-    + getCandidaturesByAnimalId(animalId: Integer): List<String>
-    + addAdoption(adoption: Adoption): ResponseEntity<Map<String, String>>
-  }
-  class Controller {
-    + showAdoptionPage(model: Model): String
-    + showAnimals(model: Model): String
-    + showCandidatureByAnimalId(model: Model): String
-    + showVaccinations(model: Model): String
-    + showCandidatures(model: Model): String
-    + showpage(): String
-    + showpageaddAnimal(): String
-    + showpagelogin(): String
-    + homePage(): String
-    + profile(): String
-  }
-  class PersonController {
-    + getPersonDetailsById(id: Integer): Person
-    + add(imageFile: MultipartFile, person: Person): ResponseEntity<String>
-    + login(email: String, password: String, session: HttpSession): ResponseEntity<?>
-    + userProfile(session: HttpSession): ResponseEntity<?>
-    + addCandidature(idPerson: Integer, idAdoption: Integer, dateCandidature: String): ResponseEntity<String>
-  }
-  class VaccinationController {
-    + getVaccinationReferenceByAnimalId(idAnimal: Integer): List<String>
-    + getVaccinationDetailsById(idVaccination: Integer): Vaccination
-    + add(vaccination: Vaccination, animalId: Integer): String
-  }
-
-  class VaccinController {
-    - vaccinService: VaccinService
-    + VaccinController(vaccinService: VaccinService)
-    + getAllVaccins(): Iterable<Vaccin>
-  }
-}
-
-package com.nanterre.LoveMyPet.service {
-  interface AnimalService {
-    + getAnimalLinksByPersonId(idPerson: Integer): List<String>
-    + getAnimalDetailsById(id: Integer): Animal
-    + getAdoptionUrlsForAnimals(): List<String>
-    + saveAnimal(animal: Animal): Animal
-    + findAnimalById(id: Integer): Animal
-  }
-  interface PersonService {
-    + getPersonDetailsById(id: Integer): Person
-    + savePerson(person: Person): Person
-    + findPersonByEmail(email: String): Person
-  }
-  interface VaccinationService {
-    + saveVaccination(vaccination: Vaccination): Vaccination
-    + getVaccinationLinksByAnimalId(idAnimal: Integer): List<String>
-    + getVaccinationDetailsById(idVaccination: Integer): Vaccination
-  }
-  
-  interface VaccinService {
-  + getAllVaccins(): Iterable<Vaccin>
-  + getVaccinById(id: Integer): Vaccin
-  }
-
-}
-
-package com.nanterre.LoveMyPet.repository {
-  interface AnimalRepository {
-    + findByIdPerson(idPerson: Integer): List<Animal>
-    + findById(id: Integer): Optional<Animal>
-    + save(animal: Animal): Animal
-  }
-  interface PersonRepository {
-    + findById(id: Integer): Optional<Person>
-    + save(person: Person): Person
-    + findPersonByEmail(email: String): Person
-  }
-  interface VaccinRepository {
-    + findAll(): Iterable<Vaccin>
-    + findById(id: Integer): Optional<Vaccin>
-    + save(vaccin: Vaccin): Vaccin
-    + deleteById(id: Integer): void
-  }
-  interface VaccinationRepository {
-    + findAll(): List<Vaccination>
-    + findById(id: Integer): Optional<Vaccination>
-    + save(vaccination: Vaccination): Vaccination
-    + deleteById(id: Integer): void
-    + findByAnimalId(animalId: Integer): List<Vaccination>
-  }
-}
-
-Controller --|> VaccinationController
-Controller --|> AnimalController
-Controller --|> VaccinController
-Controller --|> PersonController
-
-VaccinationController --|> VaccinationService
-AnimalController --|> AnimalService
-VaccinController --|> VaccinService
-PersonController --|> PersonService
-
-AnimalService --|> AnimalRepository
-VaccinationService --|> VaccinationRepository
-VaccinService --|> VaccinRepository
-PersonService --|> PersonRepository
-
-@enduml
-----
-
-== Base de données
-
-Le diagramme entité-relation ci-dessous offre une représentation visuelle des relations essentielles. En mettant en lumière les liens entre les différentes entités.
-
-=== Modèle LoveMyPet
-
-[plantuml]
-----
-@startuml
-
-package "com.nanterre.LoveMyPet.model" {
-  class Person {
-    +idPerson: Integer
-    LastName: String
-    FirstName: String
-    Email: String
-    PhoneNumber: String
-    Address: String
-    Password: String
-    ImageUrl: String
-  }
-
-  class Animal {
-    +id: Integer
-    +idPerson: Integer
-    name: String
-    category: String
-    race: String
-    weight: Double
-    gender: Integer
-    dateOfBirth: Date
-    imageUrl: String
-  }
-
-  class Adoption {
-    +idAdoption: Integer
-    startDate: Date
-    endDate: Date
-    +idAnimal: Integer
-  }
-
-  class Candidature {
-    +idCandidature: Integer
-    dateCandidature: Date
-    +person: Person
-    +adoption: Adoption
-  }
-
-  class Vaccin {
-    +idVaccin: Integer
-    vaccinName: String
-  }
-
-  class Vaccination {
-    +idVaccination: Integer
-    +vaccin: Vaccin
-    +animal: Animal
-    date: Date
-  }
-
-  class Advice {
-    +idAdvice: Integer
-    description: String
-    +person: Person
-    +animal: Animal
-  }
-  class LikeDislike {
-    +id: Integer
-    +advice: Advice
-    +person: Person
-    isLike: boolean
-  }
-
-  class FeedingConfirmation {
-    +id: Integer
-    +personId: Integer
-    +animalId: Integer
-    +feedingTimeId: Integer
-    confirmationDate: Date
-    confirmationCode: String
-  }
-
-  class FeedingTime {
-    +id: Integer
-    +feedingTime: LocalTime
-  }
-  class HistoriqueAdoption {
-    +id: Integer
-    +idAnimal: Integer
-    +idPerson: Integer
-    endDate: Date
-    adoptedAnimal: Animal
-    adoptedByPerson: Person
-  }
-  class LostAnimal {
-  +id: Integer
-  category: String
-  person: Person
-  name: String
-  age: Integer
-  race: String
-  comment: String
-  gender: String
+class Evenement {
+  idEvenement: Integer
+  titre: String
+  date: LocalDate
   imageUrl: String
-  lostDate: Date
-}
+  place: String
+  createur: Person
 }
 
-Person   --  Animal : "1,1" Adopte "0,N"
-Person -- Candidature : "0,N" Candidate à "1,1"
-Animal -- Adoption : "1,1" Est concerné par "1,1"
-Candidature -- Adoption : "1,1" Correspond à "0,N"
-Vaccin -- Vaccination : "0,N" Est utilisé dans "1,N"
-Vaccination -- Animal : "1,1" prend "1,N"
-Person -- Advice : "0,N" Partage "1,N"
-LikeDislike -- Person : "1,1" Est exprimé par "0,N"
-Animal -- FeedingConfirmation : "1,1" Est concerné par "0,N"
-FeedingTime -- FeedingConfirmation : "1,1" Planifie "0,N"
-FeedingTime -- Animal : "1,1" Est associé à "0,N"
-LikeDislike -- Advice : "0,N" Est associé à "1,N"
-Person -- HistoriqueAdoption : "0,N" Enregistré "1,1"
-HistoriqueAdoption -- Animal : "1,1" Concerne "0,N"
-Person -- LostAnimal : "1,N" Perd "1,N"
+class Inscription {
+  idInscription: Integer
+  personne: Person
+  evenement: Evenement
+}
 
+class EvenementController {
+  evenementService: EvenementService
+  + addEvenement(imageFile: MultipartFile, evenement: Evenement): ResponseEntity<String>
+  + getNonExpiredEventLinks(): ResponseEntity<List<String>>
+  + getNonExpiredEventById(eventId: Integer): ResponseEntity<Map<String, Object>>
+  + getUserEvents(userId: Integer): ResponseEntity<List<Map<String, Object>>>
+}
+
+class EvenementService {
+  evenementRepository: EvenementRepository
+  + getAllEvenements(): List<Evenement>
+  + getEvenementById(id: Integer): Evenement
+  + createEvenement(evenement: Evenement): Evenement
+  + findNonExpiredEvents(date: LocalDate): List<Evenement>
+  + getUserEvents(idPerson: Integer): List<Evenement>
+}
+
+class EvenementServiceImpl {
+  evenementRepository: EvenementRepository
+  + getAllEvenements(): List<Evenement>
+  + getEvenementById(id: Integer): Evenement
+  + createEvenement(evenement: Evenement): Evenement
+  + findNonExpiredEvents(date: LocalDate): List<Evenement>
+  + getUserEvents(idPerson: Integer): List<Evenement>
+}
+
+class EvenementRepository {
+  + findByTitre(titre: String): List<Evenement>
+  + findByDateAfter(date: LocalDate): List<Evenement>
+  + findByCreateur(createur: Person): List<Evenement>
+}
+
+class Evenement {
+  idEvenement: Integer
+  titre: String
+  date: LocalDate
+  imageUrl: String
+  place: String
+  createur: Person
+}
+
+class InscriptionController {
+  inscriptionService: InscriptionService
+  + addInscription(idEvenement: Integer, idPerson: Integer): String
+}
+
+class InscriptionService {
+  + addInscription(idEvenement: Integer, idPerson: Integer): void
+}
+
+class InscriptionServiceImpl {
+  inscriptionRepository: InscriptionRepository
+  personRepository: PersonRepository
+  evenementRepository: EvenementRepository
+  + addInscription(idEvenement: Integer, idPerson: Integer): void
+}
+
+class InscriptionRepository {
+  + existsByPersonneAndEvenement(personne: Person, evenement: Evenement): boolean
+}
+
+
+
+Evenement "1" --> "0..n" Inscription : inscriptions
+EvenementController "1" --> "1" EvenementService : evenementService
+EvenementService "1" --> "1" EvenementRepository : evenementRepository
+EvenementServiceImpl "1" --> "1" EvenementRepository : evenementRepository
+Inscription "0..n" --> "1" Evenement : evenement
+InscriptionController "1" --> "1" InscriptionService : inscriptionService
+InscriptionService "1" --> "1" InscriptionRepository : inscriptionRepository
+InscriptionServiceImpl "1" --> "1" InscriptionRepository : inscriptionRepository
 @enduml
-
-
-
-
 ----
+
+== API
+
+=== Ajout d'Événement
+
+.Inscription d'un nouvel événement dans l'application.
+[Method]
+* Type: `POST`
+* Endpoint: `/api/evenements/add`
+
+[Entrées JSON]
+[source,json]
+----
+{
+  "imageFile": "Contenu de l'image en format MultipartFile",
+  "evenement": {
+    "titre": "Sortie au Parc",
+    "date": "2024-02-01",
+    "place": "Parc XYZ",
+    "createur": {
+      "idPerson": 123
+    }
+  }
+}
+----
+
+[Résultat Attendu]
+* Succès (Status Code 200 OK): "Nouvel événement ajouté"
+
+=== Affichage des Événements Non Expirés
+
+.Obtention de la liste des liens vers les événements non expirés.
+[Method]
+* Type: `GET`
+* Endpoint: `/api/evenements/non-expired`
+
+[Résultat Attendu]
+* Succès (Status Code 200 OK): Liste des liens vers les événements non expirés
+
+=== Détails d'un Événement Non Expiré
+
+.Obtention des détails d'un événement non expiré.
+[Method]
+* Type: `GET`
+* Endpoint: `/api/evenements/non-expired/1`
+
+[Résultat Attendu]
+
+
+* Succès (Status Code 200 OK):
+[source,json]
+----
+[
+    "/api/evenements/non-expired/4",
+    "/api/evenements/non-expired/5",
+    "/api/evenements/non-expired/7",
+    "/api/evenements/non-expired/8",
+    "/api/evenements/non-expired/14"
+]
+----
+
+* Échec (Status Code 404 Not Found): Événement non trouvé
+
+=== Liste des Événements Créés par un Utilisateur
+
+.Obtention de la liste des événements créés par un utilisateur.
+[Method]
+* Type: `GET`
+* Endpoint: `/api/evenements/user-events?userId=123`
+
+[Résultat Attendu]
+* Succès (Status Code 200 OK):
+[source,json]
+----
+[
+  {
+    "idEvenement": 1,
+    "titre": "Sortie au Parc",
+    "date": "2024-02-01",
+    "place": "Parc XYZ",
+    "imageName": "sortie_parc.jpg",
+    "details": "/api/evenements/non-expired/1"
+  },
+  {
+    "idEvenement": 2,
+    "titre": "Promenade en Ville",
+    "date": "2024-02-15",
+    "place": "Centre-ville",
+    "imageName": "promenade_ville.jpg",
+    "details": "/api/evenements/non-expired/2"
+  }
+]
+----
+
+* Échec (Status Code 400 Bad Request): Paramètre manquant
+
+=== Inscription à un Événement
+
+.Inscription à un événement spécifique.
+[Method]
+* Type: `POST`
+* Endpoint: `/api/inscription/add?idEvenement=1&idPerson=456`
+
+[Résultat Attendu]
+* Succès (Status Code 200 OK): "Inscription ajoutée avec succès!"
+* Échec (Status Code 404 Not Found): "Personne ou événement non trouvé!"
+* Échec (Status Code 400 Bad Request): "Personne est déjà inscrite à cet événement!"
+
+
+== Diagramme de Séquence - Ajout d'Événement
+
+[plantuml, diagramme-de-sequence-ajout-evenement, svg]
+----
+@startuml
+actor Utilisateur
+participant EvenementController
+participant EvenementService
+participant EvenementRepository
+participant MultipartFile
+database Database
+
+Utilisateur -> EvenementController: addEvenement(imageFile, evenement)
+activate EvenementController
+EvenementController -> EvenementService: createEvenement(evenement)
+activate EvenementService
+EvenementService -> EvenementRepository: save(evenement)
+activate EvenementRepository
+EvenementRepository -> Database: Enregistrement en base de données
+activate Database
+Database --> EvenementRepository: Confirmation d'enregistrement
+deactivate Database
+EvenementRepository --> EvenementService: Retourne l'événement créé
+deactivate EvenementRepository
+EvenementService --> EvenementController: Retourne une réponse HTTP
+deactivate EvenementService
+EvenementController --> Utilisateur: Retourne une réponse HTTP
+deactivate EvenementController
+@enduml
+----
+
+== Diagramme de Séquence - Affichage des Événements Non Expirés
+
+[plantuml, diagramme-de-sequence-affichage-evenements, svg]
+----
+@startuml
+actor Utilisateur
+participant EvenementController
+participant EvenementService
+participant EvenementRepository
+database Database
+
+Utilisateur -> EvenementController: getNonExpiredEventLinks()
+activate EvenementController
+EvenementController -> EvenementService: findNonExpiredEvents(today)
+activate EvenementService
+EvenementService -> EvenementRepository: findByDateAfter(today)
+activate EvenementRepository
+EvenementRepository -> Database: Recherche des événements non expirés
+activate Database
+Database --> EvenementRepository: Résultat de la recherche
+deactivate Database
+EvenementRepository --> EvenementService: Liste des événements non expirés
+deactivate EvenementRepository
+EvenementService --> EvenementController: Liste des liens vers les événements
+deactivate EvenementService
+EvenementController --> Utilisateur: Liste des liens vers les événements
+deactivate EvenementController
+@enduml
+----
+
+== Diagramme de Séquence - Inscription à un Événement
+
+[plantuml, diagramme-de-sequence-inscription-evenement, svg]
+----
+@startuml
+actor Utilisateur
+participant InscriptionController
+participant InscriptionService
+participant InscriptionRepository
+
+Utilisateur -> InscriptionController: addInscription(idEvenement, idPerson)
+activate InscriptionController
+InscriptionController -> InscriptionService: addInscription(idEvenement, idPerson)
+activate InscriptionService
+InscriptionService -> InscriptionRepository: save(inscription)
+activate InscriptionRepository
+InscriptionRepository --> InscriptionService: Confirmation d'enregistrement
+deactivate InscriptionRepository
+InscriptionService --> InscriptionController: Confirmation d'inscription
+deactivate InscriptionService
+InscriptionController --> Utilisateur: Confirmation d'inscription
+deactivate InscriptionController
+@enduml
+----
+
+

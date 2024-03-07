@@ -1,6 +1,5 @@
 package com.nanterre.LoveMyPet.model;
 
-
 import jakarta.persistence.*;
 
 @Entity
