@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultation et modification de traitement</title>
+</head>
+<body>
+    <h1>Consultation et modification de traitement</h1>
+    <form id="traitementForm">
+        <label for="medicament">Médicament:</label>
+        <select id="medicament" name="medicament">
+            <!-- La liste déroulante des médicaments sera ajoutée ici -->
+        </select>
+        <br>
+        <label for="dateDebut">Date de début:</label>
+        <input type="date" id="dateDebut" name="dateDebut">
+        <br>
+        <label for="dateFin">Date de fin:</label>
+        <input type="date" id="dateFin" name="dateFin">
+        <br>
+        <label for="nombrePrises">Nombre de prises:</label>
+        <input type="number" id="nombrePrises" name="nombrePrises">
+        <br>
+        <label for="commentaire">Commentaire:</label>
+        <textarea id="commentaire" name="commentaire"></textarea>
+        <br>
+        <button type="button" onclick="modifierTraitement()">Modifier</button>
+    </form>
+
+    <script>
+        // Fonction pour récupérer la liste des médicaments et les afficher dans la liste déroulante
+        async function afficherListeMedicaments() {
+            const response = await fetch("/medicament/all");
+            const medicaments = await response.json();
+            const medicamentSelect = document.getElementById("medicament");
+            medicaments.forEach((medicament) => {
+                const option = document.createElement("option");
+                option.value = medicament.idMedicament;
+                option.text = medicament.medicamentName;
+                medicamentSelect.add(option);
+            });
+        }
+
+        // Fonction pour récupérer les détails du traitement et les afficher dans le formulaire
+        async function afficherDetailsTraitement(traitementId) {
+            const response = await fetch(`/api/traitementdetails/${traitementId}`);
+            const traitement = await response.json();
+            document.getElementById('medicament').value = traitement.medicament.idMedicament;
+            document.getElementById('dateDebut').value = traitement.dateDebut;
+            document.getElementById('dateFin').value = traitement.dateFin;
+            document.getElementById('nombrePrises').value = traitement.nombrePrises;
+            document.getElementById('commentaire').value = traitement.commentaire;
+        }
+
+        // Fonction pour modifier le traitement
+        async function modifierTraitement() {
+            const traitementId = 94; // Remplacer par l'ID du traitement que vous souhaitez modifier
+            const formData = new FormData(document.getElementById('traitementForm'));
+            const medicamentId = formData.get('medicament');
+            const dateDebut = formData.get('dateDebut');
+            const dateFin = formData.get('dateFin');
+            const nombrePrises = formData.get('nombrePrises');
+            const commentaire = formData.get('commentaire');
+
+            const response = await fetch(`/api/traitement/modifier/${traitementId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    medicament: { idMedicament: medicamentId },
+                    dateDebut,
+                    dateFin,
+                    nombrePrises,
+                    commentaire
+                })
+            });
+
+            if (response.ok) {
+                alert('Traitement modifié avec succès');
+                // Rediriger ou effectuer une autre action après la modification réussie
+            } else {
+                alert('Erreur lors de la modification du traitement');
+            }
+        }
+
+        // Appeler la fonction pour afficher les détails du traitement lors du chargement de la page
+        window.onload = async () => {
+            await afficherListeMedicaments();
+            const traitementId = 94; // Remplacer par l'ID du traitement que vous souhaitez afficher
+            afficherDetailsTraitement(traitementId);
+        };
+    </script>
+</body>
+</html>

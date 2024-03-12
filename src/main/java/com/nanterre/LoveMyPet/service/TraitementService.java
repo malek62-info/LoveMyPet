@@ -19,4 +19,6 @@ public interface TraitementService {
 	void ajouterHeure(Integer idTraitement, List<Heure> heures);
 
 	List<Heure> getHeuresByTraitementId(Integer idTraitement);
+	
+	Optional<Traitement> updateTraitement(Integer traitementId, Traitement traitementModifie);
 }

@@ -125,5 +125,14 @@ public class TraitementController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aucun traitement trouvé pour l'identifiant " + traitementId);
         }
     }
+    @PutMapping("/traitement/modifier/{traitementId}")
+    public ResponseEntity<?> modifierTraitement(@PathVariable Integer traitementId, @RequestBody Traitement traitementModifie) {
+        Optional<Traitement> updatedTraitement = traitementService.updateTraitement(traitementId, traitementModifie);
+        if (updatedTraitement.isPresent()) {
+            return ResponseEntity.ok("Traitement modifié avec succès");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aucun traitement trouvé pour l'identifiant " + traitementId);
+        }
+    }
 
 }

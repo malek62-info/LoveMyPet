@@ -167,5 +167,9 @@ public class Controller {
     public String FormulaireHeure() {
         return "FormulaireHeure";
     }
+    @GetMapping("/UpdateTraitement")
+    public String UpdateTraitement() {
+        return "UpdateTraitement";
+    }
 
 }

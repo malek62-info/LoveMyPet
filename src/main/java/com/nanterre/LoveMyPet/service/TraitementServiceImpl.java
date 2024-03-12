@@ -70,6 +70,21 @@ public class TraitementServiceImpl implements TraitementService {
         }
         return Collections.emptyList();
     }
-    
+    @Override
+    public Optional<Traitement> updateTraitement(Integer traitementId, Traitement traitementModifie) {
+        Optional<Traitement> traitementOptional = traitementRepository.findById(traitementId);
+        if (traitementOptional.isPresent()) {
+            Traitement traitement = traitementOptional.get();
+            traitement.setMedicament(traitementModifie.getMedicament());
+            traitement.setDateDebut(traitementModifie.getDateDebut());
+            traitement.setDateFin(traitementModifie.getDateFin());
+            traitement.setNombrePrises(traitementModifie.getNombrePrises());
+            traitement.setCommentaire(traitementModifie.getCommentaire());
+            return Optional.of(traitementRepository.save(traitement));
+        } else {
+            return Optional.empty();
+        }
+    }
+
 
 }
