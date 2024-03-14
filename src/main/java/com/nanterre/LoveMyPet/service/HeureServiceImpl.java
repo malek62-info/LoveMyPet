@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -39,8 +40,29 @@ public class HeureServiceImpl implements HeureService {
     }
 
     @Override
-    public void updateHeure(Integer idHeure, Date newHeure) {
-        // Implémentez la logique de mise à jour de l'heure en fonction de l'ID de l'heure
-        // Assurez-vous de mettre à jour l'heure dans la table Heure
+    public void updateHeure(Integer idHeure, Date nouvelleHeure) {
+        Optional<Heure> heureOptional = heureRepository.findById(idHeure);
+        if (heureOptional.isPresent()) {
+            Heure heure = heureOptional.get();
+            heure.setHeure(nouvelleHeure);
+            heureRepository.save(heure);
+        } else {
+            throw new NoSuchElementException("L'heure avec l'ID spécifié n'existe pas : " + idHeure);
+        }
     }
+    
+    @Override
+    public void modifierHeureTraitement(Integer idTraitement, Date nouvelleHeure) {
+        // Trouver l'heure associée à ce traitement (vous pouvez adapter cette logique selon vos besoins)
+        List<Heure> heures = heureRepository.findByTraitementIdTraitement(idTraitement);
+        if (!heures.isEmpty()) {
+            // Supposons ici que vous voulez modifier seulement la première heure associée au traitement
+            Heure premiereHeure = heures.get(0);
+            premiereHeure.setHeure(nouvelleHeure);
+            heureRepository.save(premiereHeure);
+        } else {
+            throw new NoSuchElementException("Aucune heure associée à ce traitement : " + idTraitement);
+        }
+    }
+
 }

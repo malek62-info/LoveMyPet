@@ -7,7 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.nanterre.LoveMyPet.model.Heure;
 import com.nanterre.LoveMyPet.model.Traitement;
+import com.nanterre.LoveMyPet.repository.HeureRepository;
 import com.nanterre.LoveMyPet.service.HeureService;
+import com.nanterre.LoveMyPet.service.TraitementService;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,13 +20,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/heure")
 public class HeureController {
-
+	 @Autowired
+	    private HeureRepository heureRepository;
+	@Autowired
+    private TraitementService traitementService;
     @Autowired
     private HeureService heureService;
 
@@ -46,16 +52,48 @@ public class HeureController {
         }
     }
 
+    
+    @PutMapping("/modifier/{idTraitement}")
+    public ResponseEntity<String> modifierHeuresTraitement(@PathVariable Integer idTraitement, @RequestBody List<String> heures) {
+        try {
+            // Récupérer le traitement correspondant à l'ID
+            Traitement traitement = traitementService.getTraitementDetailsById(idTraitement);
+            
+            if (traitement == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aucun traitement trouvé pour l'ID spécifié : " + idTraitement);
+            }
+            
+            // Supprimer les heures existantes associées à ce traitement
+            List<Heure> heuresExistantes = heureRepository.findByTraitement(traitement);
+            heureRepository.deleteAll(heuresExistantes);
 
-    @GetMapping("/list/{idTraitement}")
-    public ResponseEntity<List<Heure>> getHeuresByTraitementId(@PathVariable Integer idTraitement) {
-        List<Heure> heures = heureService.getHeuresByTraitementId(idTraitement);
-        return ResponseEntity.ok(heures);
+            // Formater les heures en objets Date et les associer au traitement
+            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.FRANCE);
+            for (String heureStr : heures) {
+                Date heureDate = dateFormat.parse(heureStr);
+                Heure nouvelleHeure = new Heure();
+                nouvelleHeure.setHeure(heureDate);
+                nouvelleHeure.setTraitement(traitement);
+                heureRepository.save(nouvelleHeure);
+            }
+
+            return ResponseEntity.ok("Heures de traitement mises à jour avec succès");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la mise à jour des heures de traitement");
+        }
     }
 
-    @PutMapping("/update/{idHeure}")
-    public ResponseEntity<String> updateHeure(@PathVariable Integer idHeure, @RequestBody Date newHeure) {
-        heureService.updateHeure(idHeure, newHeure);
-        return ResponseEntity.ok("Heure mise à jour avec succès");
-    }
+
+
+
+    
+   
+
+    
+
+
+
+
+
+
 }

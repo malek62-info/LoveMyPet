@@ -11,4 +11,5 @@ public interface HeureService {
     List<Heure> getHeuresByTraitementId(Integer idTraitement);
 
     void updateHeure(Integer idHeure, Date newHeure);
+    void modifierHeureTraitement(Integer idTraitement, Date nouvelleHeure) ;
 }

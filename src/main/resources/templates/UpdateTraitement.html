@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultation et modification de traitement</title>
+    <title>Modifier les heures de traitement</title>
 </head>
 <body>
+    <h1>Modifier les heures de traitement</h1>
+    <div id="heuresTraitement"></div> <!-- Div pour afficher les champs de saisie d'heure -->
+
+    <div id="message"></div>
+
+    <button id="submitHoursButton">Enregistrer</button>
+
     <h1>Consultation et modification de traitement</h1>
     <form id="traitementForm">
         <label for="medicament">Médicament:</label>
@@ -29,6 +36,52 @@
     </form>
 
     <script>
+        // Récupérer les heures actuelles à partir de votre API ou votre base de données
+        fetch("/api/traitement/94/heures")  // Remplacez {idTraitement} par l'ID du traitement concerné
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(heureObj => {
+                    const heure = heureObj.heure;
+                    const input = document.createElement('input');
+                    input.type = 'time';
+                    input.value = heure;
+                    document.getElementById('heuresTraitement').appendChild(input);
+                });
+            })
+            .catch(error => console.error("Erreur lors de la récupération des heures actuelles:", error));
+
+        // Ajouter un écouteur d'événement sur le bouton de soumission pour mettre à jour les heures de traitement
+        document.getElementById("submitHoursButton").addEventListener("click", function() {
+            const heuresInputs = document.querySelectorAll('#heuresTraitement input[type="time"]');
+            const heures = Array.from(heuresInputs).map(input => input.value);
+
+            // Envoi de la requête PUT au backend pour mettre à jour les heures de traitement
+            fetch("/heure/modifier/94", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(heures)
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text(); // Retourne le texte de la réponse
+                } else {
+                    throw new Error('Erreur lors de la mise à jour des heures de traitement.');
+                }
+            })
+            .then(data => {
+                // Affichage du message de succès ou d'erreur
+                const messageDiv = document.getElementById("message");
+                messageDiv.textContent = data; // Affiche le texte de la réponse
+            })
+            .catch(error => {
+                console.error("Erreur:", error);
+                const messageDiv = document.getElementById("message");
+                messageDiv.textContent = error.message;
+            });
+        });
+
         // Fonction pour récupérer la liste des médicaments et les afficher dans la liste déroulante
         async function afficherListeMedicaments() {
             const response = await fetch("/medicament/all");
