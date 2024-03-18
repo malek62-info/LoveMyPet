@@ -223,7 +223,7 @@
                                                 .then(data => {
                                                     console.log("Nom du vaccin pour ID " + vaccination.idVaccin + ":", data.vaccinName);
                                                     return {
-                                                        id :vaccination.idVaccin,
+                                                        id :vaccination.idVaccination,
                                                         title: "Vaccination " + data.vaccinName,
                                                         start: startTime,
                                                         end: endTime,
