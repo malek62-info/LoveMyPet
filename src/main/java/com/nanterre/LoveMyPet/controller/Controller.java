@@ -172,4 +172,9 @@ public class Controller {
         return "UpdateTraitement";
     }
 
+    @GetMapping("/calendar-google")
+    public String calendarGoogle() {
+        return "calendar-google";
+    }
+
 }

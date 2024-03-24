@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Calendar API</title>
+</head>
+<body>
+    <h1>Test Calendar API</h1>
+    
+    <button onclick="authorizeAndInsertEvent()">Autoriser et insérer un événement</button>
+    
+    <script>
+        function authorizeAndInsertEvent() {
+            // Rediriger l'utilisateur vers la page d'autorisation
+            window.location.href = "/export-calendar";
+        }
+
+        // Fonction pour récupérer le code d'autorisation de l'URL
+        function getCodeFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            return code;
+        }
+
+        // Exécuter une action si le code est présent dans l'URL
+        document.addEventListener('DOMContentLoaded', function() {
+            const code = getCodeFromUrl();
+            if (code) {
+                console.log('Code d\'autorisation récupéré : ', code);
+                // Envoyer le code au contrôleur via une requête Ajax
+                sendCodeToController(code);
+            }
+        });
+
+        // Fonction pour envoyer le code au contrôleur via une requête Ajax
+        function sendCodeToController(code) {
+            // Créer un objet XMLHttpRequest
+            var xhr = new XMLHttpRequest();
+            // Spécifier la méthode et l'URL de la requête
+            xhr.open("GET", "/insert-event?code=" + code, true);
+            // Envoyer la requête
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
