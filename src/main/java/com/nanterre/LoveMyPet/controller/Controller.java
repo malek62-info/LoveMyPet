@@ -172,4 +172,17 @@ public class Controller {
         return "UpdateTraitement";
     }
 
+    @GetMapping("/AddVaccination_Medicament")
+    public String AddVaccination_Medicament() {
+        return "AddVaccination_Medicament";
+    }
+
+    @GetMapping("/Listvaccin")
+    public String Listvaccin() {
+        return "Listvaccin";
+    }
+
+
+
+
 }

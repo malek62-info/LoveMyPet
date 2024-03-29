@@ -41,7 +41,6 @@ public class VaccinationController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @GetMapping("/details/{id}")

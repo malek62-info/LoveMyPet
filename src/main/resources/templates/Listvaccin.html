@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des vaccinations</title>
+    <!-- Inclure Bootstrap pour un rendu plus esthétique -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Styles généraux */
+        body {
+            background-image: url('https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg');
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin-top: 50px;
+        }
+
+        .table {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+            overflow: hidden; /* Ajout pour gérer le débordement horizontal */
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle !important;
+            font-size: 16px; /* Ajustement de la taille de la police */
+        }
+
+        .table th {
+            background-color: #343a40; /* Couleur de fond de l'en-tête */
+            color: #fff; /* Couleur du texte de l'en-tête */
+        }
+
+        .table td {
+            background-color: #f8f9fa; /* Couleur de fond des cellules */
+        }
+
+        /* Styles du menu */
+        .w3-sidebar {
+            position: fixed;
+            z-index: 100;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+            left: 0;
+            top: 0;
+        }
+
+        .w3-button {
+            color: #fff;
+            outline: none;
+            padding: 10px;
+            text-decoration: none;
+            transition: 0.5s;
+        }
+
+        .w3-button:hover {
+            background-color: #fff;
+            text-decoration: none;
+            color: #81774E;
+            border-radius: 6px;
+        }
+
+        .w3-button:hover a {
+            color: #000;
+        }
+
+        .logo-img {
+            text-align: center;
+            margin: 20px auto;
+            width: 100px;
+        }
+
+        .side_bar_bar {
+            background-color: #81774E;
+            border: 0;
+            height: 1px;
+            width: 100%;
+            border-radius: 2px;
+            margin: 10px 0;
+        }
+
+        .title {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Menu -->
+<div class="w3-sidebar">
+    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <a href="/profile" class="w3-button">Mon compte</a>
+    <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+    <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+    <a href="/adoption" class="w3-button">Adoption</a>
+    <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+    <a href="/donate" class="w3-button">Donner des objets</a>
+    <a href="/showdonations" class="w3-button">Trouver des objets</a>
+    <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
+    <a href="/Map" class="w3-button">Map</a>
+    <a href="/AddEvent" class="w3-button">Ajouter un évenement</a>
+    <a href="/ShowEvent" class="w3-button">Participé a un evenement</a>
+    <a href="/MyEvent" class="w3-button">Mes évenement crée</a>
+    <a href="#" class="w3-button">Se Déconnecter</a>
+</div>
+
+<div class="container">
+    <h1 class="title">Liste des vaccinations</h1>
+    <div class="table-responsive"> <!-- Ajout d'une classe pour la prise en charge des écrans de petite taille -->
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Animal</th>
+                <th>Nom du vaccin</th>
+                <th>Date de vaccination</th>
+                <th>Heure de vaccination</th>
+                <th>Vétérinaire</th>
+                <th>Adresse du vétérinaire</th>
+                <th>Commentaire</th>
+                <th>Modifier</th>
+            </tr>
+            </thead>
+            <tbody id="vaccinationList">
+            <!-- Les détails des vaccinations seront ajoutés dynamiquement ici -->
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Inclure jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+     // Récupérer l'ID de l'animal à partir de l'URL
+     var urlParams = new URLSearchParams(window.location.search);
+     var animalId = urlParams.get('id');
+
+     // Récupérer les détails de l'animal
+     $.ajax({
+         url: "/animal/" + animalId, // Changer l'URL en fonction de votre endpoint
+         type: "GET",
+         success: function (animal) {
+             // Récupérer les vaccinations de l'animal
+             $.ajax({
+                 url: "/api/vaccinations/" + animalId,
+                 type: "GET",
+                 success: function (vaccinationReferences) {
+                     vaccinationReferences.forEach(function (vaccinationRef) {
+                         // Extraire l'ID de la vaccination à partir de l'URL
+                         var vaccinationId = vaccinationRef.split('/').pop();
+
+                         // Récupérer les détails de la vaccination
+                         $.ajax({
+                             url: "/api/details/" + vaccinationId,
+                             type: "GET",
+                             success: function (vaccinationDetails) {
+                                 // Récupérer le nom du vaccin
+                                 $.ajax({
+                                     url: "/vaccin/vaccins/" + vaccinationDetails.idVaccin,
+                                     type: "GET",
+                                     success: function (vaccin) {
+                                         // Ajouter les détails de la vaccination à la table
+                                         var row = "<tr>" +
+                                             "<td>" + animal.name + "</td>" +
+                                             "<td>" + vaccin.vaccinName + "</td>" +
+                                             "<td>" + vaccinationDetails.date + "</td>" +
+                                             "<td>" + vaccinationDetails.vaccinationTime + "</td>" +
+                                             "<td>" + vaccinationDetails.vetName + "</td>" +
+                                             "<td>" + vaccinationDetails.vetAddress + "</td>" +
+                                             "<td>" + vaccinationDetails.comment + "</td>" +
+                                             "<td><a href='/updatevaccination?id=" + vaccinationId + "'>Modifier</a></td>" +
+                                             "</tr>";
+                                         $("#vaccinationList").append(row);
+                                     },
+                                     error: function (xhr, status, error) {
+                                         console.error("Erreur lors de la récupération du nom du vaccin :", error);
+                                     }
+                                 });
+                             },
+                             error: function (xhr, status, error) {
+                                 console.error("Erreur lors de la récupération des détails de la vaccination :", error);
+                             }
+                         });
+                     });
+                 },
+                 error: function (xhr, status, error) {
+                     console.error("Erreur lors de la récupération des vaccinations de l'animal :", error);
+                 }
+             });
+         },
+         error: function (xhr, status, error) {
+             console.error("Erreur lors de la récupération des détails de l'animal :", error);
+         }
+     });
+ });
+
+</script>
+</body>
+</html>
