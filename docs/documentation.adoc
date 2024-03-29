@@ -1675,3 +1675,83 @@ deactivate InscriptionController
 ----
 
 
+== Gestion des Vaccins et Médicaments d'Animaux avec Calendrier
+
+=== Description de la Fonctionnalité
+
+La fonctionnalité "Gestion des Vaccins et Médicaments d'Animaux avec Calendrier" a pour objectif de simplifier le suivi de la santé des animaux de compagnie en permettant aux propriétaires d'animaux de gérer les vaccinations et les médicaments de leurs animaux via un calendrier interactif.
+
+=== Fonctionnalités Principales
+
+Suivi des Vaccinations :
+Les utilisateurs peuvent enregistrer les vaccinations à venir pour leurs animaux de compagnie. Ces informations sont ensuite affichées de manière claire et intuitive dans un calendrier dédié.
+
+Gestion des Médicaments :
+La fonctionnalité permet aux utilisateurs d'ajouter et de gérer les médicaments administrés à leurs animaux. Les détails tels que le nom du médicament, la posologie et les horaires de prise peuvent être spécifiés.
+
+Calendrier Intégré :
+Les données relatives aux vaccinations et aux médicaments sont automatiquement intégrées dans un calendrier interactif. Cela offre aux utilisateurs une vue d'ensemble des rendez-vous à venir et des prises de médicaments planifiées.
+
+Exportation vers Google Calendar :
+Les informations sur les vaccinations et les médicaments peuvent être facilement exportées vers Google Calendar, offrant ainsi aux utilisateurs une synchronisation pratique avec leurs autres calendriers et une accessibilité accrue depuis différents appareils.
+
+=== Avantages
+
+Simplifie le suivi des vaccinations et des médicaments pour les animaux de compagnie.
+Offre une vue d'ensemble claire des rendez-vous et des prises de médicaments à venir.
+Permet une gestion efficace de la santé des animaux via une interface conviviale et un calendrier interactif.
+Assure une meilleure organisation et une meilleure planification des soins médicaux pour les animaux de compagnie
+
+=== Accès à la Fonctionnalité
+
+Pour accéder à la fonctionnalité de gestion des Vaccins et Médicaments d'Animaux avec Calendrier, les utilisateurs peuvent suivre les étapes suivantes :
+
+Depuis la page d'accueil de l'application, repérez le bouton "Ajouter Vaccination / Médicament".
+
+Cliquez sur ce bouton pour accéder à la page dédiée à la gestion des vaccinations et des médicaments pour les animaux de compagnie.
+
+Sur cette page, les utilisateurs auront la possibilité d'ajouter une nouvelle vaccination ou un nouveau médicament pour leurs animaux de compagnie en remplissant les champs nécessaires et en soumettant le formulaire.
+
+De plus, les utilisateurs pourront visualiser tous les médicaments et les vaccinations de leurs animaux de compagnie dans un calendrier intuitif.
+
+image::Calendar/Page_acceul.png[Accès_Fonctionnalité]
+== Ajouter une vaccination
+
+La fonctionnalité "Ajouter une vaccination" permet à l'utilisateur d'enregistrer une nouvelle vaccination pour son animal de compagnie.
+L'utilisateur peut sélectionner le nom de l'animal parmi une liste s'il en possède plusieurs. Ensuite, il peut spécifier le nom du vaccin,
+la date de la vaccination, le coût, ainsi que le nom et l'adresse du vétérinaire responsable de l'administration du vaccin. Cela permet à
+l'utilisateur de tenir un suivi précis des vaccinations de ses animaux et de planifier les prochaines vaccinations en conséquence.
+
+image::Calendar/Ajouter_vaccination.png[Ajouter_vaccination]
+== Visualiser les vaccinations des animaux
+
+Lorsque l'utilisateur accède à la liste de ses animaux de compagnie, il a la possibilité de visualiser
+les vaccinations de chaque animal. Pour ce faire, un bouton est disponible dans la liste des animaux,
+permettant à l'utilisateur d'afficher un tableau récapitulatif des vaccinations de chaque animal.
+
+Ce tableau présente les détails suivants pour chaque vaccination :
+- Nom de l'animal
+- Nom du vaccin administré
+- Date de la vaccination
+- Coût de la vaccination
+- Nom du vétérinaire responsable
+- Adresse du vétérinaire
+
+Cette fonctionnalité offre à l'utilisateur une vue d'ensemble pratique de toutes les vaccinations effectuées pour ses animaux,
+lui permettant de suivre facilement leur historique médical et de planifier les prochaines vaccinations si nécessaire.
+
+image::Calendar/Listevaccination.png[ Visualiser_vaccinations]
+image::Calendar/Listvaccination2.png[ Visualiser_vaccinations2]
+
+== Modification des vaccinations
+
+L'application offre à l'utilisateur la possibilité de modifier une vaccination déjà enregistrée. Cette fonctionnalité peut être accessible de deux manières :
+
+1. Depuis la liste des vaccinations :
+L'utilisateur peut accéder à la liste des vaccinations de ses animaux de compagnie. À partir de cette liste, il peut sélectionner la vaccination qu'il souhaite modifier et accéder à l'interface de modification. Dans cette interface, l'utilisateur peut mettre à jour les détails de la vaccination, tels que le nom du vaccin, la date de la vaccination, le coût, le vétérinaire responsable, etc.
+
+2. Depuis le calendrier :
+Alternativement, l'utilisateur peut également accéder à l'interface de modification directement depuis le calendrier. Si une vaccination est affichée dans le calendrier, l'utilisateur peut cliquer dessus pour ouvrir une fenêtre modale ou une nouvelle page permettant la modification des détails de la vaccination.
+
+Dans les deux cas, l'utilisateur dispose d'une interface conviviale lui permettant de mettre à jour facilement les informations relatives à la vaccination de son animal de compagnie. Une fois les modifications apportées, les données sont enregistrées et mises à jour dans la base de données, assurant ainsi un suivi précis de l'historique médical de l'animal.
+

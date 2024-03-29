@@ -645,6 +645,17 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#_diagramme_de_séquence_ajout_dévénement">Diagramme de Séquence - Ajout d&#8217;Événement</a></li>
 <li><a href="#_diagramme_de_séquence_affichage_des_événements_non_expirés">Diagramme de Séquence - Affichage des Événements Non Expirés</a></li>
 <li><a href="#_diagramme_de_séquence_inscription_à_un_événement">Diagramme de Séquence - Inscription à un Événement</a></li>
+<li><a href="#_gestion_des_vaccins_et_médicaments_danimaux_avec_calendrier">Gestion des Vaccins et Médicaments d&#8217;Animaux avec Calendrier</a>
+<ul class="sectlevel2">
+<li><a href="#_description_de_la_fonctionnalité_2">Description de la Fonctionnalité</a></li>
+<li><a href="#_fonctionnalités_principales">Fonctionnalités Principales</a></li>
+<li><a href="#_avantages">Avantages</a></li>
+<li><a href="#_accès_à_la_fonctionnalité">Accès à la Fonctionnalité</a></li>
+</ul>
+</li>
+<li><a href="#_ajouter_une_vaccination">Ajouter une vaccination</a></li>
+<li><a href="#_visualiser_les_vaccinations_des_animaux">Visualiser les vaccinations des animaux</a></li>
+<li><a href="#_modification_des_vaccinations">Modification des vaccinations</a></li>
 </ul>
 </li>
 </ul>
@@ -2966,10 +2977,144 @@ deactivate InscriptionController
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_gestion_des_vaccins_et_médicaments_danimaux_avec_calendrier">Gestion des Vaccins et Médicaments d&#8217;Animaux avec Calendrier</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_description_de_la_fonctionnalité_2">Description de la Fonctionnalité</h3>
+<div class="paragraph">
+<p>La fonctionnalité "Gestion des Vaccins et Médicaments d&#8217;Animaux avec Calendrier" a pour objectif de simplifier le suivi de la santé des animaux de compagnie en permettant aux propriétaires d&#8217;animaux de gérer les vaccinations et les médicaments de leurs animaux via un calendrier interactif.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_fonctionnalités_principales">Fonctionnalités Principales</h3>
+<div class="paragraph">
+<p>Suivi des Vaccinations :
+Les utilisateurs peuvent enregistrer les vaccinations à venir pour leurs animaux de compagnie. Ces informations sont ensuite affichées de manière claire et intuitive dans un calendrier dédié.</p>
+</div>
+<div class="paragraph">
+<p>Gestion des Médicaments :
+La fonctionnalité permet aux utilisateurs d&#8217;ajouter et de gérer les médicaments administrés à leurs animaux. Les détails tels que le nom du médicament, la posologie et les horaires de prise peuvent être spécifiés.</p>
+</div>
+<div class="paragraph">
+<p>Calendrier Intégré :
+Les données relatives aux vaccinations et aux médicaments sont automatiquement intégrées dans un calendrier interactif. Cela offre aux utilisateurs une vue d&#8217;ensemble des rendez-vous à venir et des prises de médicaments planifiées.</p>
+</div>
+<div class="paragraph">
+<p>Exportation vers Google Calendar :
+Les informations sur les vaccinations et les médicaments peuvent être facilement exportées vers Google Calendar, offrant ainsi aux utilisateurs une synchronisation pratique avec leurs autres calendriers et une accessibilité accrue depuis différents appareils.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_avantages">Avantages</h3>
+<div class="paragraph">
+<p>Simplifie le suivi des vaccinations et des médicaments pour les animaux de compagnie.
+Offre une vue d&#8217;ensemble claire des rendez-vous et des prises de médicaments à venir.
+Permet une gestion efficace de la santé des animaux via une interface conviviale et un calendrier interactif.
+Assure une meilleure organisation et une meilleure planification des soins médicaux pour les animaux de compagnie</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_accès_à_la_fonctionnalité">Accès à la Fonctionnalité</h3>
+<div class="paragraph">
+<p>Pour accéder à la fonctionnalité de gestion des Vaccins et Médicaments d&#8217;Animaux avec Calendrier, les utilisateurs peuvent suivre les étapes suivantes :</p>
+</div>
+<div class="paragraph">
+<p>Depuis la page d&#8217;accueil de l&#8217;application, repérez le bouton "Ajouter Vaccination / Médicament".</p>
+</div>
+<div class="paragraph">
+<p>Cliquez sur ce bouton pour accéder à la page dédiée à la gestion des vaccinations et des médicaments pour les animaux de compagnie.</p>
+</div>
+<div class="paragraph">
+<p>Sur cette page, les utilisateurs auront la possibilité d&#8217;ajouter une nouvelle vaccination ou un nouveau médicament pour leurs animaux de compagnie en remplissant les champs nécessaires et en soumettant le formulaire.</p>
+</div>
+<div class="paragraph">
+<p>De plus, les utilisateurs pourront visualiser tous les médicaments et les vaccinations de leurs animaux de compagnie dans un calendrier intuitif.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="Calendar/Page_acceul.png" alt="Accès_Fonctionnalité">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ajouter_une_vaccination">Ajouter une vaccination</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La fonctionnalité "Ajouter une vaccination" permet à l&#8217;utilisateur d&#8217;enregistrer une nouvelle vaccination pour son animal de compagnie.
+L&#8217;utilisateur peut sélectionner le nom de l&#8217;animal parmi une liste s&#8217;il en possède plusieurs. Ensuite, il peut spécifier le nom du vaccin,
+la date de la vaccination, le coût, ainsi que le nom et l&#8217;adresse du vétérinaire responsable de l&#8217;administration du vaccin. Cela permet à
+l&#8217;utilisateur de tenir un suivi précis des vaccinations de ses animaux et de planifier les prochaines vaccinations en conséquence.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="Calendar/Ajouter_vaccination.png" alt="Ajouter_vaccination">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_visualiser_les_vaccinations_des_animaux">Visualiser les vaccinations des animaux</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Lorsque l&#8217;utilisateur accède à la liste de ses animaux de compagnie, il a la possibilité de visualiser
+les vaccinations de chaque animal. Pour ce faire, un bouton est disponible dans la liste des animaux,
+permettant à l&#8217;utilisateur d&#8217;afficher un tableau récapitulatif des vaccinations de chaque animal.</p>
+</div>
+<div class="paragraph">
+<p>Ce tableau présente les détails suivants pour chaque vaccination :
+- Nom de l&#8217;animal
+- Nom du vaccin administré
+- Date de la vaccination
+- Coût de la vaccination
+- Nom du vétérinaire responsable
+- Adresse du vétérinaire</p>
+</div>
+<div class="paragraph">
+<p>Cette fonctionnalité offre à l&#8217;utilisateur une vue d&#8217;ensemble pratique de toutes les vaccinations effectuées pour ses animaux,
+lui permettant de suivre facilement leur historique médical et de planifier les prochaines vaccinations si nécessaire.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="Calendar/Listevaccination.png" alt="Visualiser_vaccinations">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="Calendar/Listvaccination2.png" alt="Visualiser_vaccinations2">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modification_des_vaccinations">Modification des vaccinations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>L&#8217;application offre à l&#8217;utilisateur la possibilité de modifier une vaccination déjà enregistrée. Cette fonctionnalité peut être accessible de deux manières :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Depuis la liste des vaccinations :
+L&#8217;utilisateur peut accéder à la liste des vaccinations de ses animaux de compagnie. À partir de cette liste, il peut sélectionner la vaccination qu&#8217;il souhaite modifier et accéder à l&#8217;interface de modification. Dans cette interface, l&#8217;utilisateur peut mettre à jour les détails de la vaccination, tels que le nom du vaccin, la date de la vaccination, le coût, le vétérinaire responsable, etc.</p>
+</li>
+<li>
+<p>Depuis le calendrier :
+Alternativement, l&#8217;utilisateur peut également accéder à l&#8217;interface de modification directement depuis le calendrier. Si une vaccination est affichée dans le calendrier, l&#8217;utilisateur peut cliquer dessus pour ouvrir une fenêtre modale ou une nouvelle page permettant la modification des détails de la vaccination.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Dans les deux cas, l&#8217;utilisateur dispose d&#8217;une interface conviviale lui permettant de mettre à jour facilement les informations relatives à la vaccination de son animal de compagnie. Une fois les modifications apportées, les données sont enregistrées et mises à jour dans la base de données, assurant ainsi un suivi précis de l&#8217;historique médical de l&#8217;animal.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-03 19:47:02 +0100
+Last updated 2024-03-29 17:12:35 +0100
 </div>
 </div>
 </body>
