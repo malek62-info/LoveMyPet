@@ -1755,3 +1755,104 @@ Alternativement, l'utilisateur peut également accéder à l'interface de modifi
 
 Dans les deux cas, l'utilisateur dispose d'une interface conviviale lui permettant de mettre à jour facilement les informations relatives à la vaccination de son animal de compagnie. Une fois les modifications apportées, les données sont enregistrées et mises à jour dans la base de données, assurant ainsi un suivi précis de l'historique médical de l'animal.
 
+== Calendrier Interne de l'Application
+
+Le calendrier interne de l'application permet aux utilisateurs de suivre et de gérer les événements liés à leurs animaux de compagnie, tels que les vaccinations et les traitements.
+
+== Fonctionnalités
+image::calendar/img1.png[]
+
+=== Affichage des événements
+
+- Le calendrier affiche les événements sous forme de grille hebdomadaire.
+- Les événements sont représentés par des blocs de couleur sur le calendrier.
+- Chaque événement est accompagné d'une description détaillée.
+
+=== Types d'événements
+
+==== Vaccinations
+image::calendar/img3.png[]
+
+- Les vaccinations sont affichées en bleu sur le calendrier.
+- Chaque événement de vaccination comprend les détails suivants :
+- Nom du vaccin
+- Date et heure de la vaccination
+- Nom du vétérinaire
+- Adresse du vétérinaire
+
+==== Traitements
+image::calendar/img2.png[]
+
+- Les traitements sont affichés en vert sur le calendrier.
+- Chaque événement de traitement comprend les détails suivants :
+- Nom du médicament
+- Date et heure du traitement
+- Description du traitement
+
+=== Interaction avec les événements
+
+- L'utilisateur peut interagir avec les événements en survolant avec la souris.
+- Pour les événements de traitement, l'utilisateur peut modifier les détails du traitement en cliquant sur le bouton "Modifier".
+- Pour les événements de vaccination, l'utilisateur peut modifier les détails de la vaccination en cliquant sur le bouton "Modifier".
+
+image::calendar/img4.png[]
+
+Vous avez désormais la possibilité d'exporter tous vos événements vers Google Calendar en un seul clic. Cette fonctionnalité simplifie le processus de gestion de vos événements en les intégrant directement à votre calendrier Google.
+
+Comment exporter vos événements vers Google Calendar :
+
+1. Connectez-vous à votre compte sur notre application.
+
+2. Accédez à la page principale ou au tableau de bord où sont répertoriés tous vos événements.
+
+3. Recherchez le bouton "Exporter vers Google Calendar".
+
+   [ Autorisé et inséré un événement ]
+
+4. Cliquez sur ce bouton pour lancer le processus d'exportation.
+
+5. Suivez les instructions à l'écran pour autoriser notre application à accéder à votre calendrier Google.
+
+6. Une fois autorisé, tous vos événements seront automatiquement importés dans votre calendrier Google.
+
+7. Vous pouvez maintenant accéder à votre calendrier Google pour voir et gérer tous vos événements importés.
+
+image::calendar/img5.png[]
+
+Remarque : Assurez-vous d'être connecté à votre compte Google approprié pour que les événements soient importés dans le bon calendrier.
+
+C'est tout ! Vous pouvez maintenant profiter de la synchronisation facile de tous vos événements entre notre application et Google Calendar.
+
+Pour toute question ou assistance supplémentaire, n'hésitez pas à nous contacter à [votre adresse e-mail] ou à consulter notre service d'assistance en ligne.
+
+Merci d'utiliser notre application !
+
+== API REST ==
+
+Dans notre application, nous avons mis en place plusieurs API REST pour permettre aux utilisateurs de gérer les fonctionnalités liées aux animaux et aux traitements vétérinaires. Voici un aperçu de ces API :
+
+=== Visualiser les vaccinations des animaux :
+.Permet de récupérer les détails des vaccinations pour un animal spécifié. Cela inclut des informations telles que la date de la vaccination, le type de vaccin administré, etc.
+* Endpoint : `GET /api/vaccinations/{animalId}`
+
+=== Visualiser les détails des traitements :
+.Utilisé pour obtenir les détails des traitements administrés à un animal donné. Cela peut inclure des informations sur les médicaments prescrits, les doses, les horaires, etc.
+
+* Endpoint : `GET /api/traitements/{animalId}`
+
+===  Obtenir des informations sur un vaccin spécifique :
+.Permet de récupérer des détails spécifiques sur un vaccin. Cela peut être utile pour obtenir des informations détaillées sur un vaccin particulier, telles que sa composition, ses effets secondaires, etc.
+
+* Endpoint : `GET /vaccin/vaccins/{vaccinationId}`
+
+En plus de nos API internes, nous avons également intégré des fonctionnalités de sécurité et de gestion des événements via les API Google. Pour l'authentification sécurisée, nous avons utilisé l'API OAuth 2.0 de Google, qui offre des mécanismes robustes pour l'identification des utilisateurs et la gestion des autorisations.
+
+image::calendar/jwt.png[]
+
+
+Lors de l'utilisation de l'API OAuth 2.0, notre application guide les utilisateurs à travers le processus d'obtention d'un code d'authentification après avoir été redirigés vers Google pour l'authentification. Une fois le code d'authentification obtenu, notre application échange ce code contre un token d'accès, qui est ensuite utilisé pour authentifier les requêtes à l'API Google Calendar et accéder aux fonctionnalités de gestion des événements.
+
+image::calendar/authn-tree.svg[]
+Ces intégrations avec les API Google ajoutent une couche de fonctionnalités avancées à notre application, tout en assurant un haut niveau de sécurité et de fiabilité.
+
+Cette version inclut maintenant des informations sur le processus d'obtention du code et du token lors de l'utilisation de l'API OAuth 2.0 de Google.
