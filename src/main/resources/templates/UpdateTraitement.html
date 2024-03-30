@@ -1,10 +1,69 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier les heures de traitement</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #000;
+            /* Couleur du texte en noir */
+            background-image: url('https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg');
+            background-size: cover;
+            /* Ajuster la taille de l'image de fond */
+            background-repeat: no-repeat;
+            /* Ne pas répéter l'image de fond */
+            background-attachment: fixed;
+            /* Fixer l'image de fond */
+        }
+
+        h1 {
+            color: #000;
+            /* Couleur du titre en noir */
+        }
+
+        input[type="time"],
+        input[type="date"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            box-sizing: border-box;
+            border: 1px solid #000;
+            /* Bordure des champs de saisie */
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px 0;
+            border: none;
+            background-color: #000;
+            /* Couleur de fond du bouton en noir */
+            color: #fff;
+            /* Couleur du texte du bouton en blanc */
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #555;
+            /* Couleur de fond du bouton au survol en gris foncé */
+        }
+
+        #message {
+            color: #000;
+            /* Couleur du message en noir */
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
 </head>
+
 <body>
     <h1>Modifier les heures de traitement</h1>
     <div id="heuresTraitement"></div> <!-- Div pour afficher les champs de saisie d'heure -->
@@ -25,10 +84,6 @@
         <br>
         <label for="dateFin">Date de fin:</label>
         <input type="date" id="dateFin" name="dateFin">
-        <br>
-        <label for="nombrePrises">Nombre de prises:</label>
-        <input type="number" id="nombrePrises" name="nombrePrises">
-        <br>
         <label for="commentaire">Commentaire:</label>
         <textarea id="commentaire" name="commentaire"></textarea>
         <br>
@@ -36,8 +91,12 @@
     </form>
 
     <script>
-        // Récupérer les heures actuelles à partir de votre API ou votre base de données
-        fetch("/api/traitement/94/heures")  // Remplacez {idTraitement} par l'ID du traitement concerné
+        // Récupérer l'ID de traitement depuis l'URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var traitementId = urlParams.get('id');
+
+        // Utiliser l'ID récupéré pour récupérer les heures de traitement
+        fetch(`/api/traitement/${traitementId}/heures`)
             .then(response => response.json())
             .then(data => {
                 data.forEach(heureObj => {
@@ -51,49 +110,36 @@
             .catch(error => console.error("Erreur lors de la récupération des heures actuelles:", error));
 
         // Ajouter un écouteur d'événement sur le bouton de soumission pour mettre à jour les heures de traitement
-        document.getElementById("submitHoursButton").addEventListener("click", function() {
+        document.getElementById("submitHoursButton").addEventListener("click", function () {
             const heuresInputs = document.querySelectorAll('#heuresTraitement input[type="time"]');
             const heures = Array.from(heuresInputs).map(input => input.value);
 
             // Envoi de la requête PUT au backend pour mettre à jour les heures de traitement
-            fetch("/heure/modifier/94", {
+            fetch(`/heure/modifier/${traitementId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(heures)
             })
-            .then(response => {
-                if (response.ok) {
-                    return response.text(); // Retourne le texte de la réponse
-                } else {
-                    throw new Error('Erreur lors de la mise à jour des heures de traitement.');
-                }
-            })
-            .then(data => {
-                // Affichage du message de succès ou d'erreur
-                const messageDiv = document.getElementById("message");
-                messageDiv.textContent = data; // Affiche le texte de la réponse
-            })
-            .catch(error => {
-                console.error("Erreur:", error);
-                const messageDiv = document.getElementById("message");
-                messageDiv.textContent = error.message;
-            });
+                .then(response => {
+                    if (response.ok) {
+                        return response.text(); // Retourne le texte de la réponse
+                    } else {
+                        throw new Error('Erreur lors de la mise à jour des heures de traitement.');
+                    }
+                })
+                .then(data => {
+                    // Affichage du message de succès ou d'erreur
+                    const messageDiv = document.getElementById("message");
+                    messageDiv.textContent = data; // Affiche le texte de la réponse
+                })
+                .catch(error => {
+                    console.error("Erreur:", error);
+                    const messageDiv = document.getElementById("message");
+                    messageDiv.textContent = error.message;
+                });
         });
-
-        // Fonction pour récupérer la liste des médicaments et les afficher dans la liste déroulante
-        async function afficherListeMedicaments() {
-            const response = await fetch("/medicament/all");
-            const medicaments = await response.json();
-            const medicamentSelect = document.getElementById("medicament");
-            medicaments.forEach((medicament) => {
-                const option = document.createElement("option");
-                option.value = medicament.idMedicament;
-                option.text = medicament.medicamentName;
-                medicamentSelect.add(option);
-            });
-        }
 
         // Fonction pour récupérer les détails du traitement et les afficher dans le formulaire
         async function afficherDetailsTraitement(traitementId) {
@@ -108,7 +154,6 @@
 
         // Fonction pour modifier le traitement
         async function modifierTraitement() {
-            const traitementId = 94; // Remplacer par l'ID du traitement que vous souhaitez modifier
             const formData = new FormData(document.getElementById('traitementForm'));
             const medicamentId = formData.get('medicament');
             const dateDebut = formData.get('dateDebut');
@@ -141,9 +186,10 @@
         // Appeler la fonction pour afficher les détails du traitement lors du chargement de la page
         window.onload = async () => {
             await afficherListeMedicaments();
-            const traitementId = 94; // Remplacer par l'ID du traitement que vous souhaitez afficher
             afficherDetailsTraitement(traitementId);
         };
     </script>
+
 </body>
+
 </html>
