@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des traitements</title>
+    <!-- Inclure Bootstrap pour un rendu plus esthétique -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Styles généraux */
+        body {
+            background-image: url('https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg');
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            /* Augmentation de la largeur du conteneur */
+            margin-top: 50px;
+        }
+
+        .table {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            /* Ajout pour gérer le débordement horizontal */
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle !important;
+            font-size: 16px;
+            /* Ajustement de la taille de la police */
+        }
+
+        .table th {
+            background-color: #343a40;
+            /* Couleur de fond de l'en-tête */
+            color: #fff;
+            /* Couleur du texte de l'en-tête */
+        }
+
+        .table td {
+            background-color: #f8f9fa;
+            /* Couleur de fond des cellules */
+        }
+
+        /* Menu */
+        .w3-sidebar {
+            position: fixed;
+            z-index: 100;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+            left: 0;
+            top: 0;
+        }
+
+        .w3-button {
+            color: #fff;
+            outline: none;
+            padding: 10px;
+            text-decoration: none;
+            transition: 0.5s;
+        }
+
+        .w3-button:hover {
+            background-color: #fff;
+            text-decoration: none;
+            color: #81774E;
+            border-radius: 6px;
+        }
+
+        .w3-button:hover a {
+            color: #000;
+        }
+
+        .logo-img {
+            text-align: center;
+            margin: 20px auto;
+            width: 100px;
+        }
+
+        .side_bar_bar {
+            background-color: #81774E;
+            border: 0;
+            height: 1px;
+            width: 100%;
+            border-radius: 2px;
+            margin: 10px 0;
+        }
+
+        /* Titre */
+        .title {
+            font-weight: bold;
+            /* Ajout de la police en gras */
+            text-align: center;
+            /* Centrer le texte */
+            font-size: 24px;
+            /* Ajustement de la taille de la police */
+            margin-bottom: 20px;
+            /* Ajout de marge en bas */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="w3-sidebar">
+        <img src="images/logo.png" alt="Logo" class="logo-img">
+        <a href="/profile" class="w3-button">Mon compte</a>
+        <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+        <hr class="side_bar_bar">
+        <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+        <a href="/adoption" class="w3-button">Adoption</a>
+        <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+        <hr class="side_bar_bar">
+        <a href="/donate" class="w3-button">Donner des objets</a>
+        <a href="/showdonations" class="w3-button">Trouver des objets</a>
+        <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/Map" class="w3-button">Map</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/AddEvent" class="w3-button">Ajouter un évenement</a>
+        <a href="/ShowEvent" class="w3-button">Participé a un evenement</a>
+        <a href="/MyEvent" class="w3-button">Mes évenement crée</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="#" class="w3-button">Se Déconnecter</a>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="container">
+        <div class="title">Liste des traitements</div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nom de l'animal</th>
+                    <th>Nom du médicament</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                    <th>Nombre de prises</th>
+                    <th>Commentaire</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Les données du tableau seront insérées ici -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Inclure jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Récupérer l'ID de l'animal depuis l'URL
+            var urlParams = new URLSearchParams(window.location.search);
+            var id = urlParams.get('id');
+
+            $.get('/api/traitementsDetailsAnimal/' + id, function (data) {
+                data.forEach(function (traitement) {
+                    $('#table-body').append(`
+                        <tr>
+                            <td>${traitement.animal.name}</td>
+                            <td>${traitement.medicament.medicamentName}</td>
+                            <td>${traitement.dateDebut}</td>
+                            <td>${traitement.dateFin}</td>
+                            <td>${traitement.nombrePrises}</td>
+                            <td>${traitement.commentaire}</td>
+                        </tr>
+                    `);
+                });
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

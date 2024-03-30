@@ -181,6 +181,11 @@ public class Controller {
     public String Listvaccin() {
         return "Listvaccin";
     }
+    
+    @GetMapping("/ListeMedicaments")
+    public String ListeMedicaments() {
+        return "ListeMedicaments";
+    }
 
 
 

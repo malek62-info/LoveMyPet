@@ -21,4 +21,6 @@ public interface TraitementService {
 	List<Heure> getHeuresByTraitementId(Integer idTraitement);
 	
 	Optional<Traitement> updateTraitement(Integer traitementId, Traitement traitementModifie);
+	
+	List<Traitement> getTraitementsDetailsByAnimalId(Integer animalId);
 }

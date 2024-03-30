@@ -85,6 +85,12 @@ public class TraitementServiceImpl implements TraitementService {
             return Optional.empty();
         }
     }
+    
+    @Override
+    public List<Traitement> getTraitementsDetailsByAnimalId(Integer animalId) {
+        return traitementRepository.findByAnimalId(animalId);
+    }
+
 
 
 }

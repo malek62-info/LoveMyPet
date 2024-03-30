@@ -247,6 +247,9 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        function redirectToPage(pageUrl) {
+            window.location.href = pageUrl; // Redirection vers la page spécifiée
+        }
         $(document).ready(function () {
             $(document).on('click', '#ajouterHeuresBtn', function () {
                 var idTraitement = $('#traitementId').val();
@@ -272,7 +275,7 @@
                     contentType: 'application/json',
                     success: function (response) {
                         alert(response.message);
-                        // Redirection ou autre action après l'ajout réussi
+                        redirectToPage('/calendar');
                     },
                     error: function (xhr, status, error) {
                         alert('Erreur : ' + error);

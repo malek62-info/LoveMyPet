@@ -134,5 +134,18 @@ public class TraitementController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Aucun traitement trouvé pour l'identifiant " + traitementId);
         }
     }
+    
+    @GetMapping("/traitementsDetailsAnimal/{animalId}")
+    public ResponseEntity<List<Traitement>> getTraitementsDetailsByAnimalId(@PathVariable Integer animalId) {
+        List<Traitement> traitements = traitementService.getTraitementsDetailsByAnimalId(animalId);
+        if (!traitements.isEmpty()) {
+            return ResponseEntity.ok(traitements);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
+
+   
+
 
 }
