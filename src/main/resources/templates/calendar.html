@@ -384,7 +384,32 @@
 
         <p id="animalName"></p>
         <div id='calendar'>Choisisez un animal !</div>
+        <button id="exportButton">Exporter votre calendrier de l'animal sur Google Calendar</button>
     </div>
+
+    <script>
+        document.getElementById("exportButton").addEventListener("click", function() {
+            fetch('/google/auth', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then(data => {
+                // Rediriger l'utilisateur vers la page d'authentification Google
+                window.location.href = '/google/oauth2.html';
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        });
+    </script>
 
 
 

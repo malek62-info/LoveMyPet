@@ -186,8 +186,9 @@ public class Controller {
     public String ListeMedicaments() {
         return "ListeMedicaments";
     }
-
-
-
+    @GetMapping("/calendar-google")
+    public String calendarGoogle() {
+        return "calendar-google";
+    }
 
 }

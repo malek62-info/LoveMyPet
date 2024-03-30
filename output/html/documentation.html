@@ -656,6 +656,24 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#_ajouter_une_vaccination">Ajouter une vaccination</a></li>
 <li><a href="#_visualiser_les_vaccinations_des_animaux">Visualiser les vaccinations des animaux</a></li>
 <li><a href="#_modification_des_vaccinations">Modification des vaccinations</a></li>
+<li><a href="#_ajout_des_médicaments">Ajout des Médicaments</a></li>
+<li><a href="#_visualiser_les_traitements_de_vos_animaux">Visualiser les traitements de vos animaux</a></li>
+<li><a href="#_modification_dun_traitement">Modification d&#8217;un traitement</a></li>
+<li><a href="#_calendrier_interne_de_lapplication">Calendrier Interne de l&#8217;Application</a></li>
+<li><a href="#_fonctionnalités">Fonctionnalités</a>
+<ul class="sectlevel2">
+<li><a href="#_affichage_des_événements">Affichage des événements</a></li>
+<li><a href="#_types_dévénements">Types d&#8217;événements</a></li>
+<li><a href="#_interaction_avec_les_événements">Interaction avec les événements</a></li>
+</ul>
+</li>
+<li><a href="#_api_rest">API REST</a>
+<ul class="sectlevel2">
+<li><a href="#_visualiser_les_vaccinations_des_animaux_2">Visualiser les vaccinations des animaux :</a></li>
+<li><a href="#_visualiser_les_détails_des_traitements">Visualiser les détails des traitements :</a></li>
+<li><a href="#_obtenir_des_informations_sur_un_vaccin_spécifique">Obtenir des informations sur un vaccin spécifique :</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -3111,10 +3129,323 @@ Alternativement, l&#8217;utilisateur peut également accéder à l&#8217;interfa
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_ajout_des_médicaments">Ajout des Médicaments</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dans cette feature on a ajouté la possibilité d&#8217;enregistrer les traitements pris par un animal, pour utiliser ce service, il faut :</p>
+</div>
+<div class="paragraph">
+<p>1- cliquer sur le bouton <strong>Ajouter un medicament</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="med/e1.png" alt=".">
+</div>
+</div>
+<div class="paragraph">
+<p>2- séléctioner l&#8217;animal qui a pris le traitement et cliquer sur <strong>J&#8217;enregistre un traitement</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="med/e2.png" alt=".">
+</div>
+</div>
+<div class="paragraph">
+<p>3- Remplir les champs du formulaire et saisir les heures du traitement</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="med/e3.png" alt=".">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="med/e4.png" alt=".">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_visualiser_les_traitements_de_vos_animaux">Visualiser les traitements de vos animaux</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Afin de visualiser les traitements de vos animaux, il faut suivre ces étapes :</p>
+</div>
+<div class="paragraph">
+<p>1- cliquer sur le bouton <strong>Liste des medicaments</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="med/e1.png" alt=".">
+</div>
+</div>
+<div class="paragraph">
+<p>2- choisir votre animal et cliquer sur <strong>Je consulte la liste des traitements</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="med/e2.png" alt=".">
+</div>
+</div>
+<div class="paragraph">
+<p>3- vous pouvez ensuite consulter les traitements de l&#8217;animal choisi</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="med/e5.png" alt=".">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modification_dun_traitement">Modification d&#8217;un traitement</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Pour modifier un traitement, cliquer sur le bouton modifier qui apparait lors de la selection du traitement dans le calendrier :</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="med/e6.png" alt=".">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_calendrier_interne_de_lapplication">Calendrier Interne de l&#8217;Application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Le calendrier interne de l&#8217;application permet aux utilisateurs de suivre et de gérer les événements liés à leurs animaux de compagnie, tels que les vaccinations et les traitements.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_fonctionnalités">Fonctionnalités</h2>
+<div class="sectionbody">
+<div class="imageblock">
+<div class="content">
+<img src="calendar/img1.png" alt="img1">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_affichage_des_événements">Affichage des événements</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Le calendrier affiche les événements sous forme de grille hebdomadaire.</p>
+</li>
+<li>
+<p>Les événements sont représentés par des blocs de couleur sur le calendrier.</p>
+</li>
+<li>
+<p>Chaque événement est accompagné d&#8217;une description détaillée.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_types_dévénements">Types d&#8217;événements</h3>
+<div class="sect3">
+<h4 id="_vaccinations">Vaccinations</h4>
+<div class="imageblock">
+<div class="content">
+<img src="calendar/img3.png" alt="img3">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Les vaccinations sont affichées en bleu sur le calendrier.</p>
+</li>
+<li>
+<p>Chaque événement de vaccination comprend les détails suivants :</p>
+</li>
+<li>
+<p>Nom du vaccin</p>
+</li>
+<li>
+<p>Date et heure de la vaccination</p>
+</li>
+<li>
+<p>Nom du vétérinaire</p>
+</li>
+<li>
+<p>Adresse du vétérinaire</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_traitements">Traitements</h4>
+<div class="imageblock">
+<div class="content">
+<img src="calendar/img2.png" alt="img2">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Les traitements sont affichés en vert sur le calendrier.</p>
+</li>
+<li>
+<p>Chaque événement de traitement comprend les détails suivants :</p>
+</li>
+<li>
+<p>Nom du médicament</p>
+</li>
+<li>
+<p>Date et heure du traitement</p>
+</li>
+<li>
+<p>Description du traitement</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_interaction_avec_les_événements">Interaction avec les événements</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>L&#8217;utilisateur peut interagir avec les événements en survolant avec la souris.</p>
+</li>
+<li>
+<p>Pour les événements de traitement, l&#8217;utilisateur peut modifier les détails du traitement en cliquant sur le bouton "Modifier".</p>
+</li>
+<li>
+<p>Pour les événements de vaccination, l&#8217;utilisateur peut modifier les détails de la vaccination en cliquant sur le bouton "Modifier".</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="calendar/img4.png" alt="img4">
+</div>
+</div>
+<div class="paragraph">
+<p>Vous avez désormais la possibilité d&#8217;exporter tous vos événements vers Google Calendar en un seul clic. Cette fonctionnalité simplifie le processus de gestion de vos événements en les intégrant directement à votre calendrier Google.</p>
+</div>
+<div class="paragraph">
+<p>Comment exporter vos événements vers Google Calendar :</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Connectez-vous à votre compte sur notre application.</p>
+</li>
+<li>
+<p>Accédez à la page principale ou au tableau de bord où sont répertoriés tous vos événements.</p>
+</li>
+<li>
+<p>Recherchez le bouton "Exporter vers Google Calendar".</p>
+<div class="literalblock">
+<div class="content">
+<pre>[ Autorisé et inséré un événement ]</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Cliquez sur ce bouton pour lancer le processus d&#8217;exportation.</p>
+</li>
+<li>
+<p>Suivez les instructions à l&#8217;écran pour autoriser notre application à accéder à votre calendrier Google.</p>
+</li>
+<li>
+<p>Une fois autorisé, tous vos événements seront automatiquement importés dans votre calendrier Google.</p>
+</li>
+<li>
+<p>Vous pouvez maintenant accéder à votre calendrier Google pour voir et gérer tous vos événements importés.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="calendar/img5.png" alt="img5">
+</div>
+</div>
+<div class="paragraph">
+<p>Remarque : Assurez-vous d&#8217;être connecté à votre compte Google approprié pour que les événements soient importés dans le bon calendrier.</p>
+</div>
+<div class="paragraph">
+<p>C&#8217;est tout ! Vous pouvez maintenant profiter de la synchronisation facile de tous vos événements entre notre application et Google Calendar.</p>
+</div>
+<div class="paragraph">
+<p>Pour toute question ou assistance supplémentaire, n&#8217;hésitez pas à nous contacter à [votre adresse e-mail] ou à consulter notre service d&#8217;assistance en ligne.</p>
+</div>
+<div class="paragraph">
+<p>Merci d&#8217;utiliser notre application !</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_api_rest">API REST</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dans notre application, nous avons mis en place plusieurs API REST pour permettre aux utilisateurs de gérer les fonctionnalités liées aux animaux et aux traitements vétérinaires. Voici un aperçu de ces API :</p>
+</div>
+<div class="sect2">
+<h3 id="_visualiser_les_vaccinations_des_animaux_2">Visualiser les vaccinations des animaux :</h3>
+<div class="ulist">
+<div class="title">Permet de récupérer les détails des vaccinations pour un animal spécifié. Cela inclut des informations telles que la date de la vaccination, le type de vaccin administré, etc.</div>
+<ul>
+<li>
+<p>Endpoint : <code>GET /api/vaccinations/{animalId}</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_visualiser_les_détails_des_traitements">Visualiser les détails des traitements :</h3>
+<div class="ulist">
+<div class="title">Utilisé pour obtenir les détails des traitements administrés à un animal donné. Cela peut inclure des informations sur les médicaments prescrits, les doses, les horaires, etc.</div>
+<ul>
+<li>
+<p>Endpoint : <code>GET /api/traitements/{animalId}</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_obtenir_des_informations_sur_un_vaccin_spécifique">Obtenir des informations sur un vaccin spécifique :</h3>
+<div class="ulist">
+<div class="title">Permet de récupérer des détails spécifiques sur un vaccin. Cela peut être utile pour obtenir des informations détaillées sur un vaccin particulier, telles que sa composition, ses effets secondaires, etc.</div>
+<ul>
+<li>
+<p>Endpoint : <code>GET /vaccin/vaccins/{vaccinationId}</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>En plus de nos API internes, nous avons également intégré des fonctionnalités de sécurité et de gestion des événements via les API Google. Pour l&#8217;authentification sécurisée, nous avons utilisé l&#8217;API OAuth 2.0 de Google, qui offre des mécanismes robustes pour l&#8217;identification des utilisateurs et la gestion des autorisations.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="calendar/jwt.png" alt="jwt">
+</div>
+</div>
+<div class="paragraph">
+<p>Lors de l&#8217;utilisation de l&#8217;API OAuth 2.0, notre application guide les utilisateurs à travers le processus d&#8217;obtention d&#8217;un code d&#8217;authentification après avoir été redirigés vers Google pour l&#8217;authentification. Une fois le code d&#8217;authentification obtenu, notre application échange ce code contre un token d&#8217;accès, qui est ensuite utilisé pour authentifier les requêtes à l&#8217;API Google Calendar et accéder aux fonctionnalités de gestion des événements.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="calendar/authn-tree.svg" alt="authn tree">
+</div>
+</div>
+<div class="paragraph">
+<p>Ces intégrations avec les API Google ajoutent une couche de fonctionnalités avancées à notre application, tout en assurant un haut niveau de sécurité et de fiabilité.</p>
+</div>
+<div class="paragraph">
+<p>Cette version inclut maintenant des informations sur le processus d&#8217;obtention du code et du token lors de l&#8217;utilisation de l&#8217;API OAuth 2.0 de Google.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-29 17:12:35 +0100
+Last updated 2024-03-30 21:00:10 +0100
 </div>
 </div>
 </body>
