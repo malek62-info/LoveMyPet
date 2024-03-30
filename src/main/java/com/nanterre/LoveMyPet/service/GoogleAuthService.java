@@ -17,7 +17,10 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Collections;
@@ -61,70 +64,91 @@ public class GoogleAuthService {
                 "&scope=" + String.join(" ", SCOPES);
     }
 
-  // Méthode pour obtenir un access token à partir d'un code d'autorisation
-  public String getAccessToken(String code) {
-    try {
+    // Méthode pour obtenir un access token à partir d'un code d'autorisation
+    public String getAccessToken(String code) {
+        try {
 
-        String clientId = "";
-        String clientSecret = "";
-        String redirectUri = "http://localhost:8086/calendar-google";
+            String clientId = "";
+            String clientSecret = "";
+            String redirectUri = "http://localhost:8086/calendar-google";
 
-        // Création de l'objet GoogleAuthorizationCodeFlow
-        GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-                GoogleNetHttpTransport.newTrustedTransport(),
-                JacksonFactory.getDefaultInstance(),
-                clientId,
-                clientSecret,
-                Collections.singleton("")) // Pas besoin de scopes spécifiques pour échanger le code
-                .build();
+            // Création de l'objet GoogleAuthorizationCodeFlow
+            GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+                    GoogleNetHttpTransport.newTrustedTransport(),
+                    JacksonFactory.getDefaultInstance(),
+                    clientId,
+                    clientSecret,
+                    Collections.singleton("")) // Pas besoin de scopes spécifiques pour échanger le code
+                    .build();
 
-        // Echange du code d'autorisation contre un access token
-        GoogleTokenResponse response = flow.newTokenRequest(code)
-                .setRedirectUri(redirectUri)
+            // Echange du code d'autorisation contre un access token
+            GoogleTokenResponse response = flow.newTokenRequest(code)
+                    .setRedirectUri(redirectUri)
+                    .execute();
+
+            // Récupération de l'access token à partir de la réponse
+
+            String accessToken = response.getAccessToken();
+            System.out.println("Voici le acces token" + accessToken);
+
+            return accessToken;
+        } catch (IOException | GeneralSecurityException e) {
+            e.printStackTrace();
+            return null; // En cas d'erreur, retournez null
+        }
+    }
+
+    public boolean eventExists(Calendar service, String summary, DateTime startDateTime, DateTime endDateTime)
+            throws IOException {
+        Events events = service.events().list("primary")
+                .setTimeMin(startDateTime)
+                .setTimeMax(endDateTime)
+                .setSingleEvents(true)
+                .setOrderBy("startTime")
                 .execute();
 
-        // Récupération de l'access token à partir de la réponse
-    
-        String accessToken = response.getAccessToken();
-        System.out.println("Voici le acces token" + accessToken);
-
-        return accessToken;
-    } catch (IOException | GeneralSecurityException e) {
-        e.printStackTrace();
-        return null; // En cas d'erreur, retournez null
+        for (Event event : events.getItems()) {
+            if (event.getSummary().equals(summary)) {
+                // Un événement similaire a été trouvé
+                return true;
+            }
+        }
+        return false;
     }
-}
 
-    public String insertEvent(String accessToken, String summary, LocalDate date) {
-    try {
-        System.out.println("Voici le acces token" + accessToken);
-        Calendar service = initializeCalendarService(accessToken);
-        
-        // Convertir LocalDate en DateTime au format RFC3339
-        ZonedDateTime startDateTime = date.atStartOfDay(ZoneId.systemDefault());
-        DateTime start = new DateTime(startDateTime.toInstant().toString());
-        DateTime end = new DateTime(startDateTime.plusHours(1).toInstant().toString()); // Ajoutez une heure à la date de début
-        
-        Event event = new Event()
-                .setSummary(summary)
-                .setStart(new EventDateTime().setDateTime(start))
-                .setEnd(new EventDateTime().setDateTime(end));
+    public String insertEvent(String accessToken, String summary, LocalDate date, LocalTime heure) {
+        try {
+            Calendar service = initializeCalendarService(accessToken);
 
-        event = service.events().insert("primary", event).execute();
-        
-        // Afficher les détails de l'événement dans la console
-        System.out.println("ID de l'événement : " + event.getId());
-        System.out.println("Résumé de l'événement : " + event.getSummary());
-        System.out.println("Date de début de l'événement : " + event.getStart().getDateTime());
-        System.out.println("Date de fin de l'événement : " + event.getEnd().getDateTime());
-        
-        return event.getId();
-    } catch (Exception e) {
-        e.printStackTrace();
-        return null;
+            // Convertir LocalDate et LocalTime en ZonedDateTime
+            ZonedDateTime startDateTime = LocalDateTime.of(date, heure).atZone(ZoneId.systemDefault());
+            ZonedDateTime endDateTime = startDateTime.plusHours(1); // Ajouter une heure pour l'heure de fin
+
+            // Convertir ZonedDateTime en DateTime
+            DateTime start = new DateTime(startDateTime.toInstant().toString());
+            DateTime end = new DateTime(endDateTime.toInstant().toString());
+
+            // Vérifier si l'événement existe déjà
+            if (eventExists(service, summary, start, end)) {
+                System.out.println("L'événement existe déjà dans le calendrier.");
+                return null; // Ne pas insérer l'événement
+            }
+
+            // Créer un nouvel événement
+            Event event = new Event()
+                    .setSummary(summary)
+                    .setStart(new EventDateTime().setDateTime(start))
+                    .setEnd(new EventDateTime().setDateTime(end));
+
+            event = service.events().insert("primary", event).execute();
+
+            System.out.println("Événement inséré avec succès avec l'ID : " + event.getId());
+            return event.getId();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
-}
-
 
     public List<Event> listEvents(String accessToken) {
         try {

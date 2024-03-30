@@ -1,19 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Calendar API</title>
+    <link rel="stylesheet" href="css/adoption_afficher_animal.css">
 </head>
+
 <body>
-    <h1>Test Calendar API</h1>
-    
-    <button onclick="authorizeAndInsertEvent()">Autoriser et insérer un événement</button>
-    
+
+
+    <style>
+        body {
+            display: flex;
+
+        }
+
+        .top-right {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #000;
+            border-radius: 50%;
+            background-color: #000;
+            padding: 20px;
+            font-weight: bold;
+            color: #fff;
+            border: 0;
+            outline: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        /* sitde bar */
+
+        .w3-sidebar {
+            position: fixed;
+            z-index: 100;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .w3-button {
+            color: #fff;
+            outline: none;
+            outline: none;
+            padding: 10px;
+            text-decoration: none;
+            transition: 0.5s;
+        }
+
+
+        .w3-button:hover {
+            background-color: #fff;
+            text-decoration: none;
+            color: #81774E;
+            border-radius: 6px;
+        }
+
+        .w3-button:hover a {
+            color: #000;
+        }
+
+        .logo-img {
+            text-align: CENTER;
+            margin: 20PX AUTO;
+            width: 100PX;
+        }
+
+        .side_bar_bar {
+            background-color: #81774E;
+            border: 0;
+            height: 1px;
+            width: 100%;
+            border-radius: 2px;
+            margin: 10px 0;
+        }
+
+        .exportation {
+
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .big-container {
+
+            min-height: 100vh;
+        }
+
+        .big-container .btn-tr {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #fff;
+            margin: 25px 0;
+            padding: 20px;
+            color: #000;
+            border-radius: 6px;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-weight: bold;
+
+
+        }
+
+        .big-container .btn-tr img {
+            width: 100px;
+        }
+
+        h1 {
+            margin-bottom: 25px;
+        }
+    </style>
+
+    <!-- Sidebar -->
+    <div class="w3-sidebar ">
+        <img src="images/logo.png" alt="Logo" class="logo-img">
+        <a href="/profile" class="w3-button">Mon compte</a>
+        <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+
+        <a href="/adoption" class="w3-button">Adoption</a>
+        <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/donate" class="w3-button">Donner des objets</a>
+        <a href="/showdonations" class="w3-button">Trouver des objets</a>
+        <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
+
+        <hr class="side_bar_bar">
+        <a href="/Map" class="w3-button">Map</a>
+
+        <hr class="side_bar_bar">
+        <a href="/AddEvent" class="w3-button">Ajouter un évenement</a>
+        <a href="/ShowEvent" class="w3-button">Participé a un evenement</a>
+        <a href="/MyEvent" class="w3-button">Mes évenement crée </a>
+
+
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="#" class="w3-button">Se Déconnecter</a>
+
+    </div>
+
+    <div class="big-container">
+        <div class="exportation">
+            <h1>Exportation de votre calendrier</h1>
+            <label for="">Étape 1 : Connectez-vous à votre compte Google</label>
+            <button class="btn-tr" onclick="authorizeAndInsertEvent()"><img src="images/google.png" alt="">Autoriser et
+                insérer un événement</button>
+
+            <label for="">Étape 2 : consultez votre calendrier</label>
+            <button class="btn-tr" onclick="googleCalendar()"> <img src="images/google-calendar.png" alt="">
+                <span>Google calendar</span></button>
+        </div>
+    </div>
     <script>
         function authorizeAndInsertEvent() {
             // Rediriger l'utilisateur vers la page d'autorisation
             window.location.href = "/export-calendar";
+        }
+
+        function googleCalendar() {
+            // Rediriger l'utilisateur vers la page d'autorisation
+            window.location.href = "https://calendar.google.com/";
         }
 
         // Fonction pour récupérer le code d'autorisation de l'URL
@@ -24,24 +191,75 @@
         }
 
         // Exécuter une action si le code est présent dans l'URL
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
+
             const code = getCodeFromUrl();
             if (code) {
+                // Exemple d'utilisation :
+                fetchPersonId().then(function (personId) {
+                    // Stocker l'ID de la personne dans une variable
+                    var idPersonne = personId;
+
+                    if (idPersonne != null) {
+                        // Vous pouvez maintenant utiliser idPersonne comme vous le souhaitez
+                        sendCodeAndPersonIdToController(code, idPersonne)
+                        console.log("ID de la personne stocké dans la variable : " + idPersonne);
+                        console.log("envoi......");
+                    } else {
+                        alert("Veuillez vous connecter")
+                    }
+
+                }).catch(function (error) {
+                    // Gérer les erreurs si la récupération de l'ID de la personne échoue
+                    console.error("Erreur lors de la récupération de l'ID de la personne :", error);
+                });
                 console.log('Code d\'autorisation récupéré : ', code);
-                // Envoyer le code au contrôleur via une requête Ajax
-                sendCodeToController(code);
+
+
             }
         });
 
-        // Fonction pour envoyer le code au contrôleur via une requête Ajax
-        function sendCodeToController(code) {
-            // Créer un objet XMLHttpRequest
+        function sendCodeAndPersonIdToController(code, personId) {
             var xhr = new XMLHttpRequest();
-            // Spécifier la méthode et l'URL de la requête
-            xhr.open("GET", "/insert-event?code=" + code, true);
-            // Envoyer la requête
-            xhr.send();
+            xhr.open("POST", "/insert-event", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            var requestData = {
+                "code": code,
+                "personId": personId
+            };
+
+            xhr.send(JSON.stringify(requestData));
+        }
+    </script>
+
+    <!-- Inclusion de jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+        crossorigin="anonymous"></script>
+
+
+    <script>
+        function fetchPersonId() {
+            return new Promise(function (resolve, reject) {
+                $.ajax({
+                    url: "/person/profile",
+                    type: "GET",
+                    success: function (data) {
+                        // Récupérer l'ID de la personne connectée
+                        var personId = data.id;
+                        console.log("ID de la personne connectée : " + personId);
+                        resolve(personId); // Renvoyer l'ID de la personne connectée via la promesse
+                    },
+                    error: function (xhr, status, error) {
+                        // Gérer les erreurs en cas d'échec de la requête
+                        console.error("Erreur lors de la récupération de l'ID de la personne :", error);
+                        reject(error); // Rejeter la promesse en cas d'erreur
+                    }
+                });
+            });
         }
     </script>
 </body>
+
 </html>
