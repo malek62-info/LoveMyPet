@@ -1755,6 +1755,48 @@ Alternativement, l'utilisateur peut également accéder à l'interface de modifi
 
 Dans les deux cas, l'utilisateur dispose d'une interface conviviale lui permettant de mettre à jour facilement les informations relatives à la vaccination de son animal de compagnie. Une fois les modifications apportées, les données sont enregistrées et mises à jour dans la base de données, assurant ainsi un suivi précis de l'historique médical de l'animal.
 
+== Ajout des Médicaments 
+
+Dans cette feature on a ajouté la possibilité d'enregistrer les traitements pris par un animal, pour utiliser ce service, il faut :  
+
+1- cliquer sur le bouton **Ajouter un medicament**
+
+image::med/e1.png[ .]
+
+2- séléctioner l'animal qui a pris le traitement et cliquer sur *J'enregistre un traitement*
+
+image::med/e2.png[ .]
+
+3- Remplir les champs du formulaire et saisir les heures du traitement
+
+image::med/e3.png[ .]
+
+image::med/e4.png[.]
+
+
+== Visualiser les traitements de vos animaux
+
+Afin de visualiser les traitements de vos animaux, il faut suivre ces étapes : 
+
+1- cliquer sur le bouton **Liste des medicaments**
+
+image::med/e1.png[.]
+
+2- choisir votre animal et cliquer sur **Je consulte la liste des traitements**
+
+image::med/e2.png[ .]
+
+3- vous pouvez ensuite consulter les traitements de l'animal choisi 
+
+image::med/e5.png[ .]
+
+
+== Modification d'un traitement 
+
+Pour modifier un traitement, cliquer sur le bouton modifier qui apparait lors de la selection du traitement dans le calendrier : 
+
+image::med/e6.png[ .]
+
 == Calendrier Interne de l'Application
 
 Le calendrier interne de l'application permet aux utilisateurs de suivre et de gérer les événements liés à leurs animaux de compagnie, tels que les vaccinations et les traitements.

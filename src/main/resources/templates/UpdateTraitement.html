@@ -6,24 +6,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modifier les heures de traitement</title>
     <style>
+        /* Styles généraux */
         body {
-            font-family: Arial, sans-serif;
-            color: #000;
-            /* Couleur du texte en noir */
             background-image: url('https://assets-global.website-files.com/625045dc466ff5afd8ddb38a/625045dc466ff54604ddb3da_FOND%20ICONES.svg');
-            background-size: cover;
-            /* Ajuster la taille de l'image de fond */
-            background-repeat: no-repeat;
-            /* Ne pas répéter l'image de fond */
-            background-attachment: fixed;
-            /* Fixer l'image de fond */
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
         }
-
-        h1 {
+    
+        .container {
+            max-width: 1200px;
+            /* Augmentation de la largeur du conteneur */
+            margin-top: 50px;
+            /* Ajout de marge en haut */
+        }
+    
+        .table {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            /* Ajout pour gérer le débordement horizontal */
+        }
+    
+        .table th,
+        .table td {
+            vertical-align: middle !important;
+            font-size: 16px;
+            /* Ajustement de la taille de la police */
+        }
+    
+        .table th {
+            background-color: #343a40;
+            /* Couleur de fond de l'en-tête */
+            color: #fff;
+            /* Couleur du texte de l'en-tête */
+        }
+    
+        .table td {
+            background-color: #f8f9fa;
+            /* Couleur de fond des cellules */
+        }
+    
+        /* Menu */
+        .w3-sidebar {
+            position: fixed;
+            z-index: 100;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+            left: 0;
+            top: 0;
+        }
+    
+        .w3-button {
+            color: #fff;
+            outline: none;
+            padding: 10px;
+            text-decoration: none;
+            transition: 0.5s;
+        }
+    
+        .w3-button:hover {
+            background-color: #fff;
+            text-decoration: none;
             color: #000;
-            /* Couleur du titre en noir */
+            border-radius: 6px;
         }
-
+    
+        .logo-img {
+            text-align: center;
+            margin: 20px auto;
+            width: 100px;
+        }
+    
+        .side_bar_bar {
+            background-color: #81774E;
+            border: 0;
+            height: 1px;
+            width: 100%;
+            border-radius: 2px;
+            margin: 10px 0;
+        }
+    
+        /* Titre */
+        .title {
+            font-weight: bold;
+            /* Ajout de la police en gras */
+            text-align: center;
+            /* Centrer le texte */
+            font-size: 24px;
+            /* Ajustement de la taille de la police */
+            margin-bottom: 20px;
+            /* Ajout de marge en bas */
+        }
+    
+        /* Décalage du contenu principal */
+        .content-wrapper {
+            margin-left: 300px;
+        }
+    
+        /* Styles spécifiques aux champs de saisie et boutons */
         input[type="time"],
         input[type="date"],
         input[type="number"],
@@ -37,7 +124,7 @@
             /* Bordure des champs de saisie */
             border-radius: 4px;
         }
-
+    
         button {
             padding: 10px 20px;
             margin: 10px 0;
@@ -49,12 +136,12 @@
             cursor: pointer;
             border-radius: 4px;
         }
-
+    
         button:hover {
             background-color: #555;
             /* Couleur de fond du bouton au survol en gris foncé */
         }
-
+    
         #message {
             color: #000;
             /* Couleur du message en noir */
@@ -62,41 +149,71 @@
             margin-top: 10px;
         }
     </style>
+    
+    
+    
 </head>
 
 <body>
-    <h1>Modifier les heures de traitement</h1>
-    <div id="heuresTraitement"></div> <!-- Div pour afficher les champs de saisie d'heure -->
 
-    <div id="message"></div>
+    <!-- Sidebar -->
+    <div class="w3-sidebar">
+        <img src="images/logo.png" alt="Logo" class="logo-img">
+        <a href="/profile" class="w3-button">Mon compte</a>
+        <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+        <hr class="side_bar_bar">
+        <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+        <a href="/adoption" class="w3-button">Adoption</a>
+        <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+        <hr class="side_bar_bar">
+        <a href="/donate" class="w3-button">Donner des objets</a>
+        <a href="/showdonations" class="w3-button">Trouver des objets</a>
+        <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/Map" class="w3-button">Map</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/AddEvent" class="w3-button">Ajouter un évenement</a>
+        <a href="/ShowEvent" class="w3-button">Participé a un evenement</a>
+        <a href="/MyEvent" class="w3-button">Mes évenement crée</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="#" class="w3-button">Se Déconnecter</a>
+    </div>
 
-    <button id="submitHoursButton">Enregistrer</button>
-
-    <h1>Consultation et modification de traitement</h1>
-    <form id="traitementForm">
-        <label for="medicament">Médicament:</label>
-        <select id="medicament" name="medicament">
-            <!-- La liste déroulante des médicaments sera ajoutée ici -->
-        </select>
-        <br>
-        <label for="dateDebut">Date de début:</label>
-        <input type="date" id="dateDebut" name="dateDebut">
-        <br>
-        <label for="dateFin">Date de fin:</label>
-        <input type="date" id="dateFin" name="dateFin">
-        <label for="commentaire">Commentaire:</label>
-        <textarea id="commentaire" name="commentaire"></textarea>
-        <br>
-        <button type="button" onclick="modifierTraitement()">Modifier</button>
-    </form>
-
+    <div class="content-wrapper">
+        <h1>Modifier les heures de traitement</h1>
+        <div id="heuresTraitement"></div> <!-- Div pour afficher les champs de saisie d'heure -->
+    
+        <div id="message"></div>
+    
+        <button id="submitHoursButton">Enregistrer</button>
+    
+        <h1>Consultation et modification de traitement</h1>
+        <form id="traitementForm">
+            <label for="medicament">Médicament:</label>
+            <select id="medicament" name="medicament">
+                <!-- La liste déroulante des médicaments sera ajoutée ici -->
+            </select>
+            <br>
+            <label for="dateDebut">Date de début:</label>
+            <input type="date" id="dateDebut" name="dateDebut">
+            <br>
+            <label for="dateFin">Date de fin:</label>
+            <input type="date" id="dateFin" name="dateFin">
+            <label for="commentaire">Commentaire:</label>
+            <textarea id="commentaire" name="commentaire"></textarea>
+            <br>
+            <button type="button" onclick="modifierTraitement()">Modifier</button>
+        </form>
+    </div>
+    
     <script>
-        // Récupérer l'ID de traitement depuis l'URL
         var urlParams = new URLSearchParams(window.location.search);
-        var traitementId = urlParams.get('id');
-
-        // Utiliser l'ID récupéré pour récupérer les heures de traitement
-        fetch(`/api/traitement/${traitementId}/heures`)
+        var id = urlParams.get('id');
+        // Récupérer les heures actuelles à partir de votre API ou votre base de données
+        fetch(`/api/traitement/${id}/heures`)  // Remplacez {idTraitement} par l'ID du traitement concerné
             .then(response => response.json())
             .then(data => {
                 data.forEach(heureObj => {
@@ -110,36 +227,49 @@
             .catch(error => console.error("Erreur lors de la récupération des heures actuelles:", error));
 
         // Ajouter un écouteur d'événement sur le bouton de soumission pour mettre à jour les heures de traitement
-        document.getElementById("submitHoursButton").addEventListener("click", function () {
+        document.getElementById("submitHoursButton").addEventListener("click", function() {
             const heuresInputs = document.querySelectorAll('#heuresTraitement input[type="time"]');
             const heures = Array.from(heuresInputs).map(input => input.value);
 
             // Envoi de la requête PUT au backend pour mettre à jour les heures de traitement
-            fetch(`/heure/modifier/${traitementId}`, {
+            fetch(`/heure/modifier/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(heures)
             })
-                .then(response => {
-                    if (response.ok) {
-                        return response.text(); // Retourne le texte de la réponse
-                    } else {
-                        throw new Error('Erreur lors de la mise à jour des heures de traitement.');
-                    }
-                })
-                .then(data => {
-                    // Affichage du message de succès ou d'erreur
-                    const messageDiv = document.getElementById("message");
-                    messageDiv.textContent = data; // Affiche le texte de la réponse
-                })
-                .catch(error => {
-                    console.error("Erreur:", error);
-                    const messageDiv = document.getElementById("message");
-                    messageDiv.textContent = error.message;
-                });
+            .then(response => {
+                if (response.ok) {
+                    return response.text(); // Retourne le texte de la réponse
+                } else {
+                    throw new Error('Erreur lors de la mise à jour des heures de traitement.');
+                }
+            })
+            .then(data => {
+                // Affichage du message de succès ou d'erreur
+                const messageDiv = document.getElementById("message");
+                messageDiv.textContent = data; // Affiche le texte de la réponse
+            })
+            .catch(error => {
+                console.error("Erreur:", error);
+                const messageDiv = document.getElementById("message");
+                messageDiv.textContent = error.message;
+            });
         });
+
+        // Fonction pour récupérer la liste des médicaments et les afficher dans la liste déroulante
+        async function afficherListeMedicaments() {
+            const response = await fetch("/medicament/all");
+            const medicaments = await response.json();
+            const medicamentSelect = document.getElementById("medicament");
+            medicaments.forEach((medicament) => {
+                const option = document.createElement("option");
+                option.value = medicament.idMedicament;
+                option.text = medicament.medicamentName;
+                medicamentSelect.add(option);
+            });
+        }
 
         // Fonction pour récupérer les détails du traitement et les afficher dans le formulaire
         async function afficherDetailsTraitement(traitementId) {
@@ -148,17 +278,16 @@
             document.getElementById('medicament').value = traitement.medicament.idMedicament;
             document.getElementById('dateDebut').value = traitement.dateDebut;
             document.getElementById('dateFin').value = traitement.dateFin;
-            document.getElementById('nombrePrises').value = traitement.nombrePrises;
             document.getElementById('commentaire').value = traitement.commentaire;
         }
 
         // Fonction pour modifier le traitement
         async function modifierTraitement() {
+            const traitementId = id; // Remplacer par l'ID du traitement que vous souhaitez modifier
             const formData = new FormData(document.getElementById('traitementForm'));
             const medicamentId = formData.get('medicament');
             const dateDebut = formData.get('dateDebut');
             const dateFin = formData.get('dateFin');
-            const nombrePrises = formData.get('nombrePrises');
             const commentaire = formData.get('commentaire');
 
             const response = await fetch(`/api/traitement/modifier/${traitementId}`, {
@@ -170,7 +299,7 @@
                     medicament: { idMedicament: medicamentId },
                     dateDebut,
                     dateFin,
-                    nombrePrises,
+
                     commentaire
                 })
             });
@@ -186,10 +315,8 @@
         // Appeler la fonction pour afficher les détails du traitement lors du chargement de la page
         window.onload = async () => {
             await afficherListeMedicaments();
-            afficherDetailsTraitement(traitementId);
+            afficherDetailsTraitement(id);
         };
     </script>
-
 </body>
-
 </html>
