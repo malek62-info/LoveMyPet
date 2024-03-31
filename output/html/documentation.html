@@ -672,6 +672,8 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#_visualiser_les_vaccinations_des_animaux_2">Visualiser les vaccinations des animaux :</a></li>
 <li><a href="#_visualiser_les_détails_des_traitements">Visualiser les détails des traitements :</a></li>
 <li><a href="#_obtenir_des_informations_sur_un_vaccin_spécifique">Obtenir des informations sur un vaccin spécifique :</a></li>
+<li><a href="#_visualiser_les_liens_de_traitement_par_animal">Visualiser les liens de traitement par animal :</a></li>
+<li><a href="#_visualiser_les_heures_associées_à_un_traitement">Visualiser les heures associées à un traitement :</a></li>
 </ul>
 </li>
 </ul>
@@ -3177,19 +3179,11 @@ Alternativement, l&#8217;utilisateur peut également accéder à l&#8217;interfa
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="med/e1.png" alt=".">
+<img src="med/e7.png" alt=".">
 </div>
 </div>
 <div class="paragraph">
-<p>2- choisir votre animal et cliquer sur <strong>Je consulte la liste des traitements</strong></p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="med/e2.png" alt=".">
-</div>
-</div>
-<div class="paragraph">
-<p>3- vous pouvez ensuite consulter les traitements de l&#8217;animal choisi</p>
+<p>2- vous pouvez ensuite consulter les traitements de l&#8217;animal choisi</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -3440,12 +3434,113 @@ Alternativement, l&#8217;utilisateur peut également accéder à l&#8217;interfa
 <p>Cette version inclut maintenant des informations sur le processus d&#8217;obtention du code et du token lors de l&#8217;utilisation de l&#8217;API OAuth 2.0 de Google.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_visualiser_les_liens_de_traitement_par_animal">Visualiser les liens de traitement par animal :</h3>
+<div class="paragraph">
+<p>Permet de récupérer les liens des traitements associés à un animal spécifié.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Endpoint : <code>GET /api/traitement/animal/{idAnimal}</code></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Paramètres de requête :
+
+- `idAnimal` : L'identifiant de l'animal pour lequel récupérer les liens de traitement.
+
+Réponses :
+
+- `200 OK` : La liste des liens de traitement est renvoyée avec succès.
+
+- `404 Not Found` : Aucun traitement trouvé pour l'identifiant de l'animal spécifié.
+
+
+=== Ajouter un traitement :
+Permet d'ajouter un nouveau traitement avec une ordonnance associée.
+
+* Endpoint : `POST /api/traitement/add`</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Paramètres de requête :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ordonnanceFile</code> : Le fichier d&#8217;ordonnance pour le traitement (multipart).</p>
+</li>
+<li>
+<p>Corps de la requête : Informations sur le traitement à ajouter.
+Réponses :</p>
+</li>
+<li>
+<p><code>200 OK</code> : Le traitement est ajouté avec succès et l&#8217;identifiant du traitement est renvoyé.</p>
+</li>
+<li>
+<p><code>500 Internal Server Error</code> : Erreur lors de la gestion de l&#8217;image ou de l&#8217;ajout du traitement.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_visualiser_les_heures_associées_à_un_traitement">Visualiser les heures associées à un traitement :</h3>
+<div class="paragraph">
+<p>Permet de récupérer les heures associées à un traitement spécifié.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Endpoint : <code>GET /api/traitement/{idTraitement}/heures</code></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Paramètres de requête :
+
+- `idTraitement` : L'identifiant du traitement dont vous souhaitez obtenir les heures associées.
+
+Réponses :
+
+- `200 OK` : Les heures associées au traitement sont renvoyées avec succès.
+
+- `404 Not Found` : Aucun traitement trouvé pour l'identifiant spécifié.
+
+=== Visualiser les détails d'un traitement
+
+
+Permet de récupérer les détails d'un traitement spécifié.
+* Endpoint : `GET /api/traitement/details/{idTraitement}`</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Paramètres de requête :
+- <code>idTraitement</code> : L&#8217;identifiant du traitement dont vous souhaitez obtenir les détails.</p>
+</div>
+<div class="paragraph">
+<p>Réponses :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>200 OK</code> : Les détails du traitement sont renvoyés avec succès.</p>
+</li>
+<li>
+<p><code>404 Not Found</code> : Aucun traitement trouvé pour l&#8217;identifiant spécifié.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-03-30 21:00:10 +0100
+Last updated 2024-03-31 03:50:12 +0200
 </div>
 </div>
 </body>
