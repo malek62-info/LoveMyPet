@@ -196,6 +196,32 @@
         </div>
     </div>
 
+
+
+
+    <!-- Modal de Confirmation -->
+    <div class="modal fade" id="confirmLostModal" tabindex="-1" role="dialog" aria-labelledby="confirmLostModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmLostModalLabel">Confirmer la perte</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Êtes-vous sûr de vouloir déclarer cet animal comme perdu ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary" onclick="confirmLost()">Confirmer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <!-- Inclusion de jQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
@@ -353,6 +379,8 @@
                                 <button type="button" class="add-btn" onclick="window.location.href = 'candidature?id=${ animalDetails.id }'">Candidatures &#x1F600;</button>
                                 <button type="button" class="add-btn" onclick="window.location.href = 'alertes_new?id=${ animalDetails.id }'">Alertes 🚨</button>
                                 <button type="button" class="add-btn" data-toggle="modal" data-target="#adoptionModal" onclick="handleDonationClick(${ animalDetails.id })">Donner 🙏</button>
+                                <button type="button" class="add-btn" onclick="handleLostButton(${animalDetails.id})">Perdu🚨</button>
+
                             </div>
                         </div>
                         
@@ -387,6 +415,70 @@
         dd_main.addEventListener("click", function () {
             this.classList.toggle("active");
         })
+
+////////////////////////////////////
+
+function showConfirmModal(animalId) {
+    window.currentAnimalId = animalId;  // Stocker l'ID de l'animal globalement
+    $('#confirmLostModal').modal('show'); // Afficher le modal
+}
+
+function handleLostButton(animalId) {
+    console.log("ID de l'animal :", animalId);
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            console.log("Latitude :", position.coords.latitude);
+            console.log("Longitude :", position.coords.longitude);
+            showConfirmModalWithPosition(animalId, position.coords.latitude, position.coords.longitude);
+
+            showConfirmModal(animalId); // Appel à showConfirmModal une fois que les coordonnées sont récupérées
+
+        }, function(error) {
+            console.error("Erreur de géolocalisation :", error);
+        });
+    } else {
+        console.error("La géolocalisation n'est pas prise en charge par ce navigateur.");
+    }
+}
+
+function showConfirmModalWithPosition(animalId, latitude, longitude) {
+    window.currentAnimalId = animalId;
+    window.currentLatitude = latitude;
+    window.currentLongitude = longitude;
+    $('#confirmLostModal').modal('show');
+}
+
+function confirmLost() {
+    $('#confirmLostModal').modal('hide'); // Fermer le modal
+    var latitude = window.currentLatitude;
+    var longitude = window.currentLongitude;
+    sendDataToServer(window.currentAnimalId, latitude, longitude);
+}
+
+function sendDataToServer(animalId, latitude, longitude) {
+    var data = {
+        idAnimal: animalId,
+        latitude: latitude,
+        longitude: longitude
+    };
+    $.ajax({
+        url: '/api/animalperdu/ajouter', // Endpoint pour ajouter un animal perdu
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: 'application/json; charset=utf-8',
+        success: function(response) {
+            console.log('Réponse du serveur:', response);
+            alert('Animal déclaré perdu avec succès.');
+        },
+        error: function(xhr, status, error) {
+            console.error('Erreur lors de l\'envoi des données:', error);
+        }
+    });
+}
+
+
+
     </script>
 
 </body>
