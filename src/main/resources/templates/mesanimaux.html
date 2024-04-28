@@ -380,6 +380,7 @@
                                 <button type="button" class="add-btn" onclick="window.location.href = 'alertes_new?id=${ animalDetails.id }'">Alertes 🚨</button>
                                 <button type="button" class="add-btn" data-toggle="modal" data-target="#adoptionModal" onclick="handleDonationClick(${ animalDetails.id })">Donner 🙏</button>
                                 <button type="button" class="add-btn" onclick="handleLostButton(${animalDetails.id})">Perdu🚨</button>
+                                <button type="button" class="add-btn" onclick="handleSeenButton(${animalDetails.id})">Vu🚨</button>
 
                             </div>
                         </div>
@@ -417,7 +418,6 @@
         })
 
 ////////////////////////////////////
-
 function showConfirmModal(animalId) {
     window.currentAnimalId = animalId;  // Stocker l'ID de l'animal globalement
     $('#confirmLostModal').modal('show'); // Afficher le modal
@@ -431,8 +431,6 @@ function handleLostButton(animalId) {
             console.log("Latitude :", position.coords.latitude);
             console.log("Longitude :", position.coords.longitude);
             showConfirmModalWithPosition(animalId, position.coords.latitude, position.coords.longitude);
-
-            showConfirmModal(animalId); // Appel à showConfirmModal une fois que les coordonnées sont récupérées
 
         }, function(error) {
             console.error("Erreur de géolocalisation :", error);
@@ -476,6 +474,75 @@ function sendDataToServer(animalId, latitude, longitude) {
         }
     });
 }
+
+
+
+        /////////////////////////////////////////////////////////2
+// Fonction pour gérer le clic sur le bouton "Vu"
+function handleSeenButton(animalId) {
+    // Demander à l'utilisateur de saisir l'adresse où il a vu l'animal
+    var place = prompt("Veuillez saisir l'adresse où vous avez vu l'animal :");
+
+    if (place) {
+        // Appeler l'API Nominatim pour obtenir les coordonnées correspondant à l'adresse saisie
+        $.ajax({
+            url: 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(place),
+            type: 'GET',
+            success: function(response) {
+                if (response.length > 0) {
+                    // Récupérer les coordonnées (latitude et longitude) du premier résultat
+                    var latitude = response[0].lat;
+                    var longitude = response[0].lon;
+
+                    // Obtenir la date et l'heure actuelles
+                    var currentDate = new Date();
+                    var currentDateString = currentDate.toISOString().split('T')[0];
+                    var currentTimeString = currentDate.toTimeString().split(' ')[0];
+
+                    // Envoyer les données au serveur
+                    sendAnimalSeenData(animalId, latitude, longitude, currentDateString, currentTimeString);
+                } else {
+                    alert("Aucune coordonnée trouvée pour l'adresse saisie.");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Erreur lors de la recherche des coordonnées :', error);
+                alert('Une erreur s\'est produite lors de la recherche des coordonnées.');
+            }
+        });
+    }
+}
+
+// Fonction pour envoyer les données au serveur
+function sendAnimalSeenData(animalId, latitude, longitude, currentDate, currentTime) {
+    var userId = 1; // ID de la personne en dur
+
+    var data = {
+        idAnimal: animalId,
+        idPersonne: userId, // Inclure l'ID de la personne
+        latitude: latitude,
+        longitude: longitude,
+        date: currentDate,
+        heure: currentTime
+    };
+
+    // Envoyer les données au serveur via AJAX
+    $.ajax({
+        url: '/api/animalvu/ajouter', // Endpoint pour ajouter un animal vu
+        type: 'POST',
+        data: JSON.stringify(data),
+        contentType: 'application/json; charset=utf-8',
+        success: function(response) {
+            console.log('Réponse du serveur :', response);
+            alert('Animal vu ajouté avec succès.');
+        },
+        error: function(xhr, status, error) {
+            console.error('Erreur lors de l\'envoi des données :', error);
+            alert('Erreur lors de l\'ajout de l\'animal vu.');
+        }
+    });
+}
+
 
 
 

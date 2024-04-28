@@ -24,10 +24,17 @@ public class AnimalPerduController {
     @PostMapping("/ajouter")
     public ResponseEntity<?> ajouterAnimalPerdu(@RequestBody AnimalPerdu animalPerdu) {
         try {
+            // Vérifiez d'abord si l'animal n'existe pas déjà
+            if (animalPerduService.animalExisteDeja(animalPerdu.getIdAnimal())) {
+                return new ResponseEntity<>("L'animal existe déjà.", HttpStatus.BAD_REQUEST);
+            }
+
+            // Ajoutez l'animal perdu si ce n'est pas déjà existant
             AnimalPerdu nouvelAnimalPerdu = animalPerduService.ajouterAnimalPerdu(animalPerdu.getIdAnimal(), animalPerdu.getLatitude(), animalPerdu.getLongitude());
             return new ResponseEntity<>(nouvelAnimalPerdu, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>("Erreur lors de l'ajout de l'animal perdu.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 }
