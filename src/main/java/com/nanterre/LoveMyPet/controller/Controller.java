@@ -190,5 +190,9 @@ public class Controller {
     public String calendarGoogle() {
         return "calendar-google";
     }
+    @GetMapping("/ListeAnimauxPerdus")
+    public String ListeAnimauxPerdus() {
+        return "ListeAnimauxPerdus";
+    }
 
 }
