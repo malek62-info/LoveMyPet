@@ -4,6 +4,8 @@ import com.nanterre.LoveMyPet.repository.animalVuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AnimalVuServiceImpl implements AnimalVuService {
     private final animalVuRepository animalVuRepository;
@@ -19,5 +21,8 @@ public class AnimalVuServiceImpl implements AnimalVuService {
     }
 
 
-
+    @Override
+    public List<AnimalVu> getAnimalCoordsById(Long animalId) {
+        return animalVuRepository.findAllByAnimalId(animalId);
+    }
 }
