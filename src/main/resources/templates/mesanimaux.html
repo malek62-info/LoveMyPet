@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Adoption</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -96,6 +97,10 @@
         margin: 10px 0;
         }
     </style>
+
+
+
+    <div id="mapid"></div>
 
  <!-- Sidebar -->
 <div class="w3-sidebar ">
@@ -222,10 +227,12 @@
 
 
 
+
     <!-- Inclusion de jQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
         crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
     <!-- Inclusion de Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
@@ -382,6 +389,8 @@
                                 <button type="button" class="add-btn" onclick="handleLostButton(${animalDetails.id})">Perdu🚨</button>
                                 <button type="button" class="add-btn" onclick="handleSeenButton(${animalDetails.id})">Vu🚨</button>
 
+                                <button type="button" class="add-btn" onclick="ouvrirCarte(${animalDetails.id})">Trouver mon animal 🚨</button>
+
                             </div>
                         </div>
                         
@@ -424,20 +433,40 @@ function showConfirmModal(animalId) {
 }
 
 function handleLostButton(animalId) {
-    console.log("ID de l'animal :", animalId);
+    console.log("ID de l'animal HHHH:", animalId);
 
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            console.log("Latitude :", position.coords.latitude);
-            console.log("Longitude :", position.coords.longitude);
-            showConfirmModalWithPosition(animalId, position.coords.latitude, position.coords.longitude);
+    // Vérifier d'abord si l'animal est déjà déclaré perdu
+    $.ajax({
+        url: '/api/animalperdu/verifier/' + animalId, // Endpoint pour vérifier si l'animal est déjà déclaré perdu
+        type: 'GET',
+        success: function(response) {
+        console.log('Réponse du serveur:', response);
+        // Affiche la valeur de la réponse dans la console
+        console.log("Valeur de response.declarePerdu :", response.declarePerdu);
 
-        }, function(error) {
-            console.error("Erreur de géolocalisation :", error);
-        });
-    } else {
-        console.error("La géolocalisation n'est pas prise en charge par ce navigateur.");
-    }
+            // Vérifier la réponse du serveur
+            if (response.declarePerdu) {
+                alert("Cet animal est déjà déclaré perdu.");
+            } else {
+                // Si l'animal n'est pas déjà déclaré perdu, procéder à la confirmation
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        console.log("Latitude :", position.coords.latitude);
+                        console.log("Longitude :", position.coords.longitude);
+                        showConfirmModalWithPosition(animalId, position.coords.latitude, position.coords.longitude);
+
+                    }, function(error) {
+                        console.error("Erreur de géolocalisation :", error);
+                    });
+                } else {
+                    console.error("La géolocalisation n'est pas prise en charge par ce navigateur.");
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Erreur lors de la vérification de l\'animal perdu:', error);
+        }
+    });
 }
 
 function showConfirmModalWithPosition(animalId, latitude, longitude) {
@@ -544,7 +573,15 @@ function sendAnimalSeenData(animalId, latitude, longitude, currentDate, currentT
 }
 
 
+/////////////////////////////////3
 
+function ouvrirCarte(animalId) {
+ console.log("L'ID de l'animal est :", animalId);
+
+    // Redirige vers la page de la carte avec l'ID de l'animal dans l'URL
+    window.location.href = '/Trouveranimal?id=' + animalId;
+
+}
 
     </script>
 

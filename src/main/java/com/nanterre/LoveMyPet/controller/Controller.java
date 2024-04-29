@@ -191,4 +191,9 @@ public class Controller {
         return "calendar-google";
     }
 
+
+    @GetMapping("/Trouveranimal")
+    public String Trouveranimal() {
+        return "Trouveranimal";
+    }
 }

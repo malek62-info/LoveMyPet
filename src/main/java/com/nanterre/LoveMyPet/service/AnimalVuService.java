@@ -9,7 +9,7 @@ public interface AnimalVuService {
 
     void ajouterAnimalVu(AnimalVu animalVu);
 
-    List<AnimalVu> getAnimalCoordsById(Long animalId);
+    List<AnimalVu> getAnimalCoordsById(Integer idAnimal);
 
 
 

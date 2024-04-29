@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // Initialise la carte Leaflet
+   var mymap = L.map('map').setView([51.505, -0.09], 13);
+
+   // Ajoute une couche de tuiles OpenStreetMap à la carte
+   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+       maxZoom: 19,
+   }).addTo(mymap);
+
+   // URL de l'API pour récupérer les coordonnées
+   var apiUrl = '/coords/1'; // Utilisez l'ID de l'animal que vous souhaitez récupérer
+
+   // Appel Fetch pour récupérer les données de latitude et de longitude depuis l'API
+   fetch(apiUrl)
+       .then(response => {
+           // Vérifier si la réponse est OK (200)
+           if (!response.ok) {
+               throw new Error('Erreur lors de la récupération des données de coordonnées.');
+           }
+           // Convertir la réponse en JSON
+           return response.json();
+       })
+       .then(data => {
+           // Afficher les coordonnées dans la console
+           console.log("Coordonnées récupérées :", data);
+
+           // Ouvrir la carte avec les coordonnées récupérées
+           ouvrirMap(data);
+       })
+       .catch(error => {
+           console.error('Erreur lors de la récupération des données de coordonnées :', error);
+           alert('Une erreur s\'est produite lors de la récupération des coordonnées.');
+       });
+// Fonction pour calculer la distance entre deux points en utilisant la formule de Haversine
+function distanceEntrePoints(lat1, lon1, lat2, lon2) {
+    var R = 6371; // Rayon de la Terre en kilomètres
+    var dLat = deg2rad(lat2 - lat1);
+    var dLon = deg2rad(lon2 - lon1);
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var distance = R * c; // Distance en kilomètres
+    return distance;
+}
+
+// Fonction pour convertir des degrés en radians
+function deg2rad(deg) {
+    return deg * (Math.PI / 180);
+}
+
+// Fonction pour afficher la carte avec les marqueurs
+function ouvrirMap(coords) {
+    // Parcourir les coordonnées
+    coords.forEach(coord => {
+        // Ajouter un cercle à la carte pour chaque position
+        L.circle([coord.latitude, coord.longitude], {
+            color: 'blue', // Couleur du cercle
+            fillColor: isPositionInRadius(coord, coords) ? 'green' : 'blue', // Couleur de remplissage (vert si dans le rayon, sinon bleu)
+            fillOpacity: 0.5, // Opacité du remplissage
+            radius: 1000 // Rayon du cercle en mètres (1 km)
+        }).addTo(mymap);
+    });
+}
+
+// Fonction pour vérifier si une position se trouve dans un rayon de 1 km d'une autre position
+function isPositionInRadius(position, allPositions) {
+    // Parcourir toutes les positions pour vérifier la distance par rapport à la position donnée
+    for (let i = 0; i < allPositions.length; i++) {
+        const otherPosition = allPositions[i];
+        // Exclure la position donnée elle-même
+        if (otherPosition !== position) {
+            // Calculer la distance entre les deux positions
+            const distance = distanceEntrePoints(position.latitude, position.longitude, otherPosition.latitude, otherPosition.longitude);
+            // Vérifier si la distance est inférieure ou égale à 1 km
+            if (distance <= 1) {
+                return true; // La position est dans le rayon
+            }
+        }
+    }
+    return false; // Aucune position dans le rayon
+}
+
+</script>
+</body>
+</html>

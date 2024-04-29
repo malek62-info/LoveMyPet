@@ -5,10 +5,8 @@ import com.nanterre.LoveMyPet.service.AnimalPerduService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/animalperdu")
@@ -24,10 +22,10 @@ public class AnimalPerduController {
     @PostMapping("/ajouter")
     public ResponseEntity<?> ajouterAnimalPerdu(@RequestBody AnimalPerdu animalPerdu) {
         try {
-            // Vérifiez d'abord si l'animal n'existe pas déjà
+            /*Vérifiez d'abord si l'animal n'existe pas déjà
             if (animalPerduService.animalExisteDeja(animalPerdu.getIdAnimal())) {
                 return new ResponseEntity<>("L'animal existe déjà.", HttpStatus.BAD_REQUEST);
-            }
+            }*/
 
             // Ajoutez l'animal perdu si ce n'est pas déjà existant
             AnimalPerdu nouvelAnimalPerdu = animalPerduService.ajouterAnimalPerdu(animalPerdu.getIdAnimal(), animalPerdu.getLatitude(), animalPerdu.getLongitude());
@@ -37,4 +35,20 @@ public class AnimalPerduController {
         }
 
     }
+
+    @GetMapping("/verifier/{animalId}")
+    public ResponseEntity<?> verifierAnimalPerdu(@PathVariable Integer animalId) {
+        try {
+            // Vérifiez si l'animal est déjà déclaré perdu
+            boolean declarePerdu = animalPerduService.animalExisteDeja(animalId);
+            Map<String, Boolean> response = new HashMap<>();
+            response.put("declarePerdu", declarePerdu);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erreur lors de la vérification de l'animal perdu.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+
 }

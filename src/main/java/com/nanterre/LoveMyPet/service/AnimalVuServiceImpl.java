@@ -22,7 +22,7 @@ public class AnimalVuServiceImpl implements AnimalVuService {
 
 
     @Override
-    public List<AnimalVu> getAnimalCoordsById(Long animalId) {
-        return animalVuRepository.findAllByAnimalId(animalId);
+    public List<AnimalVu> getAnimalCoordsById(Integer idAnimal) {
+        return animalVuRepository.findAllByidAnimal(idAnimal);
     }
 }
