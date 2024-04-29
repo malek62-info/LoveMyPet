@@ -12,18 +12,19 @@ edge_options.use_chromium = True
 
 driver = webdriver.Edge(options=edge_options)
 driver.get('http://localhost:8086/login')
-time.sleep(2)
+time.sleep(5)
 
 # Remplir le champ Email
 email_field = driver.find_element("id", 'email')
 email_field.send_keys('faiz@gmail.com')
 
-
+time.sleep(5)
 password_field = driver.find_element("id", 'password')
 password_field.send_keys('faiz')
 
-
+time.sleep(5)
 login_button = driver.find_element("name", 'submit')
+time.sleep(5)
 login_button.click()
 
 try:
@@ -34,3 +35,5 @@ try:
    
 except TimeoutException:
     print("La page de profil n'a pas été chargée dans les délais.")
+
+time.sleep(5)

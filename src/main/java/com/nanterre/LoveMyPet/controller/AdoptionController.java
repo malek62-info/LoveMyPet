@@ -1,16 +1,13 @@
 package com.nanterre.LoveMyPet.controller;
 
-import com.nanterre.LoveMyPet.model.Adoption;
-import com.nanterre.LoveMyPet.model.Animal;
-import com.nanterre.LoveMyPet.service.AnimalService;
 import com.nanterre.LoveMyPet.service.AnimalServiceImpl;
 import com.nanterre.LoveMyPet.service.AdoptionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
