@@ -5,98 +5,258 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carte</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Intégration de Bootstrap pour le style -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Intégration de Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
     <style>
         #map {
             height: 100vh;
+            width: 70%;
+            float: right; /* Flotte à droite */
+            margin-right: 20px; /* Ajoute une marge à droite */
         }
+        #address-list {
+            height: 100vh;
+            overflow-y: auto;
+            width: 15%; /* Réduit la largeur de la liste */
+            float: right; /* Flotte à droite */
+        }
+        .list-group-item {
+            cursor: pointer;
+        }
+
+       /* Sidebar */
+.w3-sidebar {
+      position: fixed;
+      z-index: 100;
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      color: #fff;
+      width: 250px;
+      padding: 20px;
+      height: 100vh;
+      overflow-y: auto;
+      left: 0;
+      top: 0;
+  }
+
+  .w3-button {
+      color: #fff;
+      outline: none;
+      padding: 10px;
+      text-decoration: none;
+      transition: 0.5s;
+  }
+
+  .w3-button:hover {
+      background-color: #fff;
+      text-decoration: none;
+      color: #81774E;
+      border-radius: 6px;
+  }
+
+  .w3-button:hover a {
+      color: #000;
+  }
+
+  .logo-img {
+      text-align: center;
+      margin: 20px auto;
+      width: 100px;
+  }
+
+  .side_bar_bar {
+      background-color: #81774E;
+      border: 0;
+      height: 1px;
+      width: 100%;
+      border-radius: 2px;
+      margin: 10px 0;
+  }
+
+#map {
+    height: 100vh;
+    width: 63%; /* Largeur de la carte ajustée */
+    float: right; /* Flotte à droite */
+    margin-right: 55px; /* Ajoute une marge à droite */
+}
+
+#address-list {
+    height: 100vh;
+    overflow-y: auto;
+    width: 15%; /* Réduit la largeur de la liste */
+    float: right; /* Flotte à droite */
+}
+
+.list-group-item {
+    cursor: pointer;
+}
+
     </style>
 </head>
 <body>
+<!-- Sidebar -->
+<div class="w3-sidebar">
+    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <a href="/profile" class="w3-button">Mon compte</a>
+    <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+
+    <a href="/adoption" class="w3-button">Adoption</a>
+    <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="/donate" class="w3-button">Donner des objets</a>
+    <a href="/showdonations" class="w3-button">Trouver des objets</a>
+    <a href="/mesdonations" class="w3-button">Mes objets à donner</a>
+
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="/Map" class="w3-button">Map</a>
+
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="/AddEvent" class="w3-button">Ajouter un événement</a>
+    <a href="/ShowEvent" class="w3-button">Participer à un événement</a>
+    <a href="/MyEvent" class="w3-button">Mes événements créés</a>
+
+    <hr class="side_bar_bar">
+    </hr>
+    <a href="#" class="w3-button">Se Déconnecter</a>
+
+</div>
+<div id="address-list" class="list-group"></div>
 <div id="map"></div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 <script>
-    // Initialise la carte Leaflet
-   var mymap = L.map('map').setView([51.505, -0.09], 13);
+    var mymap;
 
-   // Ajoute une couche de tuiles OpenStreetMap à la carte
-   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-       maxZoom: 19,
-   }).addTo(mymap);
+    // Fonction pour initialiser la carte
+    function initMap(userLatLng) {
+        // Initialise la carte Leaflet
+        mymap = L.map('map').setView(userLatLng, 13); // 13 est le niveau de zoom initial
 
-   // URL de l'API pour récupérer les coordonnées
-   var apiUrl = '/coords/1'; // Utilisez l'ID de l'animal que vous souhaitez récupérer
-
-   // Appel Fetch pour récupérer les données de latitude et de longitude depuis l'API
-   fetch(apiUrl)
-       .then(response => {
-           // Vérifier si la réponse est OK (200)
-           if (!response.ok) {
-               throw new Error('Erreur lors de la récupération des données de coordonnées.');
-           }
-           // Convertir la réponse en JSON
-           return response.json();
-       })
-       .then(data => {
-           // Afficher les coordonnées dans la console
-           console.log("Coordonnées récupérées :", data);
-
-           // Ouvrir la carte avec les coordonnées récupérées
-           ouvrirMap(data);
-       })
-       .catch(error => {
-           console.error('Erreur lors de la récupération des données de coordonnées :', error);
-           alert('Une erreur s\'est produite lors de la récupération des coordonnées.');
-       });
-// Fonction pour calculer la distance entre deux points en utilisant la formule de Haversine
-function distanceEntrePoints(lat1, lon1, lat2, lon2) {
-    var R = 6371; // Rayon de la Terre en kilomètres
-    var dLat = deg2rad(lat2 - lat1);
-    var dLon = deg2rad(lon2 - lon1);
-    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-        Math.sin(dLon / 2) * Math.sin(dLon / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var distance = R * c; // Distance en kilomètres
-    return distance;
-}
-
-// Fonction pour convertir des degrés en radians
-function deg2rad(deg) {
-    return deg * (Math.PI / 180);
-}
-
-// Fonction pour afficher la carte avec les marqueurs
-function ouvrirMap(coords) {
-    // Parcourir les coordonnées
-    coords.forEach(coord => {
-        // Ajouter un cercle à la carte pour chaque position
-        L.circle([coord.latitude, coord.longitude], {
-            color: 'blue', // Couleur du cercle
-            fillColor: isPositionInRadius(coord, coords) ? 'green' : 'blue', // Couleur de remplissage (vert si dans le rayon, sinon bleu)
-            fillOpacity: 0.5, // Opacité du remplissage
-            radius: 1000 // Rayon du cercle en mètres (1 km)
+        // Ajoute une couche de tuiles OpenStreetMap à la carte
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
         }).addTo(mymap);
-    });
-}
 
-// Fonction pour vérifier si une position se trouve dans un rayon de 1 km d'une autre position
-function isPositionInRadius(position, allPositions) {
-    // Parcourir toutes les positions pour vérifier la distance par rapport à la position donnée
-    for (let i = 0; i < allPositions.length; i++) {
-        const otherPosition = allPositions[i];
-        // Exclure la position donnée elle-même
-        if (otherPosition !== position) {
-            // Calculer la distance entre les deux positions
-            const distance = distanceEntrePoints(position.latitude, position.longitude, otherPosition.latitude, otherPosition.longitude);
-            // Vérifier si la distance est inférieure ou égale à 1 km
-            if (distance <= 1) {
-                return true; // La position est dans le rayon
+        // Appel Fetch pour récupérer les données de latitude et de longitude depuis l'API
+        var apiUrl = '/coords/1'; // Utilisez l'ID de l'animal que vous souhaitez récupérer
+        fetch(apiUrl)
+            .then(response => {
+                // Vérifier si la réponse est OK (200)
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la récupération des données de coordonnées.');
+                }
+                // Convertir la réponse en JSON
+                return response.json();
+            })
+            .then(data => {
+                // Afficher les coordonnées dans la console
+                console.log("Coordonnées récupérées :", data);
+
+                // Ouvrir la carte avec les coordonnées récupérées
+                ouvrirMap(data);
+            })
+            .catch(error => {
+                console.error('Erreur lors de la récupération des données de coordonnées :', error);
+                alert('Une erreur s\'est produite lors de la récupération des coordonnées.');
+            });
+    }
+
+    // Fonction pour calculer la distance entre deux points en utilisant la formule de Haversine
+    function distanceEntrePoints(lat1, lon1, lat2, lon2) {
+        var R = 6371; // Rayon de la Terre en kilomètres
+        var dLat = deg2rad(lat2 - lat1);
+        var dLon = deg2rad(lon2 - lon1);
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var distance = R * c; // Distance en kilomètres
+        return distance;
+    }
+
+    // Fonction pour convertir des degrés en radians
+    function deg2rad(deg) {
+        return deg * (Math.PI / 180);
+    }
+
+    // Fonction pour afficher la carte avec les marqueurs
+    function ouvrirMap(coords) {
+        // Parcourir les coordonnées
+        coords.forEach(coord => {
+            // Ajouter un cercle à la carte pour chaque position
+            L.circle([coord.latitude, coord.longitude], {
+                color: 'blue', // Couleur du cercle
+                fillColor: isPositionInRadius(coord, coords) ? 'green' : 'blue', // Couleur de remplissage (vert si dans le rayon, sinon bleu)
+                fillOpacity: 0.5, // Opacité du remplissage
+                radius: 1000 // Rayon du cercle en mètres (1 km)
+            }).addTo(mymap);
+
+            // Récupération de l'adresse à partir des coordonnées
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${coord.latitude}&lon=${coord.longitude}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Ajout de l'adresse à la liste
+                    addAddressToList(data.display_name, coord.latitude, coord.longitude);
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération de l\'adresse :', error);
+                });
+        });
+    }
+
+    // Fonction pour vérifier si une position se trouve dans un rayon de 1 km d'une autre position
+    function isPositionInRadius(position, allPositions) {
+        // Parcourir toutes les positions pour vérifier la distance par rapport à la position donnée
+        for (let i = 0; i < allPositions.length; i++) {
+            const otherPosition = allPositions[i];
+            // Exclure la position donnée elle-même
+            if (otherPosition !== position) {
+                // Calculer la distance entre les deux positions
+                const distance = distanceEntrePoints(position.latitude, position.longitude, otherPosition.latitude, otherPosition.longitude);
+                // Vérifier si la distance est inférieure ou égale à 1 km
+                if (distance <= 0.1) {
+                    return true; // La position est dans le rayon
+                }
             }
         }
+        return false; // Aucune position dans le rayon
     }
-    return false; // Aucune position dans le rayon
-}
+
+    // Fonction pour ajouter une adresse à la liste
+    function addAddressToList(address, lat, lon) {
+        var addressList = document.getElementById('address-list');
+        var listItem = document.createElement('a');
+        listItem.href = '#';
+        listItem.className = 'list-group-item list-group-item-action';
+        listItem.textContent = address;
+        // Ajout d'un gestionnaire d'événements pour déplacer la carte vers la position correspondante
+        listItem.addEventListener('click', function() {
+            mymap.setView([lat, lon], 13); // Déplace la carte vers la position avec un niveau de zoom de 13
+        });
+        addressList.appendChild(listItem);
+    }
+
+    // Récupère la position de l'utilisateur et centre la carte
+    navigator.geolocation.getCurrentPosition(function(position) {
+        var userLatLng = [position.coords.latitude, position.coords.longitude];
+        initMap(userLatLng);
+    }, function(error) {
+        console.error('Erreur lors de la récupération de la position :', error);
+        alert('Impossible de récupérer votre position. La carte sera centrée par défaut.');
+        initMap([51.505, -0.09]); // Centre par défaut
+    });
 
 </script>
 </body>

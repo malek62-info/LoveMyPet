@@ -543,34 +543,54 @@ function handleSeenButton(animalId) {
 }
 
 // Fonction pour envoyer les données au serveur
-function sendAnimalSeenData(animalId, latitude, longitude, currentDate, currentTime) {
-    var userId = 1; // ID de la personne en dur
-
-    var data = {
-        idAnimal: animalId,
-        idPersonne: userId, // Inclure l'ID de la personne
-        latitude: latitude,
-        longitude: longitude,
-        date: currentDate,
-        heure: currentTime
-    };
-
-    // Envoyer les données au serveur via AJAX
+// Fonction pour obtenir l'ID de l'utilisateur à partir de l'API
+function getUserId(callback) {
     $.ajax({
-        url: '/api/animalvu/ajouter', // Endpoint pour ajouter un animal vu
-        type: 'POST',
-        data: JSON.stringify(data),
-        contentType: 'application/json; charset=utf-8',
-        success: function(response) {
-            console.log('Réponse du serveur :', response);
-            alert('Animal vu ajouté avec succès.');
+        url: "/person/profile",
+        type: "GET",
+        success: function(data) {
+            // Appeler la fonction de rappel avec l'ID utilisateur récupéré
+            callback(data.id);
         },
         error: function(xhr, status, error) {
-            console.error('Erreur lors de l\'envoi des données :', error);
-            alert('Erreur lors de l\'ajout de l\'animal vu.');
+            console.error("Erreur lors de la récupération de l'ID utilisateur :", error);
+            // Gérer les erreurs ici
         }
     });
 }
+
+// Fonction pour envoyer les données au serveur
+function sendAnimalSeenData(animalId, latitude, longitude, currentDate, currentTime) {
+    // Obtenir l'ID utilisateur en appelant la fonction getUserId
+    getUserId(function(userId) {
+        // Créer l'objet de données à envoyer au serveur
+        var data = {
+            idAnimal: animalId,
+            idPersonne: userId, // Utiliser l'ID utilisateur récupéré
+            latitude: latitude,
+            longitude: longitude,
+            date: currentDate,
+            heure: currentTime
+        };
+
+        // Envoyer les données au serveur via AJAX
+        $.ajax({
+            url: '/api/animalvu/ajouter', // Endpoint pour ajouter un animal vu
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json; charset=utf-8',
+            success: function(response) {
+                console.log('Réponse du serveur :', response);
+                alert('Animal vu ajouté avec succès.');
+            },
+            error: function(xhr, status, error) {
+                console.error('Erreur lors de l\'envoi des données :', error);
+                alert('Erreur lors de l\'ajout de l\'animal vu.');
+            }
+        });
+    });
+}
+
 
 
 /////////////////////////////////3
