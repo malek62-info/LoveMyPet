@@ -4,12 +4,12 @@ package com.nanterre.LoveMyPet.repository;
 import com.nanterre.LoveMyPet.model.Evenement;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
+
 
 import java.util.List;
 
 import com.nanterre.LoveMyPet.model.Person;
-import org.springframework.data.jpa.repository.JpaRepository;
+
 
 import java.time.LocalDate;
 

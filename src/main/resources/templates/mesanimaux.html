@@ -89,46 +89,46 @@
 
         .side_bar_bar {
             background-color: #81774E;
-        border: 0;
-        height: 1px;
-        width: 100%;
-        border-radius: 2px;
-        margin: 10px 0;
+            border: 0;
+            height: 1px;
+            width: 100%;
+            border-radius: 2px;
+            margin: 10px 0;
         }
     </style>
 
- <!-- Sidebar -->
-<div class="w3-sidebar ">
-    <img src="images/logo.png" alt="Logo" class="logo-img">
-    <a href="/profile" class="w3-button">Mon compte</a>
-    <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
-    <hr class="side_bar_bar">
-    </hr>
-    <a href="/mesanimaux" class="w3-button">Mes animaux</a>
+    <!-- Sidebar -->
+    <div class="w3-sidebar ">
+        <img src="images/logo.png" alt="Logo" class="logo-img">
+        <a href="/profile" class="w3-button">Mon compte</a>
+        <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/mesanimaux" class="w3-button">Mes animaux</a>
 
-    <a href="/adoption" class="w3-button">Adoption</a>
-    <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+        <a href="/adoption" class="w3-button">Adoption</a>
+        <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
 
-    <hr class="side_bar_bar">
-    </hr>
-    <a href="/donate" class="w3-button">Donner des objets</a>
-    <a href="/showdonations" class="w3-button">Trouver des objets</a>
-    <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/donate" class="w3-button">Donner des objets</a>
+        <a href="/showdonations" class="w3-button">Trouver des objets</a>
+        <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
 
-    <hr class="side_bar_bar">
-    <a href="/Map" class="w3-button">Map</a>
+        <hr class="side_bar_bar">
+        <a href="/Map" class="w3-button">Map</a>
 
-    <hr class="side_bar_bar">
-    <a href="/AddEvent" class="w3-button">Ajouter un évenement</a>
-    <a href="/ShowEvent" class="w3-button">Participé a un evenement</a>
-    <a href="/MyEvent" class="w3-button">Mes évenement crée </a>
+        <hr class="side_bar_bar">
+        <a href="/AddEvent" class="w3-button">Ajouter un évenement</a>
+        <a href="/ShowEvent" class="w3-button">Participé a un evenement</a>
+        <a href="/MyEvent" class="w3-button">Mes évenement crée </a>
 
 
-    <hr class="side_bar_bar">
-    </hr>
-    <a href="#" class="w3-button">Se Déconnecter</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="#" class="w3-button">Se Déconnecter</a>
 
-</div>
+    </div>
 
 
     <div class="big-container">
@@ -350,9 +350,9 @@
                             <button type="button" class="top-right" onclick="window.location.href = 'infoAnimal?id=${animalDetails.id}'">+</button>
 
                             <div>
-                                <button type="button" class="add-btn" onclick="window.location.href = 'candidature?id=${ animalDetails.id }'">Candidatures &#x1F600;</button>
-                                <button type="button" class="add-btn" onclick="window.location.href = 'alertes_new?id=${ animalDetails.id }'">Alertes 🚨</button>
-                                <button type="button" class="add-btn" data-toggle="modal" data-target="#adoptionModal" onclick="handleDonationClick(${ animalDetails.id })">Donner 🙏</button>
+                                <button type="button" class="add-btn" onclick="window.location.href = 'candidature?id=${animalDetails.id}'">Candidatures &#x1F600;</button>
+                                <button type="button" class="add-btn" onclick="window.location.href = 'alertes_new?id=${animalDetails.id}'">Alertes 🚨</button>
+                                <button type="button" class="add-btn" data-toggle="modal" data-target="#adoptionModal" onclick="handleDonationClick(${animalDetails.id})">Donner 🙏</button>
                             </div>
                         </div>
                         

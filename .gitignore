@@ -31,4 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# 1) créer l' env : python -m venv env   
+# 2) activer l'env : env\Scripts\Activate  
+# 3) installer selenium : pip install selenium     
 /env
