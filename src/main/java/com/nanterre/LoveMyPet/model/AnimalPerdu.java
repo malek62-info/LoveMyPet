@@ -63,4 +63,8 @@ public class AnimalPerdu {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
 }
+
+
+

@@ -1,5 +1,6 @@
 package com.nanterre.LoveMyPet.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,11 +13,21 @@ import com.nanterre.LoveMyPet.repository.AnimalRepository;
 import com.nanterre.LoveMyPet.model.Animal;
 import com.nanterre.LoveMyPet.model.AnimalPerdu;
 
+import com.nanterre.LoveMyPet.model.AnimalPerdu;
+import com.nanterre.LoveMyPet.model.AnimalVu;
+import com.nanterre.LoveMyPet.repository.AnimalPerduRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+
 @Service
 public class AnimalPerduServiceImpl implements AnimalPerduService {
 
     @Autowired
     private AnimalPerduRepository animalPerduRepository;
+
 
     @Autowired
     private AnimalRepository animalRepository; // Supposons que vous avez un repository pour les animaux
@@ -60,7 +71,20 @@ public class AnimalPerduServiceImpl implements AnimalPerduService {
 
         return animalsWithinRadius;
     }
+
+
+
+
+
+    @Override
+    public AnimalPerdu ajouterAnimalPerdu(Integer idAnimal, double latitude, double longitude) {
+        AnimalPerdu animalPerdu = new AnimalPerdu(idAnimal, latitude, longitude);
+        return animalPerduRepository.save(animalPerdu);
+    }
+
+    @Override
+    public boolean animalExisteDeja(Integer idAnimal) {
+        return animalPerduRepository.existsByIdAnimal(idAnimal);
+    }
 }
-
-
 

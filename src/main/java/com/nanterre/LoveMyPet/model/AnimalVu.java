@@ -111,4 +111,7 @@ public class AnimalVu {
     public void setRayon(double rayon) {
         this.rayon = rayon;
     }
+
 }
+
+

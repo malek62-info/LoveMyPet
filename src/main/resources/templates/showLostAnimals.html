@@ -6,18 +6,18 @@
     <title>Animal perdu rayon de 30 kilomètres</title>
 </head>
 <body>
-    <!DOCTYPE html>
+<!DOCTYPE html>
 
 <head>
     <meta charset="UTF-8">
     <title>Adoption</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css/adoption_afficher_animal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
@@ -26,86 +26,86 @@
 <body>
 
 
-    <style>
-        body {
-            display: flex;
+<style>
+    body {
+        display: flex;
 
-        }
+    }
 
-        .top-right {
-            width: 40px;
-            height: 40px;
-            border: 1px solid #000;
-            border-radius: 50%;
-            background-color: #000;
-            padding: 20px;
-            font-weight: bold;
-            color: #fff;
-            border: 0;
-            outline: none;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10;
-        }
-
-        /* sitde bar */
-
-        .w3-sidebar {
-            position: fixed;
-            z-index: 100;
-            background-color: #000;
-            display: flex;
-            flex-direction: column;
-            color: #fff;
-            width: 250px;
-            padding: 20px;
-            height: 100vh;
-            overflow-y: auto;
-        }
-
-        .w3-button {
-            color: #fff;
-            outline: none;
-            outline: none;
-            padding: 10px;
-            text-decoration: none;
-            transition: 0.5s;
-        }
-
-
-        .w3-button:hover {
-            background-color: #fff;
-            text-decoration: none;
-            color: #81774E;
-            border-radius: 6px;
-        }
-
-        .w3-button:hover a {
-            color: #000;
-        }
-
-        .logo-img {
-            text-align: CENTER;
-            margin: 20PX AUTO;
-            width: 100PX;
-        }
-
-        .side_bar_bar {
-            background-color: #81774E;
+    .top-right {
+        width: 40px;
+        height: 40px;
+        border: 1px solid #000;
+        border-radius: 50%;
+        background-color: #000;
+        padding: 20px;
+        font-weight: bold;
+        color: #fff;
         border: 0;
-        height: 1px;
-        width: 100%;
-        border-radius: 2px;
-        margin: 10px 0;
-        }
-    </style>
+        outline: none;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+    }
 
- <!-- Sidebar -->
+    /* sitde bar */
+
+    .w3-sidebar {
+        position: fixed;
+        z-index: 100;
+        background-color: #000;
+        display: flex;
+        flex-direction: column;
+        color: #fff;
+        width: 250px;
+        padding: 20px;
+        height: 100vh;
+        overflow-y: auto;
+    }
+
+    .w3-button {
+        color: #fff;
+        outline: none;
+        outline: none;
+        padding: 10px;
+        text-decoration: none;
+        transition: 0.5s;
+    }
+
+
+    .w3-button:hover {
+        background-color: #fff;
+        text-decoration: none;
+        color: #81774E;
+        border-radius: 6px;
+    }
+
+    .w3-button:hover a {
+        color: #000;
+    }
+
+    .logo-img {
+        text-align: CENTER;
+        margin: 20PX AUTO;
+        width: 100PX;
+    }
+
+    .side_bar_bar {
+        background-color: #81774E;
+    border: 0;
+    height: 1px;
+    width: 100%;
+    border-radius: 2px;
+    margin: 10px 0;
+    }
+</style>
+
+<!-- Sidebar -->
 <div class="w3-sidebar ">
     <img src="images/logo.png" alt="Logo" class="logo-img">
     <a href="/profile" class="w3-button">Mon compte</a>
@@ -153,6 +153,20 @@
         </div>
     </div>
 </div>
+
+<!-- Inclusion de jQuery -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+        crossorigin="anonymous"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+<!-- Inclusion de Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 <script>
     // Vérifier si le navigateur supporte la géolocalisation
     if ("geolocation" in navigator) {
@@ -164,7 +178,7 @@
             var smallTitle = document.querySelector(".small-title")
             smallTitle.innerHTML = "Latitude: " + latitude + ", Longitude: " + longitude + "  30 km rayon";
             // Faire une requête AJAX pour récupérer les animaux dans un rayon de 30 km autour de la position de l'utilisateur
-            var url = "http://localhost:8086/animals-within-radius?latitude=" + latitude + "&longitude=" + longitude;
+            var url = "/api/animalperdu/animals-within-radius?latitude=" + latitude + "&longitude=" + longitude;
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
@@ -176,10 +190,9 @@
                         animalItem.innerHTML = `
                             <div class="animal-img">
                                 <img src="/images/animals/${animal.imageUrl}" alt="animal image">
-                            
+
                                 <div>
-                                      <!-- ajoutes les boutton ici -->
-                                </div>
+                                 <button type="button" class="add-btn" onclick="handleSeenButton(${animal.id})">Vu🚨</button>                                </div>
                             </div>
                             <div class="animal-content">
                                 <h2 href="#" class="animal-title">${animal.name}</h2>
@@ -196,11 +209,97 @@
     } else {
         console.log("La géolocalisation n'est pas prise en charge par ce navigateur.");
     }
+
+    // Fonction pour gérer le clic sur le bouton "Vu"
+function handleSeenButton(animalId) {
+    // Demander à l'utilisateur de saisir l'adresse où il a vu l'animal
+    var place = prompt("Veuillez saisir l'adresse où vous avez vu l'animal :");
+
+    if (place) {
+        // Appeler l'API Nominatim pour obtenir les coordonnées correspondant à l'adresse saisie
+        $.ajax({
+            url: 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(place),
+            type: 'GET',
+            success: function(response) {
+                if (response.length > 0) {
+                    // Récupérer les coordonnées (latitude et longitude) du premier résultat
+                    var latitude = response[0].lat;
+                    var longitude = response[0].lon;
+
+                    // Obtenir la date et l'heure actuelles
+                    var currentDate = new Date();
+                    var currentDateString = currentDate.toISOString().split('T')[0];
+                    var currentTimeString = currentDate.toTimeString().split(' ')[0];
+
+                    // Envoyer les données au serveur
+                    sendAnimalSeenData(animalId, latitude, longitude, currentDateString, currentTimeString);
+                } else {
+                    alert("Aucune coordonnée trouvée pour l'adresse saisie.");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Erreur lors de la recherche des coordonnées :', error);
+                alert('Une erreur s\'est produite lors de la recherche des coordonnées.');
+            }
+        });
+    }
+}
+
+// Fonction pour envoyer les données au serveur
+// Fonction pour obtenir l'ID de l'utilisateur à partir de l'API
+function getUserId(callback) {
+    $.ajax({
+        url: "/person/profile",
+        type: "GET",
+        success: function(data) {
+            // Appeler la fonction de rappel avec l'ID utilisateur récupéré
+            callback(data.id);
+        },
+        error: function(xhr, status, error) {
+            console.error("Erreur lors de la récupération de l'ID utilisateur :", error);
+            // Gérer les erreurs ici
+        }
+    });
+}
+
+// Fonction pour envoyer les données au serveur
+function sendAnimalSeenData(animalId, latitude, longitude, currentDate, currentTime) {
+    // Obtenir l'ID utilisateur en appelant la fonction getUserId
+    getUserId(function(userId) {
+        // Créer l'objet de données à envoyer au serveur
+        var data = {
+            idAnimal: animalId,
+            idPersonne: userId, // Utiliser l'ID utilisateur récupéré
+            latitude: latitude,
+            longitude: longitude,
+            date: currentDate,
+            heure: currentTime
+        };
+
+        // Envoyer les données au serveur via AJAX
+        $.ajax({
+            url: '/api/animalvu/ajouter', // Endpoint pour ajouter un animal vu
+            type: 'POST',
+            data: JSON.stringify(data),
+            contentType: 'application/json; charset=utf-8',
+            success: function(response) {
+                console.log('Réponse du serveur :', response);
+                alert('Animal vu ajouté avec succès.');
+            },
+            error: function(xhr, status, error) {
+                console.error('Erreur lors de l\'envoi des données :', error);
+                alert('Erreur lors de l\'ajout de l\'animal vu.');
+            }
+        });
+    });
+}
+
+
 </script>
 
-    
-    
-    
-    
+
+
+
+
 </body>
 </html>

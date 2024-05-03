@@ -199,4 +199,9 @@ public class Controller {
 
   
 
+
+    @GetMapping("/Trouveranimal")
+    public String Trouveranimal() {
+        return "Trouveranimal";
+    }
 }
