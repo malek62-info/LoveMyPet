@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  database:
+    image: lmp_db:latest
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+    ports:
+      - "3307:3306"
+    networks:
+      - backend
+
+  app:
+    image: lovemypet-app:latest
+    ports:
+      - "9005:8086"
+    depends_on:
+      - database
+    networks:
+      - backend
+
+networks:
+  backend:
