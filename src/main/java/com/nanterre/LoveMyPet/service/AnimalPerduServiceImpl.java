@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @Service
 public class AnimalPerduServiceImpl implements AnimalPerduService {
 
@@ -85,6 +84,17 @@ public class AnimalPerduServiceImpl implements AnimalPerduService {
     @Override
     public boolean animalExisteDeja(Integer idAnimal) {
         return animalPerduRepository.existsByIdAnimal(idAnimal);
+    }
+
+    @Override
+    public List<AnimalPerdu> findAnimalsLostByPersonId(Integer idPerson) {
+        return animalPerduRepository.findAllByPersonId(idPerson);
+    }
+
+    @Override
+    @Transactional
+    public void supprimerAnimalPerdu(Integer idAnimal) {
+        animalPerduRepository.deleteByIdAnimal(idAnimal);
     }
 }
 

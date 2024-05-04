@@ -16,5 +16,5 @@ public interface AnimalVuService {
 
 
     List<Object[]> getEmailsByAnimalVue();
-
+    void supprimerAnimalVu(Integer idAnimal);
 }

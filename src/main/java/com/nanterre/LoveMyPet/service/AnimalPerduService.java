@@ -16,6 +16,7 @@ public interface AnimalPerduService {
     boolean animalExisteDeja(Integer idAnimal);
 
     List<Animal> getAnimalsWithinRadius(double latitude, double longitude) ;
-
+    List<AnimalPerdu> findAnimalsLostByPersonId(Integer idPerson);
+    void supprimerAnimalPerdu(Integer idAnimal);
 }
 

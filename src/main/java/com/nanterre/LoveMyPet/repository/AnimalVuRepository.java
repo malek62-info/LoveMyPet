@@ -25,5 +25,6 @@ public interface AnimalVuRepository extends JpaRepository <AnimalVu,Long>{
                     "    person p2 ON a.idperson = p2.id_person ")
     List<Object[]> getEmailsByAnimalVue();
     List<AnimalVu> findAllByidAnimal(Integer idAnimal);
+    void deleteByIdAnimal(Integer idAnimal);
 
 }

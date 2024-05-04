@@ -3,6 +3,7 @@ package com.nanterre.LoveMyPet.controller;
 
 import com.nanterre.LoveMyPet.service.AnimalVuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,7 +43,15 @@ public class AnimalVuController {
         return animalVuService.getAnimalCoordsById(idAnimal);
     }
 
-
+    @DeleteMapping("/api/animalvu/supprimer/{idAnimal}")
+    public ResponseEntity<?> supprimerAnimalVu(@PathVariable Integer idAnimal) {
+        try {
+            animalVuService.supprimerAnimalVu(idAnimal);
+            return new ResponseEntity<>("Animal vu supprimé avec succès.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erreur lors de la suppression de l'animal vu.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
 }

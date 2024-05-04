@@ -194,10 +194,11 @@ public class Controller {
     public String showLostAnimals() {
         return "showLostAnimals";
     }
+    @GetMapping("/ListeAnimauxPerdus")
+    public String ListeAnimauxPerdus() {
+        return "ListeAnimauxPerdus";
+    }
 
-
-
-  
 
 
     @GetMapping("/Trouveranimal")

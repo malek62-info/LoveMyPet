@@ -72,7 +72,25 @@ public class AnimalPerduController {
         }
     }
 
+    @GetMapping("/mes-animaux/{idPerson}")
+    public ResponseEntity<List<AnimalPerdu>> getLostAnimalsByPersonId(@PathVariable Integer idPerson) {
+        try {
+            List<AnimalPerdu> lostAnimals = animalPerduService.findAnimalsLostByPersonId(idPerson);
+            return new ResponseEntity<>(lostAnimals, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
+    @DeleteMapping("/supprimer/{idAnimal}")
+    public ResponseEntity<?> supprimerAnimalPerdu(@PathVariable Integer idAnimal) {
+        try {
+            animalPerduService.supprimerAnimalPerdu(idAnimal);
+            return new ResponseEntity<>("Animal perdu supprimé avec succès.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erreur lors de la suppression de l'animal perdu.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }
 

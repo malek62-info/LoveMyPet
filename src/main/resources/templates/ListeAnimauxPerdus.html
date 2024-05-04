@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Adoption</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/adoption_afficher_animal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+</head>
+
+<body>
+
+
+    <style>
+        body {
+            display: flex;
+
+        }
+
+        .top-right {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #000;
+            border-radius: 50%;
+            background-color: #000;
+            padding: 20px;
+            font-weight: bold;
+            color: #fff;
+            border: 0;
+            outline: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        /* sitde bar */
+
+        .w3-sidebar {
+            position: fixed;
+            z-index: 100;
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+            width: 250px;
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .w3-button {
+            color: #fff;
+            outline: none;
+            outline: none;
+            padding: 10px;
+            text-decoration: none;
+            transition: 0.5s;
+        }
+
+
+        .w3-button:hover {
+            background-color: #fff;
+            text-decoration: none;
+            color: #81774E;
+            border-radius: 6px;
+        }
+
+        .w3-button:hover a {
+            color: #000;
+        }
+
+        .logo-img {
+            text-align: CENTER;
+            margin: 20PX AUTO;
+            width: 100PX;
+        }
+
+        .side_bar_bar {
+            background-color: #81774E;
+            border: 0;
+            height: 1px;
+            width: 100%;
+            border-radius: 2px;
+            margin: 10px 0;
+        }
+    </style>
+
+    <!-- Sidebar -->
+    <div class="w3-sidebar ">
+        <img src="images/logo.png" alt="Logo" class="logo-img">
+        <a href="/profile" class="w3-button">Mon compte</a>
+        <a href="/mesCandidatures" class="w3-button">Mes candidatures</a>
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/mesanimaux" class="w3-button">Mes animaux perdus</a>
+
+        <a href="/adoption" class="w3-button">Adoption</a>
+        <a href="/AddAnimal" class="w3-button">Inscrire un animal</a>
+
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="/donate" class="w3-button">Donner des objets</a>
+        <a href="/showdonations" class="w3-button">Trouver des objets</a>
+        <a href="/mesdonations" class="w3-button">Mes objets à donné</a>
+
+        <hr class="side_bar_bar">
+        <a href="/Map" class="w3-button">Map</a>
+
+        <hr class="side_bar_bar">
+        <a href="/AddEvent" class="w3-button">Ajouter un évenement</a>
+        <a href="/ShowEvent" class="w3-button">Participé a un evenement</a>
+        <a href="/MyEvent" class="w3-button">Mes évenement crée </a>
+
+
+        <hr class="side_bar_bar">
+        </hr>
+        <a href="#" class="w3-button">Se Déconnecter</a>
+
+    </div>
+
+
+    <div class="big-container">
+        <!-- Modal d'adoption -->
+        <div class="modal" id="adoptionModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Formulaire d'adoption</h4><br>
+                        <button type="button" class="close" data-dismiss="modal"
+                            onclick="closeAdoptionPopup">&times;</button>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+
+                        <!-- Formulaire d'adoption avec les champs de date et de checkbox -->
+                        <form id="adoptionForm">
+                            <!-- Ajout du champ pour l'ID de l'animal -->
+                            <input type="hidden" id="animalId" name="animalId" value="">
+
+                            <div class="form-group">
+                                <label for="startDate">Date de début d'adoption</label>
+                                <input type="date" class="form-control" id="startDate" required>
+                            </div>
+
+                            <div class="form-group form-check">
+                                <input type="checkbox" class="form-check-input" id="finalAdoption"
+                                    onchange="toggleEndDate()">
+                                <label class="form-check-label" for="finalAdoption">Adoption temporaire</label>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="endDate">Date de fin d'adoption</label>
+                                <input type="date" class="form-control" id="endDate" disabled>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            onclick="closeAdoptionPopup">Fermer</button>
+                        <button type="button" class="btn btn-primary" onclick="submitForm()">Enregistrer</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="container">
+                <h2 class="small-title">Mes animaux perdus</h2>
+                <div class="animal">
+                    <!-- Ajouter un champ caché pour l'ID de la personne -->
+
+                    <div class="animal-container">
+                        <!-- Liste des animaux ici -->
+                    </div>
+                    <div id="error-message"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inclusion de jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT"
+        crossorigin="anonymous"></script>
+
+    <!-- Inclusion de Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script>
+
+        function handleDonationClick(animalId) {
+            // Définir l'ID de l'animal dans le champ d'input caché
+            document.getElementById('animalId').value = animalId;
+        }
+
+        function handleAnimalTrouve(animalId) {
+    // Supprimer l'animal perdu
+    $.ajax({
+        url: "/api/animalperdu/supprimer/" + animalId,
+        type: "DELETE",
+        success: function() {
+            // Supprimer l'animal vu
+            $.ajax({
+                url: "/api/animalvu/supprimer/" + animalId,
+                type: "DELETE",
+                success: function() {
+                    alert("Animal supprimé avec succès !");
+                    // Recharger la page pour mettre à jour la liste
+                    location.reload();
+                },
+                error: function() {
+                    alert("Erreur lors de la suppression de l'animal vu.");
+                }
+            });
+        },
+        error: function() {
+            alert("Erreur lors de la suppression de l'animal perdu.");
+        }
+    });
+}
+
+
+        function submitForm() {
+            var animalId = document.getElementById('animalId').value;
+            var startDate = document.getElementById("startDate").value;
+            var isFinalAdoption = document.getElementById("finalAdoption").checked;
+            var endDate = isFinalAdoption ? document.getElementById("endDate").value : "0000-01-01";
+
+            if (isFinalAdoption && new Date(endDate) <= new Date(startDate)) {
+                alert("La date de fin doit être ultérieure à la date de début.");
+                return;
+            }
+
+            var adoptionData = {
+                startDate: startDate,
+                endDate: endDate,
+                isFinalAdoption: isFinalAdoption,
+                idAnimal: animalId
+            };
+
+            $.ajax({
+                url: "/animal/addadoption",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(adoptionData),
+                success: function (data) {
+                    if (data && data.message) {
+                        alert("Enregistrement réussi : " + data.message);
+                    } else {
+                        alert("La réponse ne contient pas de message.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert("Erreur lors de l'enregistrement : " + error);
+                }
+            });
+        }
+
+
+        function toggleEndDate() {
+            var endDateInput = document.getElementById("endDate");
+            var finalAdoptionCheckbox = document.getElementById("finalAdoption");
+
+            endDateInput.disabled = !finalAdoptionCheckbox.checked;
+        }
+    </script>
+
+
+
+
+    <script>
+        function fetchData(userId) {
+            var personId;
+
+            $.ajax({
+                url: "/person/profile",  // Supposons que cette API retourne aussi l'ID de la personne
+                type: "GET",
+                success: function (data) {
+                    personId = data.id;
+                    fetchLostAnimals(personId);  // Appeler la fonction pour récupérer les animaux perdus
+                },
+                error: function (xhr, status, error) {
+                    console.error("Erreur lors de la récupération de l'ID de la personne :", error);
+                }
+            });
+        }
+
+        function fetchLostAnimals(personId) {
+            $.ajax({
+                url: '/api/animalperdu/mes-animaux/' + personId,
+                type: 'GET',
+                success: function (data) {
+                    displayAnimals(data);  // Utiliser la fonction displayAnimals pour afficher les résultats
+                },
+                error: function () {
+                    document.getElementById("error-message").innerHTML = "<p class='message-error'>Erreur lors de la récupération des animaux perdus.</p>";
+                }
+            });
+        }
+        function fetchAnimalDetails(animalURI) {
+            return fetch(animalURI) // Utiliser fetch pour récupérer les détails
+                .then(response => response.json())
+                .then(data => {
+                    return data; // Retourner les données de l'animal
+                })
+                .catch(error => {
+                    console.error(`Error fetching animal details for this URI ${animalURI}:`, error);
+                    return null; // Gérer les erreurs en retournant null si la requête échoue
+                });
+        }
+        async function displayAnimals(animals) {
+            let animalList = "";
+
+            for (let i = 0; i < animals.length; i++) {
+                const animalRef = animals[i].idAnimal;
+
+                // Fetch details for each lost animal
+                const animalDetails = await fetchAnimalDetails('/animal/' + animalRef);
+
+                if (animalDetails) {
+                    animalList += `
+            <div class="animal-item">
+                <div class="animal-img">
+                    <img src="/images/animals/${animalDetails.imageUrl}" alt="Image de ${animalDetails.name}">
+                    <div>
+                        <button type="button" class="top-right" onclick="window.location.href = 'infoAnimal?id=${animalDetails.id}'">+</button>
+                        <div>
+                            <button type="button" class="add-btn" onclick="window.location.href = 'FormulaireMedicaments?id=${animalDetails.id}'">Maps</button>
+                            <button type="button" class="add-btn" onclick="handleAnimalTrouve(${animalDetails.id})">Animal trouvé</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="animal-content">
+                    <h2 class="animal-title">${animalDetails.name}</h2>
+                    <p class="race"><span>Race: ${animalDetails.race}</span></p>
+                    <span class="gender">${animalDetails.gender === 1 ? '♂ Mâle' : '♀ Femelle'}</span>
+                </div>
+            </div>
+            `;
+                }
+            }
+
+            const animalListDiv = document.querySelector(".animal-container");
+            animalListDiv.innerHTML = animalList;
+        }
+
+        // Cette fonction sera appelée lorsque la page se chargera
+        window.onload = function () {
+            fetchData();  // Adaptez cette fonction pour passer l'ID utilisateur si nécessaire
+        };
+
+    </script>
+
+</body>
+
+</html>
