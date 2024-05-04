@@ -25,4 +25,10 @@ public class AnimalPerduServiceImpl implements AnimalPerduService {
     public List<AnimalPerdu> findAnimalsLostByPersonId(Integer idPerson) {
         return animalPerduRepository.findAllByPersonId(idPerson);
     }
+
+    @Override
+    @Transactional
+    public void supprimerAnimalPerdu(Integer idAnimal) {
+        animalPerduRepository.deleteByIdAnimal(idAnimal);
+    }
 }

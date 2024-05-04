@@ -216,7 +216,31 @@
             document.getElementById('animalId').value = animalId;
         }
 
-
+        function handleAnimalTrouve(animalId) {
+    // Supprimer l'animal perdu
+    $.ajax({
+        url: "/api/animalperdu/supprimer/" + animalId,
+        type: "DELETE",
+        success: function() {
+            // Supprimer l'animal vu
+            $.ajax({
+                url: "/api/animalvu/supprimer/" + animalId,
+                type: "DELETE",
+                success: function() {
+                    alert("Animal supprimé avec succès !");
+                    // Recharger la page pour mettre à jour la liste
+                    location.reload();
+                },
+                error: function() {
+                    alert("Erreur lors de la suppression de l'animal vu.");
+                }
+            });
+        },
+        error: function() {
+            alert("Erreur lors de la suppression de l'animal perdu.");
+        }
+    });
+}
 
 
         function submitForm() {
@@ -325,7 +349,7 @@
                         <button type="button" class="top-right" onclick="window.location.href = 'infoAnimal?id=${animalDetails.id}'">+</button>
                         <div>
                             <button type="button" class="add-btn" onclick="window.location.href = 'FormulaireMedicaments?id=${animalDetails.id}'">Maps</button>
-                                <button type="button" class="add-btn" onclick="window.location.href = 'ListeMedicaments?id=${animalDetails.id}'">Animal touvé</button>
+                            <button type="button" class="add-btn" onclick="handleAnimalTrouve(${animalDetails.id})">Animal trouvé</button>
                         </div>
                     </div>
                 </div>

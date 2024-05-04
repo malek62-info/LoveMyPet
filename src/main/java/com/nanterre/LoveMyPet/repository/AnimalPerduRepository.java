@@ -12,4 +12,5 @@ import org.springframework.data.repository.query.Param;
 public interface AnimalPerduRepository extends JpaRepository<AnimalPerdu,Long> {
     @Query("SELECT ap FROM AnimalPerdu ap JOIN Animal a ON ap.idAnimal = a.id WHERE a.idPerson = :idPerson")
     List<AnimalPerdu> findAllByPersonId(@Param("idPerson") Integer idPerson);
+    void deleteByIdAnimal(Integer idAnimal);
 }

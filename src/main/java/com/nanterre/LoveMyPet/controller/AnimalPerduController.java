@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,6 +44,16 @@ public class AnimalPerduController {
             return new ResponseEntity<>(lostAnimals, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/supprimer/{idAnimal}")
+    public ResponseEntity<?> supprimerAnimalPerdu(@PathVariable Integer idAnimal) {
+        try {
+            animalPerduService.supprimerAnimalPerdu(idAnimal);
+            return new ResponseEntity<>("Animal perdu supprimé avec succès.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erreur lors de la suppression de l'animal perdu.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
