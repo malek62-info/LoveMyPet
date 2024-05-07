@@ -1,23 +1,20 @@
-version: '3.8'
+version: '3'
 
 services:
   database:
     image: lmp_db:latest
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_DATABASE: lv
+      MYSQL_ROOT_PASSWORD: ""
     ports:
-      - "3307:3306"
-    networks:
-      - backend
+      - "3306:3306"
 
   app:
     image: lovemypet-app:latest
     ports:
-      - "9005:8086"
+      - "8086:8086"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/lv?autoReconnect=true&useSSL=false
     depends_on:
       - database
-    networks:
-      - backend
-
-networks:
-  backend:
