@@ -205,4 +205,8 @@ public class Controller {
     public String Trouveranimal() {
         return "Trouveranimal";
     }
+    @GetMapping("/Animaux-perdus")
+    public String AnimauxPerdus() {
+        return "Animaux-perdus";
+    }
 }

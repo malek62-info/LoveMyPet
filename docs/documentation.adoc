@@ -1964,3 +1964,135 @@ Réponses :
 
 - `200 OK` : Les détails du traitement sont renvoyés avec succès.
 - `404 Not Found` : Aucun traitement trouvé pour l'identifiant spécifié.
+
+== Fonctionnalité de Déclaration et de Recherche d'Animaux Perdus sur LoveMyPet
+
+La fonctionnalité de déclaration et de recherche d'animaux perdus sur l'application LoveMyPet est conçue pour aider les propriétaires à retrouver rapidement leurs animaux disparus grâce à un réseau communautaire et des outils de géolocalisation intégrés. Voici un guide détaillé pour utiliser cette fonctionnalité :
+
+== Déclaration d'un Animal Perdu
+
+1. **Accéder à la Section "Mes Animaux"**
+   - Ouvrez l'application LoveMyPet et allez dans la section "Mes Animaux".
+   - Sélectionnez l'animal que vous souhaitez déclarer comme perdu.
+
+image::lost/image1.png[ .]
+
+2. **Déclarer un Animal Perdu**
+   - Cliquez sur le bouton "PERDU 🚨".
+   - Une fenêtre de confirmation apparaîtra avec le message : "Êtes-vous sûr de vouloir déclarer cet animal comme perdu ?".
+   - Cliquez sur "Confirmer" pour finaliser la déclaration.
+
+3. **Animal Marqué Comme Perdu**
+   - Une fois confirmé, l'animal sera marqué comme perdu et apparaîtra dans la liste des animaux perdus visible par tous les utilisateurs de l'application.
+
+== Recherche d'un Animal Perdu
+
+1. **Consulter la Liste des Animaux Perdus**
+   - Allez dans la section dédiée aux animaux perdus via le bouton "Liste des Animaux Perdus".
+   - Vous pourrez voir tous les animaux déclarés comme perdus, y compris les vôtres.
+
+image::lost/image2.png[ .]
+
+2. **Signaler un Animal Vu**
+   - Si vous apercevez un animal perdu, cliquez sur le bouton "VU 🚨" correspondant à l'animal.
+
+image::lost/image3.png[ .]
+
+   - Une fenêtre pop-up vous demandera de saisir l'adresse où vous avez vu l'animal. Entrez l'adresse et confirmez.
+
+image::lost/image5.png[ .]
+
+3. **Notification au Propriétaire**
+   - Le propriétaire de l'animal recevra une notification indiquant que son animal a été vu, ainsi que l'emplacement signalé.
+
+== Utilisation de la Carte de Géolocalisation
+
+1. **Voir les Emplacements**
+   - La fonctionnalité de carte permet de voir à la fois l'emplacement où l'animal a été perdu et les différents endroits où il a été signalé.
+   - La carte affichera un rayon de 30 km autour de la dernière localisation connue pour aider à concentrer les recherches.
+
+image::lost/image4.png[ .]
+
+== Exemple d'Utilisation
+
+- **Déclaration de Perte** : Vous cliquez sur "PERDU 🚨" pour déclarer votre chat Lola comme perdu. Vous confirmez la déclaration, et Lola est maintenant listée comme perdue.
+- **Signalement d'une Observation** : Un utilisateur voit Lola et clique sur "VU 🚨". Il entre l'adresse où Lola a été vue. Vous recevez une notification avec cette information et pouvez consulter l'emplacement sur la carte intégrée.
+
+== Avantages de la Fonctionnalité
+
+- **Rapidité et Efficacité** : Permet de signaler rapidement un animal perdu et de notifier la communauté.
+- **Géolocalisation Précise** : Aide à localiser les animaux avec des points précis sur la carte.
+- **Communauté Engagée** : Bénéficie du soutien d'autres utilisateurs de LoveMyPet pour retrouver les animaux perdus.
+
+Avec cette fonctionnalité, LoveMyPet rend le processus de déclaration et de recherche d'animaux perdus plus simple et plus efficace, augmentant ainsi les chances de retrouver rapidement votre compagnon à quatre pattes.
+
+== Description de l'API REST
+
+Dans notre application, nous avons mis en place plusieurs API REST pour permettre aux utilisateurs de gérer les fonctionnalités liées aux animaux perdus et vus. Voici un aperçu de ces API :
+
+=== Déclarer un Animal Perdu
+Permet de déclarer un animal comme perdu, en spécifiant son identifiant et sa localisation.
+* Endpoint : `POST /api/animalperdu/ajouter`
+* Paramètres de la requête :
+  - `idAnimal` : L'identifiant de l'animal perdu.
+  - `latitude` : Latitude de l'emplacement où l'animal a été perdu.
+  - `longitude` : Longitude de l'emplacement où l'animal a été perdu.
+* Réponses :
+  - `201 Created` : L'animal perdu est ajouté avec succès.
+  - `500 Internal Server Error` : Erreur lors de l'ajout de l'animal perdu.
+
+=== Vérifier si un Animal est Déjà Déclaré Perdu
+Permet de vérifier si un animal est déjà déclaré perdu.
+* Endpoint : `GET /api/animalperdu/verifier/{animalId}`
+* Paramètres de la requête :
+  - `animalId` : L'identifiant de l'animal à vérifier.
+* Réponses :
+  - `200 OK` : Renvoie un booléen indiquant si l'animal est déclaré perdu.
+  - `500 Internal Server Error` : Erreur lors de la vérification.
+
+=== Consulter les Animaux Perdus par Utilisateur
+Permet de récupérer la liste des animaux perdus appartenant à un utilisateur spécifique.
+* Endpoint : `GET /api/animalperdu/mes-animaux/{idPerson}`
+* Paramètres de la requête :
+  - `idPerson` : L'identifiant de l'utilisateur.
+* Réponses :
+  - `200 OK` : Renvoie la liste des animaux perdus.
+  - `500 Internal Server Error` : Erreur lors de la récupération de la liste.
+
+=== Supprimer une Déclaration d'Animal Perdu
+Permet de supprimer la déclaration d'un animal perdu.
+* Endpoint : `DELETE /api/animalperdu/supprimer/{idAnimal}`
+* Paramètres de la requête :
+  - `idAnimal` : L'identifiant de l'animal à supprimer.
+* Réponses :
+  - `200 OK` : Déclaration d'animal perdu supprimée avec succès.
+  - `500 Internal Server Error` : Erreur lors de la suppression.
+
+=== Signaler un Animal Vu
+Permet de signaler un animal vu en spécifiant les détails de l'observation.
+* Endpoint : `POST /api/animalvu/ajouter`
+* Paramètres de la requête :
+  - `animalVu` : Les détails de l'animal vu (objet JSON).
+* Réponses :
+  - `200 OK` : L'animal vu est signalé avec succès.
+  - `500 Internal Server Error` : Erreur lors du signalement de l'animal vu.
+
+=== Récupérer les Coordonnées des Animaux Vus
+Permet de récupérer les coordonnées d'un animal vu en spécifiant son identifiant.
+* Endpoint : `GET /coords/{idAnimal}`
+* Paramètres de la requête :
+  - `idAnimal` : L'identifiant de l'animal vu.
+* Réponses :
+  - `200 OK` : Renvoie les coordonnées de l'animal vu.
+  - `500 Internal Server Error` : Erreur lors de la récupération des coordonnées.
+
+=== Supprimer un Signalement d'Animal Vu
+Permet de supprimer un signalement d'animal vu.
+* Endpoint : `DELETE /api/animalvu/supprimer/{idAnimal}`
+* Paramètres de la requête :
+  - `idAnimal` : L'identifiant de l'animal vu à supprimer.
+* Réponses :
+  - `200 OK` : Signalement d'animal vu supprimé avec succès.
+  - `500 Internal Server Error` : Erreur lors de la suppression.
+
+Ces API REST permettent une gestion complète et efficace des animaux perdus et vus, facilitant ainsi leur retour à leurs propriétaires et la collaboration entre les membres de la communauté LoveMyPet.
