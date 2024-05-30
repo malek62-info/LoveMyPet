@@ -1,0 +1,36 @@
+
+genérer  l'image de l'app : ( docker build -t lovemypet-app . ) il vaut etre dnas le dosseir lovemypet ( du projet)
+générer l'image de la base :  docker build -t lmp_db . il faut etre dans le dossier database :
+
+
+docker-compose up : pour lancer les 2 conteneurs ( il faut etre dans database)
+
+
+
+
+Etape 1:
+
+* crer les 2 images
+
+LoveMypet >database >  docker build -t lmp_db .
+
+LoveMypet > docker build -t lovemypet-app .
+
+* lancer les app un a un :
+
+LoveMypet > docker-compose up -d database
+
+LoveMypet > docker-compose logs app
+
+assure toi que la base est bien lancer ( et aussi ferme workbench )
+regarde aussi les changement que jai fais dans properties
+
+LoveMypet > docker-compose up -d app
+
+et bin tu as ton app
+
+_________________
+
+cd / , cd  vagrant et dedant tu lance docker compose
+
+sudo apt install lynx
