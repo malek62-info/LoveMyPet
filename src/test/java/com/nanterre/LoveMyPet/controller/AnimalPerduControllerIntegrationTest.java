@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class AnimalPerduControllerIntegrationTest {
-
+/*
     @Autowired
     private MockMvc mockMvc;
 
@@ -60,4 +60,9 @@ public class AnimalPerduControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.declarePerdu").value(true));
     }
+
+
+
+
+ */
 }

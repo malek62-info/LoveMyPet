@@ -676,6 +676,23 @@ table.CodeRay td.code{padding:0 0 0 .75em}
 <li><a href="#_visualiser_les_heures_associées_à_un_traitement">Visualiser les heures associées à un traitement :</a></li>
 </ul>
 </li>
+<li><a href="#_fonctionnalité_de_déclaration_et_de_recherche_danimaux_perdus_sur_lovemypet">Fonctionnalité de Déclaration et de Recherche d&#8217;Animaux Perdus sur LoveMyPet</a></li>
+<li><a href="#_déclaration_dun_animal_perdu">Déclaration d&#8217;un Animal Perdu</a></li>
+<li><a href="#_recherche_dun_animal_perdu">Recherche d&#8217;un Animal Perdu</a></li>
+<li><a href="#_utilisation_de_la_carte_de_géolocalisation">Utilisation de la Carte de Géolocalisation</a></li>
+<li><a href="#_exemple_dutilisation">Exemple d&#8217;Utilisation</a></li>
+<li><a href="#_avantages_de_la_fonctionnalité">Avantages de la Fonctionnalité</a></li>
+<li><a href="#_description_de_lapi_rest">Description de l&#8217;API REST</a>
+<ul class="sectlevel2">
+<li><a href="#_déclarer_un_animal_perdu">Déclarer un Animal Perdu</a></li>
+<li><a href="#_vérifier_si_un_animal_est_déjà_déclaré_perdu">Vérifier si un Animal est Déjà Déclaré Perdu</a></li>
+<li><a href="#_consulter_les_animaux_perdus_par_utilisateur">Consulter les Animaux Perdus par Utilisateur</a></li>
+<li><a href="#_supprimer_une_déclaration_danimal_perdu">Supprimer une Déclaration d&#8217;Animal Perdu</a></li>
+<li><a href="#_signaler_un_animal_vu">Signaler un Animal Vu</a></li>
+<li><a href="#_récupérer_les_coordonnées_des_animaux_vus">Récupérer les Coordonnées des Animaux Vus</a></li>
+<li><a href="#_supprimer_un_signalement_danimal_vu">Supprimer un Signalement d&#8217;Animal Vu</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -3537,10 +3554,307 @@ Permet de récupérer les détails d'un traitement spécifié.
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_fonctionnalité_de_déclaration_et_de_recherche_danimaux_perdus_sur_lovemypet">Fonctionnalité de Déclaration et de Recherche d&#8217;Animaux Perdus sur LoveMyPet</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La fonctionnalité de déclaration et de recherche d&#8217;animaux perdus sur l&#8217;application LoveMyPet est conçue pour aider les propriétaires à retrouver rapidement leurs animaux disparus grâce à un réseau communautaire et des outils de géolocalisation intégrés. Voici un guide détaillé pour utiliser cette fonctionnalité :</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_déclaration_dun_animal_perdu">Déclaration d&#8217;un Animal Perdu</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Accéder à la Section "Mes Animaux"</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Ouvrez l&#8217;application LoveMyPet et allez dans la section "Mes Animaux".</p>
+</li>
+<li>
+<p>Sélectionnez l&#8217;animal que vous souhaitez déclarer comme perdu.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="lost/image1.png" alt=".">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Déclarer un Animal Perdu</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Cliquez sur le bouton "PERDU 🚨".</p>
+</li>
+<li>
+<p>Une fenêtre de confirmation apparaîtra avec le message : "Êtes-vous sûr de vouloir déclarer cet animal comme perdu ?".</p>
+</li>
+<li>
+<p>Cliquez sur "Confirmer" pour finaliser la déclaration.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Animal Marqué Comme Perdu</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Une fois confirmé, l&#8217;animal sera marqué comme perdu et apparaîtra dans la liste des animaux perdus visible par tous les utilisateurs de l&#8217;application.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_recherche_dun_animal_perdu">Recherche d&#8217;un Animal Perdu</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Consulter la Liste des Animaux Perdus</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Allez dans la section dédiée aux animaux perdus via le bouton "Liste des Animaux Perdus".</p>
+</li>
+<li>
+<p>Vous pourrez voir tous les animaux déclarés comme perdus, y compris les vôtres.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="lost/image2.png" alt=".">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Signaler un Animal Vu</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Si vous apercevez un animal perdu, cliquez sur le bouton "VU 🚨" correspondant à l&#8217;animal.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="lost/image3.png" alt=".">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Une fenêtre pop-up vous demandera de saisir l&#8217;adresse où vous avez vu l&#8217;animal. Entrez l&#8217;adresse et confirmez.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="lost/image5.png" alt=".">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Notification au Propriétaire</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Le propriétaire de l&#8217;animal recevra une notification indiquant que son animal a été vu, ainsi que l&#8217;emplacement signalé.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_utilisation_de_la_carte_de_géolocalisation">Utilisation de la Carte de Géolocalisation</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Voir les Emplacements</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>La fonctionnalité de carte permet de voir à la fois l&#8217;emplacement où l&#8217;animal a été perdu et les différents endroits où il a été signalé.</p>
+</li>
+<li>
+<p>La carte affichera un rayon de 30 km autour de la dernière localisation connue pour aider à concentrer les recherches.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="lost/image4.png" alt=".">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exemple_dutilisation">Exemple d&#8217;Utilisation</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Déclaration de Perte</strong> : Vous cliquez sur "PERDU 🚨" pour déclarer votre chat Lola comme perdu. Vous confirmez la déclaration, et Lola est maintenant listée comme perdue.</p>
+</li>
+<li>
+<p><strong>Signalement d&#8217;une Observation</strong> : Un utilisateur voit Lola et clique sur "VU 🚨". Il entre l&#8217;adresse où Lola a été vue. Vous recevez une notification avec cette information et pouvez consulter l&#8217;emplacement sur la carte intégrée.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_avantages_de_la_fonctionnalité">Avantages de la Fonctionnalité</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Rapidité et Efficacité</strong> : Permet de signaler rapidement un animal perdu et de notifier la communauté.</p>
+</li>
+<li>
+<p><strong>Géolocalisation Précise</strong> : Aide à localiser les animaux avec des points précis sur la carte.</p>
+</li>
+<li>
+<p><strong>Communauté Engagée</strong> : Bénéficie du soutien d&#8217;autres utilisateurs de LoveMyPet pour retrouver les animaux perdus.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Avec cette fonctionnalité, LoveMyPet rend le processus de déclaration et de recherche d&#8217;animaux perdus plus simple et plus efficace, augmentant ainsi les chances de retrouver rapidement votre compagnon à quatre pattes.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_description_de_lapi_rest">Description de l&#8217;API REST</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dans notre application, nous avons mis en place plusieurs API REST pour permettre aux utilisateurs de gérer les fonctionnalités liées aux animaux perdus et vus. Voici un aperçu de ces API :</p>
+</div>
+<div class="sect2">
+<h3 id="_déclarer_un_animal_perdu">Déclarer un Animal Perdu</h3>
+<div class="paragraph">
+<p>Permet de déclarer un animal comme perdu, en spécifiant son identifiant et sa localisation.
+* Endpoint : <code>POST /api/animalperdu/ajouter</code>
+* Paramètres de la requête :
+  - <code>idAnimal</code> : L&#8217;identifiant de l&#8217;animal perdu.
+  - <code>latitude</code> : Latitude de l&#8217;emplacement où l&#8217;animal a été perdu.
+  - <code>longitude</code> : Longitude de l&#8217;emplacement où l&#8217;animal a été perdu.
+* Réponses :
+  - <code>201 Created</code> : L&#8217;animal perdu est ajouté avec succès.
+  - <code>500 Internal Server Error</code> : Erreur lors de l&#8217;ajout de l&#8217;animal perdu.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_vérifier_si_un_animal_est_déjà_déclaré_perdu">Vérifier si un Animal est Déjà Déclaré Perdu</h3>
+<div class="paragraph">
+<p>Permet de vérifier si un animal est déjà déclaré perdu.
+* Endpoint : <code>GET /api/animalperdu/verifier/{animalId}</code>
+* Paramètres de la requête :
+  - <code>animalId</code> : L&#8217;identifiant de l&#8217;animal à vérifier.
+* Réponses :
+  - <code>200 OK</code> : Renvoie un booléen indiquant si l&#8217;animal est déclaré perdu.
+  - <code>500 Internal Server Error</code> : Erreur lors de la vérification.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_consulter_les_animaux_perdus_par_utilisateur">Consulter les Animaux Perdus par Utilisateur</h3>
+<div class="paragraph">
+<p>Permet de récupérer la liste des animaux perdus appartenant à un utilisateur spécifique.
+* Endpoint : <code>GET /api/animalperdu/mes-animaux/{idPerson}</code>
+* Paramètres de la requête :
+  - <code>idPerson</code> : L&#8217;identifiant de l&#8217;utilisateur.
+* Réponses :
+  - <code>200 OK</code> : Renvoie la liste des animaux perdus.
+  - <code>500 Internal Server Error</code> : Erreur lors de la récupération de la liste.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_supprimer_une_déclaration_danimal_perdu">Supprimer une Déclaration d&#8217;Animal Perdu</h3>
+<div class="paragraph">
+<p>Permet de supprimer la déclaration d&#8217;un animal perdu.
+* Endpoint : <code>DELETE /api/animalperdu/supprimer/{idAnimal}</code>
+* Paramètres de la requête :
+  - <code>idAnimal</code> : L&#8217;identifiant de l&#8217;animal à supprimer.
+* Réponses :
+  - <code>200 OK</code> : Déclaration d&#8217;animal perdu supprimée avec succès.
+  - <code>500 Internal Server Error</code> : Erreur lors de la suppression.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_signaler_un_animal_vu">Signaler un Animal Vu</h3>
+<div class="paragraph">
+<p>Permet de signaler un animal vu en spécifiant les détails de l&#8217;observation.
+* Endpoint : <code>POST /api/animalvu/ajouter</code>
+* Paramètres de la requête :
+  - <code>animalVu</code> : Les détails de l&#8217;animal vu (objet JSON).
+* Réponses :
+  - <code>200 OK</code> : L&#8217;animal vu est signalé avec succès.
+  - <code>500 Internal Server Error</code> : Erreur lors du signalement de l&#8217;animal vu.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_récupérer_les_coordonnées_des_animaux_vus">Récupérer les Coordonnées des Animaux Vus</h3>
+<div class="paragraph">
+<p>Permet de récupérer les coordonnées d&#8217;un animal vu en spécifiant son identifiant.
+* Endpoint : <code>GET /coords/{idAnimal}</code>
+* Paramètres de la requête :
+  - <code>idAnimal</code> : L&#8217;identifiant de l&#8217;animal vu.
+* Réponses :
+  - <code>200 OK</code> : Renvoie les coordonnées de l&#8217;animal vu.
+  - <code>500 Internal Server Error</code> : Erreur lors de la récupération des coordonnées.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_supprimer_un_signalement_danimal_vu">Supprimer un Signalement d&#8217;Animal Vu</h3>
+<div class="paragraph">
+<p>Permet de supprimer un signalement d&#8217;animal vu.
+* Endpoint : <code>DELETE /api/animalvu/supprimer/{idAnimal}</code>
+* Paramètres de la requête :
+  - <code>idAnimal</code> : L&#8217;identifiant de l&#8217;animal vu à supprimer.
+* Réponses :
+  - <code>200 OK</code> : Signalement d&#8217;animal vu supprimé avec succès.
+  - <code>500 Internal Server Error</code> : Erreur lors de la suppression.</p>
+</div>
+<div class="paragraph">
+<p>Ces API REST permettent une gestion complète et efficace des animaux perdus et vus, facilitant ainsi leur retour à leurs propriétaires et la collaboration entre les membres de la communauté LoveMyPet.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-29 13:41:08 +0200
+Last updated 2024-06-01 19:03:04 +0200
 </div>
 </div>
 </body>

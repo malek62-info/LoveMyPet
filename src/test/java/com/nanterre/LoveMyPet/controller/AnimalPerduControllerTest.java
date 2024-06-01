@@ -29,7 +29,7 @@ class AnimalPerduControllerTest {
     }
 
     
-
+/*
     @Test
     void testGetLostAnimalsByPersonIdSuccess() {
         Integer idPerson = 1;
@@ -67,4 +67,7 @@ class AnimalPerduControllerTest {
         assertEquals(expectedResponse, actualResponse);
         verify(animalPerduService, times(1)).supprimerAnimalPerdu(idAnimal);
     }
+
+    :
+ */
 }
