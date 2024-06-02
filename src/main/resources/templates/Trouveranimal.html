@@ -154,7 +154,14 @@
         }).addTo(mymap);
 
         // Appel Fetch pour récupérer les données de latitude et de longitude depuis l'API
-        var apiUrl = '/coords/1'; // Utilisez l'ID de l'animal que vous souhaitez récupérer
+        // Récupérer l'ID de l'animal de l'URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var animalId = urlParams.get('id');
+
+// Construire l'URL API avec l'ID de l'animal récupéré
+        var apiUrl = '/coords/' + animalId;
+
+       // var apiUrl = '/coords/1'; // Utilisez l'ID de l'animal que vous souhaitez récupérer
         fetch(apiUrl)
             .then(response => {
                 // Vérifier si la réponse est OK (200)

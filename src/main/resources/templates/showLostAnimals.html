@@ -176,7 +176,7 @@
             var longitude = position.coords.longitude;
             var animalsContainer = document.querySelector(".animal-container");
             var smallTitle = document.querySelector(".small-title")
-            smallTitle.innerHTML = "Latitude: " + latitude + ", Longitude: " + longitude + "  30 km rayon";
+
             // Faire une requête AJAX pour récupérer les animaux dans un rayon de 30 km autour de la position de l'utilisateur
             var url = "/api/animalperdu/animals-within-radius?latitude=" + latitude + "&longitude=" + longitude;
             fetch(url)
